@@ -2,9 +2,9 @@
 
 int	ft_memcmp(const void *ptr1, const void *ptr2, size_t n)
 {
-	char *str1;
-	char *str2;
-	size_t i;
+	char	*str1;
+	char	*str2;
+	size_t	i;
 
 	str1 = (char*)ptr1;
 	str2 = (char*)ptr2;
@@ -13,7 +13,7 @@ int	ft_memcmp(const void *ptr1, const void *ptr2, size_t n)
 	{
 		if (str1[i] == str2[i])
 			i++;
-		else 
+		else
 		{
 			if (str1[i] < str2[i])
 				return (-1);

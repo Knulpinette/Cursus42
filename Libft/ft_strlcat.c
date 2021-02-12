@@ -2,8 +2,8 @@
 
 size_t	ft_strlen(const char *str)
 {
-	const char* s;
-	
+	const char		*s;
+
 	s = str;
 	while (*s)
 		s++;
@@ -13,8 +13,8 @@ size_t	ft_strlen(const char *str)
 size_t	ft_strlcat(char *dest, const char *src, size_t size)
 
 {
-	unsigned int i;
-	unsigned int a;
+	unsigned int	i;
+	unsigned int	a;
 
 	i = 0;
 	a = ft_strlen(dest);

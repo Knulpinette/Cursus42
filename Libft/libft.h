@@ -1,12 +1,12 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 
-#include <stdlib.h>
-#include <unistd.h>
+# include <stdlib.h>
+# include <unistd.h>
 
 int		ft_atoi(const char *str);
 void	ft_bzero(char *s, size_t n);
-void	*calloc(size_t nitems, size_t size);
+void	*calloc(size_t n, size_t size);
 int		ft_isalnum(int a);
 int		ft_isalpha(int c);
 int		ft_isascii(int t);

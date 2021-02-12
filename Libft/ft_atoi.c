@@ -1,8 +1,8 @@
 int	ft_atoi(const char *str)
 {
-	int i;
-	int np;
-	int nbr;
+	int	i;
+	int	np;
+	int	nbr;
 
 	i = 0;
 	nbr = 0;

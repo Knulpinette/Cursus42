@@ -1,7 +1,7 @@
 char	*ft_strchr(const char *str, int c)
 {
-	const char* s;
-	
+	const char	*s;
+
 	s = str;
 	while (*s)
 		s++;

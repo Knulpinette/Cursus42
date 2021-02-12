@@ -10,6 +10,8 @@ SRCS = ft_atoi.c \
 		ft_isdigit.c \
 		ft_isprint.c \
 		ft_memccpy.c \
+		ft_memchr.c \
+		ft_memcmp.c \
 		ft_memcpy.c \
 		ft_memmove.c \
 		ft_memset.c \
@@ -34,11 +36,11 @@ CFLAGS = -Wall -Wextra -Werror
  .c.o: 
 	${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
-${NAME}: ${OBJS}
+$(NAME): ${OBJS}
 	ar rc ${NAME} ${OBJS}
 	ranlib ${NAME}
 
-all: ${NAME}
+all: $(NAME)
 
 clean:
 	${RM} ${OBJS}

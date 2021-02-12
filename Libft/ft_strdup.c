@@ -2,8 +2,8 @@
 
 size_t	ft_strlen(const char *str)
 {
-	const char* s;
-	
+	const char		*s;
+
 	s = str;
 	while (*s)
 		s++;
@@ -12,9 +12,9 @@ size_t	ft_strlen(const char *str)
 
 char	*ft_strdup(const char *src)
 {
-	char	*ptr;
-	unsigned int		len_src;
-	int		i;
+	char			*ptr;
+	unsigned int	len_src;
+	int				i;
 
 	i = 0;
 	len_src = ft_strlen(src);

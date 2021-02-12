@@ -2,16 +2,16 @@
 
 void	*ft_memccpy(void *to, const void *from, int c, size_t n)
 {
-	size_t i;
-	char *dest;
-	char *src;
+	size_t	i;
+	char	*dest;
+	char	*src;
 
 	i = 0;
 	if (!to && !from)
 		return (NULL);
 	dest = (char *)to;
 	src = (char *)from;
-	while (i < n) 
+	while (i < n)
 	{
 		if (src[i] == c)
 		{
