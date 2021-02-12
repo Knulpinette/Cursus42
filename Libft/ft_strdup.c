@@ -1,4 +1,4 @@
-#include <stdlib.h>
+#include "libft.h"
 
 size_t	ft_strlen(const char *str)
 {
@@ -17,7 +17,7 @@ char	*ft_strdup(const char *src)
 	int		i;
 
 	i = 0;
-	len_src = str_len(src);
+	len_src = ft_strlen(src);
 	if (len_src == 0)
 	{
 		ptr = malloc(sizeof(char));

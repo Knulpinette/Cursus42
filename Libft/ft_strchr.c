@@ -14,5 +14,5 @@ char	*ft_strchr(const char *str, int c)
 	}
 	if (c == '\0' && *(str + 1) == '\0')
 		return ((char *)(str + 1));
-	return (NULL);
+	return (0);
 }

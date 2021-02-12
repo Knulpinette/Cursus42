@@ -1,8 +1,10 @@
+#include "libft.h"
+
 void	*ft_memmove(void *to, const void *from, size_t n)
 {
 	char *dest;
 	const char *src;
-	unsigned int i;
+	size_t i;
 
 	if (!to && !from)
 		return (NULL);

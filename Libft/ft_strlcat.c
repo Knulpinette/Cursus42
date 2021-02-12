@@ -1,3 +1,5 @@
+#include "libft.h"
+
 size_t	ft_strlen(const char *str)
 {
 	const char* s;
@@ -15,7 +17,7 @@ size_t	ft_strlcat(char *dest, const char *src, size_t size)
 	unsigned int a;
 
 	i = 0;
-	a = str_len(dest);
+	a = ft_strlen(dest);
 	if (a == 0)
 		return (0);
 	while (a + i < size - 1 && src[i] != '\0')
@@ -24,5 +26,5 @@ size_t	ft_strlcat(char *dest, const char *src, size_t size)
 		i++;
 	}
 	dest[a + i] = '\0';
-	return (a + str_len(src));
+	return (a + ft_strlen(src));
 }
