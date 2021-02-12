@@ -1,6 +1,14 @@
 #include "libft.h"
 
-void	*calloc(size_t nitems, size_t size)
+void	*calloc(size_t n, size_t size)
 {
-	return (0);
+	char *str;
+
+	str = malloc(sizeof(size) * n);
+	while (n > 0)
+	{
+		str[n] = 0;
+		n--;
+	}
+	return ((void *)str);
 }
