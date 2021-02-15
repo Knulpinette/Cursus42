@@ -1,18 +1,18 @@
 char	*ft_strrchr(const char *str, int c)
 {
-	const char		*s;
+	int	i;
 
-	s = str;
-	while (*s)
-		s++;
-	if (c == '\0' && *(s + 1) == '\0')
-		return ((char *)(s + 1));
-	while (*s != *str)
+	i = 0;
+	while (str[i] != '\0')
+		i++;
+	if (c == '\0' && str[i] == '\0')
+		return ((char *)str + i);
+	while (i >= 0)
 	{
-		if (*s == c)
-			return ((char *)s);
+		if (str[i] == c)
+			return ((char *)str + i);
 		else
-			s--;
+			i--;
 	}
 	return (0);
 }
