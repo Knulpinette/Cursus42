@@ -2,13 +2,8 @@
 
 void	*ft_calloc(size_t n, size_t size)
 {
-	char	*str;
+	void	*str;
 
 	str = malloc(size * n);
-	while (n > 0)
-	{
-		str[n - 1] = 0;
-		n--;
-	}
-	return ((void *)str);
+	return (ft_memset(str, 0, n));
 }

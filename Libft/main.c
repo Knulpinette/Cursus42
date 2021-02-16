@@ -230,5 +230,13 @@ int	main()
 	printf("c = %c || c = %i\n", c, tolower(c));
 	printf("c = %c || c = %i\n", c, ft_tolower(c));
 
+// test itoa
+
+	printf("I am testing itoa\n");
+	printf("nb input = %i char output = %s\n", 123456, ft_itoa(123456));
+	printf("nb input = %i char output = %s\n", -123456, ft_itoa(-123456));
+	printf("nb input = %i char output = %s\n", -2147483648, ft_itoa(-2147483648));
+	printf("nb input = %i char output = %s\n", 2147483647, ft_itoa(21474836476));
+
 	return (0);
 }

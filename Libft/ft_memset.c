@@ -19,7 +19,7 @@ void	*ft_memset(void *ptr, int x, size_t n)
 
 	c = (char *)ptr;
 	i = 0;
-	while (i < n && c[i] != '\0')
+	while (i < n)
 	{
 		c[i] = x;
 		i++;

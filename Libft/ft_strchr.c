@@ -1,8 +1,11 @@
 char	*ft_strchr(const char *str, int c)
 {
+	char	a;
+
+	a = (char)c;
 	while (*str)
 	{
-		if (*str == c)
+		if (*str == a)
 			return ((char *)str);
 		str++;
 	}

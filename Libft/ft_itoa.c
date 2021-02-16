@@ -2,18 +2,23 @@
 
 char	*ft_putnbr(long int nb, char *str, int	size)
 {
+	int	check_n;
+
+	check_n = 0;
 	if (nb < 0)
 	{
-		str[0] = '-';
-		ft_putnbr(-nb, str, size);
+		check_n++;
+		nb = -nb;
 	}
 	str[size] = '\0';
 	while (size > 0)
 	{
-		str[size - 1] = nb % 10 + '0';
+		str[size - 1] = '0' + nb % 10;
 		size--;
 		nb = nb / 10;
 	}
+	if (check_n == 1)
+		str[size] = '-';
 	return (str);
 }
 
@@ -24,13 +29,13 @@ char	*ft_itoa(int n)
 	char		*str;
 
 	nb = (long int)n;
-	size = 2;
-	if (nb < 0)
+	size = 1;
+	if (n < 0)
 		size++;
-	while ((nb / 10) != 0)
+	while ((n / 10) != 0)
 	{
 		size++;
-		nb = nb / 10;
+		n = n / 10;
 	}
 	str = (char *)malloc(sizeof(char) * size);
 	if (!(str))

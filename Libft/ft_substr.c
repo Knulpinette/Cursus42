@@ -6,6 +6,12 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	size_t	i;
 
 	i = 0;
+	if (start > ft_strlen(s))
+	{
+		sub = (char *)malloc(sizeof(char) * 1);
+		sub[0] = 0;
+		return (sub);
+	}
 	sub = (char *)malloc(sizeof(char) * len + 1);
 	if (!(sub))
 		return (NULL);
