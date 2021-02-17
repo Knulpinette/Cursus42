@@ -238,5 +238,16 @@ int	main()
 	printf("nb input = %i char output = %s\n", -2147483648, ft_itoa(-2147483648));
 	printf("nb input = %i char output = %s\n", 2147483647, ft_itoa(21474836476));
 
+// test strtrim
+
+	char	*set[10];
+	char	*lol;
+
+	set = "\t \n";
+	lol = "lol\t \n";
+	printf("before = %safter = %s", str, ft_strtrim(lol, set));
+	lol ="          ";
+	printf("before = %safter = %s", str, ft_strtrim(lol, set));
+
 	return (0);
 }
