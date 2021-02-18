@@ -141,6 +141,12 @@ int	main()
     printf("Integer value = %d\n", atoi(strn2));
 	printf("Custom made value = %d\n", ft_atoi(strn2));
 
+	char strn3[100] = "99999999999999999999999999";
+    printf("String value = %s\n", strn3);
+    printf("Integer value = %d\n", atoi(strn3));
+	printf("Custom made value = %d\n", ft_atoi(strn3));
+	
+
 // test isft
 	ft_print("I am testing is_ft\n");
 	c = 'z';
