@@ -19,6 +19,13 @@ void	ft_print(char *str)
 	write(1,"\n", 1);
 }
 
+char	ft(unsigned int i, char c)
+{
+//test strmapi
+	c = i;
+	return (c);
+}
+
 int	main()
 {
 	char str[100] = "I am testing memset";
@@ -240,14 +247,101 @@ int	main()
 
 // test strtrim
 
-	char	*set[10];
-	char	*lol;
+	char	*sandale;
+	char	*sandale2;
+	char 	*sandale3;
+	char	*sandale4;
+	char	*set;
 
 	set = "\t \n";
-	lol = "lol\t \n";
-	printf("before = %safter = %s", str, ft_strtrim(lol, set));
-	lol ="          ";
-	printf("before = %safter = %s", str, ft_strtrim(lol, set));
+	sandale = "je porte des sandales\t \n";
+	sandale4 = ft_strtrim(sandale, set);
+	printf("before = %safter = %s\n", sandale, sandale4);
+	free(sandale4);
+	sandale2 ="          ";
+	sandale3 = ft_strtrim(sandale2, set);
+	printf("before = %s after = %s\n", sandale2, sandale3);
+	free(sandale3);
+	return (0);
+
+// test split // test one, one after the other.
+
+	char	**lol;
+	int		i;
+
+	i = 0;
+	lol = ft_split("   lorem   ipsum dolor     sit amet  ", ' ');
+	while (lol[i] != 0)
+	{
+		printf("%s\n", lol[i]);
+		free(lol[i]);
+		i++;
+	}
+	free(lol);
+	printf("\n");
+
+	/*lol = ft_split2("lalalala", 'i');
+	while (lol[i] != 0)
+	{
+		printf("%s\n", lol[i]);
+		free(lol[i]);
+		i++;
+	}
+	free(lol);
+	printf("\n");
+
+	lol = ft_split("", 'i');
+	while (lol[i] != 0)
+	{
+		printf("%s // this should be empty\n", lol[i]);
+		free(lol[i]);
+		i++;
+	}
+	free(lol);
+
+	lol = ft_split("lorem ipsum .", '\0');
+	while (lol[i] != 0)
+	{
+		printf("%s\n", lol[i]);
+		free(lol[i]);
+		i++;
+	}
+	free(lol);*/
+
+// test substr
+
+	char	*flip = "je suis flip flop";
+	char	*flop = ft_substr(flip, 3, 4);
+	char	*flip1 = "je suis flip flop";
+	char	*flop1 = ft_substr(flip1, 8, 4);
+	char	*flip2 = "je suis flip flop";
+	char	*flop2 = ft_substr(flip2, 13, 4);
+	char	*flip3 = "je suis flip flop";
+	char	*flop3 = ft_substr(flip3, 6, 0);
+	char	*flip4 = "";
+	char	*flop4 = ft_substr(flip4, 6, 3);
+
+	printf("flip = %s flop = %s\n", flip, flop);
+	free(flop);
+	printf("flip1 = %s flop1 = %s\n", flip1, flop1);
+	free(flop1);
+	printf("flip2 = %s flop2 = %s\n", flip2, flop2);
+	free(flop2);
+	printf("flip3 = %s flop3 = %s\n", flip3, flop3);
+	free(flop3);
+	printf("flip4 = %s flop4 = %s\n", flip4, flop4);
+	free(flop4);
+
+// test strmapi
+
+	char	*blabla = "blablabla";
+	char	*bla;
+	char 	(*f)(unsigned int, char);
+
+	f = &ft;
+	bla = ft_strmapi(blabla, f);
+	printf("blabla = %s\n bla = %s\n", blabla, bla);
+	free(bla);
 
 	return (0);
 }

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/18 14:53:47 by osurcouf          #+#    #+#             */
+/*   Updated: 2021/02/18 14:53:49 by osurcouf         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-int	check_set(char c, char const *set)
+static int	check_set(char c, char const *set)
 {
 	int	i;
 
@@ -14,7 +26,7 @@ int	check_set(char c, char const *set)
 	return (0);
 }
 
-char	*trim_more(char *trim, char const *s1, int start, int end)
+static char	*trim_more(char *trim, char const *s1, int start, int end)
 {
 	int	i;
 
@@ -29,7 +41,7 @@ char	*trim_more(char *trim, char const *s1, int start, int end)
 	return (trim);
 }
 
-char	*ft_strtrim(char const *s1, char const *set)
+char		*ft_strtrim(char const *s1, char const *set)
 {
 	char		*trim;
 	size_t		start;
@@ -47,8 +59,9 @@ char	*ft_strtrim(char const *s1, char const *set)
 	}
 	while (check_set(s1[end - 1], set) == 1)
 		end--;
-	trim = (char *)malloc(sizeof(char) * (end - start + 1));
+	trim = (char *)malloc(sizeof(char) * ((end - start) + 1));
 	if (!(trim))
 		return (NULL);
-	return (trim_more(trim, s1, start, end));
+	trim_more(trim, s1, start, end);
+	return (trim);
 }

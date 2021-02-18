@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/18 14:50:36 by osurcouf          #+#    #+#             */
+/*   Updated: 2021/02/18 14:50:49 by osurcouf         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-char	*backward(char *dest, char *src, size_t n)
+static char	*backward(char *dest, char *src, size_t n)
 {
 	while (n > 0)
 	{
@@ -10,7 +22,7 @@ char	*backward(char *dest, char *src, size_t n)
 	return (dest);
 }
 
-char	*forward(char *dest, char *src, size_t n)
+static char	*forward(char *dest, char *src, size_t n)
 {
 	size_t	i;
 
@@ -23,7 +35,7 @@ char	*forward(char *dest, char *src, size_t n)
 	return (dest);
 }
 
-void	*ft_memmove(void *to, const void *from, size_t n)
+void		*ft_memmove(void *to, const void *from, size_t n)
 {
 	char	*dest;
 	char	*src;

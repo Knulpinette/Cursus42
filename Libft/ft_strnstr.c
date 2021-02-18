@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/18 14:53:23 by osurcouf          #+#    #+#             */
+/*   Updated: 2021/02/18 14:53:30 by osurcouf         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-int	check_little(const char *big, const char *little, size_t len, size_t i)
+static int	checkl(const char *big, const char *little, size_t len, size_t i)
 {
 	int	a;
 
@@ -26,7 +38,7 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	i = 0;
 	while (i < len && big[i] != '\0')
 	{
-		if (little[0] == big[i] && check_little(big, little, len, i) == 1)
+		if (little[0] == big[i] && checkl(big, little, len, i) == 1)
 			return ((char *)big + i);
 		i++;
 	}

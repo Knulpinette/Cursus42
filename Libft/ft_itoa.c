@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/18 14:48:47 by osurcouf          #+#    #+#             */
+/*   Updated: 2021/02/18 14:48:48 by osurcouf         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-char	*ft_putnbr(long int nb, char *str, int	size)
+static char	*ft_putnbr(long int nb, char *str, int	size)
 {
 	int	check_n;
 
@@ -10,26 +22,25 @@ char	*ft_putnbr(long int nb, char *str, int	size)
 		check_n++;
 		nb = -nb;
 	}
-	str[size] = '\0';
-	while (size > 0)
+	str[size - 1] = '\0';
+	while (--size > 0)
 	{
 		str[size - 1] = '0' + nb % 10;
-		size--;
 		nb = nb / 10;
 	}
 	if (check_n == 1)
-		str[size] = '-';
+		str[0] = '-';
 	return (str);
 }
 
-char	*ft_itoa(int n)
+char		*ft_itoa(int n)
 {
 	int			size;
 	long int	nb;
 	char		*str;
 
 	nb = (long int)n;
-	size = 1;
+	size = 2;
 	if (n < 0)
 		size++;
 	while ((n / 10) != 0)
@@ -37,7 +48,7 @@ char	*ft_itoa(int n)
 		size++;
 		n = n / 10;
 	}
-	str = (char *)malloc(sizeof(char) * size);
+	str = (char *)ft_calloc(sizeof(char), size);
 	if (!(str))
 		return (NULL);
 	return (ft_putnbr(nb, str, size));
