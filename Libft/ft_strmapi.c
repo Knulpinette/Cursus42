@@ -12,16 +12,6 @@
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *str)
-{
-	const char		*s;
-
-	s = str;
-	while (*s)
-		s++;
-	return (s - str);
-}
-
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
 	int				size;
@@ -31,6 +21,8 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	i = 0;
 	size = ft_strlen(s);
 	mapi = (char *)malloc(sizeof(char) * (size + 1));
+	if (!mapi)
+		return (NULL);
 	while (s[i] != '\0')
 	{
 		mapi[i] = f(i, s[i]);

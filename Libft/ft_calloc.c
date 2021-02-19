@@ -16,6 +16,7 @@ void	*ft_calloc(size_t n, size_t size)
 {
 	void	*str;
 
+// handle empty string for n = 0 ; n = 1 ?
 	str = (void *)malloc(size * n);
 	if (!str)
 		return (NULL);
