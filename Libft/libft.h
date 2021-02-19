@@ -4,6 +4,12 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+typedef struct		s_list
+{
+	void			*content;
+	struct s_list	*next;
+}					t_list;
+
 int		ft_atoi(const char *str);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t n, size_t size);

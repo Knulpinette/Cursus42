@@ -14,12 +14,14 @@
 
 void	*ft_calloc(size_t n, size_t size)
 {
-	void	*str;
-
-// handle empty string for n = 0 ; n = 1 ?
-	str = (void *)malloc(size * n);
-	if (!str)
+	void	*mem;
+	int		i;
+	
+	i = 0;
+	mem = (void *)malloc(size * n);
+	if (!mem)
 		return (NULL);
-	ft_memset(str, 0, n);
-	return (str);
+	while (i < n * size)
+		((char *)mem)[i++] = 0;
+	return (mem);
 }
