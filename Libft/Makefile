@@ -36,7 +36,19 @@ SRCS = ft_atoi.c \
 		ft_tolower.c \
 		ft_toupper.c
 
+SRCSBONUS = ft_lstadd_back.c \
+		ft_lstadd_front.c \
+		ft_lstclear.c \
+		ft_lstdelone.c \
+		ft_lstiter.c \
+		ft_lstlast.c \
+		ft_lstmap.c \
+		ft_lstnew.c \
+		ft_lstsize.c
+
 OBJS = ${SRCS:.c=.o}
+
+OBJSBONUS = ${SRCSBONUS:.c=.o}
 
 CC = gcc
 RM = rm -f
@@ -50,10 +62,14 @@ $(NAME): ${OBJS}
 	ar rc ${NAME} ${OBJS}
 	ranlib ${NAME}
 
+bonus: ${OBJS} ${OBJSBONUS}
+	ar rc ${NAME} ${OBJS} ${OBJSBONUS}
+	ranlib ${NAME}
+
 all: $(NAME)
 
 clean:
-	${RM} ${OBJS}
+	${RM} ${OBJS} $(OBJSBONUS)
 
 fclean: clean
 	${RM} ${NAME}
