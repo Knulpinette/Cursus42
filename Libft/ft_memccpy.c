@@ -25,13 +25,13 @@ void	*ft_memccpy(void *to, const void *from, int c, size_t n)
 	src = (unsigned char *)from;
 	while (i < n)
 	{
-		if (src[i] == c)
+		if (src[i] == (unsigned char)c)
 		{
 			dest[i] = src[i];
 			i++;
 			return (to + i);
 		}
-		if (src[i] != c)
+		if (src[i] != (unsigned char)c)
 		{
 			dest[i] = src[i];
 			i++;
