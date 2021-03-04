@@ -29,7 +29,7 @@ static int	checkl(const char *big, const char *little, size_t len, size_t i)
 	return (0);
 }
 
-char	*ft_strnstr(const char *big, const char *little, size_t len)
+char		*ft_strnstr(const char *big, const char *little, size_t len)
 {
 	size_t	i;
 

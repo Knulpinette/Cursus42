@@ -23,7 +23,6 @@ int	ft_memcmp(const void *ptr1, const void *ptr2, size_t n)
 	i = 0;
 	while (i < n)
 	{
-
 		if (str1[i] == str2[i])
 			i++;
 		else

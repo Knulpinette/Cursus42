@@ -60,6 +60,8 @@ char		**ft_split(const char *s, char c)
 	int		words;
 	char	**split;
 
+	if (!s)
+		return (NULL);
 	words = nb_words(s, c);
 	split = (char **)malloc(sizeof(char*) * (words + 1));
 	if (!split)

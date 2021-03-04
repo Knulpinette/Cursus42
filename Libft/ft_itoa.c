@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static char	*ft_putnbr(long int nb, char *str, int	size)
+static char	*ft_putnbr(long int nb, char *str, int size)
 {
 	int	check_n;
 
