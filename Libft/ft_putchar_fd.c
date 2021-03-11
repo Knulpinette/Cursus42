@@ -13,7 +13,7 @@
 /*
 ** 🦕
 ** function : putchar_fd
-** This function write a character onto a file descriptor.
+** This function writes a character onto a file descriptor.
 ** STDIN is FD = 0
 ** 🦕
 */
