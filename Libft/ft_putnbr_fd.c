@@ -10,6 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : putnbr_fd
+** This function converts a number into a string and write it onto a
+** file descriptor.
+** STDIN is FD = 0
+** 🦕
+*/
+
 #include "libft.h"
 
 static void	ft_write(int fd, char c)

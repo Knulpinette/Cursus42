@@ -10,6 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : putendl
+** This function writes a given string at the end of a file descriptor.
+** STDIN is FD = 0
+** 🦕
+*/
+
 #include "libft.h"
 
 void	ft_putendl_fd(char *s, int fd)

@@ -10,6 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : isascii
+** This function checks if the given int (a character) is part of the ascii
+** table.
+** 🦕
+*/
+
 int	ft_isascii(int t)
 {
 	if (t >= 0 && t <= 127)

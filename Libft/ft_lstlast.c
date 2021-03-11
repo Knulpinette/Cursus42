@@ -10,6 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : lstlast
+** This function return a pointer to the last element of a linked list.
+** 🦕
+*/
+
 #include "libft.h"
 
 t_list	*ft_lstlast(t_list *lst)

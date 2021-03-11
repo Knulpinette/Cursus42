@@ -10,6 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : isalnum
+** This function checks if the given int (a character) is alphanumerical.
+** 🦕
+*/
+
 int	ft_isalnum(int a)
 {
 	if (a >= 'a' && a <= 'z')

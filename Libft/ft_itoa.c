@@ -10,6 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : itoa
+** This function converts an int into a string.
+** First, the int is typecasted into long int to avoid troubles with negative
+** edge cases. Size is initialised at 2 to make up for later problems which
+** are that size will have to be pre-decremented and that there's the '\0'
+** to consider. Then if the number is negative, size++ to hold the '-'.
+** Then we calculate the number of digits of n, allocate the memory
+** and go to putnbr.
+** We check for negative again, and proceed with a positive number !
+** 🦕
+*/
+
 #include "libft.h"
 
 static char	*ft_putnbr(long int nb, char *str, int size)

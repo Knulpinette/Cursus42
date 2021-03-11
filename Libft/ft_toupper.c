@@ -10,6 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : toupper
+** This function changes the lowercase character its given into CAPS.
+** It returns the character (change or no change).
+** 🦕
+*/
+
 int	ft_toupper(int u)
 {
 	if (u >= 'a' && u <= 'z')

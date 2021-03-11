@@ -10,6 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : memcmp
+** This function compares two strings for a given length. When it finds
+** a different character, it returns the difference between both compared
+** characters.
+** Positive result if str1[i] > str2[i]
+** Negative result if str1[i] < str2[i]
+** Null result if both strings are identical
+** Specificity : unsigned char typecasting is necessary.
+** 🦕
+*/
+
 #include "libft.h"
 
 int	ft_memcmp(const void *ptr1, const void *ptr2, size_t n)

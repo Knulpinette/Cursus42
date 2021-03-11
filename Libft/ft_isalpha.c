@@ -10,6 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : isalpha
+** This function checks if the given int (a character) is alphabetical.
+** 🦕
+*/
+
 int	ft_isalpha(int c)
 {
 	if (c >= 'a' && c <= 'z')

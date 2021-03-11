@@ -10,7 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : strtrim
+** This function trims - or cleans - a string of a given set of characters at
+** its beginning and its end.
+** It allocates memory for a new string, and copies over the old one without
+** the given charset. Then it returns it.
+** If the given string is empty, it returns a freeable empty string.
+** 🦕
+*/
+
 #include "libft.h"
+
+/*
+** function : checkset
+** This function checks if the given character is part of the charset.
+*/
 
 static int	check_set(char c, char const *set)
 {
@@ -26,6 +42,12 @@ static int	check_set(char c, char const *set)
 	return (0);
 }
 
+/*
+** function : trim_cpy
+** This function copies the string into the malloc'ed one and
+** null-terminates it.
+*/
+
 static char	*trim_more(char *trim, char const *s1, int start, int end)
 {
 	int	i;
@@ -40,6 +62,17 @@ static char	*trim_more(char *trim, char const *s1, int start, int end)
 	trim[i] = '\0';
 	return (trim);
 }
+
+/*
+** function : strtrim
+** This function starts with two indexes that will tell trim_more from
+** where to where it should copy. They are set at the beginning and the
+** end of the string. Then, while the characters of the end or the
+** beginning are part of the charset, we decrease of increase.
+** That gives us the proper length to allocate (end - start + 1) and all
+** the info to send to trim_more.
+** It returns the pointer to the trimmed string.
+*/
 
 char		*ft_strtrim(char const *s1, char const *set)
 {

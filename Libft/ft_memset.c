@@ -10,6 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : memset
+** This function copies a given int (character) into each byte of a given
+** memory. B_zero is basically memset(ptr, 0, str_len(ptr));
+** 🦕
+*/
+
 #include "libft.h"
 
 void	*ft_memset(void *ptr, int x, size_t n)

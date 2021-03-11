@@ -10,6 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : lstdelone
+** This function deletes the memory of one list.
+** 🦕
+*/
+
 #include "libft.h"
 
 void	ft_lstdelone(t_list *lst, void (*del)(void*))

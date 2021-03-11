@@ -10,6 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : bzero
+** This function will fill a given argument (often memory) with \0.
+** It typecasts the given argument into char so that it can replace every
+** single bit of memory with 0.
+** 🦕
+*/
+
 #include "libft.h"
 
 void	ft_bzero(void *s, size_t n)

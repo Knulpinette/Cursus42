@@ -10,6 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : strlen
+** This function will return the size of a string, minus the null-terminator.
+** 🦕
+*/
+
 #include "libft.h"
 
 size_t	ft_strlen(const char *str)

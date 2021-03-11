@@ -10,6 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : strrchr
+** This function will search for the last occurence of a given character
+** in a string.
+** It returns a pointer to that character. Or NULL if it's not there.
+** 🦕
+*/
+
 char	*ft_strrchr(const char *str, int c)
 {
 	int		i;

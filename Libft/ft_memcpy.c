@@ -10,6 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : memcpy
+** This function copies a given length from a given source to given a dest.
+** Specificity : The function will return NULL as well if both source
+** AND dest are empty. Also, unsigned char typecasting necessary.
+** 🦕
+*/
+
 #include "libft.h"
 
 void	*ft_memcpy(void *to, const void *from, size_t n)

@@ -10,6 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : lstnew
+** This function creates a new list and allocates memory for it.
+** 🦕
+*/
+
 #include "libft.h"
 
 t_list	*ft_lstnew(void *content)

@@ -10,6 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : memccpy
+** This function will copy a source to a destination until a certain character
+** is found. It that character is found, it will copy it, and then return
+** a pointer to where it is. If it is not found, the function will return NULL.
+** Specificity : The function will return NULL as well if both source
+** AND dest are empty. Also, unsigned char typecasting necessary.
+** 🦕
+*/
+
 #include "libft.h"
 
 void	*ft_memccpy(void *to, const void *from, int c, size_t n)

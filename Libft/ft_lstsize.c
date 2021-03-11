@@ -10,6 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : lstsize
+** This function returns the number of elements in a given linked list.
+** 🦕
+*/
+
 #include "libft.h"
 
 int	ft_lstsize(t_list *lst)

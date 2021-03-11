@@ -10,6 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : lstclear
+** This function cleans the memory of a whole given chained linked list.
+** Then sets the first pointer to the list to NULL.
+** 🦕
+*/
+
 #include "libft.h"
 
 void	ft_lstclear(t_list **lst, void (*del)(void*))

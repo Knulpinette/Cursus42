@@ -10,6 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : strncmp
+** This function compares two strings for a given length.
+** It returns the difference between the two characters if it finds one.
+** If the strings are identical, it returns 0.
+** 🦕
+*/
+
 #include "libft.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)

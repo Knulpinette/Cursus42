@@ -10,6 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : strchr
+** This function searches for a given character in a given string.
+** It returns a pointer to its first occurence in the string.
+** Or it returns NULL if it doesn't find it.
+** Specificity : if the given character is '\0', the function will
+** return a pointer to the null termination of the string.
+** 🦕
+*/
+
 char	*ft_strchr(const char *str, int c)
 {
 	char	a;

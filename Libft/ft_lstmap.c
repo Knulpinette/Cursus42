@@ -10,6 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : lstadd_back
+** This function will apply a given function to a whole linked list and create
+** a new linked list out of the results. If there is a mistake in the process,
+** it will delete the already allocated memory to do a clean exit.
+** 🦕
+*/
+
 #include "libft.h"
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))

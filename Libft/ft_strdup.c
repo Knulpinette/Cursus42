@@ -10,6 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : strdup
+** This function will allocate memory to copy a given string into a new one.
+** It returns a pointer to that string.
+** If the string is empty, it will create a freeable empty string.
+** 🦕
+*/
+
 #include "libft.h"
 
 char	*ft_strdup(const char *src)

@@ -10,6 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : lstadd_front
+** This function add a new given list to the beginning of a given linked list.
+** 🦕
+*/
+
 #include "libft.h"
 
 void	ft_lstadd_front(t_list **lst, t_list *new)

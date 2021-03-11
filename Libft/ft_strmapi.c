@@ -10,6 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : strmapi
+** This function will apply a given function to every char of a string and
+** copy the results onto an allocated new string.
+** It returns a pointer to that string.
+** 🦕
+*/
+
 #include "libft.h"
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))

@@ -10,6 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : lstadd_back
+** This function iterates through a list and applies a given function to each
+** one of its elements.
+** 🦕
+*/
+
 #include "libft.h"
 
 void	ft_lstiter(t_list *lst, void (*f)(void *))

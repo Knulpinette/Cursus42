@@ -10,6 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : atoi
+** This function converts a string into an integer.
+** It will bypass whitespaces and - one time - the sign '-' or '+'.
+** Then, if what comes is a number, it will translate it into a char.
+** Everyloop, it will multiply the number stored (nbr) by 10 so it can
+** add the new number to the stored one.
+** It then returns that positive number, or negative if there was a '-'.
+** 🦕
+*/
+
 int	ft_atoi(const char *str)
 {
 	int	i;

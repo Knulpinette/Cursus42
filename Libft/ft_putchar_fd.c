@@ -10,6 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : putchar_fd
+** This function write a character onto a file descriptor.
+** STDIN is FD = 0
+** 🦕
+*/
+
 #include "libft.h"
 
 void	ft_putchar_fd(char c, int fd)

@@ -10,6 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : strlcpy
+** This function will copy source over to dest, for a given size
+** that's supposed to be the size of dest, including the space for the null
+** termination.
+** It returns the length of the source.
+** 🦕
+*/
+
 #include "libft.h"
 
 size_t	ft_strlcpy(char *dest, const char *src, size_t size)

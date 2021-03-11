@@ -10,6 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : strjoin
+** This function will allocate memory to concatenate two strings into a new one.
+** It will null-terminate it and return a pointer to that string.
+** If the string is empty, it will create a freeable empty string.
+** 🦕
+*/
+
 #include "libft.h"
 
 char	*ft_strjoin(char const *s1, char const *s2)

@@ -10,6 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : isprint
+** This function checks if the given int (a character) is printable.
+** 🦕
+*/
+
 int	ft_isprint(int p)
 {
 	if (p > 31 && p < 127)

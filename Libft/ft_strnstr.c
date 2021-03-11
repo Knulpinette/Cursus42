@@ -10,6 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : strnstr
+** This function searches for the little string inside a big string for a
+** given length. If it finds it, it returns a pointer to the beginning of
+** little into big.
+** If little is empty, it returns a pointer to big.
+** If it doesn't find it, it returns NULL.
+** 🦕
+*/
+
 #include "libft.h"
 
 static int	checkl(const char *big, const char *little, size_t len, size_t i)

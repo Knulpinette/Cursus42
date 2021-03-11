@@ -10,6 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : memchr
+** This function searches for a given character in a given lenght of a string.
+** If it finds it, it returns a pointer to it's location. If not, NULL.
+** 🦕
+*/
+
 #include "libft.h"
 
 void	*ft_memchr(const void *ptr, int c, size_t n)

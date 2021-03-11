@@ -10,7 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : split
+** This function splits a given string into "words", a words delimited by a
+** given separator.
+** It returns a pointer to an array of those words.
+** 🦕
+*/
+
 #include "libft.h"
+
+/*
+** function : nb_words
+** This function counts the number of "words", or substrings, that split will
+** have to create. Is useful for allocating memory at the start.
+*/
 
 static int	nb_words(const char *s, char c)
 {
@@ -27,6 +42,19 @@ static int	nb_words(const char *s, char c)
 	}
 	return (nb);
 }
+
+/*
+** function : fill_split
+** This function takes the array created in ft_split and fills it up
+** with the words.
+** What it does is iterate through the string. As long as it finds a
+** seperator character, it continues going. If the character isn't a
+** separator, we're at the beginning of a word. First, we'll calculate
+** the length of that word with letters, then allocate the proper space
+** to the word. Then copy it. Then loop and do it until we have reached
+** the maximum number of words expected. Then we set an extra string to
+** NULL for proper termination of the array.
+*/
 
 static char	**fill_split(const char *s, char c, int words, char **split)
 {
@@ -54,6 +82,13 @@ static char	**fill_split(const char *s, char c, int words, char **split)
 	split[word] = 0;
 	return (split);
 }
+
+/*
+** function : core_split
+** Split allocates memory, so that the array will right away be the
+** right number of words. Then we protect the malloc in case of error.
+** Then we fill split and return it.
+*/
 
 char		**ft_split(const char *s, char c)
 {

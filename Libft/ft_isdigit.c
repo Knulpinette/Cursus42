@@ -10,6 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : isdigit
+** This function checks if the given int (a character) is a number.
+** 🦕
+*/
+
 int	ft_isdigit(int n)
 {
 	if (n >= '0' && n <= '9')

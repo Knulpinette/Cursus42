@@ -10,6 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** 🦕
+** function : lstadd_back
+** This function add a new given list to the end of a given linked list.
+** 🦕
+*/
+
 #include "libft.h"
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
