@@ -12,7 +12,7 @@ OBJS_BONUS	= ${SRCS_BONUS:.c=.o}
 
 HEADER		= ${shell find . -type f \( -name "ft_*.h" \)}
 
-LIB_DIR		= ./libft
+LIBFT_DIR		= ./libft
 LIBFT_PATH	= ./libft/libft.a
 LIB			= -L. -lftprintf ${LIBFT_PATH}
 
@@ -33,7 +33,7 @@ CFLAGS 		= -Wall -Wextra -Werror
 all:		$(NAME) test
 
 $(NAME):	$(OBJS) $(HEADER)
-			${MAKE} bonus -C ${LIB_DIR}
+			${MAKE} bonus -C ${LIBFT_DIR}
 			ar rc $(NAME) $(OBJS) && ranlib $(NAME)
 			#--------------------------------
 
@@ -49,11 +49,11 @@ bonus:		fclean $(OBJS_BONUS) $(HEADER)
 #	Cleaning rules
 
 clean:
-	${MAKE} clean -C ${LIB_DIR}
+	${MAKE} clean -C ${LIBFT_DIR}
 	${RM} ${OBJS} ${OBJS_BONUS}
 
 fclean:		clean
-	${MAKE} fclean -C ${LIB_DIR}
+	${MAKE} fclean -C ${LIBFT_DIR}
 	${RM} ${NAME}
 
 re:			fclean all
