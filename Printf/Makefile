@@ -5,18 +5,20 @@ NAME	= libftprintf.a
 # -*- Definitions of variables -*-
 
 SRCS		= ${shell find . -type f \( -name "ft_*.c" -not -name "*bonus.c" -not -wholename "./libft/ft_*.c" \)}
-SRCS_BONUS	= ${shell find . -type f \( -name "ft_*.c" \)}
+SRCS_BONUS	= ${shell find . -type f \( -name "ft_*.c" -not -wholename "./libft/ft_*.c" \)}
 
 OBJS		= ${SRCS:.c=.o}
 OBJS_BONUS	= ${SRCS_BONUS:.c=.o}
 
 HEADER		= ${shell find . -type f \( -name "ft_*.h" \)}
 
-LD_LIBRARY_PATH	= ./libft/libft.a
-LIB			= -L. -lftprintf ${LD_LIBRARY_PATH}
+LIB_DIR		= ./libft
+LIBFT_PATH	= ./libft/libft.a
+LIB			= -L. -lftprintf ${LIBFT_PATH}
 
 CC			= gcc
 RM			= rm -f
+MAKE		= make
 CFLAGS 		= -Wall -Wextra -Werror
 
 # -*- The Rules -*-
@@ -31,6 +33,7 @@ CFLAGS 		= -Wall -Wextra -Werror
 all:		$(NAME) test
 
 $(NAME):	$(OBJS) $(HEADER)
+			${MAKE} bonus -C ${LIB_DIR}
 			ar rc $(NAME) $(OBJS) && ranlib $(NAME)
 			#--------------------------------
 
@@ -46,9 +49,11 @@ bonus:		fclean $(OBJS_BONUS) $(HEADER)
 #	Cleaning rules
 
 clean:
+	${MAKE} clean -C ${LIB_DIR}
 	${RM} ${OBJS} ${OBJS_BONUS}
 
 fclean:		clean
+	${MAKE} fclean -C ${LIB_DIR}
 	${RM} ${NAME}
 
 re:			fclean all
