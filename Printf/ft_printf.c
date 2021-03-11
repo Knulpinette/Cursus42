@@ -12,56 +12,54 @@
 
 #include "ft_printf.h"
 
-int	ft_count_arg(const char *s)
-{
-	int	i;
-	int	count;
+/*
+** 🦕
+*/
 
-	i = 0;
-	count = 0;
+/*
+char	ft_extract_type_var(const char *s, int i)
+{
 	while (s[i])
 	{
 		if (s[i] == '%' && (s[i + 1] != '%' && s[i + 1] != '\0'))
-			count++;
+			return (s[i + 1]);
 		i++;
 	}
-	return (count); 
+	return (0);
 }
 
-//int		ft_check_arg()
+//return LIST or the other thing that's equivalent
+int		ft_convert(int	i)
+{
+	//int i;
 
-int	ft_printf(const char *s, ...)
+	//i = 0;
+	return (i);
+}
+*/
+
+int		ft_printf(const char *s, ...)
 {
 	va_list	arg;
 	int		arg_count;
-	int		cur_arg;
 	int		original_ac;
-
+	//char	*cur_arg;
+	int		test;
+	
 	original_ac = ft_count_arg(s);
-	arg_count = original_ac + 1;
+	arg_count = original_ac + 1; // + 1 to pre-decrement in the loop
 	//printf("count = %i\n", arg_count);
 	va_start(arg, s);
 	// need to find out how to check for arg 
 	//when there's not supposed to be any and return error
 	while (--arg_count)
 	{
-		//if (ft_check_arg(,))
-		//depending on what has been checked => expects a certain type of argt. 
-		//=> return error if not the right type
-		//in the meantime => argt
-			cur_arg = va_arg(arg, int);
-			if (!cur_arg)
-			{
-				ft_printf("Error : not the right number of arguments\n");
-				return (-1);
-			}
-		//printf("cur_arg = %i\n", cur_arg);
-	}
-	if (arg_count == original_ac && !arg_count)
-	{
-		ft_putstr_fd((char *)s, 1);
-		return (0);
+		//cur_arg = va_arg(arg, char *);
+		test = va_arg(arg, int);
+		printf("count = %i || cur_arg = %i\n", arg_count, test);
 	}
 	va_end(arg);
+	if (arg_count == original_ac && !arg_count)
+		ft_putstr_fd((char *)s, 1); //return 0;
 	return (0);
 }

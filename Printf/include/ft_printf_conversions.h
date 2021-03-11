@@ -1,29 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.h                                           :+:      :+:    :+:   */
+/*   ft_printf_conversions.h                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/10 19:01:06 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/03/10 19:01:09 by osurcouf         ###   ########.fr       */
+/*   Created: 2021/03/11 11:30:14 by osurcouf          #+#    #+#             */
+/*   Updated: 2021/03/11 11:30:18 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#ifndef FT_PRINTF_CONVERSIONS_H
+# define FT_PRINTF_CONVERSIONS_H
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdarg.h>
-# include "libft/libft.h"
-# include "include/ft_printf_utils.h"
-# include "include/ft_printf_conversions.h"
 
-//DELETE LATER
-# include <stdio.h>
-//DELETE LATER
-
-int	ft_printf(const char *s, ...);
 
 #endif

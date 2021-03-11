@@ -4,17 +4,20 @@ NAME	= libftprintf.a
 
 # -*- Definitions of variables -*-
 
-SRCS	= ${shell find . -type f \( -name "ft_*.c" ! -wholename "ft_*/ft_*.c" \)}
-SRCS_BONUS = ${shell find . -type f \( -name "ft_*bonus.c" ! -wholename "ft_*/ft_*bonus.c" \)}
+SRCS		= ${shell find . -type f \( -name "ft_*.c" -not -name "*bonus.c" -not -wholename "./libft/ft_*.c" \)}
+SRCS_BONUS	= ${shell find . -type f \( -name "ft_*.c" \)}
 
-OBJS	= ${SRCS:.c=.o}
-OBJS_BONUS = ${SRCS_BONUS:.c=.o}
+OBJS		= ${SRCS:.c=.o}
+OBJS_BONUS	= ${SRCS_BONUS:.c=.o}
 
-HEADER	= ${shell find . -type f \( -name "ft_*.h" ! -wholename "ft_*/*.h" \)}
+HEADER		= ${shell find . -type f \( -name "ft_*.h" \)}
 
-CC		= gcc
-RM		= rm -f
-CFLAGS 	= -Wall -Wextra -Werror
+LD_LIBRARY_PATH	= ./libft/libft.a
+LIB			= -L. -lftprintf ${LD_LIBRARY_PATH}
+
+CC			= gcc
+RM			= rm -f
+CFLAGS 		= -Wall -Wextra -Werror
 
 # -*- The Rules -*-
 
@@ -32,7 +35,7 @@ $(NAME):	$(OBJS) $(HEADER)
 			#--------------------------------
 
 test: 	
-			${CC} ${CFLAGS} main.c -L. -lftprintf -o result
+			${CC} ${CFLAGS} main.c ${LIB} -o result
 			#🦄🍭🦄🍭🦄🍭🦄🍭🦄🍭🦄🍭🦄
 			./result\
 

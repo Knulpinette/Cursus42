@@ -1,29 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.h                                           :+:      :+:    :+:   */
+/*   ft_i_am_conversion.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/10 19:01:06 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/03/10 19:01:09 by osurcouf         ###   ########.fr       */
+/*   Created: 2021/03/11 11:32:51 by osurcouf          #+#    #+#             */
+/*   Updated: 2021/03/11 11:32:53 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "../ft_printf.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdarg.h>
-# include "libft/libft.h"
-# include "include/ft_printf_utils.h"
-# include "include/ft_printf_conversions.h"
+/*
+** 🦕
+** function : i_am_conversion
+** This function checks if the given character requires a conversion.
+** It returns 1 if the given character fits : c/s/p/d/i/u/x/X/%/.
+** 🦕
+*/
 
-//DELETE LATER
-# include <stdio.h>
-//DELETE LATER
+int		ft_i_am_conversion(char c)
+{
+	char	*charset;
+	int		i;
 
-int	ft_printf(const char *s, ...);
-
-#endif
+	charset = "cspdiuxX%";
+	i = 0;
+	while (charset[i])
+	{
+		if (c == charset[i])
+			return (1);
+		i++;
+	}
+	return (0);
+}
