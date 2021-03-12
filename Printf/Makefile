@@ -38,7 +38,7 @@ $(NAME):	$(OBJS) $(HEADER)
 			#--------------------------------
 
 test: 	
-			${CC} ${CFLAGS} main.c ${LIB} -o result
+			${CC} ${CFLAGS} -fsanitize=address main.c ${LIB} -o result
 			#🦄🍭🦄🍭🦄🍭🦄🍭🦄🍭🦄🍭🦄
 			./result\
 

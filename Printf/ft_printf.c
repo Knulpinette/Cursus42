@@ -16,50 +16,57 @@
 ** 🦕
 */
 
-/*
-char	ft_extract_type_var(const char *s, int i)
+int		ft_get_arg(va_list arg, int arg_count, const char *s)
 {
-	while (s[i])
+	char		type;
+	data_type	*arg_type;
+	int			i;
+	int			count;
+	
+	i = 0;
+	while (--arg_count && s[i])
 	{
-		if (s[i] == '%' && (s[i + 1] != '%' && s[i + 1] != '\0'))
-			return (s[i + 1]);
-		i++;
+		while (!(ft_am_conv(s + i)) && s[i])
+		{
+			ft_putchar_fd(s[i], 1);
+			s++;
+		}
+		if (ft_am_conv(s + i))
+		{
+			count = check_len_extra(s + i + 1);
+			type = ft_am_conv(s + i);
+		}
+		i = i + count + 1;
+		arg_type = (data_type *)malloc(sizeof(data_type));
+		if (!arg_type)
+			return (0);
+		//printf("\n%c\n", type);
+		if (type == 'i')	
+			ft_printf_i(arg);
+		if (type == 'c')
+		{
+			arg_type->c = va_arg(arg, int);
+			//printf("%c\n", arg_type->c);
+		}
+		if (type == 's')
+		{
+			arg_type->s = va_arg(arg, char *);
+			//printf("%s\n", arg_type->s);
+		}
+		free(arg_type);
 	}
-	return (0);
+	return (1);
 }
-
-//return LIST or the other thing that's equivalent
-int		ft_convert(int	i)
-{
-	//int i;
-
-	//i = 0;
-	return (i);
-}
-*/
 
 int		ft_printf(const char *s, ...)
 {
-	va_list	arg;
-	int		arg_count;
-	int		original_ac;
-	//char	*cur_arg;
-	int		test;
+	va_list		arg;
+	int			arg_count;
 	
-	original_ac = ft_count_arg(s);
-	arg_count = original_ac + 1; // + 1 to pre-decrement in the loop
+	arg_count = ft_count_arg(s) + 1; // + 1 to pre-decrement in the loop
 	//printf("count = %i\n", arg_count);
 	va_start(arg, s);
-	// need to find out how to check for arg 
-	//when there's not supposed to be any and return error
-	while (--arg_count)
-	{
-		//cur_arg = va_arg(arg, char *);
-		test = va_arg(arg, int);
-		printf("count = %i || cur_arg = %i\n", arg_count, test);
-	}
+	ft_get_arg(arg, arg_count, s);
 	va_end(arg);
-	if (arg_count == original_ac && !arg_count)
-		ft_putstr_fd((char *)s, 1); //return 0;
 	return (0);
 }

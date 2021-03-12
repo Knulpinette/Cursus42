@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_utils.h                                  :+:      :+:    :+:   */
+/*   ft_printf_d.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/11 11:30:24 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/03/11 11:30:26 by osurcouf         ###   ########.fr       */
+/*   Created: 2021/03/12 13:33:50 by osurcouf          #+#    #+#             */
+/*   Updated: 2021/03/12 13:33:52 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_UTILS_H
-# define FT_PRINTF_UTILS_H
+#include "../ft_printf.h"
 
-int		ft_count_arg(const char *s);
+char	*ft_printf_d(double d)
+{
+	//do a special function to convert doubles
+	//return(ft_itoa_double(d));
+	return (ft_itoa((int)(d)));
+}
 
-#endif
+

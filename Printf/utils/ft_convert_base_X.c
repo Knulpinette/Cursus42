@@ -1,18 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_utils.h                                  :+:      :+:    :+:   */
+/*   ft_convert_base_X.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/11 11:30:24 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/03/11 11:30:26 by osurcouf         ###   ########.fr       */
+/*   Created: 2021/03/12 13:58:28 by osurcouf          #+#    #+#             */
+/*   Updated: 2021/03/12 13:58:30 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_UTILS_H
-# define FT_PRINTF_UTILS_H
 
-int		ft_count_arg(const char *s);
-
-#endif

@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_utils.h                                  :+:      :+:    :+:   */
+/*   ft_printf_u.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/11 11:30:24 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/03/11 11:30:26 by osurcouf         ###   ########.fr       */
+/*   Created: 2021/03/12 13:34:00 by osurcouf          #+#    #+#             */
+/*   Updated: 2021/03/12 13:34:02 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_UTILS_H
-# define FT_PRINTF_UTILS_H
+#include "../ft_printf.h"
 
-int		ft_count_arg(const char *s);
+char	*ft_printf_u(unsigned int u)
+{	
+	int	conv;
 
-#endif
+	conv = (int)u;
+	if (conv < 0)
+		return (NULL);
+	return(ft_itoa(conv));
+}
+

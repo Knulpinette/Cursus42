@@ -29,9 +29,9 @@ int		ft_count_arg(const char *s)
 
 	i = 0;
 	count = 0;
-	while (s[i])
+	while (s[i] && s[i + 1])
 	{
-		if (s[i] == '%' && (ft_i_am_conversion(s[i + 1]) && s[i + 1] != '%'))
+		if ((s[i] == '%' && (ft_am_conv(s + i) && s[i + 1] != '%')))
 			count++;
 		i++;
 	}

@@ -19,10 +19,11 @@
 # include "libft/libft.h"
 # include "include/ft_printf_utils.h"
 # include "include/ft_printf_conversions.h"
+# include "include/ft_printf_checks.h"
 
-//DELETE LATER
+//DELETE LATER !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # include <stdio.h>
-//DELETE LATER
+//DELETE LATER !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 int	ft_printf(const char *s, ...);
 
