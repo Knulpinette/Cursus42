@@ -12,14 +12,23 @@
 
 #include "../ft_printf.h"
 
-char	*ft_printf_c(int c)
+void	ft_printf_c(va_list arg)
+{
+	char	c;
+
+	c = (char)(va_arg(arg, int));
+	ft_putchar_fd(c, 1);
+	return ;
+}
+
+/*char	*ft_printf_c(va_list arg)
 {
 	char *conv;
 
 	conv = (char *)malloc(sizeof(char) * 2);
-	conv[0] = c;
+	conv[0] = (char)(va_arg(arg, int));
 	conv[1] = '\0';
 	return(conv);
-}
+}*/
 
 

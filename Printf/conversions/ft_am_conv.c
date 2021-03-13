@@ -72,14 +72,17 @@ char		ft_is_special(const char *s)
 	i = 0;
 	while (s[i++]) // théoriquement '%'
 	{
-		if ((s[i] == '*' && s[i - 1] != '*') || ft_isdigit(s[i]) || s[i] == '.')
+		//printf("\ns[i] = %c", s[i]);
+		if ((s[i] == '*' && s[i - 1] != '*') || ft_isdigit(s[i]) || (s[i] == '.' && s[i - 1] != '.'))
 			i++;
+		//printf("\ns[i] after 1 = %c", s[i]);
 		if ((s[i] == '-' || s[i] == '+') && s[i - 1] != '-' && s[i - 2] != '+')
 			i++;
+		//printf("\ns[i] after 2 = %c", s[i]);
 		if (ft_i_am_conversion(s[i]))
 			return (s[i]);
 	}
-	return (0);
+	return 0;
 }
 
 char		ft_am_conv(const char *s)

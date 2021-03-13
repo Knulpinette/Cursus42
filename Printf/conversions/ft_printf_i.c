@@ -26,6 +26,14 @@ void	ft_printf_i(va_list arg)
 	return ;
 }
 
+/*char	*ft_printf_i(va_list arg)
+{
+	char	*conv_i;
+	int		i;
 
-
-
+	i = va_arg(arg, int);
+	conv_i = ft_itoa(i);
+	if (!conv_i)
+		return (NULL);
+	return (conv_i);
+}*/

@@ -19,44 +19,33 @@
 int		ft_get_arg(va_list arg, int arg_count, const char *s)
 {
 	char		type;
-	data_type	*arg_type;
+//	char		*arg_array[arg_count];
 	int			i;
 	int			count;
 	
 	i = 0;
-	while (--arg_count && s[i])
+	while (--arg_count && s[i]) // if I use a variable "up" => do up ++, not --arg_count
 	{
-		while (!(ft_am_conv(s + i)) && s[i])
+		while (s[i] && s[i] != '%') // write string
+			ft_putchar_fd(s[i++], 1);
+		if (ft_am_conv(s + i)) //initialise needed variables
 		{
-			ft_putchar_fd(s[i], 1);
-			s++;
+			type = ft_am_conv(s + i); // what datatype we're dealing with
+			count = check_len_extra(s + i + 1); // where i will have to be at the next loop (can goo at the end to save lines)
+			i = i + count + 1; // new value of i
 		}
-		if (ft_am_conv(s + i))
-		{
-			count = check_len_extra(s + i + 1);
-			type = ft_am_conv(s + i);
-		}
-		i = i + count + 1;
-		arg_type = (data_type *)malloc(sizeof(data_type));
-		if (!arg_type)
-			return (0);
-		//printf("\n%c\n", type);
 		if (type == 'i')	
 			ft_printf_i(arg);
 		if (type == 'c')
-		{
-			arg_type->c = va_arg(arg, int);
-			//printf("%c\n", arg_type->c);
-		}
+			ft_printf_c(arg);
 		if (type == 's')
-		{
-			arg_type->s = va_arg(arg, char *);
-			//printf("%s\n", arg_type->s);
-		}
-		free(arg_type);
+			ft_printf_s(arg);
 	}
-	return (1);
+	//handle width when printing here ? find out how to print from here ?
+	return (arg_count);
 }
+
+// FIGURE OUT HOW TO RETURN ERROR WHEN WRONG NUMBER OF ARGUMENTS !
 
 int		ft_printf(const char *s, ...)
 {
@@ -68,5 +57,8 @@ int		ft_printf(const char *s, ...)
 	va_start(arg, s);
 	ft_get_arg(arg, arg_count, s);
 	va_end(arg);
+	if (arg_count == 1) // print line without arguments
+		while (*s)
+			ft_putchar_fd(*(s)++, 1);
 	return (0);
 }

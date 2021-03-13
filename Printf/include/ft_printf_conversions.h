@@ -27,11 +27,11 @@ typedef union 	data {
 char	ft_am_conv(const char *s);
 char	ft_i_am_conversion(char c);
 int		check_len_extra(const char *s);
-char	*ft_printf_c(int c);
-char	*ft_printf_s(char *s);
+void	ft_printf_c(va_list c);
+void	ft_printf_s(va_list s);
 char	*ft_printf_p(void *p);
 char	*ft_printf_d(double d);
-void	ft_printf_i(va_list arg);
+void	ft_printf_i(va_list i);
 char	*ft_printf_u(unsigned int u);
 char	*ft_printf_x(int x);
 char	*ft_printf_X(int X);
