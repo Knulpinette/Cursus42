@@ -26,6 +26,7 @@ typedef union 	data {
 
 char	ft_am_conv(const char *s);
 char	ft_i_am_conversion(char c);
+char	ft_i_am_flag(char c);
 int		check_len_extra(const char *s);
 void	ft_printf_c(va_list c);
 void	ft_printf_s(va_list s);
