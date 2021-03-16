@@ -16,33 +16,31 @@
 ** 🦕
 */
 
-int		ft_get_arg(va_list arg, int arg_count, const char *s)
+char		*ft_get_arg(va_list arg, const char *s, int i, char **print)
 {
-	char		type;
-//	char		*arg_array[arg_count];
-	int			i;
-	int			count;
+	char	type;
+	flags_list	*flags;
+	char	*temp;
+	char	*arg_str;
 	
-	i = 0;
-	while (--arg_count && s[i]) // if I use a variable "up" => do up ++, not --arg_count
-	{
-		while (s[i] && s[i] != '%') // write string
-			ft_putchar_fd(s[i++], 1);
-		if (ft_am_conv(s + i)) //initialise needed variables
-		{
-			type = ft_am_conv(s + i); // what datatype we're dealing with
-			count = check_len_extra(s + i + 1); // where i will have to be at the next loop (can goo at the end to save lines)
-			i = i + count + 1; // new value of i
-		}
-		if (type == 'i')	
-			ft_printf_i(arg);
-		if (type == 'c')
-			ft_printf_c(arg);
-		if (type == 's')
-			ft_printf_s(arg);
-	}
+	flags = ft_get_flags(s, arg); // ICI va pas, trouver comment passer correctement l'arg
+	type = ft_am_conv(s + i); // what datatype we're dealing with
+	if (type == 'i')
+		arg_str = ft_printf_i(arg, flags);
+	if (type == 'c')
+		arg_str = ft_printf_c(arg);
+	if (type == 's')
+		arg_str = ft_printf_s(arg);
+	if (!arg_str)
+		return (NULL);
+	temp = ft_strjoin(*print, arg_str);
+	if (!temp)
+		return (NULL);
+	free(arg_str);
+	free(*print);
+	*print = temp;
 	//handle width when printing here ? find out how to print from here ?
-	return (arg_count);
+	return (*print);
 }
 
 // FIGURE OUT HOW TO RETURN ERROR WHEN WRONG NUMBER OF ARGUMENTS !
@@ -50,15 +48,45 @@ int		ft_get_arg(va_list arg, int arg_count, const char *s)
 int		ft_printf(const char *s, ...)
 {
 	va_list		arg;
-	int			arg_count;
+	char		*print;
+	char		*temp;
+	char		*temp2;
+	int			i;
+	int			count;
 	
-	arg_count = ft_count_arg(s) + 1; // + 1 to pre-decrement in the loop
-	//printf("count = %i\n", arg_count);
 	va_start(arg, s);
-	ft_get_arg(arg, arg_count, s);
+	print = ft_strdup("");
+	if (!print)
+		return (0);
+	i = 0;
+	while (s[i]) 
+	{
+		count = 0;
+		while (s[i + count] && s[i + count] != '%') // save string
+			count++;
+		if (count)
+		{
+			temp = ft_substr(s, i, count);
+			if (!temp)
+				return (0);
+			temp2 = ft_strjoin(print, temp);
+			if (!temp2)
+				return (0);
+			free(temp);
+			free(print);
+			print = temp2;
+			i = i + count;
+		}
+		if (s[i] == '%') //initialise needed variables
+		{
+			count = ft_check_len_arg(s + i + 1) + 1;
+			ft_get_arg(arg, s, i, &print);
+			i = i + count;
+		}
+	}
 	va_end(arg);
-	if (arg_count == 1) // print line without arguments
-		while (*s)
-			ft_putchar_fd(*(s)++, 1);
-	return (0);
+	ft_putstr_fd(print, 1);
+	count = ft_strlen(print);
+	free(print);
+	return (count);
 }

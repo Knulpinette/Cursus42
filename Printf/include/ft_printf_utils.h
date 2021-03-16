@@ -13,6 +13,6 @@
 #ifndef FT_PRINTF_UTILS_H
 # define FT_PRINTF_UTILS_H
 
-int		ft_count_arg(const char *s);
+int		ft_check_len_arg(const char *s);
 
 #endif

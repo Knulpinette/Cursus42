@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_c.c                                      :+:      :+:    :+:   */
+/*   check_len_arg.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/12 13:33:27 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/03/12 13:33:28 by osurcouf         ###   ########.fr       */
+/*   Created: 2021/03/16 20:32:20 by osurcouf          #+#    #+#             */
+/*   Updated: 2021/03/16 20:32:22 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
-/*void	ft_printf_c(va_list arg)
+int			ft_check_len_arg(const char *s) // change into calculating from % to charset
 {
-	char	c;
+	int	len;
+	int	i;
 
-	c = (char)(va_arg(arg, int));
-	ft_putchar_fd(c, 1);
-	return ;
-}*/
-
-char	*ft_printf_c(va_list arg)
-{
-	char *conv;
-
-	conv = (char *)malloc(sizeof(char) * 2);
-	conv[0] = (char)(va_arg(arg, int));
-	conv[1] = '\0';
-	return(conv);
+	i = 0;
+	len = 1; // counts '%'
+	while (s[i]) 
+	{
+		if (ft_i_am_conversion(s[i]))
+			return (len);
+		i++;
+		len++;
+	}
+	return (0);
 }
-
-

@@ -1,34 +1,57 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_c.c                                      :+:      :+:    :+:   */
+/*   i_am_flag.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/12 13:33:27 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/03/12 13:33:28 by osurcouf         ###   ########.fr       */
+/*   Created: 2021/03/16 20:28:17 by osurcouf          #+#    #+#             */
+/*   Updated: 2021/03/16 20:28:19 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
-/*void	ft_printf_c(va_list arg)
+int	ft_i_am_flag(char c)
 {
-	char	c;
+	char	*flagset;
+	int		i;
 
-	c = (char)(va_arg(arg, int));
-	ft_putchar_fd(c, 1);
-	return ;
-}*/
-
-char	*ft_printf_c(va_list arg)
-{
-	char *conv;
-
-	conv = (char *)malloc(sizeof(char) * 2);
-	conv[0] = (char)(va_arg(arg, int));
-	conv[1] = '\0';
-	return(conv);
+	flagset = "-0.*";
+	i = 0;
+	while (flagset[i])
+	{
+		if (c == flagset[i])
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
+int	ft_i_am_wildcard(char c)
+{
+	if (c == '*')
+		return 1;
+	return 0;
+}	
 
+int	ft_i_am_zero(char c)
+{
+	if (c == '0')
+		return 1;
+	return 0;
+}
+
+int	ft_i_am_dot(char c)
+{
+	if (c == '.')
+		return 1;
+	return 0;
+}
+
+int	ft_i_am_minus(char c)
+{
+	if (c == '-')
+		return 1;
+	return 0;
+}

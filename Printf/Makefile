@@ -33,7 +33,7 @@ CFLAGS 		= -Wall -Wextra -Werror
 all:		$(NAME) test
 
 $(NAME):	$(OBJS) $(HEADER)
-			${MAKE} own -C ${LIBFT_DIR}
+			${MAKE} bonus -C ${LIBFT_DIR}
 			ar rc $(NAME) $(OBJS) && ranlib $(NAME)
 			#--------------------------------
 

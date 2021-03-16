@@ -12,23 +12,22 @@
 
 #include "../ft_printf.h"
 
-void	ft_printf_s(va_list arg)
+/*void	ft_printf_s(va_list arg)
 {
 	char	*conv;
 	
 	conv = va_arg(arg, char *);
 	ft_putstr_fd(conv, 1);
 	return ;
-}
+}*/
 
-/*char	*ft_printf_s(va_list arg)
+char	*ft_printf_s(va_list arg)
 {
 	char	*temp;
 	char	*conv;
 
 	temp = va_arg(arg, char *);
 	conv = ft_strdup(temp);
-	free(temp);
 	return(conv);
-}*/
+}
 

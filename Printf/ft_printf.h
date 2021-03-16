@@ -19,7 +19,7 @@
 # include "libft/libft.h"
 # include "include/ft_printf_utils.h"
 # include "include/ft_printf_conversions.h"
-# include "include/ft_printf_checks.h"
+# include "include/ft_printf_flags.h"
 
 //DELETE LATER !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # include <stdio.h>
