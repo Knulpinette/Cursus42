@@ -36,6 +36,18 @@ static void	ft_strdel(char **saved)
 }
 
 /*
+** function : empty_line
+** Returns 0 and allocates a freeable empty string to line.
+*/
+
+int			empty_line(char **line)
+{
+	*line = (char *)malloc(sizeof(char) * 1);
+	**line = '\0';
+	return (0);
+}
+
+/*
 ** function : fill_static
 ** This function fills up the static char* with:
 ** 1. The buffer read if it's empty.
@@ -114,24 +126,25 @@ int			get_next_line(int fd, char **line)
 	static char	*saved[1024];
 	int			ret;
 
-	if (fd < 0 || fd >= 1024 || !line || BUFFER_SIZE < 1)
+	if ((read(fd, 0, 0) == -1) || fd < 0 || fd >= 1024 \
+	|| !line || BUFFER_SIZE < 1)
 		return (-1);
 	buf = (char *)malloc(BUFFER_SIZE + 1);
-	while ((ret = read(fd, buf, BUFFER_SIZE)) > 0)
+	if (!buf)
+		return (-1);
+	ret = 1;
+	while (ret > 0)
 	{
+		ret = read(fd, buf, BUFFER_SIZE);
+		if (ret < 0)
+			return (-1);
 		buf[ret] = '\0';
 		fill_static(buf, &saved[fd]);
 		if (ft_strchr(buf, '\n'))
 			break ;
 	}
 	free(buf);
-	if (ret < 0)
-		return (-1);
 	if (!ret && !saved[fd])
-	{
-		*line = (char *)malloc(sizeof(char) * 1);
-		**line = '\0';
-		return (0);
-	}
+		return (empty_line(line));
 	return (create_line(line, &saved[fd]));
 }
