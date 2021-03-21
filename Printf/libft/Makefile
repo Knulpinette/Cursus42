@@ -5,11 +5,12 @@ NAME		= libft.a
 
 # -*- Definitions of variables -*-
 
-SRCS		= ${shell find . -type f \( -name "ft_*.c" ! -name "ft_lst*.c" ! -name "*bonus.c" \)}
-SRCSBONUS	= ${shell find . -type f \( -name "ft_*.c" \)}
+SRCS		= ${shell find . -type f \( -name "ft_*.c" ! -name "ft_lst*.c" ! -name "*bonus.c" \) | cut -d'/' -f2-}
+SRCS_BONUS	= ${shell find . -type f \( -name "ft_*.c" \) | cut -d'/' -f2-}
 
-OBJS		= ${SRCS:.c=.o}
-OBJSBONUS	= ${SRCSBONUS:.c=.o}
+OBJS_DIR	= objs
+OBJS		= ${addprefix ${OBJS_DIR}/,${SRCS:.c=.o}}
+OBJS_BONUS	= ${addprefix ${OBJS_DIR}/,${SRCS_BONUS:.c=.o}}
 
 HEADER		= libft.h
 HEADERS_OWN = libft.h libft_bonus.h
@@ -23,8 +24,9 @@ CFLAGS		= -Wall -Wextra -Werror
 
 #	Implicit rules
 
-.c.o:
-		${CC} ${CFLAGS} -I libft -c $< -o ${<:.c=.o}
+${OBJS_DIR}/%.o: %.c ${HEADER}
+	@mkdir -p objs
+	${CC} ${FLAGS} -o $@ -c $<
 
 #	Active rules
 
@@ -33,13 +35,14 @@ all: $(NAME)
 $(NAME): ${OBJS} 
 	@ar rcs ${NAME} ${OBJS}
 
-bonus: ${OBJS} ${OBJSBONUS} 
-	@ar rcs ${NAME} ${OBJS} ${OBJSBONUS}
+bonus: ${OBJS} ${OBJS_BONUS} 
+	@ar rcs ${NAME} ${OBJS} ${OBJS_BONUS}
 
 #	Cleaning rules
 
 clean:
-	${RM} ${OBJS} $(OBJSBONUS)
+	${RM} ${OBJS} ${OBJS_BONUS}
+	@rm -rf objs
 
 fclean: clean
 	${RM} ${NAME}

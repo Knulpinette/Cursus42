@@ -17,7 +17,7 @@ char	*ft_printf_X(va_list arg, flags_list *flags)
 	char	*conv;
 	int		len;
 
-	conv = ft_itoa_convert_base(va_arg(arg, int), "0123456789ABCDEF");
+	conv = ft_itoa_convert_x(va_arg(arg, int), "0123456789ABCDEF");
 	if (!conv)
 		return (NULL);
 	len = (int)ft_strlen(conv);

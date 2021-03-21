@@ -27,6 +27,8 @@ char	*ft_printf_i(va_list i, flags_list *flags);
 char	*ft_printf_u(va_list u, flags_list *flags);
 char	*ft_printf_x(va_list x, flags_list *flags);
 char	*ft_printf_X(va_list X, flags_list *flags);
+char	*ft_itoa_convert_x(unsigned int nb, char *base);
+char	*ft_putnbr_base_x(long int l_nb, char *base, int size, int l, char *str);
 char	*ft_printf_pourcent();
 
 #endif

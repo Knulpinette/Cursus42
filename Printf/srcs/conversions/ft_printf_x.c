@@ -23,7 +23,7 @@ char	*ft_putnbr_base_x(long int l_nb, char *base, int size, int l, char *str)
 	return (str);
 }
 
-static char	*ft_itoa_convert_x(unsigned int nb, char *base)
+char	*ft_itoa_convert_x(unsigned int nb, char *base)
 {
 	unsigned long	l_nb;
 	unsigned int	l;
