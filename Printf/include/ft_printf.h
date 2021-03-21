@@ -16,7 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdarg.h>
-# include "../srcs/libft/libft.h"
+# include "../libft/libft.h"
 # include "ft_printf_parse.h"
 # include "ft_printf_conversions.h"
 # include "ft_printf_print.h"
