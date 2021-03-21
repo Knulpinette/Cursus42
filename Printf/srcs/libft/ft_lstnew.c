@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_flags.h                                  :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/12 12:55:43 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/03/12 12:55:45 by osurcouf         ###   ########.fr       */
+/*   Created: 2021/02/22 15:14:41 by osurcouf          #+#    #+#             */
+/*   Updated: 2021/02/22 15:14:43 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_FLAGS_H
-# define FT_PRINTF_FLAGS_H
+/*
+** 🦕
+** function : lstnew
+** This function creates a new list and allocates memory for it.
+** 🦕
+*/
 
-typedef struct	new_list {
-	int	zero;
-	int	dot;
-	int	minus;
-	int	wildcard;
-	int	width;
-	int	precision;
-}				flags_list;
+#include "libft.h"
 
-flags_list	*ft_get_flags(const char *s, va_list arg);
-int			ft_i_am_flag(char c);
-int			ft_i_am_wildcard(char c);
-int			ft_i_am_zero(char c);
-int			ft_i_am_dot(char c);
-int			ft_i_am_minus(char c);
+t_list	*ft_lstnew(void *content)
+{
+	t_list	*list;
 
-#endif
-
-
+	list = (t_list *)malloc(sizeof(t_list));
+	if (!list)
+		return (NULL);
+	list->content = content;
+	list->next = 0;
+	return (list);
+}

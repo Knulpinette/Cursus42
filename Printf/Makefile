@@ -4,22 +4,23 @@ NAME	= libftprintf.a
 
 # -*- Definitions of variables -*-
 
-SRCS		= ${shell find . -type f \( -name "ft_*.c" -not -name "*bonus.c" -not -wholename "./libft/ft_*.c" \)}
-SRCS_BONUS	= ${shell find . -type f \( -name "ft_*.c" -not -wholename "./libft/ft_*.c" \)}
+SRCS		= ${shell find . -type f \( -wholename "./srcs/*.c" -not -wholename "./srcs/*bonus.c" -not -wholename "./srcs/libft/ft_*.c" \)}
+SRCS_BONUS	= ${shell find . -type f \( -wholename "./srcs/*.c" -not -wholename "./srcs/libft/ft_*.c" \)}
 
 OBJS		= ${SRCS:.c=.o}
 OBJS_BONUS	= ${SRCS_BONUS:.c=.o}
 
 HEADER		= ${shell find . -type f \( -name "ft_*.h" \)}
+HEADER_LFT	= ./srcs/libft/libft.h
 
-LIBFT_DIR		= ./libft
-LIBFT_PATH	= ./libft/libft.a
+LIBFT_DIR	= ./srcs/libft
+LIBFT_PATH	= ./srcs/libft/libft.a
 LIB			= -L. -lftprintf ${LIBFT_PATH}
 
 CC			= gcc
 RM			= rm -f
 MAKE		= make
-CFLAGS 		= -Wall -Wextra -Werror
+CFLAGS 		= -Wall -Wextra -Werror #-fsanitize=address
 
 # -*- The Rules -*-
 
@@ -32,13 +33,15 @@ CFLAGS 		= -Wall -Wextra -Werror
 
 all:		$(NAME) test
 
-$(NAME):	$(OBJS) $(HEADER)
-			${MAKE} bonus -C ${LIBFT_DIR}
+$(NAME):	${OBJS} $(HEADER)
+			${MAKE} bonus -C ${LIBFT_DIR} 
+			#cp ${HEADER_LFT} ./include
+			#cp ${LIBFT_PATH} ./
 			ar rc $(NAME) $(OBJS) && ranlib $(NAME)
 			#--------------------------------
 
 test: 	
-			${CC} ${CFLAGS} -fsanitize=address main.c ${LIB} -o result
+			${CC} ${CFLAGS} main.c ${LIB} -o result
 			#🦄🍭🦄🍭🦄🍭🦄🍭🦄🍭🦄🍭🦄
 			./result\
 

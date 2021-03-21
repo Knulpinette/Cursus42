@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_utils.h                                  :+:      :+:    :+:   */
+/*   ft_printf_pourcent.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/11 11:30:24 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/03/11 11:30:26 by osurcouf         ###   ########.fr       */
+/*   Created: 2021/03/20 21:07:45 by osurcouf          #+#    #+#             */
+/*   Updated: 2021/03/20 21:07:46 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_UTILS_H
-# define FT_PRINTF_UTILS_H
+#include "../../include/ft_printf.h"
 
-int		ft_check_len_arg(const char *s);
+char	*ft_printf_pourcent()
+{
+	char	*arg_str;
 
-#endif
+	arg_str = (char *)malloc(sizeof(char) * 2);
+	arg_str[0] = '%';
+	arg_str[1] = '\0';
+	return (arg_str);
+}
