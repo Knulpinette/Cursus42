@@ -24,27 +24,25 @@ CFLAGS		= -Wall -Wextra -Werror
 #	Implicit rules
 
 .c.o:
-		${CC} ${CFLAGS} -I libft -c $< -o ${<:.c=.o}
+		@${CC} ${CFLAGS} -I libft -c $< -o ${<:.c=.o}
 
 #	Active rules
 
 all: $(NAME)
 
 $(NAME): ${OBJS} 
-	ar rc ${NAME} ${OBJS}
-	ranlib ${NAME}
+	@ar rcs ${NAME} ${OBJS}
 
 bonus: ${OBJS} ${OBJSBONUS} 
-	ar rc ${NAME} ${OBJS} ${OBJSBONUS}
-	ranlib ${NAME}
+	@ar rcs ${NAME} ${OBJS} ${OBJSBONUS}
 
 #	Cleaning rules
 
 clean:
-	${RM} ${OBJS} $(OBJSBONUS)
+	@${RM} ${OBJS} $(OBJSBONUS)
 
 fclean: clean
-	${RM} ${NAME}
+	@${RM} ${NAME}
 
 re: fclean all
 
