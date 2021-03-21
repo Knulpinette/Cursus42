@@ -24,7 +24,7 @@ CFLAGS		= -Wall -Wextra -Werror
 #	Implicit rules
 
 .c.o:
-		@${CC} ${CFLAGS} -I libft -c $< -o ${<:.c=.o}
+		${CC} ${CFLAGS} -I libft -c $< -o ${<:.c=.o}
 
 #	Active rules
 

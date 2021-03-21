@@ -65,6 +65,6 @@ char			*ft_strtrim(char const *s1, char const *set);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 int				ft_tolower(int l);
 int				ft_toupper(int u);
-char			*ft_itoa_convert_base(int nbr, char *base);
+char			*ft_itoa_convert_base(int nb, char *base);
 
 #endif

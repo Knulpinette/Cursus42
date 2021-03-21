@@ -4,15 +4,15 @@ NAME	= libftprintf.a
 
 # -*- Definitions of variables -*-
 
-SRCSDIR		= srcs
-SRCS		= ${addprefix ${SRCSDIR}/,${SOURCES}}
-SRCS_BONUS	= ${addprefix ${SRCSDIR}/,${S_BONUS}}
-SOURCES		= ${shell find . -type f \( -name "ft_*.c" -not -wholename "./srcs/*bonus.c" -not -wholename "./srcs/libft/ft_*.c" \) | cut -d'/' -f3-}
-S_BONUS		= ${shell find . -type f \( -name "ft_*.c" -not -wholename "./srcs/libft/ft_*.c" \) | cut -d'/' -f3-}
+SRCS_DIR	= srcs
+SRCS		= ${addprefix ${SRCS_DIR}/,${SRCS_FIND}}
+SRCS_FIND	= ${shell find . -type f \( -name "ft_*.c" -not -wholename "./ft_*bonus.c" -not -wholename "./srcs/libft/ft_*.c" \) | cut -d'/' -f3-}
+SRCS_BONUS	= ${addprefix ${SRCS_DIR}/,${SRCS_BFIND}}
+SRCS_BFIND	= ${shell find . -type f \( -name "ft_*.c" -not -wholename "./srcs/libft/ft_*.c" \) | cut -d'/' -f3-}
 
-OBJSDIR		= objs
-OBJS		= ${addprefix ${OBJSDIR}/,${SOURCES:.c=.o}}
-OBJS_BONUS	= ${addprefix ${OBJSDIR}/,${S_BONUS:.c=.o}}
+OBJS_DIR	= objs
+OBJS		= ${addprefix ${OBJS_DIR}/,${SRCS_FIND:.c=.o}}
+OBJS_BONUS	= ${addprefix ${OBJS_DIR}/,${SRCS_BFIND:.c=.o}}
 
 HEADER		= include
 
@@ -30,12 +30,12 @@ CFLAGS 		= -Wall -Wextra -Werror -fsanitize=address
 #	Implicit rules
 
 # Create and compile objects files in a dedicated folder
-${OBJSDIR}/%.o: ${SRCSDIR}/%.c ${HEADER}/ft_printf.h
-	 @mkdir -p objs
-	 @mkdir -p objs/conversions
-	 @mkdir -p objs/print
-	 @mkdir -p objs/parse
-	 @${CC} ${FLAGS} -I ${HEADER} -o $@ -c $<
+${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c ${HEADER}/ft_printf.h
+			 @mkdir -p objs
+			 @mkdir -p objs/conversions
+			 @mkdir -p objs/print
+			 @mkdir -p objs/parse
+			 ${CC} ${FLAGS} -I ${HEADER} -o $@ -c $<
 
 #	Active rules
 
@@ -43,7 +43,7 @@ all:		${NAME} test
 
 # Compile libft and copy it to the root
 libft:
-			@${MAKE} bonus -C ${LIBFT_DIR}
+			${MAKE} bonus -C ${LIBFT_DIR}
 			@cp ${LIBFT_PATH} ./${NAME}
 
 # Create the printf library out of libft.a + libftprintf.a
@@ -52,9 +52,9 @@ ${NAME}:	libft ${OBJS}
 			#--------------------------------
 
 test: 	
-			${CC} ${CFLAGS} main.c ${LIB} -o result
+			@${CC} ${CFLAGS} main.c ${LIB} -o result
 			#🦄🍭🦄🍭🦄🍭🦄🍭🦄🍭🦄🍭🦄
-			./result\
+			@./result\
 
 bonus:		libft ${OBJS} ${OBJS_BONUS}
 			@ar rcs ${NAME} ${OBJS} ${OBJS_BONUS}
@@ -63,12 +63,13 @@ bonus:		libft ${OBJS} ${OBJS_BONUS}
 #	Cleaning rules
 
 clean:
-	@${MAKE} clean -C ${LIBFT_DIR}
-	@${RM} ${OBJS} ${OBJS_BONUS}
+			${MAKE} clean -C ${LIBFT_DIR}
+			${RM} ${OBJS} ${OBJS_BONUS}
+			@rm -rf objs
 
 fclean:		clean
-	@${MAKE} fclean -C ${LIBFT_DIR}
-	@${RM} ${NAME}
+			${MAKE} fclean -C ${LIBFT_DIR}
+			${RM} ${NAME}
 
 re:			fclean all
 
