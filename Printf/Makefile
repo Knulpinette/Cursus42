@@ -6,9 +6,9 @@ NAME	= libftprintf.a
 
 SRCS_DIR	= srcs
 SRCS		= ${addprefix ${SRCS_DIR}/,${SRCS_FIND}}
-SRCS_FIND	= ${shell find . -type f \( -name "ft_*.c" -not -wholename "./ft_*bonus.c" -not -wholename "./srcs/libft/ft_*.c" \) | cut -d'/' -f3-}
+SRCS_FIND	= ${shell find . -type f \( -name "ft_*.c" -not -wholename "./ft_*bonus.c" -not -wholename "./libft/ft_*.c" \) | cut -d'/' -f3-}
 SRCS_BONUS	= ${addprefix ${SRCS_DIR}/,${SRCS_BFIND}}
-SRCS_BFIND	= ${shell find . -type f \( -name "ft_*.c" -not -wholename "./srcs/libft/ft_*.c" \) | cut -d'/' -f3-}
+SRCS_BFIND	= ${shell find . -type f \( -name "ft_*.c" -not -wholename "./libft/ft_*.c" \) | cut -d'/' -f3-}
 
 OBJS_DIR	= objs
 OBJS		= ${addprefix ${OBJS_DIR}/,${SRCS_FIND:.c=.o}}
@@ -16,8 +16,8 @@ OBJS_BONUS	= ${addprefix ${OBJS_DIR}/,${SRCS_BFIND:.c=.o}}
 
 HEADER		= include
 
-LIBFT_DIR	= ./srcs/libft
-LIBFT_PATH	= ./srcs/libft/libft.a
+LIBFT_DIR	= libft
+LIBFT_PATH	= libft/libft.a
 LIB			= -L. -lftprintf
 
 CC			= gcc
@@ -44,7 +44,7 @@ all:		${NAME} test
 # Compile libft and copy it to the root
 libft:
 			${MAKE} bonus -C ${LIBFT_DIR}
-			@cp ${LIBFT_PATH} ./${NAME}
+			cp ${LIBFT_PATH} ./${NAME}
 
 # Create the printf library out of libft.a + libftprintf.a
 ${NAME}:	libft ${OBJS}
@@ -73,4 +73,4 @@ fclean:		clean
 
 re:			fclean all
 
-.PHONY:		all clean fclean re
+.PHONY:		libft all clean fclean re
