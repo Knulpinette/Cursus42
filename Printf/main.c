@@ -17,8 +17,8 @@ int main()
 	//ft_printf("\n");
 	//printf("\n%i\n", printf("%% character %12c string %-*.5s number %25.6i", 'c', 55, "won'the'print", -5000));
 	//printf("\n");
-	ft_printf("my printf\n 5 : %50p\n 10 : %-12.10x\n 12 : %-20.12X\n", p, 79375, 3487);
-	printf("real printf\n 5 : %50p\n 10 : %-12.10x\n 12 : %-20.12X\n", p, 79375, 3487);
+	ft_printf("my printf\n 5 : %p\n c : %c\n 12 : %c\n", p, 'c', 'i');
+	printf("real printf\n 5 : %p\n c : %c\n 12 : %c\n", p, 'c', 'i');
 	//ft_printf("%% character %12c string %-*.5s number %.6i", 'c', 55, "won'the'print", 5000);
 	return 0;
 }

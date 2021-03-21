@@ -26,6 +26,8 @@ char		*ft_get_arg(va_list arg, const char *s)
 		return (NULL);
 	if (flags->type == 'i')
 		arg_str = ft_printf_i(arg, flags);
+	if (flags->type == 'd')
+		arg_str = ft_printf_d(arg, flags);
 	if (flags->type == 'c')
 		arg_str = ft_printf_c(arg, flags);
 	if (flags->type == 's')

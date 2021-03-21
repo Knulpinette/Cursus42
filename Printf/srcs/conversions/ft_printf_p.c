@@ -28,20 +28,32 @@ char	*ft_itoa_convert_ptr(unsigned long nb, char *base)
 	unsigned long	l_nb;
 	int				l;
 	char			*conv;
-	int				size;
+	//int				size;
 
 	l = ft_strlen(base);
 	l_nb = nb;
-	size = 1;
+	/*size = 1;
 	while ((nb / 10) != 0)
 	{
 		size++;
 		nb = nb / 10;
-	}
-	conv = (char *)ft_calloc(sizeof(char), size);
+	}*/
+	conv = (char *)ft_calloc(sizeof(char), 15);
 	if (!(conv))
 		return (NULL);
-	conv = ft_putnbr_ptr(l_nb, base, size, l, conv);
+	conv = ft_putnbr_ptr(l_nb, base, 15, l, conv);
+	return (conv);
+}
+
+char	*ft_null()
+{
+	char	*conv;
+
+	conv = (char *)malloc(sizeof(char) * 4);
+	conv[0] = '0';
+	conv[1] = 'x';
+	conv[2] = '0';
+	conv[3] = '\0';
 	return (conv);
 }
 
@@ -52,6 +64,8 @@ char	*ft_printf_p(va_list arg, flags_list *flags)
 	int				len;
 
 	x = (unsigned long) va_arg(arg, void *);
+	if (!x)
+		return(ft_null());
 	conv = ft_itoa_convert_ptr(x, "0123456789abcdef");
 	conv[0] = '0';
 	conv[1] = 'x';

@@ -12,13 +12,43 @@
 
 #include "../../include/ft_printf.h"
 
+static char	*ft_putnbr_u(unsigned long nb, char *str, int size)
+{
+	str[size - 1] = '\0';
+	while (--size > 0)
+	{
+		str[size - 1] = '0' + nb % 10;
+		nb = nb / 10;
+	}
+	return (str);
+}
+
+static char		*ft_itoa_u(unsigned int n)
+{
+	unsigned int		size;
+	unsigned long int	nb;
+	char				*str;
+
+	nb = (long int)n;
+	size = 2;
+	while ((n / 10) != 0)
+	{
+		size++;
+		n = n / 10;
+	}
+	str = (char *)ft_calloc(sizeof(char), size);
+	if (!(str))
+		return (NULL);
+	return (ft_putnbr_u(nb, str, size));
+}
+
 char	*ft_printf_u(va_list arg, flags_list *flags)
 {	
-	char	*conv;
-	int		i;
-	int		len;
+	char			*conv;
+	unsigned int	i;
+	int				len;
 
-	i = va_arg(arg, int);
+	i = va_arg(arg, unsigned int);
 	if (i < 0)
 	{
 		conv = ft_strdup(" ");
@@ -26,7 +56,7 @@ char	*ft_printf_u(va_list arg, flags_list *flags)
 		flags->precision = flags->precision + 1; //?? same
 	}
 	else
-		conv = ft_itoa(i);
+		conv = ft_itoa_u(i);
 	if (!conv)
 		return (NULL);
 	len = (int)ft_strlen(conv);

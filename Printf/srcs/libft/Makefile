@@ -39,10 +39,10 @@ bonus: ${OBJS} ${OBJSBONUS}
 #	Cleaning rules
 
 clean:
-	@${RM} ${OBJS} $(OBJSBONUS)
+	${RM} ${OBJS} $(OBJSBONUS)
 
 fclean: clean
-	@${RM} ${NAME}
+	${RM} ${NAME}
 
 re: fclean all
 

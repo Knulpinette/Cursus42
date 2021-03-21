@@ -22,11 +22,11 @@ char	*align_nb_precision(int precision, char *conv, int len);
 char	*ft_printf_c(va_list c, flags_list *flags);
 char	*ft_printf_s(va_list s, flags_list *flags);
 char	*ft_printf_p(va_list p, flags_list *flags);
-char	*ft_printf_d(double d);
+char	*ft_printf_d(va_list d, flags_list *flags);
 char	*ft_printf_i(va_list i, flags_list *flags);
 char	*ft_printf_u(va_list u, flags_list *flags);
 char	*ft_printf_x(va_list x, flags_list *flags);
-char	*ft_printf_X(va_list x, flags_list *flags);
+char	*ft_printf_X(va_list X, flags_list *flags);
 char	*ft_printf_pourcent();
 
 #endif

@@ -12,11 +12,23 @@
 
 #include "../../include/ft_printf.h"
 
-char	*ft_printf_d(double d)
+char	*ft_printf_d(va_list arg, flags_list *flags)
 {
-	//do a special function to convert doubles
-	//return(ft_itoa_double(d));
-	return (ft_itoa((int)(d)));
+	char	*conv;
+	int		len;
+
+	conv = ft_itoa(va_arg(arg, int));
+	if (!conv)
+		return (NULL);
+	len = (int)ft_strlen(conv);
+	if ((flags->precision + 1) > len)
+	{
+		conv = align_nb_precision(flags->precision, conv, len);
+		len = (int)ft_strlen(conv);
+	}
+	if (flags->width > len)
+		conv = define_align_width(conv, flags, len);
+	return (conv);
 }
 
 
