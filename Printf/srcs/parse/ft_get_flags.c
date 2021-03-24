@@ -21,24 +21,35 @@ const char	*ft_get_width(const char *s, flags_list **flags, va_list arg)
 			s++;
 	}
 	if (ft_i_am_flag(*s) == wildcard)
+	{
 		flags[0]->width = va_arg(arg, int);
+		if (flags[0]->width < 0)
+		{
+			flags[0]->minus = minus;
+			flags[0]->width = -flags[0]->width;
+		}
+	}
 	return (s);
 }
 
 const char	*ft_get_precision(const char *s, flags_list **flags, va_list arg)
 {
-	if (ft_i_am_flag(*s) == dot && !ft_i_am_conversion(*(s + 1)))
+	if (ft_i_am_flag(*s) == dot)
 	{
-		s++;
-		if (ft_isdigit(*s))
+		flags[0]->dot = dot;
+		if(!ft_i_am_conversion(*(s + 1)))
 		{
-			flags[0]->precision = ft_atoi(s);
-			while (ft_isdigit(*s))
-				s++;
+			s++;
+			if (ft_isdigit(*s))
+			{
+				flags[0]->precision = ft_atoi(s);
+				while (ft_isdigit(*s))
+					s++;
+			}
+			else if (ft_i_am_flag(*s) == wildcard)
+				flags[0]->precision = va_arg(arg, int);
 		}
-		else if (ft_i_am_flag(*s) == wildcard)
-			flags[0]->precision = va_arg(arg, int);
-		}
+	}
 	return (s);
 }
 

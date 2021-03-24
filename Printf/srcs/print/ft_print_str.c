@@ -14,9 +14,12 @@
 
 int	ft_print_str(char *print)
 {
-	int			len;
+	char	*end_print;
 
-	len = ft_strlen(print);
-	write(1, print, len);
-	return (len);
+	end_print = print;
+	while (*end_print)
+		end_print++;
+	write(1, print, (end_print - print));
+	free(print);
+	return (end_print - print);
 }

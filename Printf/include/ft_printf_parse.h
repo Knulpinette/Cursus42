@@ -30,6 +30,7 @@ typedef struct	new_list {
 	int 	minus;
 	int		width;
 	int		arg_width;
+	int		dot;
 	int		precision;
 	int		arg_precision;
 	char	type;

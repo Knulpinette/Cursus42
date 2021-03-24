@@ -23,7 +23,7 @@ LIB			= -L. -lftprintf
 CC			= gcc
 RM			= rm -f
 MAKE		= make
-CFLAGS 		= -Wall -Wextra -Werror -fsanitize=address
+CFLAGS 		= -Wall -Wextra #-Werror -fsanitize=address
 
 # -*- The Rules -*-
 
@@ -39,7 +39,7 @@ ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c ${HEADER}/ft_printf.h
 
 #	Active rules
 
-all:		${NAME} test
+all:		${NAME}
 
 # Compile libft and copy it to the root
 libft:
@@ -54,7 +54,7 @@ ${NAME}:	libft ${OBJS}
 test: 	
 			@${CC} ${CFLAGS} main.c ${LIB} -o result
 			#🦄🍭🦄🍭🦄🍭🦄🍭🦄🍭🦄🍭🦄
-			@./result\
+			#@./result\
 
 bonus:		libft ${OBJS} ${OBJS_BONUS}
 			@ar rcs ${NAME} ${OBJS} ${OBJS_BONUS}

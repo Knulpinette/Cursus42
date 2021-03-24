@@ -20,14 +20,14 @@ char	*ft_printf_s(va_list arg, flags_list *flags)
 
 	conv = ft_strdup(va_arg(arg, char *));
 	len = ft_strlen(conv);
-	if (flags->precision < len && flags->precision != 0)
+	if ((flags->precision < len && flags->precision != 0) || flags->dot == dot)
 	{
 		temp = ft_substr(conv, 0, flags->precision);
 		free(conv);
 		conv = temp;
 		len = ft_strlen(conv);
 	}
-	if (flags->width > len)
+		if (flags->width > len)
 	{
 		flags->zero = 0;
 		conv = define_align_width(conv, flags, len);

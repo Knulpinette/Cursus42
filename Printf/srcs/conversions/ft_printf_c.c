@@ -22,6 +22,8 @@ char	*ft_printf_c(va_list arg, flags_list *flags)
 	if (flags->width > 1)
 	{
 		flags->zero = 0;
+		//if (flags->minus == minus && conv[0] == '\0')
+		//	flags->minus == 0;
 		conv = define_align_width(conv, flags, 1);
 	}
 	return(conv);

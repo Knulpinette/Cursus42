@@ -24,10 +24,8 @@ char		*ft_get_arg(va_list arg, const char *s)
 	flags = ft_get_flags(s + 1, arg); // Important + 1 pour éviter %
 	if (!flags)
 		return (NULL);
-	if (flags->type == 'i')
+	if (flags->type == 'i' || flags->type == 'd')
 		arg_str = ft_printf_i(arg, flags);
-	if (flags->type == 'd')
-		arg_str = ft_printf_d(arg, flags);
 	if (flags->type == 'c')
 		arg_str = ft_printf_c(arg, flags);
 	if (flags->type == 's')
@@ -40,13 +38,12 @@ char		*ft_get_arg(va_list arg, const char *s)
 		arg_str = ft_printf_X(arg, flags);
 	if (flags->type == 'p')
 		arg_str = ft_printf_p(arg, flags);
-	//UNDERSTAND SPECIAL CASE AND HOW TO HANDLE INFERIOR TO 0
 	if (flags->type == '%')
 		arg_str = ft_printf_pourcent();
 	if (!arg_str)
 		return (NULL);
 	free(flags);
-	return (arg_str);
+	return (ft_print_str(arg_str));
 }
 
 int		ft_printf(const char *s, ...)
@@ -69,11 +66,7 @@ int		ft_printf(const char *s, ...)
 		if (*s == '%')
 		{
 			len_arg = ft_check_len_arg(s + 1) + 1;
-			print = ft_get_arg(arg, s);
-			if (!print)
-				return (0);
-			count = count + ft_print_str(print);
-			free(print);
+			count = count + ft_get_arg(arg, s);
 			s = s + len_arg;
 		}
 	}
