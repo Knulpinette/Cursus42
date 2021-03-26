@@ -21,12 +21,23 @@ char	*ft_printf_i(va_list arg, flags_list *flags)
 	if (!conv)
 		return (NULL);
 	len = (int)ft_strlen(conv);
+	if (flags->dot && !flags->precision && conv[0] == '0')
+	{
+		free(conv);
+		if (!flags->width)
+			return (ft_strdup("\0"));
+		conv = ft_strdup(" ");
+	}
 	if ((flags->precision + 1) > len)
 	{
 		conv = align_nb_precision(flags->precision, conv, len);
 		len = (int)ft_strlen(conv);
 	}
 	if (flags->width > len)
+	{
+		if (flags->precision || flags->dot)
+			flags->zero = 0;
 		conv = define_align_width(conv, flags, len);
+	}
 	return (conv);
 }

@@ -12,18 +12,21 @@
 
 #include "../../include/ft_printf.h"
 
-char	*ft_printf_c(va_list arg, flags_list *flags)
+char	*ft_printf_c(va_list arg, flags_list *flags, int *count)
 {
 	char *conv;
 
 	conv = (char *)malloc(sizeof(char) * 2);
 	conv[0] = (char)(va_arg(arg, int));
 	conv[1] = '\0';
+	if (conv[0] == '\0')
+	{
+		*count = *count + 1;
+		flags->minus = 0;
+	}
 	if (flags->width > 1)
 	{
 		flags->zero = 0;
-		//if (flags->minus == minus && conv[0] == '\0')
-		//	flags->minus == 0;
 		conv = define_align_width(conv, flags, 1);
 	}
 	return(conv);

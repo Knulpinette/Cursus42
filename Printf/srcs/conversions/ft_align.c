@@ -61,34 +61,44 @@ char	*left_align(int width, char *conv, int len, char *temp)
 	return (temp);
 }
 
-void	zero_align(char	**temp, int width)
+void	zero_align(char	**temp, int width, int i)
 {
 	while (width > 0)
 	{
 		temp[0][width - 1] = '0';
 		width--;
 	}
+	if (i)
+		temp[0][0] = '-';
 }
 
-char	*right_align(int zero, int width, char *conv, int len, char *temp)
+char	*right_align(flags_list *flags, char *conv, int len, char *temp)
 {
-	
-	temp[width] = '\0';
+	int	i;
+
+	i = 0;	
+	temp[flags->width] = '\0';
 	while (len > 0)
 	{
-		temp[width - 1] = conv[len - 1];
+		temp[flags->width - 1] = conv[len - 1];
 		len--;
-		width--;
+		flags->width--;
+	}
+	if (conv[0] = '-' && flags->zero && !(flags->type == 'u') \
+	&& !(flags->type == 'x') && !(flags->type == 'X')) //-000 case in i
+	{
+		i = i + 1;
+		temp[flags->width] = '0';
 	}
 	free(conv);
-	if (zero) // ZERO CASE
-		zero_align(&temp, width);
+	if (flags->zero) // ZERO CASE
+		zero_align(&temp, flags->width, i);
 	else // DEFAULT CASE RIGHT ALIGN
 	{
-		while (width > 0)
+		while (flags->width > 0)
 		{
-			temp[width - 1] = ' ';
-			width--;
+			temp[flags->width - 1] = ' ';
+			flags->width--;
 		}
 	}
 	return (temp);
@@ -104,6 +114,6 @@ char	*define_align_width(char *conv, flags_list *flags, int len)
 	if (flags->minus)
 		conv = left_align(flags->width, conv, len, temp);
 	else
-		conv = right_align(flags->zero, flags->width, conv, len, temp);
+		conv = right_align(flags, conv, len, temp);
 	return (conv);
 }

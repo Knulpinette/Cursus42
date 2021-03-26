@@ -12,13 +12,30 @@
 
 #include "../../include/ft_printf.h"
 
+static char	*system_null()
+{
+	char	*null;
+
+	#if __APPLE__
+		null = ft_strdup("0x0");
+	#else
+		null = ft_strdup("(null)");
+	#endif
+	return (null);
+}
+
 char	*ft_printf_s(va_list arg, flags_list *flags)
 {
 	char	*temp;
+	char	*verif;
 	char	*conv;
 	int		len;
 
-	conv = ft_strdup(va_arg(arg, char *));
+	verif = va_arg(arg, char *);
+	if (verif == NULL)
+		conv = system_null();
+	else
+		conv = ft_strdup(verif);
 	len = ft_strlen(conv);
 	if ((flags->precision < len && flags->precision != 0) || flags->dot == dot)
 	{

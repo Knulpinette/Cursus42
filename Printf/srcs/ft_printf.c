@@ -16,34 +16,32 @@
 ** 🦕
 */
 
-char		*ft_get_arg(va_list arg, const char *s)
+int		ft_get_arg(va_list arg, const char *s, int count)
 {
 	flags_list	*flags;
 	char	*arg_str;
 	
 	flags = ft_get_flags(s + 1, arg); // Important + 1 pour éviter %
 	if (!flags)
-		return (NULL);
+		return (-1);
 	if (flags->type == 'i' || flags->type == 'd')
 		arg_str = ft_printf_i(arg, flags);
 	if (flags->type == 'c')
-		arg_str = ft_printf_c(arg, flags);
+		arg_str = ft_printf_c(arg, flags, &count);
 	if (flags->type == 's')
 		arg_str = ft_printf_s(arg, flags);
 	if (flags->type == 'u')
 		arg_str = ft_printf_u(arg, flags);
-	if (flags->type == 'x')
+	if (flags->type == 'x' || flags->type == 'X')
 		arg_str = ft_printf_x(arg, flags);
-	if (flags->type == 'X')
-		arg_str = ft_printf_X(arg, flags);
 	if (flags->type == 'p')
 		arg_str = ft_printf_p(arg, flags);
 	if (flags->type == '%')
 		arg_str = ft_printf_pourcent();
 	if (!arg_str)
-		return (NULL);
+		return (-1);
 	free(flags);
-	return (ft_print_str(arg_str));
+	return (count + ft_print_str(arg_str));
 }
 
 int		ft_printf(const char *s, ...)
@@ -66,7 +64,7 @@ int		ft_printf(const char *s, ...)
 		if (*s == '%')
 		{
 			len_arg = ft_check_len_arg(s + 1) + 1;
-			count = count + ft_get_arg(arg, s);
+			count = ft_get_arg(arg, s, count);
 			s = s + len_arg;
 		}
 	}

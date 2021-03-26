@@ -19,16 +19,12 @@ char	ft_am_conv(const char *s);
 char	ft_i_am_conversion(char c);
 char	*define_align_width(char *conv, flags_list *flags, int len);
 char	*align_nb_precision(int precision, char *conv, int len);
-char	*ft_printf_c(va_list c, flags_list *flags);
+char	*ft_printf_c(va_list c, flags_list *flags, int *count);
 char	*ft_printf_s(va_list s, flags_list *flags);
 char	*ft_printf_p(va_list p, flags_list *flags);
-char	*ft_printf_d(va_list d, flags_list *flags);
-char	*ft_printf_i(va_list i, flags_list *flags);
+char	*ft_printf_i(va_list d, flags_list *flags);
 char	*ft_printf_u(va_list u, flags_list *flags);
 char	*ft_printf_x(va_list x, flags_list *flags);
-char	*ft_printf_X(va_list X, flags_list *flags);
-char	*ft_itoa_convert_x(unsigned int nb, char *base);
-char	*ft_putnbr_base_x(long int l_nb, char *base, int size, int l, char *str);
 char	*ft_printf_pourcent();
 
 #endif

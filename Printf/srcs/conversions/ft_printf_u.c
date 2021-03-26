@@ -49,24 +49,28 @@ char	*ft_printf_u(va_list arg, flags_list *flags)
 	int				len;
 
 	i = va_arg(arg, unsigned int);
-	if (i < 0)
-	{
-		conv = ft_strdup(" ");
-		flags->width = flags->width + 1; // ?? not sure at all. Undefined behaviour ?
-		flags->precision = flags->precision + 1; //?? same
-	}
-	else
-		conv = ft_itoa_u(i);
+	conv = ft_itoa_u(i);
 	if (!conv)
 		return (NULL);
 	len = (int)ft_strlen(conv);
+		if (flags->dot && !flags->precision && conv[0] == '0')
+	{
+		free(conv);
+		if (!flags->width)
+			return (ft_strdup("\0"));
+		conv = ft_strdup(" ");
+	}
 	if ((flags->precision + 1) > len)
 	{
 		conv = align_nb_precision(flags->precision, conv, len);
 		len = (int)ft_strlen(conv);
 	}
 	if (flags->width > len)
+	{
+		if (flags->precision || flags->dot)
+			flags->zero = 0;
 		conv = define_align_width(conv, flags, len);
+	}
 	return (conv);
 }
 

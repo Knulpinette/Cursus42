@@ -23,7 +23,7 @@ LIB			= -L. -lftprintf
 CC			= gcc
 RM			= rm -f
 MAKE		= make
-CFLAGS 		= -Wall -Wextra #-Werror -fsanitize=address
+CFLAGS 		= #-Wall -Wextra -Werror -fsanitize=address
 
 # -*- The Rules -*-
 
@@ -51,7 +51,7 @@ ${NAME}:	libft ${OBJS}
 			@ar rcs ${NAME} ${OBJS}
 			#--------------------------------
 
-test: 	
+test: 		${NAME}	
 			@${CC} ${CFLAGS} main.c ${LIB} -o result
 			#🦄🍭🦄🍭🦄🍭🦄🍭🦄🍭🦄🍭🦄
 			#@./result\
