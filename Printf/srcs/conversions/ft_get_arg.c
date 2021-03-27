@@ -72,3 +72,18 @@ char	ft_i_am_conversion(char c)
 	}
 	return (0);
 }
+
+/*
+** function : convert_pourcent
+** returns : the string "%\0".
+*/
+
+char	*convert_pourcent()
+{
+	char	*arg_str;
+
+	arg_str = (char *)malloc(sizeof(char) * 2);
+	arg_str[0] = '%';
+	arg_str[1] = '\0';
+	return (arg_str);
+}
