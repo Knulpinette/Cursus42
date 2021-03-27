@@ -86,7 +86,6 @@ int		ft_print_c_null(char *print, int *align)
 	}
 	else
 		count = handle_align(align, null, print, end_print);
-	count = count;
 	free(print);
 	return (count);
 }
