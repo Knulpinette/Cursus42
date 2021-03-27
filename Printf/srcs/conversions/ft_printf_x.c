@@ -14,58 +14,54 @@
 
 /*
 ** 🦕
-** function : TO DO + shorten and organise
+** function : convert_x
+** return : the given int converted in hexadecimal, into a string.
+** -> Handles both x and X types.
 ** 🦕
 */
 
-char	*ft_putnbr_base_x(long int l_nb, char *base, int size, int l, char *str)
+/*
+** function : handle_width_and_precision
+** Modifies the values directly in the other function
+** -> that's why it deals with **pointers.
+** Special case : if there is width AND precision, the function will
+** 				  ignore any flag '0'.
+*/
+
+static void	handle_w_and_p(char **conv, t_flags **flags, int *len)
 {
-	str[size] = '\0';
-	while (size > 0)
+	if ((flags[0]->precision + 1) > *len)
 	{
-		str[size - 1] = base[l_nb % l];
-		l_nb = l_nb / l;
-		size--;
+		*conv = align_nb_precision(flags[0]->precision, *conv, *len);
+		*len = (int)ft_strlen(*conv);
 	}
-	return (str);
+	if (flags[0]->width > *len)
+	{
+		if (flags[0]->precision || flags[0]->dot)
+			flags[0]->zero = 0;
+		*conv = define_align_width(*conv, flags[0], *len);
+	}
 }
 
-char	*ft_itoa_convert_x(unsigned int nb, char *base)
+/*
+** function : convert_x
+** return : the given int converted in hexadecimal, into a string.
+** 1. Converts the given unsigned int into the proper hexadecimal base.
+** 2. Sends the data to the width and precision function.
+** Special case : If the given int is 0, + precision is '.' or '.0'
+**     			  AND there is width, the function returns a string '\0'.
+**				  Else it creates a freeable empty string.
+*/
+
+char		*convert_x(va_list arg, t_flags *flags)
 {
-	unsigned long	l_nb;
-	unsigned int	l;
-	char			*conv;
-	unsigned int	size;
-
-	l = ft_strlen(base);
-	l_nb = nb;
-	size = 1;
-	if (nb < 0)
-		size++;
-	while ((nb / l) != 0)
-	{
-		size++;
-		nb = nb / l;
-	}
-	conv = (char *)ft_calloc(sizeof(char), size + 1);
-	if (!(conv))
-		return (NULL);
-	conv = ft_putnbr_base_x(l_nb, base, size, l, conv);
-	return (conv);
-}
-
-
-char	*convert_x(va_list arg, flags_list *flags)
-{	
 	char	*conv;
-	int		i;
 	int		len;
-	
-	i = va_arg(arg, int);
+
 	if (flags->type == 'x')
-		conv = ft_itoa_convert_x(i, "0123456789abcdef");
+		conv = ft_itoa_base(va_arg(arg, unsigned int), "0123456789abcdef");
 	if (flags->type == 'X')
-		conv = ft_itoa_convert_x(i, "0123456789ABCDEF");
+		conv = ft_itoa_base(va_arg(arg, unsigned int), "0123456789ABCDEF");
 	if (!conv)
 		return (NULL);
 	len = (int)ft_strlen(conv);
@@ -76,16 +72,6 @@ char	*convert_x(va_list arg, flags_list *flags)
 			return (ft_strdup("\0"));
 		conv = ft_strdup(" ");
 	}
-	if ((flags->precision + 1) > len)
-	{
-		conv = align_nb_precision(flags->precision, conv, len);
-		len = (int)ft_strlen(conv);
-	}
-	if (flags->width > len)
-	{
-		if (flags->precision || flags->dot)
-			flags->zero = 0;
-		conv = define_align_width(conv, flags, len);
-	}
+	handle_w_and_p(&conv, &flags, &len);
 	return (conv);
 }

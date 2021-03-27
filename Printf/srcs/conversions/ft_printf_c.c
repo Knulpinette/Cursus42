@@ -22,7 +22,7 @@
 
 /*
 ** function : convert_c
-** returns : the argument converted in a string.
+** returns : a character converted in a string.
 ** First, we need to typecast the argument given as an int into a char.
 ** It's a specificity of variadic arguments, char are read as ints.
 ** Then we handle the special case where char = '\0' and set the appropriate
@@ -32,11 +32,13 @@
 ** No need to handle precision since it's not used with the c conversion.
 */
 
-char	*convert_c(va_list arg, flags_list *flags, int *char_null, int *align)
+char	*convert_c(va_list arg, t_flags *flags, int *char_null, int *align)
 {
 	char *conv;
 
 	conv = (char *)malloc(sizeof(char) * 2);
+	if (!conv)
+		return (NULL);
 	conv[0] = (char)va_arg(arg, int);
 	conv[1] = '\0';
 	if (conv[0] == '\0')
@@ -51,7 +53,7 @@ char	*convert_c(va_list arg, flags_list *flags, int *char_null, int *align)
 		flags->zero = none;
 		conv = define_align_width(conv, flags, 1);
 	}
-	return(conv);
+	return (conv);
 }
 
 /*
@@ -64,7 +66,7 @@ char	*convert_c(va_list arg, flags_list *flags, int *char_null, int *align)
 ** Attention : free the flags.
 */
 
-int		case_c(va_list arg, flags_list *flags, int count)
+int		case_c(va_list arg, t_flags *flags, int count)
 {
 	int		align;
 	int		char_null;
@@ -80,4 +82,3 @@ int		case_c(va_list arg, flags_list *flags, int count)
 		return (count + ft_print_c_null(arg_str, &align));
 	return (count + ft_print_str(arg_str));
 }
-

@@ -85,7 +85,7 @@ int	ft_check_len_arg(const char *s)
 	int	len;
 
 	len = 1;
-	while (*s) 
+	while (*s)
 	{
 		if (ft_i_am_conversion(*s))
 			return (len);

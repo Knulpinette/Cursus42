@@ -15,8 +15,8 @@
 /*
 ** 🦕
 ** function : get_flags
-** returns : a flags_list with all the flags
-** The flags_list is set in ft_printf_parse.h.
+** returns : a t_flags with all the flags
+** The t_flags is set in ft_printf_parse.h.
 ** 🦕
 */
 
@@ -27,7 +27,7 @@
 ** Those values are set in an enum in ft_printf_parse.h.
 */
 
-int	ft_i_am_flag(char c)
+int			ft_i_am_flag(char c)
 {
 	if (c == '-')
 		return (minus);
@@ -51,7 +51,7 @@ int	ft_i_am_flag(char c)
 ** to its positive value.
 */
 
-const char	*ft_get_width(const char *s, flags_list **flags, va_list arg)
+const char	*ft_get_width(const char *s, t_flags **flags, va_list arg)
 {
 	if (ft_isdigit(*s) && *s != '0')
 	{
@@ -81,12 +81,12 @@ const char	*ft_get_width(const char *s, flags_list **flags, va_list arg)
 ** it will be important in the conversion functions using precision.
 */
 
-const char	*ft_get_precision(const char *s, flags_list **flags, va_list arg)
+const char	*ft_get_precision(const char *s, t_flags **flags, va_list arg)
 {
 	if (ft_i_am_flag(*s) == dot)
 	{
 		flags[0]->dot = dot;
-		if(!ft_i_am_conversion(*(s + 1)))
+		if (!ft_i_am_conversion(*(s + 1)))
 		{
 			s++;
 			if (ft_isdigit(*s))
@@ -104,7 +104,7 @@ const char	*ft_get_precision(const char *s, flags_list **flags, va_list arg)
 
 /*
 ** function : core_get_flags
-** returns : a flags_list with all the flags
+** returns : a t_flags with all the flags
 ** First we get the '0' and the '-' as they are the first step.
 ** Then we get the width.
 ** Then the precision.
@@ -112,11 +112,11 @@ const char	*ft_get_precision(const char *s, flags_list **flags, va_list arg)
 ** this argument.
 */
 
-flags_list	*ft_get_flags(const char *s, va_list arg)
+t_flags	*ft_get_flags(const char *s, va_list arg)
 {
-	flags_list	*flags;
+	t_flags	*flags;
 
-	flags = (flags_list *)ft_calloc(sizeof(flags_list), 1);
+	flags = (t_flags *)ft_calloc(sizeof(t_flags), 1);
 	if (!flags)
 		return (NULL);
 	while (!ft_i_am_conversion(*s))

@@ -23,7 +23,7 @@ LIB			= -L. -lftprintf
 CC			= gcc
 RM			= rm -f
 MAKE		= make
-CFLAGS 		= -Wall -Wextra -Werror
+CFLAGS 		= -Wall -Wextra #-Werror
 
 # -*- The Rules -*-
 

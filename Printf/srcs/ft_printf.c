@@ -20,10 +20,14 @@
 ** 2. If we encounter %, get the argument.
 **    First we get the number of character from % to the conversion character
 **    so we know how long the segment is and start the new loop in the right
-**    spot.
-**    Then we get the length of the argument converted into a string. That
-**    argument will be printed.
-** 3. We loop all over until the end where we free the variadic list of arg.
+**    spot in ft_printf.
+**    Then we send the argument list to get_arg function where we will:
+**		-> 1. Parse through that portion of string and get the according flags.
+**		-> 2. Send the argument to the right conversion function depending on
+**			  its conversion type and return a string.
+**		-> 3. Print the returned string.
+**		-> 4. Return the count of characters printed for that argument.
+** 3. We loop all over until the end - where we free the variadic list of arg !
 ** 🦕
 */
 
@@ -34,10 +38,10 @@ int		ft_printf(const char *s, ...)
 	char		*print;
 	int			len_arg;
 	int			count;
-	
+
 	count = 0;
 	va_start(arg, s);
-	while (*s) 
+	while (*s)
 	{
 		original_s = s;
 		while (*s && *s != '%')

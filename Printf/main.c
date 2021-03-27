@@ -12,6 +12,7 @@
 
 #include <limits.h>
 #include <string.h>
+#include <stdio.h>
 #include "./include/ft_printf.h"
 
 void	c_tester(void)

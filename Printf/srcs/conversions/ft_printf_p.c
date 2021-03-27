@@ -14,96 +14,34 @@
 
 /*
 ** 🦕
-** function : to DO + clean
+** function : convert_p
+** return : the adress of a pointer converted into an hexadecimal string.
+** 1. A pointer adress (void *) is an unsigned long int.
+** 2. If that adress is null, we need to return the system null.
+** 3. Else, we convert the adress into hexadecimal and add '0x' as
+**    a prefix.
+** 4. We handle the width - while ignoring any '0' flag.
 ** 🦕
 */
 
-int		handle_zeroes(char *str)
+char		*convert_p(va_list arg, t_flags *flags)
 {
-	int count;
-
-	count = 0;
-	while (*str == '0')
-	{
-		count++;
-		str++;
-	}
-	return (count);
-}
-
-char	*ft_putnbr_ptr(unsigned long l_nb, char *base, int size, int l, char *str)
-{
-	char	*temp;
-	int		count;
-
-	str[size] = '\0';
-	while (size > 0)
-	{
-		str[size - 1] = base[l_nb % l];
-		l_nb = l_nb / l;
-		size--;
-	}
-	count = handle_zeroes(str);
-	if (!count)
-	{
-		temp = ft_strjoin("0x", str);
-		free(str);
-		str = temp;
-	}
-	if (count)
-	{
-		temp = ft_strjoin("0x", (str + count));
-		free(str);
-		str = temp;
-	}
-	return (str);
-}
-
-char	*ft_itoa_convert_ptr(unsigned long nb, char *base)
-{
-	unsigned long	l_nb;
-	int				l;
+	unsigned long	x;
 	char			*conv;
-	int				size;
-
-	l = ft_strlen(base);
-	l_nb = nb;
-	size = 1;
-	while ((nb / 10) != 0)
-	{
-		size++;
-		nb = nb / 10;
-	}
-	conv = (char *)ft_calloc(sizeof(char), size + 1);
-	if (!(conv))
-		return (NULL);
-	conv = ft_putnbr_ptr(l_nb, base, size, l, conv);
-	return (conv);
-}
-
-static char	*system_null()
-{
-	char	*null;
-
-	#if __APPLE__
-		null = ft_strdup("0x0");
-	#else
-		null = ft_strdup("(nil)");
-	#endif
-	return (null);
-}
-
-char	*convert_p(va_list arg, flags_list *flags)
-{
-    unsigned long	x;
-    char 			*conv;
+	char			*temp;
 	int				len;
 
-	x = (unsigned long) va_arg(arg, void *);
+	x = (unsigned long)va_arg(arg, void *);
 	if (!x)
-		conv = system_null();
+		conv = ft_strdup("0x0");
 	else
-		conv = ft_itoa_convert_ptr(x, "0123456789abcdef");
+	{
+		temp = ft_itoa_base(x, "0123456789abcdef");
+		if (!temp)
+			return (NULL);
+		conv = ft_strjoin("0x", temp);
+		free(temp);
+	}
 	if (!conv)
 		return (NULL);
 	len = (int)ft_strlen(conv);
@@ -112,6 +50,20 @@ char	*convert_p(va_list arg, flags_list *flags)
 		flags->zero = none;
 		conv = define_align_width(conv, flags, len);
 	}
-    return (conv);
+	return (conv);
 }
 
+/*
+** FOR PERSONNAL REFERENCE
+** static char	*system_null()
+**{
+** char *null;
+**
+**  #if __APPLE__
+**		null = ft_strdup("0x0");
+**	#else
+**		null = ft_strdup("(nil)");
+**	#endif
+** return null;
+**}
+*/

@@ -14,22 +14,18 @@
 
 /*
 ** 🦕
-** function : TO DO + shorten and organise
+** function : convert_u
+** return : the given unsigned int converted into a string.
 ** 🦕
 */
 
-static char	*ft_putnbr_u(unsigned long nb, char *str, int size)
-{
-	str[size - 1] = '\0';
-	while (--size > 0)
-	{
-		str[size - 1] = '0' + nb % 10;
-		nb = nb / 10;
-	}
-	return (str);
-}
+/*
+** function : unsigned_itoa
+** Works exactly like the classic version of ft_itoa, but
+** for an unsigned int !
+*/
 
-static char		*ft_itoa_u(unsigned int n)
+static char	*ft_itoa_u(unsigned int n)
 {
 	unsigned int		size;
 	unsigned long int	nb;
@@ -45,11 +41,50 @@ static char		*ft_itoa_u(unsigned int n)
 	str = (char *)ft_calloc(sizeof(char), size);
 	if (!(str))
 		return (NULL);
-	return (ft_putnbr_u(nb, str, size));
+	str[size - 1] = '\0';
+	while (--size > 0)
+	{
+		str[size - 1] = '0' + nb % 10;
+		nb = nb / 10;
+	}
+	return (str);
 }
 
-char	*convert_u(va_list arg, flags_list *flags)
-{	
+/*
+** function : handle_width_and_precision
+** Modifies the values directly in the other function
+** -> that's why it deals with **pointers.
+** Special case : if there is width AND precision, the function will
+** 				  ignore any flag '0'.
+*/
+
+static void	handle_w_and_p(char **conv, t_flags **flags, int *len)
+{
+	if ((flags[0]->precision + 1) > *len)
+	{
+		*conv = align_nb_precision(flags[0]->precision, *conv, *len);
+		*len = (int)ft_strlen(*conv);
+	}
+	if (flags[0]->width > *len)
+	{
+		if (flags[0]->precision || flags[0]->dot)
+			flags[0]->zero = 0;
+		*conv = define_align_width(*conv, flags[0], *len);
+	}
+}
+
+/*
+** function : convert_u
+** return : the given unsigned int into a string.
+** 1. Converts the given unsigned int into a string.
+** 2. Sends the data to the width and precision function.
+** Special case : If the given int is 0, + precision is '.' or '.0'
+**     			  AND there is width, the function returns a string '\0'.
+**				  Else it creates a freeable empty string.
+*/
+
+char		*convert_u(va_list arg, t_flags *flags)
+{
 	char			*conv;
 	unsigned int	i;
 	int				len;
@@ -59,24 +94,13 @@ char	*convert_u(va_list arg, flags_list *flags)
 	if (!conv)
 		return (NULL);
 	len = (int)ft_strlen(conv);
-		if (flags->dot && !flags->precision && conv[0] == '0')
+	if (flags->dot && !flags->precision && conv[0] == '0')
 	{
 		free(conv);
 		if (!flags->width)
 			return (ft_strdup("\0"));
 		conv = ft_strdup(" ");
 	}
-	if ((flags->precision + 1) > len)
-	{
-		conv = align_nb_precision(flags->precision, conv, len);
-		len = (int)ft_strlen(conv);
-	}
-	if (flags->width > len)
-	{
-		if (flags->precision || flags->dot)
-			flags->zero = 0;
-		conv = define_align_width(conv, flags, len);
-	}
+	handle_w_and_p(&conv, &flags, &len);
 	return (conv);
 }
-

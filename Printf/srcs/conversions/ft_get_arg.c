@@ -25,9 +25,9 @@
 
 int		ft_get_arg(va_list arg, const char *s, int count)
 {
-	flags_list	*flags;
+	t_flags		*flags;
 	char		*arg_str;
-	
+
 	flags = ft_get_flags(s + 1, arg);
 	if (!flags)
 		return (-1);
@@ -78,12 +78,12 @@ char	ft_i_am_conversion(char c)
 ** returns : the string "%\0".
 */
 
-char	*convert_pourcent()
+char	*convert_pourcent(void)
 {
 	char	*arg_str;
 
-	arg_str = (char *)malloc(sizeof(char) * 2);
-	arg_str[0] = '%';
-	arg_str[1] = '\0';
+	arg_str = ft_strdup("%");
+	if (!arg_str)
+		return (NULL);
 	return (arg_str);
 }

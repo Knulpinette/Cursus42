@@ -13,34 +13,35 @@
 #ifndef FT_PRINTF_PARSE_H
 # define FT_PRINTF_PARSE_H
 
-typedef enum	align_enum {
+typedef enum	e_align
+{
 	left = 1,
 	right,
-}				align;
+}				t_align;
 
-typedef enum	flag_enum {
+typedef enum	e_flags
+{
 	none,
 	zero,
 	dot,
 	minus,
 	wildcard,
-}				flags;
+}				t_e_flags;
 
-typedef struct	new_list {
+typedef	struct	s_flags
+{
 	int		zero;
-	int 	minus;
+	int		minus;
 	int		width;
 	int		arg_width;
 	int		dot;
 	int		precision;
 	int		arg_precision;
 	char	type;
-}				flags_list;
+}				t_flags;
 
-flags_list	*ft_get_flags(const char *s, va_list arg);
-char		*define_align_width(char *conv, flags_list *flags, int len);
-char		*align_nb_precision(int precision, char *conv, int len);
+t_flags			*ft_get_flags(const char *s, va_list arg);
+char			*define_align_width(char *conv, t_flags *flags, int len);
+char			*align_nb_precision(int precision, char *conv, int len);
 
 #endif
-
-
