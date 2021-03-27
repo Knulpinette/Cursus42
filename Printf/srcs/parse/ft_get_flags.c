@@ -112,7 +112,7 @@ const char	*ft_get_precision(const char *s, t_flags **flags, va_list arg)
 ** this argument.
 */
 
-t_flags	*ft_get_flags(const char *s, va_list arg)
+t_flags		*ft_get_flags(const char *s, va_list arg)
 {
 	t_flags	*flags;
 

@@ -21,15 +21,30 @@
 ** 3. If precision is less than total length of the string,
 **    it will troncate the string.
 ** 4. Then handle the width which will always have no flag 0 effect.
-**
-** NOTE FOR SELF : if need be, add again in if (flags->dot)
-**             -> || (flags->precision < len && flags->precision)
+** Special case : if precision is between 0 and 3 and the string is NULL,
+** 				  it apparently prints nothing at all. Go figure.
+**				-> cf handle_precision
 ** 🦕
 */
 
-char	*convert_s(va_list arg, t_flags *flags)
+void	handle_precision(char **conv, t_flags **flags, int *len, char **verif)
 {
 	char	*temp;
+
+	if (flags[0]->dot || (flags[0]->precision < len && flags[0]->precision))
+	{
+		if (*verif == NULL && (flags[0]->precision == 1 \
+		|| flags[0]->precision == 2 || flags[0]->precision == 3))
+			flags[0]->precision = no;
+		temp = ft_substr(*conv, 0, flags[0]->precision);
+		free(*conv);
+		*conv = temp;
+		*len = ft_strlen(*conv);
+	}
+}
+
+char	*convert_s(va_list arg, t_flags *flags)
+{
 	char	*verif;
 	char	*conv;
 	int		len;
@@ -40,13 +55,7 @@ char	*convert_s(va_list arg, t_flags *flags)
 	else
 		conv = ft_strdup(verif);
 	len = ft_strlen(conv);
-	if (flags->dot)
-	{
-		temp = ft_substr(conv, 0, flags->precision);
-		free(conv);
-		conv = temp;
-		len = ft_strlen(conv);
-	}
+	handle_precision(&conv, &flags, &len, &verif);
 	if (flags->width > len)
 	{
 		flags->zero = none;

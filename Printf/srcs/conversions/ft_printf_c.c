@@ -44,11 +44,11 @@ char	*convert_c(va_list arg, t_flags *flags, int *char_null, int *align)
 	if (conv[0] == '\0')
 	{
 		*char_null = yes;
-		flags->minus = none;
+		*align = right;
 	}
 	if (flags->width > 1)
 	{
-		if (char_null)
+		if (char_null && flags->minus)
 			*align = left;
 		flags->zero = none;
 		conv = define_align_width(conv, flags, 1);

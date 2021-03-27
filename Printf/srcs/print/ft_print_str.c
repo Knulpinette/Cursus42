@@ -20,7 +20,7 @@
 ** 🦕
 */
 
-int	ft_print_str(char *print)
+int		ft_print_str(char *print)
 {
 	char	*end_print;
 	int		count;
@@ -46,7 +46,27 @@ int	ft_print_str(char *print)
 ** right.
 */
 
-int	ft_print_c_null(char *print, int *align)
+char	*handle_align(int *align, char null, char *print, char *end_print)
+{
+	if (*align == left)
+	{
+		write(1, &null, 1);
+		end_print++;
+		while (*end_print)
+			end_print++;
+		write(1, (print + 1), (end_print - (print + 1)));
+	}
+	if (*align == right)
+	{
+		while (*end_print)
+			end_print++;
+		write(1, print, (end_print - print));
+		write(1, &null, 1);
+	}
+	return (end_print);
+}
+
+int		ft_print_c_null(char *print, int *align)
 {
 	char	*end_print;
 	int		count;
@@ -59,13 +79,8 @@ int	ft_print_c_null(char *print, int *align)
 		write(1, &null, 1);
 		return (1);
 	}
-	if (*align = left)
-	{
-		write(1, &null, 1);
-		while (*end_print)
-			end_print++;
-		write(1, print, (end_print - print));
-	}
+	else
+		end_print = handle_align(align, null, print, end_print);
 	count = end_print - print + 1;
 	free(print);
 	return (count);
@@ -80,7 +95,7 @@ int	ft_print_c_null(char *print, int *align)
 ** from ft_printf.
 */
 
-int	ft_check_len_arg(const char *s)
+int		ft_check_len_arg(const char *s)
 {
 	int	len;
 

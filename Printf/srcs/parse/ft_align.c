@@ -109,7 +109,7 @@ void	zero_align(char **temp, char **conv, int len, t_flags *flags)
 	int	neg;
 
 	neg = no;
-	if (conv[0][len] = '-' && !(flags->type == 'u') \
+	if (conv[0][len] == '-' && !(flags->type == 'u') \
 	&& !(flags->type == 'x') && !(flags->type == 'X'))
 	{
 		neg = yes;
