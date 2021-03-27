@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.c                                           :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,53 +14,36 @@
 
 /*
 ** 🦕
+** function : ft_printf
+** returns : total count of printed characters.
+** 1. Print the string.
+** 2. If we encounter %, get the argument.
+**    First we get the number of character from % to the conversion character
+**    so we know how long the segment is and start the new loop in the right
+**    spot.
+**    Then we get the length of the argument converted into a string. That
+**    argument will be printed.
+** 3. We loop all over until the end where we free the variadic list of arg.
+** 🦕
 */
-
-int		ft_get_arg(va_list arg, const char *s, int count)
-{
-	flags_list	*flags;
-	char	*arg_str;
-	
-	flags = ft_get_flags(s + 1, arg); // Important + 1 pour éviter %
-	if (!flags)
-		return (-1);
-	if (flags->type == 'i' || flags->type == 'd')
-		arg_str = ft_printf_i(arg, flags);
-	if (flags->type == 'c')
-		arg_str = ft_printf_c(arg, flags, &count);
-	if (flags->type == 's')
-		arg_str = ft_printf_s(arg, flags);
-	if (flags->type == 'u')
-		arg_str = ft_printf_u(arg, flags);
-	if (flags->type == 'x' || flags->type == 'X')
-		arg_str = ft_printf_x(arg, flags);
-	if (flags->type == 'p')
-		arg_str = ft_printf_p(arg, flags);
-	if (flags->type == '%')
-		arg_str = ft_printf_pourcent();
-	if (!arg_str)
-		return (-1);
-	free(flags);
-	return (count + ft_print_str(arg_str));
-}
 
 int		ft_printf(const char *s, ...)
 {
+	const char	*original_s;
 	va_list		arg;
 	char		*print;
 	int			len_arg;
 	int			count;
-	const char	*o_s;
 	
 	count = 0;
 	va_start(arg, s);
 	while (*s) 
 	{
-		o_s = s;
+		original_s = s;
 		while (*s && *s != '%')
 			s++;
-		write(1, o_s, (s - o_s));
-		count = count + (s - o_s);
+		write(1, original_s, (s - original_s));
+		count = count + (s - original_s);
 		if (*s == '%')
 		{
 			len_arg = ft_check_len_arg(s + 1) + 1;

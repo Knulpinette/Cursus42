@@ -15,5 +15,6 @@
 
 int		ft_check_len_arg(const char *s);
 int		ft_print_str(char *print);
+int		ft_print_c_null(char *print, int *align);
 
 #endif

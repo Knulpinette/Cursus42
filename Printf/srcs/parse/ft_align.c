@@ -12,16 +12,22 @@
 
 #include "../../include/ft_printf.h"
 
+/*
+** 🦕
+** function : to DO + clean
+** 🦕
+*/
+
 char	*align_nb_precision(int precision, char *conv, int len)
 {
 	char	*temp;
 	int		neg;
 
-	neg = 0;
+	neg = no;
 	if (conv[0] == '-')
 	{
 		precision = precision + 1;
-		neg = 1;
+		neg = yes;
 	}
 	temp = (char *)malloc(sizeof(char) * precision + 1);
 	if (!temp)

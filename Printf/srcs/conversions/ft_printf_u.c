@@ -12,6 +12,12 @@
 
 #include "../../include/ft_printf.h"
 
+/*
+** 🦕
+** function : TO DO + shorten and organise
+** 🦕
+*/
+
 static char	*ft_putnbr_u(unsigned long nb, char *str, int size)
 {
 	str[size - 1] = '\0';
@@ -42,7 +48,7 @@ static char		*ft_itoa_u(unsigned int n)
 	return (ft_putnbr_u(nb, str, size));
 }
 
-char	*ft_printf_u(va_list arg, flags_list *flags)
+char	*convert_u(va_list arg, flags_list *flags)
 {	
 	char			*conv;
 	unsigned int	i;

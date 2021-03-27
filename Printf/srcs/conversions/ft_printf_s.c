@@ -12,6 +12,12 @@
 
 #include "../../include/ft_printf.h"
 
+/*
+** 🦕
+** function : to DO + clean
+** 🦕
+*/
+
 static char	*system_null()
 {
 	char	*null;
@@ -24,7 +30,7 @@ static char	*system_null()
 	return (null);
 }
 
-char	*ft_printf_s(va_list arg, flags_list *flags)
+char	*convert_s(va_list arg, flags_list *flags)
 {
 	char	*temp;
 	char	*verif;
@@ -37,7 +43,7 @@ char	*ft_printf_s(va_list arg, flags_list *flags)
 	else
 		conv = ft_strdup(verif);
 	len = ft_strlen(conv);
-	if ((flags->precision < len && flags->precision != 0) || flags->dot == dot)
+	if ((flags->precision < len && flags->precision) || flags->dot)
 	{
 		temp = ft_substr(conv, 0, flags->precision);
 		free(conv);
@@ -46,7 +52,7 @@ char	*ft_printf_s(va_list arg, flags_list *flags)
 	}
 		if (flags->width > len)
 	{
-		flags->zero = 0;
+		flags->zero = none;
 		conv = define_align_width(conv, flags, len);
 	}
 	return(conv);

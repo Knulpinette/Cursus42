@@ -12,7 +12,14 @@
 
 #include "../../include/ft_printf.h"
 
-char	*ft_printf_pourcent()
+/*
+** 🦕
+** function : convert_pourcent
+** returns : the string "%\0".
+** 🦕
+*/
+
+char	*convert_pourcent()
 {
 	char	*arg_str;
 

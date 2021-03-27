@@ -12,6 +12,12 @@
 
 #include "../../include/ft_printf.h"
 
+/*
+** 🦕
+** function : to DO + clean
+** 🦕
+*/
+
 int		handle_zeroes(char *str)
 {
 	int count;
@@ -87,7 +93,7 @@ static char	*system_null()
 	return (null);
 }
 
-char	*ft_printf_p(va_list arg, flags_list *flags)
+char	*convert_p(va_list arg, flags_list *flags)
 {
     unsigned long	x;
     char 			*conv;
@@ -103,7 +109,7 @@ char	*ft_printf_p(va_list arg, flags_list *flags)
 	len = (int)ft_strlen(conv);
 	if (flags->width > len)
 	{
-		flags->zero = 0;
+		flags->zero = none;
 		conv = define_align_width(conv, flags, len);
 	}
     return (conv);

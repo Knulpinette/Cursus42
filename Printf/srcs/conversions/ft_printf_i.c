@@ -12,7 +12,13 @@
 
 #include "../../include/ft_printf.h"
 
-char	*ft_printf_i(va_list arg, flags_list *flags)
+/*
+** 🦕
+** function : to DO + clean
+** 🦕
+*/
+
+char	*convert_i(va_list arg, flags_list *flags)
 {
 	char	*conv;
 	int		len;
@@ -36,7 +42,7 @@ char	*ft_printf_i(va_list arg, flags_list *flags)
 	if (flags->width > len)
 	{
 		if (flags->precision || flags->dot)
-			flags->zero = 0;
+			flags->zero = none;
 		conv = define_align_width(conv, flags, len);
 	}
 	return (conv);

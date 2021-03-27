@@ -12,6 +12,12 @@
 
 #include "../../include/ft_printf.h"
 
+/*
+** 🦕
+** function : TO DO + shorten and organise
+** 🦕
+*/
+
 char	*ft_putnbr_base_x(long int l_nb, char *base, int size, int l, char *str)
 {
 	str[size] = '\0';
@@ -49,7 +55,7 @@ char	*ft_itoa_convert_x(unsigned int nb, char *base)
 }
 
 
-char	*ft_printf_x(va_list arg, flags_list *flags)
+char	*convert_x(va_list arg, flags_list *flags)
 {	
 	char	*conv;
 	int		i;
