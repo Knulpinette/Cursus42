@@ -46,24 +46,28 @@ int		ft_print_str(char *print)
 ** right.
 */
 
-char	*handle_align(int *align, char null, char *print, char *end_print)
+int		handle_align(int *align, char null, char *print, char *end_print)
 {
+	int	i;
+
+	i = 0;
 	if (*align == left)
 	{
 		write(1, &null, 1);
-		end_print++;
-		while (*end_print)
-			end_print++;
-		write(1, (print + 1), (end_print - (print + 1)));
+		i++;
+		while (end_print[i])
+			i++;
+		write(1, (print + 1), i - 1);
 	}
 	if (*align == right)
 	{
-		while (*end_print)
-			end_print++;
-		write(1, print, (end_print - print));
+		while (end_print[i])
+			i++;
+		write(1, print, i);
 		write(1, &null, 1);
+		i++;
 	}
-	return (end_print);
+	return (i);
 }
 
 int		ft_print_c_null(char *print, int *align)
@@ -73,6 +77,7 @@ int		ft_print_c_null(char *print, int *align)
 	char	null;
 
 	null = '\0';
+	count = 0;
 	end_print = print;
 	if (!align)
 	{
@@ -80,8 +85,8 @@ int		ft_print_c_null(char *print, int *align)
 		return (1);
 	}
 	else
-		end_print = handle_align(align, null, print, end_print);
-	count = end_print - print + 1;
+		count = handle_align(align, null, print, end_print);
+	count = count;
 	free(print);
 	return (count);
 }

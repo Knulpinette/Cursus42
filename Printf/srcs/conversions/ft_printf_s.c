@@ -31,7 +31,7 @@ void	handle_precision(char **conv, t_flags **flags, int *len, char **verif)
 {
 	char	*temp;
 
-	if (flags[0]->dot || (flags[0]->precision < len && flags[0]->precision))
+	if (flags[0]->dot || (flags[0]->precision < *len && flags[0]->precision))
 	{
 		if (*verif == NULL && (flags[0]->precision == 1 \
 		|| flags[0]->precision == 2 || flags[0]->precision == 3))

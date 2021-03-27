@@ -21,6 +21,9 @@
 # include "ft_printf_conversions.h"
 # include "ft_printf_print.h"
 
+/////////delette
+#include <stdio.h>
+
 int	ft_printf(const char *s, ...);
 
 #endif
