@@ -175,14 +175,18 @@ void	d_tester(void)
 //	printf(" = %i\n", printf("78,%1.1d", 0));
 //	printf(" = %i\n", printf("79,%2.2d", 0));
 //	printf(" = %i\n", printf("80,%3.3d", 0));
-	printf(" = %i\n", printf("7c/ %5c", 0));
+	printf(" = %i\n", printf("p3 %.5s\n", NULL));
+	printf(" = %i\n", printf("%-2.5s", NULL));
+	printf(" = %i\n", printf("%.5s", NULL));
 
 }
 
 void	d_tester_ft(void)
 {
 	ft_printf("\n\nMYPRINTF\n");
-	ft_printf(" = %i\n", ft_printf("7c/ %5c", '\0'));
+	ft_printf(" = %i\n", ft_printf("p3 %.5s\n", NULL));
+	ft_printf(" = %i\n", ft_printf("%-2.5s", NULL));
+	ft_printf(" = %i\n", ft_printf("%.5s", NULL));
 //	ft_printf(" = %i\n", ft_printf(" 1, %d ", 0));
 //	ft_printf(" = %i\n", ft_printf(" 2, %.d ", 0));
 //	ft_printf(" = %i\n", ft_printf(" 3, %-.2d ", 0));

@@ -37,7 +37,7 @@ static void	handle_w_and_p(char **conv, t_flags **flags, int *len)
 	}
 	if (flags[0]->width > *len)
 	{
-		if (flags[0]->precision || flags[0]->dot)
+		if (flags[0]->precision > 0 || (flags[0]->dot && !flags[0]->precision))
 			flags[0]->zero = 0;
 		*conv = define_align_width(*conv, flags[0], *len);
 	}

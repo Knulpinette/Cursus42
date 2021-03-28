@@ -21,7 +21,7 @@
 ** 3. If precision is less than total length of the string,
 **    it will troncate the string.
 ** 4. Then handle the width which will always have no flag 0 effect.
-** Special case : if precision is between 0 and 3 and the string is NULL,
+** Special case : if precision is between 0 and 5 and the string is NULL,
 ** 				  it apparently prints nothing at all. Go figure.
 **				-> cf handle_precision
 ** 🦕
@@ -34,7 +34,8 @@ void	handle_precision(char **conv, t_flags **flags, int *len, char **verif)
 	if (flags[0]->dot || (flags[0]->precision < *len && flags[0]->precision))
 	{
 		if (*verif == NULL && (flags[0]->precision == 1 \
-		|| flags[0]->precision == 2 || flags[0]->precision == 3))
+		|| flags[0]->precision == 2 || flags[0]->precision == 3 \
+		|| flags[0]->precision == 4 || flags[0]->precision == 5))
 			flags[0]->precision = no;
 		temp = ft_substr(*conv, 0, flags[0]->precision);
 		free(*conv);
@@ -63,18 +64,3 @@ char	*convert_s(va_list arg, t_flags *flags)
 	}
 	return (conv);
 }
-
-/*
-** FOR PERSONNAL REFERENCE
-** static char	*system_null()
-**{
-** char *null;
-**
-**  #if __APPLE__
-**		null = ft_strdup("0x0");
-**	#else
-**		null = ft_strdup("(null)");
-**	#endif
-** return null;
-**}
-*/
