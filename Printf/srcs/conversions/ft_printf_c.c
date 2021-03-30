@@ -80,5 +80,5 @@ int		case_c(va_list arg, t_flags *flags, int count)
 	free(flags);
 	if (char_null == yes)
 		return (count + ft_print_c_null(arg_str, &align));
-	return (count + ft_print_str(arg_str));
+	return (count + ft_print_arg(arg_str));
 }

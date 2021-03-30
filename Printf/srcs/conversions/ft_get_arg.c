@@ -48,7 +48,7 @@ int		ft_get_arg(va_list arg, const char *s, int count)
 	if (!arg_str)
 		return (-1);
 	free(flags);
-	return (count + ft_print_str(arg_str));
+	return (count + ft_print_arg(arg_str));
 }
 
 /*
