@@ -18,9 +18,9 @@ NAME	= miniRT
 
 SRCS_DIR	= srcs
 SRCS		= ${addprefix ${SRCS_DIR}/,${SRCS_FIND}}
-SRCS_FIND	= ${shell find . -type f \( -name "ft_*.c" -not -wholename "./ft_*bonus.c" -not -wholename "./libft/ft_*.c" \) | cut -d'/' -f3-}
+SRCS_FIND	= ${shell find . -type f \( -wholename "./srcs/*.c" -not -wholename "./ft_*bonus.c" -not -wholename "./libft/ft_*.c" \) | cut -d'/' -f3-}
 SRCS_BONUS	= ${addprefix ${SRCS_DIR}/,${SRCS_BFIND}}
-SRCS_BFIND	= ${shell find . -type f \( -name "ft_*.c" -not -wholename "./libft/ft_*.c" \) | cut -d'/' -f3-}
+SRCS_BFIND	= ${shell find . -type f \( -wholename "./srcs/*.c" -not -wholename "./libft/ft_*.c" \) | cut -d'/' -f3-}
 
 OBJS_DIR	= objs
 OBJS		= ${addprefix ${OBJS_DIR}/,${SRCS_FIND:.c=.o}}
@@ -29,7 +29,7 @@ OBJS_BONUS	= ${addprefix ${OBJS_DIR}/,${SRCS_BFIND:.c=.o}}
 HEADER		= include
 
 LIBFT_DIR	= libft
-LIBFT_PATH	= libft/libft.a
+LIBFT_LIB	= -Llibft -lft
 
 MLX_LIB		= -Lmlx_linux -lmlx_Linux -L/usr/lib
 
@@ -37,6 +37,7 @@ CC			= gcc
 RM			= rm -f
 MAKE		= make bonus
 CFLAGS 		= -Wall -Wextra -Werror
+INCLUDES	= -Iinclude -I/usr/include -Imlx_linux -Ilibft
 MLX_FLAGS	= -Imlx_linux -lXext -lX11 -lm -lz
 
 # -*- The Rules -*-
@@ -45,9 +46,13 @@ MLX_FLAGS	= -Imlx_linux -lXext -lX11 -lm -lz
 
 # Create and compile objects files in a dedicated folder
 ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c 
-			 @mkdir -p objs
-			 @mkdir -p objs/mlx_cmd
-			 ${CC} ${FLAGS} -I/usr/include -Imlx_linux -O3 -c $< -o $@
+			@mkdir -p objs
+			@mkdir -p objs/win_action
+			@mkdir -p objs/geometry
+			@mkdir -p objs/light
+			@mkdir -p objs/parsing
+			@mkdir -p objs/utils
+			${CC} ${CFLAGS} ${INCLUDES} -O3 -c $< -o $@
 
 #	Active rules
 
@@ -55,14 +60,16 @@ all:		${NAME} test
 
 # Make libft + compile miniRT
 ${NAME}:	${OBJS}
-			${MAKE} -C ${LIBFT_DIR}
-			$(CC) ${CFLAGS} ${OBJS} ${MLX_LIB} ${MLX_FLAGS} -o $(NAME)
+			@${MAKE} -C ${LIBFT_DIR}
+			$(CC) ${CFLAGS} ${OBJS} ${MLX_LIB} ${LIBFT_LIB} ${MLX_FLAGS} -o $(NAME)
 			#--------------------------------
 
 test:		${NAME}
+			@echo "🦕🍭 To just debug, type in command line :"
+			@echo "🦕🍭🦕 ./miniRT ./scenes/scene-example.rt"
 			@echo "🦄🍭 Launch vcxsrv.exe" 
-			@echo "🦄🍭 Type in command line : " 
-			@echo "🍭🦄🍭 DISPLAY=\$$(cat /etc/resolv.conf | grep nameserver | awk '{print \$$2}'):0 ./miniRT"
+			@echo "🦄🍭 Type in command line :" 
+			@echo "🍭🦄🍭 DISPLAY=\$$(cat /etc/resolv.conf | grep nameserver | awk '{print \$$2}'):0 ./miniRT ./scenes/scene-example.rt"
 
 bonus:		${OBJS_BONUS}
 			${MAKE} -C ${LIBFT_DIR}
@@ -72,13 +79,13 @@ bonus:		${OBJS_BONUS}
 #	Cleaning rules
 
 clean:
-			${MAKE} clean -C ${LIBFT_DIR}
-			${RM} ${OBJS} ${OBJS_BONUS}
+			@${MAKE} clean -C ${LIBFT_DIR}
+			@${RM} ${OBJS} ${OBJS_BONUS}
 			@rm -rf objs
 
 fclean:		clean
-			${MAKE} fclean -C ${LIBFT_DIR}
-			${RM} ${NAME}
+			@${MAKE} fclean -C ${LIBFT_DIR}
+			@${RM} ${NAME}
 
 re:			fclean all
 

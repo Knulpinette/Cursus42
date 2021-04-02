@@ -41,11 +41,11 @@ bonus: ${OBJS} ${OBJS_BONUS}
 #	Cleaning rules
 
 clean:
-	${RM} ${OBJS} ${OBJS_BONUS}
+	@${RM} ${OBJS} ${OBJS_BONUS}
 	@rm -rf objs
 
 fclean: clean
-	${RM} ${NAME}
+	@${RM} ${NAME}
 
 re: fclean all
 
