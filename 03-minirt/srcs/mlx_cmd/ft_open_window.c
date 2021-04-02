@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../mlx_linux/mlx.h"
-#include "../../mlx_linux/mlx_int.h"
-//#include <mlx.h>
+#include <mlx.h>
 
 typedef struct  s_data {
     void        *img;

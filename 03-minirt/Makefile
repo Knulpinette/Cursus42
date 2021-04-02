@@ -31,13 +31,13 @@ HEADER		= include
 LIBFT_DIR	= libft
 LIBFT_PATH	= libft/libft.a
 
-MLX_PATH	= mlx_linux/libmlx_Linux.a
+MLX_LIB		= -Lmlx_linux -lmlx_Linux -L/usr/lib
 
 CC			= gcc
 RM			= rm -f
 MAKE		= make bonus
 CFLAGS 		= -Wall -Wextra -Werror
-MLX_FLAGS	= -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
+MLX_FLAGS	= -Imlx_linux -lXext -lX11 -lm -lz
 
 # -*- The Rules -*-
 
@@ -51,19 +51,22 @@ ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c
 
 #	Active rules
 
-all:		${NAME}
+all:		${NAME} test
 
-# 
-
+# Make libft + compile miniRT
 ${NAME}:	${OBJS}
 			${MAKE} -C ${LIBFT_DIR}
-			$(CC) -c ${SRCS}
-			$(CC) ${CFLAGS} ${OBJS} ${MLX_FLAGS} -o $(NAME)
-			gcc $(CFLAGS) $(SRCS) -L. $(MLX_PATH) $(LFLAGS) -o $(NAME)
+			$(CC) ${CFLAGS} ${OBJS} ${MLX_LIB} ${MLX_FLAGS} -o $(NAME)
 			#--------------------------------
 
-bonus:		libft ${OBJS} ${OBJS_BONUS}
-			@ar rcs ${NAME} ${OBJS} ${OBJS_BONUS}
+test:		${NAME}
+			@echo "🦄🍭 Launch vcxsrv.exe" 
+			@echo "🦄🍭 Type in command line : " 
+			@echo "🍭🦄🍭 DISPLAY=\$$(cat /etc/resolv.conf | grep nameserver | awk '{print \$$2}'):0 ./miniRT"
+
+bonus:		${OBJS_BONUS}
+			${MAKE} -C ${LIBFT_DIR}
+			$(CC) ${CFLAGS} ${OBJS_BONUS} ${MLX_LIB} ${MLX_FLAGS} -o $(NAME)
 
 
 #	Cleaning rules
