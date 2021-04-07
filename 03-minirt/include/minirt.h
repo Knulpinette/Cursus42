@@ -33,6 +33,5 @@ enum e_y_or_no
 	yes,
 };
 
-int	open_fd(char *argv); //, t_scene *scene, t_obj *obj)
 
 #endif

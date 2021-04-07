@@ -1,21 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/02 19:48:47 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/04/02 19:48:48 by osurcouf         ###   ########.fr       */
+/*   Created: 2021/03/03 11:42:00 by osurcouf          #+#    #+#             */
+/*   Updated: 2021/03/03 11:43:07 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+/*
+** 🦕
+** function : utils
+** 🦕
+*/
 
-# include "minirt.h"
+#include "minirt.h"
 
-char	*next_nbr(char *line);
-char	*pass_spaces(char *line);
+char	*next_nbr(char *line)
+{
+	if (*line == '+' || *line == '-')
+		line++;
+	while (*line && (ft_isdigit(*line) || *line == '.'))
+		line++;
+	if (ft_isdigit(*(line + 1)) && *line == ',')
+		line++;
+	return (line);
+}
 
-#endif
+char	*pass_spaces(char *line)
+{
+	while (*line == ' ' || *line == 9)
+		line++;
+	return (line);
+}

@@ -21,56 +21,56 @@
 
 typedef struct s_sphere
 {
-	int	x;
-	int	y;
-	int z;
-	int	d;
+	float	x;
+	float	y;
+	float	z;
+	float	d;
 }				t_sphere;
 
 typedef struct s_plane
 {
-	int	x;
-	int	y;
-	int z;
-	int	vec_x;
-	int	vec_y;
-	int	vec_z;
+	float	x;
+	float	y;
+	float	z;
+	float	vec_x;
+	float	vec_y;
+	float	vec_z;
 }				t_plane;
 
 typedef struct s_square
 {
-	int	x;
-	int	y;
-	int z;
-	int	vec_x;
-	int	vec_y;
-	int	vec_z;
-	int	side;
+	float	x;
+	float	y;
+	float	z;
+	float	vec_x;
+	float	vec_y;
+	float	vec_z;
+	float	side;
 }				t_square;
 
 typedef struct s_cylinder
 {
-	int	x;
-	int	y;
-	int z;
-	int	vec_x;
-	int	vec_y;
-	int	vec_z;
-	int	h;
-	int	d;
+	float	x;
+	float	y;
+	float	z;
+	float	vec_x;
+	float	vec_y;
+	float	vec_z;
+	float	h;
+	float	d;
 }				t_cylinder;
 
 typedef struct s_triangle
 {
-	int	x0;
-	int	x1;
-	int x2;
-	int	y0;
-	int	y1;
-	int	y2;
-	int	z0;
-	int	z1;
-	int	z2;
+	float	x0;
+	float	x1;
+	float	x2;
+	float	y0;
+	float	y1;
+	float	y2;
+	float	z0;
+	float	z1;
+	float	z2;
 }				t_triangle;
 
 typedef struct s_color
@@ -124,19 +124,19 @@ typedef struct s_res
 	
 typedef struct 	s_ambient
 {
-	int		ratio;
+	float		r;
 	t_color	color;
 }				t_ambient;
 
 typedef struct s_camera
 {
-	int	x;
-	int	y;
-	int z;
-	int	vec_x;
-	int	vec_y;
-	int	vec_z;
-	int	FOV;
+	float	x;
+	float	y;
+	float	z;
+	float	vec_x;
+	float	vec_y;
+	float	vec_z;
+	int		FOV;
 }				t_camera;
 
 typedef struct s_light
@@ -144,7 +144,7 @@ typedef struct s_light
 	int		x;
 	int		y;
 	int		z;
-	int		bright;
+	float	bright;
 	t_color	color;
 }				t_light;
 
@@ -155,8 +155,8 @@ typedef struct s_light
 typedef struct s_scene
 {
 	t_res		res;
-	t_ambient	ambient;
-	t_camera	camera;
+	t_ambient	amb;
+	t_camera	cam;
 	t_light		light;
 }				t_scene;
 
@@ -167,7 +167,7 @@ typedef struct s_scene
 typedef struct s_info
 {
 	t_scene		scene;
-	t_obj		*objs;
+	t_obj		objs;
 }				t_info;
 
 #endif
