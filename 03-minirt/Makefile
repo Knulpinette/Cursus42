@@ -33,7 +33,7 @@ LIBFT_LIB	= -Llibft -lft
 
 CC			= gcc
 RM			= rm -f
-MAKE		= make bonus
+MAKE		= make
 CFLAGS 		= -Wall -Wextra -Werror
 
 # Will allow to compile the right library according to if the OS is WSL/Linux or Mac
@@ -74,7 +74,7 @@ all:		${NAME} test
 
 # Make libft + compile miniRT
 ${NAME}:	${OBJS}
-			@${MAKE} -C ${LIBFT_DIR}
+			@${MAKE} bonus -C ${LIBFT_DIR}
 			$(CC) ${CFLAGS} ${OBJS} ${MLX_LIB} ${LIBFT_LIB} ${MLX_FLAGS} -o $(NAME)
 			#--------------------------------
 
@@ -86,7 +86,7 @@ test:		${NAME}
 			@echo "🍭🦄🍭 DISPLAY=\$$(cat /etc/resolv.conf | grep nameserver | awk '{print \$$2}'):0 ./miniRT ./scenes/scene-example.rt"
 
 bonus:		${OBJS_BONUS}
-			${MAKE} -C ${LIBFT_DIR}
+			${MAKE} bonus -C ${LIBFT_DIR}
 			$(CC) ${CFLAGS} ${OBJS_BONUS} ${MLX_LIB} ${MLX_FLAGS} -o $(NAME)
 
 
