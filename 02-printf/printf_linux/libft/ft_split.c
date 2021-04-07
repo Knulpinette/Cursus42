@@ -29,8 +29,8 @@
 
 static int	nb_words(const char *s, char c)
 {
-	int i;
-	int nb;
+	int		i;
+	int		nb;
 
 	i = 0;
 	nb = 0;
@@ -58,9 +58,9 @@ static int	nb_words(const char *s, char c)
 
 static char	**fill_split(const char *s, char c, int words, char **split)
 {
-	int i;
-	int word;
-	int letters;
+	int		i;
+	int		word;
+	int		letters;
 
 	i = 0;
 	word = 0;
@@ -90,7 +90,7 @@ static char	**fill_split(const char *s, char c, int words, char **split)
 ** Then we fill split and return it.
 */
 
-char		**ft_split(const char *s, char c)
+char	**ft_split(const char *s, char c)
 {
 	int		words;
 	char	**split;
@@ -98,7 +98,7 @@ char		**ft_split(const char *s, char c)
 	if (!s)
 		return (NULL);
 	words = nb_words(s, c);
-	split = (char **)malloc(sizeof(char*) * (words + 1));
+	split = (char **)malloc(sizeof(char *) * (words + 1));
 	if (!split)
 		return (NULL);
 	fill_split(s, c, words, split);

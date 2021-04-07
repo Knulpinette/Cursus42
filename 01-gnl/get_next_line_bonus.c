@@ -18,7 +18,7 @@ static void	ft_strdel(char **saved)
 	saved[0] = NULL;
 }
 
-int			empty_line(char **line)
+int	empty_line(char **line)
 {
 	*line = (char *)malloc(sizeof(char) * 1);
 	**line = '\0';
@@ -66,7 +66,7 @@ static int	create_line(char **line, char **saved)
 	return (1);
 }
 
-int			get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	char		*buf;
 	static char	*saved[1024];

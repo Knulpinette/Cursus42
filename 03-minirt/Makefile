@@ -31,14 +31,28 @@ HEADER		= include
 LIBFT_DIR	= libft
 LIBFT_LIB	= -Llibft -lft
 
-MLX_LIB		= -Lmlx_linux -lmlx_Linux -L/usr/lib
-
 CC			= gcc
 RM			= rm -f
 MAKE		= make bonus
 CFLAGS 		= -Wall -Wextra -Werror
+
+# Will allow to compile the right library according to if the OS is WSL/Linux or Mac
+UNAME = ${shell uname}
+
+ifeq ($(UNAME), Darwin)
+INCLUDES	= -Imlx -Ilibft -Iinclude
+
+MLX_LIB		= -Lmlx -lmlx 
+MLX_FLAGS	= -framework OpenGL -framework AppKit
+
+else
 INCLUDES	= -Iinclude -I/usr/include -Imlx_linux -Ilibft
+
+MLX_LIB		= -Lmlx_linux -lmlx_Linux -L/usr/lib
 MLX_FLAGS	= -Imlx_linux -lXext -lX11 -lm -lz
+
+endif
+
 
 # -*- The Rules -*-
 
@@ -67,7 +81,7 @@ ${NAME}:	${OBJS}
 test:		${NAME}
 			@echo "🦕🍭 To just debug, type in command line :"
 			@echo "🦕🍭🦕 ./miniRT ./scenes/scene-example.rt"
-			@echo "🦄🍭 Launch vcxsrv.exe" 
+			@echo "🍭🦄 IF WSL -> Launch vcxsrv.exe" 
 			@echo "🦄🍭 Type in command line :" 
 			@echo "🍭🦄🍭 DISPLAY=\$$(cat /etc/resolv.conf | grep nameserver | awk '{print \$$2}'):0 ./miniRT ./scenes/scene-example.rt"
 

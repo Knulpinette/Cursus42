@@ -26,7 +26,7 @@
 
 static char	*system_null(void)
 {
-	char *null;
+	char	*null;
 	
 	#if __APPLE__
 		null = ft_strdup("0x0");
@@ -36,7 +36,7 @@ static char	*system_null(void)
 	return (null);
 }
 
-char		*convert_p(va_list arg, t_flags *flags)
+char	*convert_p(va_list arg, t_flags *flags)
 {
 	unsigned long	x;
 	char			*conv;

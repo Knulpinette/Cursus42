@@ -47,7 +47,7 @@ static char	*ft_putnbr(long int nb, char *str, int size)
 	return (str);
 }
 
-char		*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	int			size;
 	long int	nb;

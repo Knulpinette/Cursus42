@@ -13,13 +13,13 @@
 #ifndef FT_PRINTF_PARSE_H
 # define FT_PRINTF_PARSE_H
 
-typedef enum	e_align
+typedef enum e_align
 {
 	left = 1,
 	right,
 }				t_align;
 
-typedef enum	e_flags
+typedef enum e_flags
 {
 	none,
 	zero,
@@ -28,7 +28,7 @@ typedef enum	e_flags
 	wildcard,
 }				t_e_flags;
 
-typedef	struct	s_flags
+typedef struct s_flags
 {
 	int		zero;
 	int		minus;

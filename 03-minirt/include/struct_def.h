@@ -160,4 +160,14 @@ typedef struct 	s_scene
 	t_light		light;
 }				t_scene;
 
+/*
+** INFO STRUCT
+*/
+
+typedef struct	s_info
+{
+	t_scene		scene;
+	t_obj		*objs;
+}				t_info;
+
 #endif

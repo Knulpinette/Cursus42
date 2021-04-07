@@ -1,4 +1,3 @@
-
 # -*-🦕-*- Make Libft -*-🦕-*-
 
 NAME		= libft.a

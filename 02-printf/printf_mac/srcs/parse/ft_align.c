@@ -106,7 +106,7 @@ char	*left_align(int width, char *conv, int len, char *temp)
 
 void	zero_align(char **temp, char **conv, int len, t_flags *flags)
 {
-	int	neg;
+	int		neg;
 
 	neg = no;
 	if (conv[0][len] == '-' && !(flags->type == 'u') \

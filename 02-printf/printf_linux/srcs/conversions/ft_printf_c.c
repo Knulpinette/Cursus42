@@ -34,7 +34,7 @@
 
 char	*convert_c(va_list arg, t_flags *flags, int *char_null, int *align)
 {
-	char *conv;
+	char	*conv;
 
 	conv = (char *)malloc(sizeof(char) * 2);
 	if (!conv)
@@ -66,7 +66,7 @@ char	*convert_c(va_list arg, t_flags *flags, int *char_null, int *align)
 ** Attention : free the flags.
 */
 
-int		case_c(va_list arg, t_flags *flags, int count)
+int	case_c(va_list arg, t_flags *flags, int count)
 {
 	int		align;
 	int		char_null;

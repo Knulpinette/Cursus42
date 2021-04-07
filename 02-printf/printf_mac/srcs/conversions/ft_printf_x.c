@@ -53,7 +53,7 @@ static void	handle_w_and_p(char **conv, t_flags **flags, int *len)
 **				  Else it creates a freeable empty string.
 */
 
-char		*convert_x(va_list arg, t_flags *flags)
+char	*convert_x(va_list arg, t_flags *flags)
 {
 	char	*conv;
 	int		len;

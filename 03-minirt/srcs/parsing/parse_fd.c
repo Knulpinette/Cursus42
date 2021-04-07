@@ -12,16 +12,19 @@
 
 #include "minirt.h"
 
-///, t_scene *scene, t_obj *obj)
+//read_fd(int fd, t_info *infos)
+//{
+	
+//}
 
-int	open_fd(char *argv)
+int	open_fd(char *argv) //, t_info *infos)
 {
 	int	fd;
 
 	fd = open(argv, O_RDONLY);
 	if (fd == -1)
 		return (-1);
-	//read_fd(fd);
+	//read_fd(fd, infos);
 	if (close(fd) == -1)
 		return (-1);
 	return (1);

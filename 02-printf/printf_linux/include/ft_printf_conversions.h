@@ -15,7 +15,7 @@
 
 # include "ft_printf_parse.h"
 
-typedef enum	e_no_yes
+typedef enum e_no_yes
 {
 	no,
 	yes,

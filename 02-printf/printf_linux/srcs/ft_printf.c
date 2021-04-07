@@ -31,7 +31,7 @@
 ** 🦕
 */
 
-int		ft_printf(const char *s, ...)
+int	ft_printf(const char *s, ...)
 {
 	const char	*original_s;
 	va_list		arg;

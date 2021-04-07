@@ -36,7 +36,7 @@ static char	*ft_putnbr_base(unsigned long n, char *base, int size, char *s)
 	return (s);
 }
 
-char		*ft_itoa_base(unsigned long int nb, char *base)
+char	*ft_itoa_base(unsigned long int nb, char *base)
 {
 	unsigned long	l_nb;
 	int				l;

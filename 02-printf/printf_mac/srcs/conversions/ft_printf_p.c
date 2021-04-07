@@ -24,7 +24,7 @@
 ** 🦕
 */
 
-char		*convert_p(va_list arg, t_flags *flags)
+char	*convert_p(va_list arg, t_flags *flags)
 {
 	unsigned long	x;
 	char			*conv;

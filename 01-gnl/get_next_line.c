@@ -40,7 +40,7 @@ static void	ft_strdel(char **saved)
 ** Returns 0 and allocates a freeable empty string to line.
 */
 
-int			empty_line(char **line)
+int	empty_line(char **line)
 {
 	*line = (char *)malloc(sizeof(char) * 1);
 	**line = '\0';
@@ -120,7 +120,7 @@ static int	create_line(char **line, char **saved)
 ** solution could be to use the MAX_FD <limits.h> variable. Or lists.
 */
 
-int			get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	char		*buf;
 	static char	*saved[1024];

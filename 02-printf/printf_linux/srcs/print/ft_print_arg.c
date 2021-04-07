@@ -20,7 +20,7 @@
 ** 🦕
 */
 
-int		ft_print_arg(char *print)
+int	ft_print_arg(char *print)
 {
 	char	*end_print;
 	int		count;
@@ -46,7 +46,7 @@ int		ft_print_arg(char *print)
 ** right.
 */
 
-int		handle_align(int *align, char null, char *print, char *end_print)
+int	handle_align(int *align, char null, char *print, char *end_print)
 {
 	int	i;
 
@@ -70,7 +70,7 @@ int		handle_align(int *align, char null, char *print, char *end_print)
 	return (i);
 }
 
-int		ft_print_c_null(char *print, int *align)
+int	ft_print_c_null(char *print, int *align)
 {
 	char	*end_print;
 	int		count;
@@ -99,7 +99,7 @@ int		ft_print_c_null(char *print, int *align)
 ** from ft_printf.
 */
 
-int		ft_check_len_arg(const char *s)
+int	ft_check_len_arg(const char *s)
 {
 	int	len;
 

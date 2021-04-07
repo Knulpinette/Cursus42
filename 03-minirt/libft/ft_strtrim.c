@@ -74,7 +74,7 @@ static char	*trim_more(char *trim, char const *s1, int start, int end)
 ** It returns the pointer to the trimmed string.
 */
 
-char		*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char const *s1, char const *set)
 {
 	char		*trim;
 	size_t		start;

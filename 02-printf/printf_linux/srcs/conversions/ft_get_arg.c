@@ -23,7 +23,7 @@
 ** 🦕
 */
 
-int		ft_get_arg(va_list arg, const char *s, int count)
+int	ft_get_arg(va_list arg, const char *s, int count)
 {
 	t_flags		*flags;
 	char		*arg_str;

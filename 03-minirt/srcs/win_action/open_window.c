@@ -96,15 +96,14 @@ int     main(int argc, char **argv)
     void    *mlx;
     void    *mlx_win;
     t_data  img;
-    //t_scene scene;
-    //t_obj   objs;
+   // t_info	infos;
     int     error;
 
     if (argc < 2)
         return (-1);
     if (argc == 2)
     {
-        error = open_fd(argv[1]); //, &scene, &obj);
+        error = open_fd(argv[1]); //, &infos);
         if (!error)
             return (-1);
     }

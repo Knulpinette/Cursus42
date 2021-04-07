@@ -27,7 +27,7 @@
 ** Those values are set in an enum in ft_printf_parse.h.
 */
 
-int			ft_i_am_flag(char c)
+int	ft_i_am_flag(char c)
 {
 	if (c == '-')
 		return (minus);
@@ -112,7 +112,7 @@ const char	*ft_get_precision(const char *s, t_flags **flags, va_list arg)
 ** this argument.
 */
 
-t_flags		*ft_get_flags(const char *s, va_list arg)
+t_flags	*ft_get_flags(const char *s, va_list arg)
 {
 	t_flags	*flags;
 

@@ -58,7 +58,7 @@ static char	*forward(char *dest, char *src, size_t n)
 	return (dest);
 }
 
-void		*ft_memmove(void *to, const void *from, size_t n)
+void	*ft_memmove(void *to, const void *from, size_t n)
 {
 	char	*dest;
 	char	*src;

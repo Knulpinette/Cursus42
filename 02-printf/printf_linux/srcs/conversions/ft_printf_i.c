@@ -43,7 +43,7 @@ static void	handle_w_and_p(char **conv, t_flags **flags, int *len)
 	}
 }
 
-char		*convert_i(va_list arg, t_flags *flags)
+char	*convert_i(va_list arg, t_flags *flags)
 {
 	char	*conv;
 	int		len;

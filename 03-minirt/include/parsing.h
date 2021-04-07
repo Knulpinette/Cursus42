@@ -15,6 +15,6 @@
 
 # include "minirt.h"
 
-int	open_fd(char *argv); //, t_scene *scene, t_obj *obj)
+int	open_fd(char *argv); //, t_info *infos);
 
 #endif

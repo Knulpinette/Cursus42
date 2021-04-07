@@ -1,4 +1,3 @@
-
 # -*-🦕-*- Make Libft -*-🦕-*-
 
 NAME		= libft.a
@@ -26,7 +25,7 @@ CFLAGS		= -Wall -Wextra -Werror
 
 ${OBJS_DIR}/%.o: %.c ${HEADER}
 	@mkdir -p objs
-	@${CC} ${FLAGS} -o $@ -c $<
+	${CC} ${FLAGS} -o $@ -c $<
 
 #	Active rules
 
@@ -41,11 +40,11 @@ bonus: ${OBJS} ${OBJS_BONUS}
 #	Cleaning rules
 
 clean:
-	@${RM} ${OBJS} ${OBJS_BONUS}
+	${RM} ${OBJS} ${OBJS_BONUS}
 	@rm -rf objs
 
 fclean: clean
-	@${RM} ${NAME}
+	${RM} ${NAME}
 
 re: fclean all
 
