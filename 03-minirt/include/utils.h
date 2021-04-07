@@ -15,6 +15,6 @@
 
 # include "minirt.h"
 
-int		get_next_line(int fd, char **line);
+//int		get_next_line(int fd, char **line);
 
 #endif

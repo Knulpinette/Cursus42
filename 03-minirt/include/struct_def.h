@@ -19,7 +19,7 @@
 ** ELEMENTS OF OBJS STRUCT
 */
 
-typedef struct 	s_sphere
+typedef struct s_sphere
 {
 	int	x;
 	int	y;
@@ -27,7 +27,7 @@ typedef struct 	s_sphere
 	int	d;
 }				t_sphere;
 
-typedef struct 	s_plane
+typedef struct s_plane
 {
 	int	x;
 	int	y;
@@ -37,7 +37,7 @@ typedef struct 	s_plane
 	int	vec_z;
 }				t_plane;
 
-typedef struct 	s_square
+typedef struct s_square
 {
 	int	x;
 	int	y;
@@ -48,7 +48,7 @@ typedef struct 	s_square
 	int	side;
 }				t_square;
 
-typedef struct 	s_cylinder
+typedef struct s_cylinder
 {
 	int	x;
 	int	y;
@@ -60,7 +60,7 @@ typedef struct 	s_cylinder
 	int	d;
 }				t_cylinder;
 
-typedef struct 	s_triangle
+typedef struct s_triangle
 {
 	int	x0;
 	int	x1;
@@ -73,7 +73,7 @@ typedef struct 	s_triangle
 	int	z2;
 }				t_triangle;
 
-typedef struct	s_color
+typedef struct s_color
 {
 	int		t;
 	int		r;
@@ -91,7 +91,7 @@ enum e_obj
 	TRIANGLE,
 };
 
-typedef union 	u_type 
+typedef union u_type 
 {
 	t_sphere	sp;
 	t_plane		pl;
@@ -104,7 +104,7 @@ typedef union 	u_type
 ** OBJECT STRUCT
 */
 
-typedef struct	s_obj
+typedef struct s_obj
 {
 	int		type;  //enum return so we know what type of union we have/get
 	t_type	shape; //union to allocate only one type of memory
@@ -116,7 +116,7 @@ typedef struct	s_obj
 ** ELEMENTS OF SCENE SETUP STRUCT
 */
 
-typedef struct 	s_res
+typedef struct s_res
 {
 	int	x;
 	int	y;
@@ -128,7 +128,7 @@ typedef struct 	s_ambient
 	t_color	color;
 }				t_ambient;
 
-typedef struct 	s_camera
+typedef struct s_camera
 {
 	int	x;
 	int	y;
@@ -139,7 +139,7 @@ typedef struct 	s_camera
 	int	FOV;
 }				t_camera;
 
-typedef struct	s_light
+typedef struct s_light
 {
 	int		x;
 	int		y;
@@ -152,7 +152,7 @@ typedef struct	s_light
 ** SCENE SETUP STRUCT
 */
 
-typedef struct 	s_scene
+typedef struct s_scene
 {
 	t_res		res;
 	t_ambient	ambient;
@@ -164,7 +164,7 @@ typedef struct 	s_scene
 ** INFO STRUCT
 */
 
-typedef struct	s_info
+typedef struct s_info
 {
 	t_scene		scene;
 	t_obj		*objs;

@@ -16,6 +16,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+# define BUFFER_SIZE 1000
+
 typedef struct s_list
 {
 	void			*content;
@@ -66,5 +68,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_tolower(int l);
 int		ft_toupper(int u);
 char	*ft_itoa_base(unsigned long int nb, char *base);
+int		get_next_line(int fd, char **line);
 
 #endif

@@ -27,9 +27,7 @@
 # include "parsing.h"
 # include "utils.h"
 
-# define BUFFER_SIZE 100
-
-enum	e_y_or_no
+enum e_y_or_no
 {
 	no,
 	yes,
