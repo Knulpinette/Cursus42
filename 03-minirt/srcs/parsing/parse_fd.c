@@ -13,7 +13,7 @@
 #include "minirt.h"
 
 /*
-** BUFFER_SIZE is defined in libft.h
+** BUFFER_SIZE 1000 is defined in libft.h
 */
 
 int	parse_fd(char *line, t_info *infos)
@@ -41,9 +41,9 @@ int	parse_fd(char *line, t_info *infos)
 		else if (*line == 't' && *(line + 1) == 'r' && *(line + 2) == ' ')
 			get_triangle((line + 2), infos);
 		else
-			return (-1);
+			return (0);
 	}
-	return (0);
+	return (1);
 }
 
 int	open_fd(char *argv, t_info *infos)
@@ -57,28 +57,28 @@ int	open_fd(char *argv, t_info *infos)
 	i = 0;
 	line_count = 0;
 	fd = open(argv, O_RDONLY);
-	if (fd == -1)
+	if (fd < 0)
 		return (-1);
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
 		i = parse_fd(line, infos);
-		if (i == -1)
+		if (!i)
 			printf("ERROR\n");
 		printf("[Return: %d] Line #%d: %s\n", ret, line_count, line);
 		line_count++;
 	}
 	if (ret == -1)
 		printf("\n An error happened\n");
-	else if (ret == 0 && line)
+	else if (!ret && line)
 	{
 		printf("[Return: %d] Line #%d: %s\n", ret, line_count, line);
 		if (line)
 			i = parse_fd(line, infos);
-		if (i == -1)
+		if (!i)
 			printf("ERROR\n");
 		printf("\n EOF has been reached\n");
 	}
-	if (close(fd) == -1)
+	if (close(fd) < 0)
 		return (-1);
 	return (1);
 }

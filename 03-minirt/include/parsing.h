@@ -25,5 +25,6 @@ void	get_square(char *line, t_info *infos);
 void	get_plane(char *line, t_info *infos);
 void	get_cylinder(char *line, t_info *infos);
 void	get_triangle(char *line, t_info *infos);
+void	get_color(char *line, t_info *infos);
 
 #endif

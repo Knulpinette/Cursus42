@@ -10,13 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minirt.h"
+
 /*
 ** 🦕
 ** function : utils
 ** 🦕
 */
 
-#include "minirt.h"
+// DO ERROR HANDLING OF PARSING IN THOSE FUNCTIONS !
+// CHECK HOW STRERROR WORKS
 
 char	*next_nbr(char *line)
 {

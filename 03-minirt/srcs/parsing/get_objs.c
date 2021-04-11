@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-void get_sphere(char *line, t_info *infos)
+void	get_sphere(char *line, t_info *infos)
 {
 	infos->objs.type = SPHERE;
 	line = pass_spaces(line);
@@ -24,16 +24,10 @@ void get_sphere(char *line, t_info *infos)
 	line = next_nbr(line);
 	line = pass_spaces(line);
 	infos->objs.shape.sp.d = ft_atof(line);
-	line = next_nbr(line);
-	line = pass_spaces(line);
-	infos->objs.color.r = ft_atoi(line);
-	line = next_nbr(line);
-	infos->objs.color.g = ft_atoi(line);
-	line = next_nbr(line);
-	infos->objs.color.b = ft_atoi(line);
+	get_color(line, infos);
 }
 
-void get_square(char *line, t_info *infos)
+void	get_square(char *line, t_info *infos)
 {
 	infos->objs.type = SQUARE;
 	line = pass_spaces(line);
@@ -52,16 +46,10 @@ void get_square(char *line, t_info *infos)
 	line = next_nbr(line);
 	line = pass_spaces(line);
 	infos->objs.shape.sq.side = ft_atof(line);
-	line = next_nbr(line);
-	line = pass_spaces(line);
-	infos->objs.color.r = ft_atoi(line);
-	line = next_nbr(line);
-	infos->objs.color.g = ft_atoi(line);
-	line = next_nbr(line);
-	infos->objs.color.b = ft_atoi(line);
+	get_color(line, infos);
 }
 
-void get_plane(char *line, t_info *infos)
+void	get_plane(char *line, t_info *infos)
 {
 	infos->objs.type = PLANE;
 	line = pass_spaces(line);
@@ -77,16 +65,10 @@ void get_plane(char *line, t_info *infos)
 	infos->objs.shape.pl.vec_y = ft_atof(line);
 	line = next_nbr(line);
 	infos->objs.shape.pl.vec_z = ft_atof(line);
-	line = next_nbr(line);
-	line = pass_spaces(line);
-	infos->objs.color.r = ft_atoi(line);
-	line = next_nbr(line);
-	infos->objs.color.g = ft_atoi(line);
-	line = next_nbr(line);
-	infos->objs.color.b = ft_atoi(line);
+	get_color(line, infos);
 }
 
-void get_triangle(char *line, t_info *infos)
+void	get_triangle(char *line, t_info *infos)
 {
 	infos->objs.type = TRIANGLE;
 	line = pass_spaces(line);
@@ -109,16 +91,10 @@ void get_triangle(char *line, t_info *infos)
 	infos->objs.shape.tr.z1 = ft_atof(line);
 	line = next_nbr(line);
 	infos->objs.shape.tr.z2 = ft_atof(line);
-	line = next_nbr(line);
-	line = pass_spaces(line);
-	infos->objs.color.r = ft_atoi(line);
-	line = next_nbr(line);
-	infos->objs.color.g = ft_atoi(line);
-	line = next_nbr(line);
-	infos->objs.color.b = ft_atoi(line);
+	get_color(line, infos);
 }
 
-void get_cylinder(char *line, t_info *infos)
+void	get_cylinder(char *line, t_info *infos)
 {
 	infos->objs.type = CYLINDER;
 	line = pass_spaces(line);
@@ -140,6 +116,11 @@ void get_cylinder(char *line, t_info *infos)
 	line = next_nbr(line);
 	line = pass_spaces(line);
 	infos->objs.shape.cy.d = ft_atof(line);
+	get_color(line, infos);
+}
+
+void	get_color(char *line, t_info *infos)
+{
 	line = next_nbr(line);
 	line = pass_spaces(line);
 	infos->objs.color.r = ft_atoi(line);

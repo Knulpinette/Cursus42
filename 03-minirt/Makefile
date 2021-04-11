@@ -39,20 +39,20 @@ CFLAGS 		= -Wall -Wextra -Werror
 # Will allow to compile the right library according to if the OS is WSL/Linux or Mac
 UNAME = ${shell uname}
 
+# If Mac
 ifeq ($(UNAME), Darwin)
 INCLUDES	= -Imlx -Ilibft -Iinclude
 
 MLX_LIB		= -Lmlx -lmlx 
 MLX_FLAGS	= -framework OpenGL -framework AppKit
 
+#If Linux
 else
 INCLUDES	= -Iinclude -I/usr/include -Imlx_linux -Ilibft
 
 MLX_LIB		= -Lmlx_linux -lmlx_Linux -L/usr/lib
 MLX_FLAGS	= -Imlx_linux -lXext -lX11 -lm -lz
-
 endif
-
 
 # -*- The Rules -*-
 
@@ -88,7 +88,6 @@ test:		${NAME}
 bonus:		${OBJS_BONUS}
 			${MAKE} bonus -C ${LIBFT_DIR}
 			$(CC) ${CFLAGS} ${OBJS_BONUS} ${MLX_LIB} ${MLX_FLAGS} -o $(NAME)
-
 
 #	Cleaning rules
 
