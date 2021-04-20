@@ -12,10 +12,10 @@
 
 #include "minirt.h"
 
-int destroy_window(t_mlx *mlx)
+int exit_and_free(t_rt *rt)
 {
-    mlx_clear_window(mlx->mlx, mlx->win);
-    mlx_destroy_window(mlx->mlx, mlx->win);
+    mlx_clear_window(rt->mlx, rt->win);
+    mlx_destroy_window(rt->mlx, rt->win);
     exit(0);
     return (1);
 }

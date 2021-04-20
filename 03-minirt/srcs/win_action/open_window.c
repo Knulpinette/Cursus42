@@ -83,12 +83,12 @@ void    draw_circle(t_data *img)
     }
 }
 
-static int close_win(int keycode, t_mlx *mlx)
+static int close_win(int keycode, t_rt *rt)
 {
     if (keycode == 65307)
     {
-        mlx_clear_window(mlx->mlx, mlx->win);
-        mlx_destroy_window(mlx->mlx, mlx->win);
+        mlx_clear_window(rt->mlx, rt->win);
+        mlx_destroy_window(rt->mlx, rt->win);
         exit(0);
     }
     return (1);
@@ -96,7 +96,7 @@ static int close_win(int keycode, t_mlx *mlx)
 
 int     main(int argc, char **argv)
 {
-    t_mlx  mlx;
+    t_rt    rt;
     t_info	*infos;
     int     error;
 
@@ -112,31 +112,31 @@ int     main(int argc, char **argv)
     del_mem_infos(infos);
 // SPHERE AND PLANE => ACCORDING TO WHERE THE CAMERA IS ? (POV BASICALLY)
 
-    mlx.mlx = mlx_init();
+    rt.mlx = mlx_init();
 
     //OPEN WINDOW
-    mlx.win = mlx_new_window(mlx.mlx, 1920, 1080, "I love bacon <3");
-    mlx.img.img = mlx_new_image(mlx.mlx, 1920, 1080);
-    mlx.img.addr = mlx_get_data_addr(mlx.img.img, &mlx.img.bit_pix, &mlx.img.line_l,
-                                &mlx.img.endian);
+    rt.win = mlx_new_window(rt.mlx, 1920, 1080, "I love bacon <3");
+    rt.data.img = mlx_new_image(rt.mlx, 1920, 1080);
+    rt.data.addr = mlx_get_data_addr(rt.data.img, &rt.data.bit_pix, &rt.data.line_l,
+                                &rt.data.endian);
 
     //RENDER SHAPES => DRAWING THEM WITH TRIG
-    draw_rectangle(&mlx.img);
-    draw_triangle(&mlx.img);
-    draw_circle(&mlx.img);
+    draw_rectangle(&rt.data);
+    draw_triangle(&rt.data);
+    draw_circle(&rt.data);
 
     //PUT IMG TO WINDOW
-    mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.img.img, 0, 0);
+    mlx_put_image_to_window(rt.mlx, rt.win, rt.data.img, 0, 0);
 
 
-    mlx_key_hook(mlx.win, close_win, &mlx); //escape clean exit
+    mlx_key_hook(rt.win, close_win, &rt); //escape clean exit
     #if __APPLE__
-        mlx_hook(mlx.win, 17, 0, destroy_window, &mlx);
+        mlx_hook(rt.win, 17, 0, exit_and_free, &rt);
     #else
-        mlx_hook(mlx.win, 33, 0, destroy_window, &mlx);
+        mlx_hook(rt.win, 33, 0, exit_and_free, &rt);
     #endif // WHY SIGSEV ? 
 
-    mlx_loop(mlx.mlx);
+    mlx_loop(rt.mlx);
     //IF ACTIONS
     //EXIT WINDOW
 }

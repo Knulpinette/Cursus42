@@ -13,6 +13,6 @@
 #ifndef WINDOW_H
 # define WINDOW_H
 
-int destroy_window(t_mlx *mlx);
+int exit_and_free(t_rt *rt);
 
 #endif

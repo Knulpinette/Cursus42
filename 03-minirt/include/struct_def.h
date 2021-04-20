@@ -184,10 +184,10 @@ typedef struct  s_data {
     int     endian; // endian
 }               t_data;
 
-typedef struct  s_mlx {
+typedef struct  s_rt {
         void    *mlx;
         void    *win;
-        t_data  img;
-}               t_mlx;
+        t_data  data;
+}               t_rt;
 
 #endif

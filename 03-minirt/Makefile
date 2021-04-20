@@ -34,7 +34,7 @@ LIBFT_LIB	= -Llibft -lft
 CC			= gcc
 RM			= rm -f
 MAKE		= make
-CFLAGS 		= -Wall -Wextra -Werror #-fsanitize=address
+CFLAGS 		= -Wall -Wextra -Werror -fsanitize=address
 
 # Will allow to compile the right library according to if the OS is WSL/Linux or Mac
 UNAME = ${shell uname}
