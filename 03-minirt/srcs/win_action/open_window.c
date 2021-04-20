@@ -87,6 +87,7 @@ static int close_win(int keycode, t_mlx *mlx)
 {
     if (keycode == 65307)
     {
+        mlx_clear_window(mlx->mlx, mlx->win);
         mlx_destroy_window(mlx->mlx, mlx->win);
         exit(0);
     }

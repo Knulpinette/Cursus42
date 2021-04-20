@@ -13,6 +13,6 @@
 #ifndef WINDOW_H
 # define WINDOW_H
 
-int destroy_window(int button, t_mlx *mlx);
+int destroy_window(t_mlx *mlx);
 
 #endif
