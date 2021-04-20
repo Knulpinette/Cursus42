@@ -12,3 +12,9 @@
 
 #include "minirt.h"
 
+int destroy_window(int button, t_mlx *mlx)
+{
+    mlx_destroy_window(mlx->mlx, mlx->win);
+    exit(0);
+    return (button);
+}

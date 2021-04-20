@@ -93,16 +93,6 @@ static int close_win(int keycode, t_mlx *mlx)
     return (1);
 }
 
-int destroy_window(int button, t_mlx *mlx)
-{
-    if (button)
-    {
-        mlx_destroy_window(mlx->mlx, mlx->win);
-        exit(0);
-    }
-    return (1);
-}
-
 int     main(int argc, char **argv)
 {
     t_mlx  mlx;
