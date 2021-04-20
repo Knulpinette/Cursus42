@@ -109,7 +109,6 @@ typedef struct s_obj
 	int		type;  //enum return so we know what type of union we have/get
 	t_type	shape; //union to allocate only one type of memory
 	t_color	color; //struct
-	void	*next; //ptr to chained list
 }				t_obj;
 
 /*
@@ -156,8 +155,10 @@ typedef struct s_scene
 {
 	t_res		res;
 	t_ambient	amb;
-	t_camera	cam;
-	t_light		light;
+	int			nb_cam;
+	t_camera	*cam;
+	int			nb_light;
+	t_light		*light;
 }				t_scene;
 
 /*
@@ -166,8 +167,9 @@ typedef struct s_scene
 
 typedef struct s_info
 {
-	t_scene		scene;
-	t_obj		objs;
+	t_scene		*scene;
+	int			nb_objs;
+	t_obj		*objs;
 }				t_info;
 
 #endif

@@ -17,5 +17,7 @@
 
 char	*next_nbr(char *line);
 char	*pass_spaces(char *line);
+t_obj	*add_mem_obj(int nb_objs, t_obj *objs);
+void	del_mem_infos(t_info *infos);
 
 #endif

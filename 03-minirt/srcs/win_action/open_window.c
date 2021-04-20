@@ -18,6 +18,11 @@
 ** 🦕
 */
 
+typedef struct  s_mlx {
+        void    *mlx;
+        void    *win;
+}               t_mlx;
+
 typedef struct  s_data {
     void    *img;
     char    *addr;
@@ -25,6 +30,8 @@ typedef struct  s_data {
     int     line_length;
     int     endian;
 }               t_data;
+
+
 
 void    my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
@@ -91,29 +98,47 @@ void    draw_circle(t_data *img)
     }
 }
 
+static int close_win(int keycode, t_mlx *mlx)
+{
+    if (keycode == 65307)
+    {
+        mlx_destroy_window(mlx->mlx, mlx->win);
+        exit(0);
+    }
+    return (1);
+}
+
+int destroy_window(int button, t_mlx *mlx)
+{
+    if (button)
+    {
+        mlx_destroy_window(mlx->mlx, mlx->win);
+        exit(0);
+    }
+    return (1);
+}
+
 int     main(int argc, char **argv)
 {
-    void    *mlx;
-    void    *mlx_win;
+    t_mlx  mlx;
     t_data  img;
-    t_info	infos;
+    t_info	*infos;
     int     error;
 
     if (argc < 2)
         return (-1);
+    infos = ft_calloc(sizeof(t_info), 1); //init_infos
     if (argc == 2)
     {
-        error = open_fd(argv[1], &infos);
+        error = get_infos(argv[1], infos);
         if (!error)
             return (-1);
     }
-    mlx = mlx_init();
-    //scene = get_scene();
-    //objs = get_objs();
-    //PARSE with GNL + OPEN/READ and ARGUMENTS with miniRT
+    del_mem_infos(infos);
+    mlx.mlx = mlx_init();
     //OPEN WINDOW
-    mlx_win = mlx_new_window(mlx, 1920, 1080, "I love bacon <3");
-    img.img = mlx_new_image(mlx, 1920, 1080);
+    mlx.win = mlx_new_window(mlx.mlx, 1920, 1080, "I love bacon <3");
+    img.img = mlx_new_image(mlx.mlx, 1920, 1080);
     img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
                                 &img.endian);
     //RENDER SHAPES => DRAWING THEM WITH TRIG
@@ -121,8 +146,11 @@ int     main(int argc, char **argv)
     draw_triangle(&img);
     draw_circle(&img);
     //PUT IMG TO WINDOW
-    mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-    mlx_loop(mlx);
+    mlx_put_image_to_window(mlx.mlx, mlx.win, img.img, 0, 0);
+     // MEMORY DELETE OF INFOS ESSENTIAL 
+    mlx_key_hook(mlx.win, close_win, &mlx); //escape clean exit
+    mlx_hook(mlx.win, 33, 0, destroy_window, &mlx); // WHY SIGSEV ? // Also, 17 on macintosh
+    mlx_loop(mlx.mlx);
     //IF ACTIONS
     //EXIT WINDOW
 }

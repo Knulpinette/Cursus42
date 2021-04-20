@@ -15,16 +15,17 @@
 
 # include "minirt.h"
 
-int		open_fd(char *argv, t_info *infos);
+int		get_infos(char *argv, t_info *infos);
+void	init_objs(t_info *infos);
 void	get_res(char *line, t_info *infos);
 void	get_amb(char *line, t_info *infos);
 void	get_cam(char *line, t_info *infos);
 void	get_light(char *line, t_info *infos);
-void	get_sphere(char *line, t_info *infos);
-void	get_square(char *line, t_info *infos);
-void	get_plane(char *line, t_info *infos);
-void	get_cylinder(char *line, t_info *infos);
-void	get_triangle(char *line, t_info *infos);
+void	get_sphere(char *line, t_info *infos, int add_mem);
+void	get_square(char *line, t_info *infos, int add_mem);
+void	get_plane(char *line, t_info *infos, int add_mem);
+void	get_cylinder(char *line, t_info *infos, int add_mem);
+void	get_triangle(char *line, t_info *infos, int add_mem);
 void	get_color(char *line, t_info *infos);
 
 #endif
