@@ -17,10 +17,10 @@
 
 int		get_infos(char *argv, t_rt *rt);
 void	init_objs(t_rt *rt);
-void	get_res(char *line, t_info *infos);
-void	get_amb(char *line, t_info *infos);
-void	get_cam(char *line, t_info *infos);
-void	get_light(char *line, t_info *infos);
+void	get_res(char *line, t_scene *scene);
+void	get_amb(char *line, t_scene *scene);
+void	get_cam(char *line, t_scene *scene);
+void	get_light(char *line, t_scene *scene);
 void	get_sphere(char *line, t_info *infos, int add_mem);
 void	get_square(char *line, t_info *infos, int add_mem);
 void	get_plane(char *line, t_info *infos, int add_mem);

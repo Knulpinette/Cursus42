@@ -46,13 +46,13 @@ int	parse(char *line, t_info *infos)
 	if (ft_isalnum(*line)) // check that for all cases (no spaces) => also whitespace or tab ok or not ?
 	{
 		if (*line == 'R' && *(line + 1) == ' ')
-			get_res((line + 1), infos);
+			get_res((line + 1), infos->scene);
 		else if (*line == 'A')
-			get_amb((line + 1), infos);
+			get_amb((line + 1), infos->scene);
 		else if (*line == 'l' && *(line + 1) == ' ')
-			get_light((line + 1), infos);
+			get_light((line + 1), infos->scene);
 		else if (*line == 'c' && *(line + 1) == ' ')
-			get_cam((line + 1), infos);
+			get_cam((line + 1), infos->scene);
 		else if (*line == 'c' || *line == 's' || *line == 'p' || *line == 't')
 			return (parse_obj(line, infos));
 		else
