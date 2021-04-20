@@ -15,62 +15,64 @@
 void	get_res(char *line, t_info *infos)
 {
 	line = pass_spaces(line);
-	infos->scene.res.x = ft_atoi(line);
+	infos->scene->res.x = ft_atoi(line);
 	while (ft_isdigit(*line))
 		line++;
 	line = pass_spaces(line);
-	infos->scene.res.y = ft_atoi(line);
+	infos->scene->res.y = ft_atoi(line);
 }
 
 void	get_amb(char *line, t_info *infos)
 {
-	infos->scene.amb.r = ft_atof(line);
+	infos->scene->amb.r = ft_atof(line);
 	line = pass_spaces(line);
 	line = next_nbr(line);
-	infos->scene.amb.color.r = ft_atoi(line);
+	infos->scene->amb.color.r = ft_atoi(line);
 	line = next_nbr(line);
-	infos->scene.amb.color.g = ft_atoi(line); 
+	infos->scene->amb.color.g = ft_atoi(line); 
 	line = next_nbr(line);
-	infos->scene.amb.color.b = ft_atoi(line); 
+	infos->scene->amb.color.b = ft_atoi(line); 
 }
 
 void	get_light(char *line, t_info *infos)
 {
+	infos->scene->light = ft_calloc(sizeof(t_light), 1);
 	line = pass_spaces(line);
-	infos->scene.light.x = ft_atof(line);
+	infos->scene->light->x = ft_atof(line);
 	line = next_nbr(line);
-	infos->scene.light.y = ft_atof(line);
+	infos->scene->light->y = ft_atof(line);
 	line = next_nbr(line);
-	infos->scene.light.z = ft_atof(line);
-	line = next_nbr(line);
-	line = pass_spaces(line);
-	infos->scene.light.bright = ft_atof(line);
+	infos->scene->light->z = ft_atof(line);
 	line = next_nbr(line);
 	line = pass_spaces(line);
-	infos->scene.light.color.r = ft_atoi(line);
+	infos->scene->light->bright = ft_atof(line);
 	line = next_nbr(line);
-	infos->scene.light.color.g = ft_atoi(line); 
+	line = pass_spaces(line);
+	infos->scene->light->color.r = ft_atoi(line);
 	line = next_nbr(line);
-	infos->scene.light.color.b = ft_atoi(line); 
+	infos->scene->light->color.g = ft_atoi(line); 
+	line = next_nbr(line);
+	infos->scene->light->color.b = ft_atoi(line); 
 }
 
 void	get_cam(char *line, t_info *infos)
 {
+	infos->scene->cam = ft_calloc(sizeof(t_camera), 1);
 	line = pass_spaces(line);
-	infos->scene.cam.x = ft_atof(line);
+	infos->scene->cam->x = ft_atof(line);
 	line = next_nbr(line);
-	infos->scene.cam.y = ft_atof(line);
+	infos->scene->cam->y = ft_atof(line);
 	line = next_nbr(line);
-	infos->scene.cam.z = ft_atof(line);
+	infos->scene->cam->z = ft_atof(line);
 	line = next_nbr(line);
 	line = pass_spaces(line);
-	infos->scene.cam.vec_x = ft_atof(line);
+	infos->scene->cam->vec_x = ft_atof(line);
 	line = next_nbr(line);
-	infos->scene.cam.vec_y = ft_atof(line);
+	infos->scene->cam->vec_y = ft_atof(line);
 	line = next_nbr(line);
-	infos->scene.cam.vec_z = ft_atof(line);
+	infos->scene->cam->vec_z = ft_atof(line);
 	line = next_nbr(line);
-	infos->scene.cam.FOV = ft_atoi(line);
+	infos->scene->cam->FOV = ft_atoi(line);
 }
 
 /*
@@ -102,7 +104,7 @@ printf("  x = %i \n\
 			vec y = %i \n\
 			vec z = %i \n\
 			bright = %f \n", \
-			infos->scene.light.x, \
+			infos->scene.light->x, \
 			infos->scene.light.y, \
 			infos->scene.light.z, \
 			infos->scene.light.color.r, \

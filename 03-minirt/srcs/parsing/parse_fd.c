@@ -16,7 +16,30 @@
 ** BUFFER_SIZE 1000 is defined in libft.h
 */
 
-int	parse_fd(char *line, t_info *infos)
+int	parse_obj(char *line, t_info *infos)
+{
+	int	add_mem;
+
+	add_mem = no;
+	if (infos->nb_objs)
+		add_mem = yes;
+	if (*line == 's' && *(line + 1) == 'p' && *(line + 2) == ' ')
+		get_sphere((line + 2), infos, add_mem);
+	else if (*line == 's' && *(line + 1) == 'q' && *(line + 2) == ' ')
+		get_square((line + 2), infos, add_mem);
+	else if (*line == 'p' && *(line + 1) == 'l' && *(line + 2) == ' ')
+		get_plane((line + 2), infos, add_mem);
+	else if (*line == 'c' && *(line + 1) == 'y' && *(line + 2) == ' ')
+		get_cylinder((line + 2), infos, add_mem);
+	else if (*line == 't' && *(line + 1) == 'r' && *(line + 2) == ' ')
+		get_triangle((line + 2), infos, add_mem);
+	else
+		return (0);
+	infos->nb_objs += 1;
+	return (1);
+}
+
+int	parse(char *line, t_info *infos)
 {
 	while (*line == ' ')
 		line++;
@@ -30,23 +53,15 @@ int	parse_fd(char *line, t_info *infos)
 			get_light((line + 1), infos);
 		else if (*line == 'c' && *(line + 1) == ' ')
 			get_cam((line + 1), infos);
-		else if (*line == 's' && *(line + 1) == 'p' && *(line + 2) == ' ')
-			get_sphere((line + 2), infos);
-		else if (*line == 's' && *(line + 1) == 'q' && *(line + 2) == ' ')
-			get_square((line + 2), infos);
-		else if (*line == 'p' && *(line + 1) == 'l' && *(line + 2) == ' ')
-			get_plane((line + 2), infos);
-		else if (*line == 'c' && *(line + 1) == 'y' && *(line + 2) == ' ')
-			get_cylinder((line + 2), infos);
-		else if (*line == 't' && *(line + 1) == 'r' && *(line + 2) == ' ')
-			get_triangle((line + 2), infos);
+		else if (*line == 'c' || *line == 's' || *line == 'p' || *line == 't')
+			return (parse_obj(line, infos));
 		else
 			return (0);
 	}
 	return (1);
 }
 
-int	open_fd(char *argv, t_info *infos)
+int	get_infos(char *argv, t_info *infos)
 {
 	int		fd;
 	int		ret;
@@ -59,24 +74,27 @@ int	open_fd(char *argv, t_info *infos)
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
 		return (-1);
+	init_objs(infos);
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
-		i = parse_fd(line, infos);
+		i = parse(line, infos);
 		if (!i)
 			printf("ERROR\n");
-		printf("[Return: %d] Line #%d: %s\n", ret, line_count, line);
+		//printf("[Return: %d] Line #%d: %s\n", ret, line_count, line);
+		free(line);
 		line_count++;
 	}
 	if (ret == -1)
 		printf("\n An error happened\n");
 	else if (!ret && line)
 	{
-		printf("[Return: %d] Line #%d: %s\n", ret, line_count, line);
+		//printf("[Return: %d] Line #%d: %s\n", ret, line_count, line);
 		if (line)
-			i = parse_fd(line, infos);
+			i = parse(line, infos);
 		if (!i)
 			printf("ERROR\n");
-		printf("\n EOF has been reached\n");
+		free(line);
+		//printf("\n EOF has been reached\n");
 	}
 	if (close(fd) < 0)
 		return (-1);
