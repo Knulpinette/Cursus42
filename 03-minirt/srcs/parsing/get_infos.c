@@ -61,24 +61,24 @@ int	parse(char *line, t_info *infos)
 	return (1);
 }
 
-int	get_infos(char *argv, t_info *infos)
+int	get_infos(char *argv, t_rt *rt)
 {
 	int		fd;
 	int		ret;
 	char	*line;
 	int		line_count;
-	int		i;
+	int		error;
 
-	i = 0;
+	error = no;
 	line_count = 0;
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
 		return (-1);
-	init_objs(infos);
+	init_objs(rt);
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
-		i = parse(line, infos);
-		if (!i)
+		error = parse(line, rt->infos);
+		if (!error)
 			printf("ERROR\n");
 		//printf("[Return: %d] Line #%d: %s\n", ret, line_count, line);
 		free(line);
@@ -90,8 +90,8 @@ int	get_infos(char *argv, t_info *infos)
 	{
 		//printf("[Return: %d] Line #%d: %s\n", ret, line_count, line);
 		if (line)
-			i = parse(line, infos);
-		if (!i)
+			error = parse(line, rt->infos);
+		if (!error)
 			printf("ERROR\n");
 		free(line);
 		//printf("\n EOF has been reached\n");

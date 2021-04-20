@@ -185,9 +185,10 @@ typedef struct  s_data {
 }               t_data;
 
 typedef struct  s_rt {
-        void    *mlx;
-        void    *win;
-        t_data  data;
+        void    	*mlx;
+        void    	*win;
+        t_data  	data;
+		t_info		*infos;
 }               t_rt;
 
 #endif

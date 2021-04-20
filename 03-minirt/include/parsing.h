@@ -15,8 +15,8 @@
 
 # include "minirt.h"
 
-int		get_infos(char *argv, t_info *infos);
-void	init_objs(t_info *infos);
+int		get_infos(char *argv, t_rt *rt);
+void	init_objs(t_rt *rt);
 void	get_res(char *line, t_info *infos);
 void	get_amb(char *line, t_info *infos);
 void	get_cam(char *line, t_info *infos);

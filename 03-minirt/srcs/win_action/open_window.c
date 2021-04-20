@@ -87,6 +87,7 @@ static int close_win(int keycode, t_rt *rt)
 {
     if (keycode == 65307)
     {
+        del_mem_infos(rt->infos);
         mlx_clear_window(rt->mlx, rt->win);
         mlx_destroy_window(rt->mlx, rt->win);
         exit(0);
@@ -97,19 +98,17 @@ static int close_win(int keycode, t_rt *rt)
 int     main(int argc, char **argv)
 {
     t_rt    rt;
-    t_info	*infos;
     int     error;
 
+    ft_bzero(&rt, sizeof(t_rt));
     if (argc < 2)
         return (-1);
-    infos = ft_calloc(sizeof(t_info), 1); //init_infos
     if (argc == 2)
     {
-        error = get_infos(argv[1], infos);
+        error = get_infos(argv[1], &rt);
         if (!error)
             return (-1);
     }
-    del_mem_infos(infos);
 // SPHERE AND PLANE => ACCORDING TO WHERE THE CAMERA IS ? (POV BASICALLY)
 
     rt.mlx = mlx_init();
@@ -125,17 +124,17 @@ int     main(int argc, char **argv)
     draw_triangle(&rt.data);
     draw_circle(&rt.data);
 
-    //PUT IMG TO WINDOW
-    mlx_put_image_to_window(rt.mlx, rt.win, rt.data.img, 0, 0);
-
-
+    //EVENTS
     mlx_key_hook(rt.win, close_win, &rt); //escape clean exit
     #if __APPLE__
         mlx_hook(rt.win, 17, 0, exit_and_free, &rt);
     #else
         mlx_hook(rt.win, 33, 0, exit_and_free, &rt);
-    #endif // WHY SIGSEV ? 
+    #endif  
 
+    //PUT IMG TO WINDOW
+
+    mlx_put_image_to_window(rt.mlx, rt.win, rt.data.img, 0, 0);
     mlx_loop(rt.mlx);
     //IF ACTIONS
     //EXIT WINDOW
