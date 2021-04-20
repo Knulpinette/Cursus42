@@ -18,26 +18,11 @@
 ** 🦕
 */
 
-typedef struct  s_mlx {
-        void    *mlx;
-        void    *win;
-}               t_mlx;
-
-typedef struct  s_data {
-    void    *img;
-    char    *addr;
-    int     bits_per_pixel;
-    int     line_length;
-    int     endian;
-}               t_data;
-
-
-
-void    my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void    my_mlx_pixel_put(t_data *img, int x, int y, int color)
 {
     char    *dst;
     
-    dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+    dst = img->addr + (y * img->line_l + x * (img->bit_pix / 8));
     *(unsigned int*)dst = color;
 }
 
@@ -121,7 +106,6 @@ int destroy_window(int button, t_mlx *mlx)
 int     main(int argc, char **argv)
 {
     t_mlx  mlx;
-    t_data  img;
     t_info	*infos;
     int     error;
 
@@ -138,15 +122,16 @@ int     main(int argc, char **argv)
     mlx.mlx = mlx_init();
     //OPEN WINDOW
     mlx.win = mlx_new_window(mlx.mlx, 1920, 1080, "I love bacon <3");
-    img.img = mlx_new_image(mlx.mlx, 1920, 1080);
-    img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-                                &img.endian);
+    mlx.img.img = mlx_new_image(mlx.mlx, 1920, 1080);
+    mlx.img.addr = mlx_get_data_addr(mlx.img.img, &mlx.img.bit_pix, &mlx.img.line_l,
+                                &mlx.img.endian);
     //RENDER SHAPES => DRAWING THEM WITH TRIG
-    draw_rectangle(&img);
-    draw_triangle(&img);
-    draw_circle(&img);
+    draw_rectangle(&mlx.img);
+    draw_triangle(&mlx.img);
+    draw_circle(&mlx.img);
+    // SPHERE AND PLANE => ACCORDING TO WHERE THE CAMERA IS ? (POV BASICALLY)
     //PUT IMG TO WINDOW
-    mlx_put_image_to_window(mlx.mlx, mlx.win, img.img, 0, 0);
+    mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.img.img, 0, 0);
      // MEMORY DELETE OF INFOS ESSENTIAL 
     mlx_key_hook(mlx.win, close_win, &mlx); //escape clean exit
     mlx_hook(mlx.win, 33, 0, destroy_window, &mlx); // WHY SIGSEV ? // Also, 17 on macintosh

@@ -172,4 +172,22 @@ typedef struct s_info
 	t_obj		*objs;
 }				t_info;
 
+/*
+** MLX STRUCTS
+*/
+
+typedef struct  s_data {
+    void    *img;
+    char    *addr;
+    int     bit_pix; // bits_per_pixels
+    int     line_l; //line_length
+    int     endian; // endian
+}               t_data;
+
+typedef struct  s_mlx {
+        void    *mlx;
+        void    *win;
+        t_data  img;
+}               t_mlx;
+
 #endif
