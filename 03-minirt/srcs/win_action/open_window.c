@@ -124,7 +124,11 @@ int     main(int argc, char **argv)
     mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.img.img, 0, 0);
      // MEMORY DELETE OF INFOS ESSENTIAL 
     mlx_key_hook(mlx.win, close_win, &mlx); //escape clean exit
-    mlx_hook(mlx.win, 33, 0, destroy_window, &mlx); // WHY SIGSEV ? // Also, 17 on macintosh
+    #if __APPLE__
+        mlx_hook(mlx.win, 17, 0, destroy_window, &mlx);
+    #else
+        mlx_hook(mlx.win, 33, 0, destroy_window, &mlx);
+    #endif // WHY SIGSEV ? 
     mlx_loop(mlx.mlx);
     //IF ACTIONS
     //EXIT WINDOW
