@@ -34,7 +34,7 @@ void	parse_obj(char *line, t_info *infos)
 	else if (*line == 't' && *(line + 1) == 'r' && *(line + 2) == ' ')
 		get_triangle((line + 2), infos, add_mem);
 	else
-		printf("PARSING ERROR : rewrite the objects\n");
+		handle_error(PARSING_OBJS);
 	infos->nb_objs += 1;
 }
 
@@ -55,7 +55,7 @@ void	parse(char *line, t_info *infos)
 		else if (*line == 'c' || *line == 's' || *line == 'p' || *line == 't')
 			parse_obj(line, infos);
 		else
-			printf("PARSING ERROR : rewrite the scene\n");
+			handle_error(PARSING_SCENE);
 	}
 }
 
@@ -69,7 +69,7 @@ void	get_infos(char *argv, t_rt *rt)
 	//line_count = 0;
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
-		printf("Can't Open File\n");
+		handle_error(NOT_OPEN);
 	init_objs(rt);
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
@@ -79,7 +79,7 @@ void	get_infos(char *argv, t_rt *rt)
 		//line_count++;
 	}
 	if (ret == -1)
-		printf("Parsing Error : couldn't get the next line\n");
+		handle_error(NOT_READ);
 	else if (!ret && line)
 	{
 		//printf("[Return: %d] Line #%d: %s\n", ret, line_count, line);
@@ -89,5 +89,5 @@ void	get_infos(char *argv, t_rt *rt)
 		//printf("\n EOF has been reached\n");
 	}
 	if (close(fd) < 0)
-		printf("Can't Close File\n");
+		handle_error(NOT_CLOSED);
 }

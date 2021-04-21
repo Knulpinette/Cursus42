@@ -15,6 +15,16 @@
 
 # include "minirt.h"
 
+enum e_errors {
+	NOT_CLOSED = 1,
+	NOT_READ,
+	NOT_OPEN,
+	NO_WINDOW,
+	PARSING_SCENE,
+	PARSING_OBJS,
+};
+
+void	handle_error(int error);
 char	*next_nbr(char *line);
 char	*pass_spaces(char *line);
 t_obj	*add_mem_obj(int nb_objs, t_obj *objs);

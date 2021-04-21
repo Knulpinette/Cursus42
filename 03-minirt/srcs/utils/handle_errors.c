@@ -12,9 +12,19 @@
 
 #include "minirt.h"
 
-int	errors(int error)
+void	handle_error(int error)
 {
-	if (error == -1)
-		return (-1);
-	return (0);
+	if (error == NOT_OPEN)
+		printf("ERROR : can't open file\n");
+	if (error == NOT_CLOSED)
+		printf("ERROR : can't close file\n");
+	if (error == NOT_READ)
+		printf("ERROR : can't get the next line of file descriptor\n");
+	if (error == NO_WINDOW)
+		printf("ERROR : can't create window\n");
+	if (error == PARSING_SCENE)
+		printf("ERROR : wrong arguments for the scene\n");	
+	if (error == PARSING_OBJS)
+		printf("ERROR : wrong arguments for the objects\n");	
+	exit(EXIT_SUCCESS);
 }

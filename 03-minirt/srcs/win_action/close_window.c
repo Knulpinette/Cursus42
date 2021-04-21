@@ -17,8 +17,8 @@ int exit_and_free_X(t_rt *rt)
     del_mem_infos(rt->infos);
     mlx_clear_window(rt->mlx, rt->win);
     mlx_destroy_window(rt->mlx, rt->win);
-    exit(0);
-    return (1);
+    exit(EXIT_SUCCESS);
+    return (yes);
 }
 
 int exit_and_free_ESC(int keycode, t_rt *rt)
@@ -36,7 +36,8 @@ int exit_and_free_ESC(int keycode, t_rt *rt)
         del_mem_infos(rt->infos);
         mlx_clear_window(rt->mlx, rt->win);
         mlx_destroy_window(rt->mlx, rt->win);
-        exit(0);
+        exit(EXIT_SUCCESS);
+		return(yes);
     }
-    return (1);
+    return (no);
 }
