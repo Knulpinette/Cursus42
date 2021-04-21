@@ -98,17 +98,15 @@ static int close_win(int keycode, t_rt *rt)
 int     main(int argc, char **argv)
 {
     t_rt    rt;
-    int     error;
 
     ft_bzero(&rt, sizeof(t_rt));
     if (argc < 2)
         return (-1);
-    if (argc == 2)
-    {
-        error = get_infos(argv[1], &rt);
-        if (!error)
-            return (-1);
-    }
+    if (argc > 2)
+        return (-1);
+    
+    get_infos(argv[1], &rt);
+    //start_minirt();
 // SPHERE AND PLANE => ACCORDING TO WHERE THE CAMERA IS ? (POV BASICALLY)
 
     rt.mlx = mlx_init();
@@ -133,9 +131,6 @@ int     main(int argc, char **argv)
     #endif  
 
     //PUT IMG TO WINDOW
-
     mlx_put_image_to_window(rt.mlx, rt.win, rt.data.img, 0, 0);
     mlx_loop(rt.mlx);
-    //IF ACTIONS
-    //EXIT WINDOW
 }
