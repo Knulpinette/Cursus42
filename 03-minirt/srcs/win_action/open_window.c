@@ -83,16 +83,34 @@ void    draw_circle(t_data *img)
     }
 }
 
-static int close_win(int keycode, t_rt *rt)
+void	start_minirt(t_rt *rt)
 {
-    if (keycode == 65307)
-    {
-        del_mem_infos(rt->infos);
-        mlx_clear_window(rt->mlx, rt->win);
-        mlx_destroy_window(rt->mlx, rt->win);
-        exit(0);
-    }
-    return (1);
+	// SPHERE AND PLANE => ACCORDING TO WHERE THE CAMERA IS ? (POV BASICALLY)
+
+    rt->mlx = mlx_init();
+
+    //OPEN WINDOW
+    rt->win = mlx_new_window(rt->mlx, 1920, 1080, "I love bacon <3");
+    rt->data.img = mlx_new_image(rt->mlx, 1920, 1080);
+    rt->data.addr = mlx_get_data_addr(rt->data.img, &rt->data.bit_pix, &rt->data.line_l,
+                                &rt->data.endian);
+
+    //RENDER SHAPES => DRAWING THEM WITH TRIG
+    draw_rectangle(&rt->data);
+    draw_triangle(&rt->data);
+    draw_circle(&rt->data);
+
+    //EVENTS
+    mlx_key_hook(rt->win, exit_and_free_ESC, rt); //escape clean exit
+    #if __APPLE__
+        mlx_hook(rt->win, 17, 0, exit_and_free_X, rt);
+    #else
+        mlx_hook(rt->win, 33, 0, exit_and_free_X, rt);
+    #endif  
+
+    //PUT IMG TO WINDOW
+    mlx_put_image_to_window(rt->mlx, rt->win, rt->data.img, 0, 0);
+    mlx_loop(rt->mlx);
 }
 
 int     main(int argc, char **argv)
@@ -104,33 +122,6 @@ int     main(int argc, char **argv)
         return (-1);
     if (argc > 2)
         return (-1);
-    
     get_infos(argv[1], &rt);
-    //start_minirt();
-// SPHERE AND PLANE => ACCORDING TO WHERE THE CAMERA IS ? (POV BASICALLY)
-
-    rt.mlx = mlx_init();
-
-    //OPEN WINDOW
-    rt.win = mlx_new_window(rt.mlx, 1920, 1080, "I love bacon <3");
-    rt.data.img = mlx_new_image(rt.mlx, 1920, 1080);
-    rt.data.addr = mlx_get_data_addr(rt.data.img, &rt.data.bit_pix, &rt.data.line_l,
-                                &rt.data.endian);
-
-    //RENDER SHAPES => DRAWING THEM WITH TRIG
-    draw_rectangle(&rt.data);
-    draw_triangle(&rt.data);
-    draw_circle(&rt.data);
-
-    //EVENTS
-    mlx_key_hook(rt.win, close_win, &rt); //escape clean exit
-    #if __APPLE__
-        mlx_hook(rt.win, 17, 0, exit_and_free, &rt);
-    #else
-        mlx_hook(rt.win, 33, 0, exit_and_free, &rt);
-    #endif  
-
-    //PUT IMG TO WINDOW
-    mlx_put_image_to_window(rt.mlx, rt.win, rt.data.img, 0, 0);
-    mlx_loop(rt.mlx);
+    start_minirt(&rt);
 }

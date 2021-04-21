@@ -13,6 +13,7 @@
 #ifndef WINDOW_H
 # define WINDOW_H
 
-int exit_and_free(t_rt *rt);
+int exit_and_free_X(t_rt *rt);
+int exit_and_free_ESC(int keycode, t_rt *rt);
 
 #endif
