@@ -25,6 +25,8 @@ void	handle_error(int error)
 	if (error == PARSING_SCENE)
 		printf("ERROR : wrong arguments for the scene\n");	
 	if (error == PARSING_OBJS)
-		printf("ERROR : wrong arguments for the objects\n");	
+		printf("ERROR : wrong arguments for the objects\n");
+	if (error == PARSING_COLOR)
+		printf("ERROR : color value not between 0 and 255\n");		
 	exit(EXIT_SUCCESS);
 }

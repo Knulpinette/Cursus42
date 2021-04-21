@@ -158,6 +158,10 @@ void	get_color(char *line, t_obj *obj)
 	obj->color.g = ft_atoi(line);
 	line = next_nbr(line);
 	obj->color.b = ft_atoi(line);
+	if ((obj->color.r < 0 || obj->color.r > 255) \
+		|| (obj->color.g < 0 || obj->color.g > 255) \
+		|| (obj->color.b < 0 || obj->color.b > 255))
+		handle_error(PARSING_COLOR);
 }
 
 /*

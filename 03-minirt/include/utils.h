@@ -22,6 +22,7 @@ enum e_errors {
 	NO_WINDOW,
 	PARSING_SCENE,
 	PARSING_OBJS,
+	PARSING_COLOR,
 };
 
 void	handle_error(int error);
