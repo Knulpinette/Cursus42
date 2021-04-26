@@ -87,13 +87,15 @@ void    draw_circle(t_data *img)
 
 void	start_minirt(t_rt *rt)
 {
+    t_res   *res;
 	// SPHERE AND PLANE => ACCORDING TO WHERE THE CAMERA IS ? (POV BASICALLY)
 
+    res = &rt->infos->scene->res;
     rt->mlx = mlx_init();
 
     //OPEN WINDOW
-    rt->win = mlx_new_window(rt->mlx, 1920, 1080, "I love bacon <3");
-    rt->data.img = mlx_new_image(rt->mlx, 1920, 1080);
+    rt->win = mlx_new_window(rt->mlx, res->x, res->y, "I love bacon <3");
+    rt->data.img = mlx_new_image(rt->mlx, res->x, res->y);
     rt->data.addr = mlx_get_data_addr(rt->data.img, &rt->data.bit_pix, &rt->data.line_l,
                                 &rt->data.endian);
 

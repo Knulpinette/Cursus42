@@ -16,7 +16,7 @@
 # include "minirt.h"
 
 /*
-** VECTORS STRUCTS
+** VECTOR STRUCT
 */
 
 typedef struct	s_vec
