@@ -100,6 +100,8 @@ void	start_minirt(t_rt *rt)
     draw_triangle(&rt->data);
     draw_circle(&rt->data);
 
+    render_minirt(rt);
+
     //EVENTS
     mlx_key_hook(rt->win, exit_and_free_ESC, rt); //escape clean exit
     #if __APPLE__
@@ -111,17 +113,4 @@ void	start_minirt(t_rt *rt)
     //PUT IMG TO WINDOW
     mlx_put_image_to_window(rt->mlx, rt->win, rt->data.img, 0, 0);
     mlx_loop(rt->mlx);
-}
-
-int     main(int argc, char **argv)
-{
-    t_rt    rt;
-
-    ft_bzero(&rt, sizeof(t_rt));
-    if (argc < 2)
-        return (-1);
-    if (argc > 2)
-        return (-1);
-    get_infos(argv[1], &rt);
-    start_minirt(&rt);
 }

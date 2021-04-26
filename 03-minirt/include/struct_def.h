@@ -16,6 +16,17 @@
 # include "minirt.h"
 
 /*
+** VECTORS STRUCTS
+*/
+
+typedef struct	s_vec
+{
+	float	x;
+	float	y;
+	float	z;
+}				t_vec;
+
+/*
 ** ELEMENTS OF OBJS STRUCT
 */
 
@@ -32,9 +43,7 @@ typedef struct s_plane
 	float	x;
 	float	y;
 	float	z;
-	float	vec_x;
-	float	vec_y;
-	float	vec_z;
+	t_vec	vec;
 }				t_plane;
 
 typedef struct s_square
@@ -42,9 +51,7 @@ typedef struct s_square
 	float	x;
 	float	y;
 	float	z;
-	float	vec_x;
-	float	vec_y;
-	float	vec_z;
+	t_vec	vec;
 	float	side;
 }				t_square;
 
@@ -53,9 +60,7 @@ typedef struct s_cylinder
 	float	x;
 	float	y;
 	float	z;
-	float	vec_x;
-	float	vec_y;
-	float	vec_z;
+	t_vec	vec;
 	float	h;
 	float	d;
 }				t_cylinder;
@@ -132,10 +137,10 @@ typedef struct s_camera
 	float	x;
 	float	y;
 	float	z;
-	float	vec_x;
-	float	vec_y;
-	float	vec_z;
-	int		FOV;
+	t_vec	vec;
+	int		hFOV;
+	int		vFOV;
+	int		DOV;
 }				t_camera;
 
 typedef struct s_light
@@ -173,10 +178,23 @@ typedef struct s_info
 }				t_info;
 
 /*
+** RAY STRUCT
+*/
+
+typedef struct	s_ray 
+{
+	//float	o; //origin
+	float	m; //magnitude
+	float	d; //direction
+}				t_ray;
+
+
+/*
 ** MLX STRUCTS
 */
 
-typedef struct  s_data {
+typedef struct  s_data
+{
     void    *img;
     char    *addr;
     int     bit_pix; // bits_per_pixels
@@ -184,11 +202,15 @@ typedef struct  s_data {
     int     endian; // endian
 }               t_data;
 
-typedef struct  s_rt {
+typedef struct  s_rt
+{
         void    	*mlx;
         void    	*win;
         t_data  	data;
 		t_info		*infos;
+		t_ray		primRay;
+		t_ray		shadowRay;
+
 }               t_rt;
 
 #endif

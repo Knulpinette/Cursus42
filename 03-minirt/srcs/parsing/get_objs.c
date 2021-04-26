@@ -48,11 +48,11 @@ void	get_square(char *line, t_info *infos, int add_mem)
 	obj->shape.sq.z = ft_atof(line);
 	line = next_nbr(line);
 	line = pass_spaces(line);
-	obj->shape.sq.vec_x = ft_atof(line);
+	obj->shape.sq.vec.x = ft_atof(line);
 	line = next_nbr(line);
-	obj->shape.sq.vec_y = ft_atof(line);
+	obj->shape.sq.vec.y = ft_atof(line);
 	line = next_nbr(line);
-	obj->shape.sq.vec_z = ft_atof(line);
+	obj->shape.sq.vec.z = ft_atof(line);
 	line = next_nbr(line);
 	line = pass_spaces(line);
 	obj->shape.sq.side = ft_atof(line);
@@ -75,11 +75,11 @@ void	get_plane(char *line, t_info *infos, int add_mem)
 	obj->shape.pl.z = ft_atof(line);
 	line = next_nbr(line);
 	line = pass_spaces(line);
-	obj->shape.pl.vec_x = ft_atof(line);
+	obj->shape.pl.vec.x = ft_atof(line);
 	line = next_nbr(line);
-	obj->shape.pl.vec_y = ft_atof(line);
+	obj->shape.pl.vec.y = ft_atof(line);
 	line = next_nbr(line);
-	obj->shape.pl.vec_z = ft_atof(line);
+	obj->shape.pl.vec.z = ft_atof(line);
 	get_color(line, obj);
 }
 
@@ -135,11 +135,11 @@ void	get_cylinder(char *line, t_info *infos, int add_mem)
 	obj->shape.cy.z = ft_atof(line);
 	line = next_nbr(line);
 	line = pass_spaces(line);
-	obj->shape.cy.vec_x = ft_atof(line);
+	obj->shape.cy.vec.x = ft_atof(line);
 	line = next_nbr(line);
-	obj->shape.cy.vec_y = ft_atof(line);
+	obj->shape.cy.vec.y = ft_atof(line);
 	line = next_nbr(line);
-	obj->shape.cy.vec_z = ft_atof(line);
+	obj->shape.cy.vec.z = ft_atof(line);
 	line = next_nbr(line);
 	line = pass_spaces(line);
 	obj->shape.cy.h = ft_atof(line);
@@ -196,9 +196,9 @@ void	get_color(char *line, t_obj *obj)
 			x = %f \n\
 			y = %f \n\
 			z = %f \n\
-			vec_x = %f \n\
-			vec_y = %f \n\
-			vec_z = %f \n\
+			vec.x = %f \n\
+			vec.y = %f \n\
+			vec.z = %f \n\
 			h = %f \n\
 			d = %f \n\
 			r, g, b = %i, %i, %i \n",
@@ -206,9 +206,9 @@ void	get_color(char *line, t_obj *obj)
 		   infos->objs[infos->nb_objs].shape.cy.x,
 		   infos->objs[infos->nb_objs].shape.cy.y,
 		   infos->objs[infos->nb_objs].shape.cy.z,
-		   infos->objs[infos->nb_objs].shape.cy.vec_x,
-		   infos->objs[infos->nb_objs].shape.cy.vec_y,
-		   infos->objs[infos->nb_objs].shape.cy.vec_z,
+		   infos->objs[infos->nb_objs].shape.cy.vec.x,
+		   infos->objs[infos->nb_objs].shape.cy.vec.y,
+		   infos->objs[infos->nb_objs].shape.cy.vec.z,
 			infos->objs[infos->nb_objs].shape.cy.h,
 			infos->objs[infos->nb_objs].shape.cy.d,
 		   infos->objs[infos->nb_objs].color.r,

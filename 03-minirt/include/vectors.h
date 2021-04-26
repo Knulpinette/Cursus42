@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   window.h                                           :+:      :+:    :+:   */
+/*   vectors.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/20 18:30:51 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/04/20 18:30:52 by osurcouf         ###   ########.fr       */
+/*   Created: 2021/04/26 16:00:52 by osurcouf          #+#    #+#             */
+/*   Updated: 2021/04/26 16:00:54 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WINDOW_H
-# define WINDOW_H
+#ifndef VECTORS_H
+# define VECTORS_H
 
 # include "minirt.h"
 
-int exit_and_free_X(t_rt *rt);
-int exit_and_free_ESC(int keycode, t_rt *rt);
+void	render_minirt(t_rt *rt);
+t_vec	vec_add(t_vec v1, t_vec v2);
+t_vec	vec_sub(t_vec v1, t_vec v2);
+t_vec	vec_multi(t_vec v1, float m);
+t_vec	vec_div(t_vec v1, float d);
+float	vec_dot(t_vec v1, t_vec v2);
+t_vec	vec_cross(t_vec v1, t_vec v2);
+t_vec	vec_normalize(t_vec v);
+float	vec_len(t_vec v);
 
 #endif
+

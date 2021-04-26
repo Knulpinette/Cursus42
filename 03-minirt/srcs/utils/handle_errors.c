@@ -23,10 +23,14 @@ void	handle_error(int error)
 	if (error == NO_WINDOW)
 		printf("ERROR : can't create window\n");
 	if (error == PARSING_SCENE)
-		printf("ERROR : wrong arguments for the scene\n");	
+		printf("ERROR : wrong arguments for the scene elements\n");	
 	if (error == PARSING_OBJS)
 		printf("ERROR : wrong arguments for the objects\n");
 	if (error == PARSING_COLOR)
-		printf("ERROR : color value not between 0 and 255\n");		
+		printf("ERROR : color value not between 0 and 255\n");
+	if (error == PARSING_SPACE)
+		printf("ERROR : when parsing spaces\n");	
+	if (error == PARSING_NBR)
+		printf("ERROR : wrong nbr of arguments in line\n");
 	exit(EXIT_SUCCESS);
 }

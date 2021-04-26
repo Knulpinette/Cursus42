@@ -66,6 +66,7 @@ ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c
 			@mkdir -p objs/light
 			@mkdir -p objs/parsing
 			@mkdir -p objs/utils
+			@mkdir -p objs/vectors
 			${CC} ${CFLAGS} ${INCLUDES} -O3 -c $< -o $@
 
 #	Active rules
