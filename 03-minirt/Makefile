@@ -61,9 +61,7 @@ endif
 # Create and compile objects files in a dedicated folder
 ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c 
 			@mkdir -p objs
-			@mkdir -p objs/win_action
-			@mkdir -p objs/geometry
-			@mkdir -p objs/light
+			@mkdir -p objs/window_action
 			@mkdir -p objs/parsing
 			@mkdir -p objs/utils
 			@mkdir -p objs/vectors

@@ -12,6 +12,9 @@
 
 #include "minirt.h"
 
+// ATTENTION ! GET RID OF APPLE / LINUX CODE
+
+
 int exit_and_free_X(t_rt *rt)
 {
     del_mem_infos(rt->infos);

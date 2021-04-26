@@ -12,6 +12,8 @@
 
 #include "minirt.h"
 
+// ATTENTION ! GET RID OF APPLE / LINUX CODE
+
 /*
 ** 🦕
 ** function : open a window and push pixels onto it
