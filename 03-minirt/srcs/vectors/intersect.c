@@ -22,7 +22,6 @@ void	render_minirt(t_rt *rt)
 	int	i;
 	int	j;
 	t_scene *scene;
-	//t_vec	ray_vec;
 
 	i = 0;
 	j = 0;
@@ -31,17 +30,16 @@ void	render_minirt(t_rt *rt)
 	{
 		while (i < scene->res.x)
 		{
-			
-			rt->primRay.m = scene->cam->vec.x + i;
-			rt->primRay.d = scene->cam->vec.y + j;
+			rt->ray.dir.x = scene->cam->vec.x + i;
+			rt->ray.dir.y = scene->cam->vec.y + j;
 
 			/*printf("cam x = %f || cam y = %f\n \
 					pix i = %d || pix j = %d\n \
-					primRay m = %f || primRay d = %f\n", \
+					ray m = %f || ray d = %f\n", \
 					scene->cam->x, \
 					scene->cam->y, \
 					i, j, \
-					rt->primRay.m, rt->primRay.d);*/
+					rt->ray.ori, rt->ray.dir);*/
 
 			i++;
 		}

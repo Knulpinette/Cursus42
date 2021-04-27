@@ -183,9 +183,8 @@ typedef struct s_info
 
 typedef struct	s_ray 
 {
-	//float	o; //origin
-	float	m; //magnitude
-	float	d; //direction
+	t_vec	ori; //origin
+	t_vec	dir; //direction
 }				t_ray;
 
 
@@ -193,23 +192,22 @@ typedef struct	s_ray
 ** MLX STRUCTS
 */
 
-typedef struct  s_data
+typedef struct  s_img
 {
-    void    *img;
+    void    *ptr;
     char    *addr;
     int     bit_pix; // bits_per_pixels
     int     line_l; //line_length
     int     endian; // endian
-}               t_data;
+}               t_img;
 
 typedef struct  s_rt
 {
         void    	*mlx;
         void    	*win;
-        t_data  	data;
+        t_img	  	img;
 		t_info		*infos;
-		t_ray		primRay;
-		t_ray		shadowRay;
+		t_ray		ray;
 
 }               t_rt;
 

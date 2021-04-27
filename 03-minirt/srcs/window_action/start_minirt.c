@@ -20,7 +20,7 @@
 ** 🦕
 */
 
-void    my_mlx_pixel_put(t_data *img, int x, int y, int color)
+void    my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
     char    *dst;
     
@@ -28,7 +28,7 @@ void    my_mlx_pixel_put(t_data *img, int x, int y, int color)
     *(unsigned int*)dst = color;
 }
 
-void    draw_rectangle(t_data *img)
+void    draw_rectangle(t_img *img)
 {
     int x;
     int y;
@@ -45,7 +45,7 @@ void    draw_rectangle(t_data *img)
         my_mlx_pixel_put(img, x, y, 0x00FF0000);
 }
 
-void    draw_triangle(t_data *img)
+void    draw_triangle(t_img *img)
 {
     int x;
     int y;
@@ -62,7 +62,7 @@ void    draw_triangle(t_data *img)
         my_mlx_pixel_put(img, x, y, 0x0000FF00);
 }
 
-void    draw_circle(t_data *img)
+void    draw_circle(t_img *img)
 {
     int x;
     int y;
@@ -95,14 +95,14 @@ void	start_minirt(t_rt *rt)
 
     //OPEN WINDOW
     rt->win = mlx_new_window(rt->mlx, res->x, res->y, "I love bacon <3");
-    rt->data.img = mlx_new_image(rt->mlx, res->x, res->y);
-    rt->data.addr = mlx_get_data_addr(rt->data.img, &rt->data.bit_pix, &rt->data.line_l,
-                                &rt->data.endian);
+    rt->img.ptr = mlx_new_image(rt->mlx, res->x, res->y);
+    rt->img.addr = mlx_get_data_addr(rt->img.ptr, &rt->img.bit_pix, &rt->img.line_l,
+                                &rt->img.endian);
 
     //RENDER SHAPES => DRAWING THEM WITH TRIG
-    draw_rectangle(&rt->data);
-    draw_triangle(&rt->data);
-    draw_circle(&rt->data);
+    draw_rectangle(&rt->img);
+    draw_triangle(&rt->img);
+    draw_circle(&rt->img);
 
     render_minirt(rt);
 
@@ -115,6 +115,6 @@ void	start_minirt(t_rt *rt)
     #endif  
 
     //PUT IMG TO WINDOW
-    mlx_put_image_to_window(rt->mlx, rt->win, rt->data.img, 0, 0);
+    mlx_put_image_to_window(rt->mlx, rt->win, rt->img.ptr, 0, 0);
     mlx_loop(rt->mlx);
 }
