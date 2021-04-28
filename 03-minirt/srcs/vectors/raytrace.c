@@ -26,6 +26,12 @@ int			get_color(int x, int y, t_rt *rt)
 }
 
 */
+/*
+create_sphere()
+
+dot((p - c),(p - c)) = R*R
+=> point - center
+*/
 
 t_vec		get_direction(int x, int y, t_rt *rt)
 {
@@ -59,6 +65,10 @@ void	render_minirt(t_rt *rt)
 		while (x < scene->res.x)
 		{
 			rt->ray.dir = get_direction(x, y, rt);
+
+			// origin = A
+			// dir = B
+			//point_at_parameter = A + t*B;
 			
 			rt->sky_light = create_rgb(scene->amb.color); // pix_color = get_color(x, y, rt);
 			my_mlx_pixel_put(&rt->img, x, y, rt->sky_light);
