@@ -20,15 +20,7 @@
 ** 🦕
 */
 
-void    my_mlx_pixel_put(t_img *img, int x, int y, int color)
-{
-    char    *dst;
-    
-    dst = img->addr + (y * img->line_l + x * (img->bit_pix / 8));
-    *(unsigned int*)dst = color;
-}
-
-void    draw_rectangle(t_img *img)
+/*void    draw_rectangle(t_img *img)
 {
     int x;
     int y;
@@ -83,7 +75,7 @@ void    draw_circle(t_img *img)
         y1 = r * sin(angle * PI / 180);
         my_mlx_pixel_put(img, (x + x1), (y + y1), 0x0000FF);
     }
-}
+}*/
 
 void	start_minirt(t_rt *rt)
 {
@@ -99,10 +91,12 @@ void	start_minirt(t_rt *rt)
     rt->img.addr = mlx_get_data_addr(rt->img.ptr, &rt->img.bit_pix, &rt->img.line_l,
                                 &rt->img.endian);
 
-    //RENDER SHAPES => DRAWING THEM WITH TRIG
+    /*
+	//RENDER SHAPES => DRAWING THEM WITH TRIG
     draw_rectangle(&rt->img);
     draw_triangle(&rt->img);
     draw_circle(&rt->img);
+	*/
 
     render_minirt(rt);
 

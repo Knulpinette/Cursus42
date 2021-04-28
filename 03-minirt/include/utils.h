@@ -34,5 +34,12 @@ void		del_mem_infos(t_info *infos);
 t_obj		*add_mem_obj(int nb_objs, t_obj *objs);
 t_light		*add_mem_light(int nb_light, t_light *light);
 t_camera	*add_mem_cam(int nb_cam, t_camera *cam);
+void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
+
+/*
+** Colors
+*/
+
+int		create_rgb(t_color color);
 
 #endif

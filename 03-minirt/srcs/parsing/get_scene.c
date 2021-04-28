@@ -66,21 +66,20 @@ void	get_cam(char *line, t_scene *scene, int add_mem)
 	if (add_mem)
 		scene->cam = add_mem_cam(scene->nb_cam, scene->cam);
 	line = pass_spaces(line);
-	scene->cam->x = ft_atof(line);
+	scene->cam->position.x = ft_atof(line);
 	line = next_nbr(line);
-	scene->cam->y = ft_atof(line);
+	scene->cam->position.y = ft_atof(line);
 	line = next_nbr(line);
-	scene->cam->z = ft_atof(line);
+	scene->cam->position.z = ft_atof(line);
 	line = next_nbr(line);
 	line = pass_spaces(line);
-	scene->cam->vec.x = ft_atof(line);
+	scene->cam->orient.x = ft_atof(line);
 	line = next_nbr(line);
-	scene->cam->vec.y = ft_atof(line);
+	scene->cam->orient.y = ft_atof(line);
 	line = next_nbr(line);
-	scene->cam->vec.z = ft_atof(line);
+	scene->cam->orient.z = ft_atof(line);
 	line = next_nbr(line);
-	scene->cam->hFOV = ft_atoi(line);
-	scene->cam->vFOV = (scene->res.x + scene->res.y) - scene->cam->hFOV;
+	scene->cam->FOV = ft_atoi(line);
 }
 
 /*

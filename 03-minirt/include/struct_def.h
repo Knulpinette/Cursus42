@@ -134,13 +134,9 @@ typedef struct 	s_ambient
 
 typedef struct s_camera
 {
-	float	x;
-	float	y;
-	float	z;
-	t_vec	vec;
-	int		hFOV;
-	int		vFOV;
-	int		DOV;
+	t_vec	position;
+	t_vec	orient;
+	int		FOV;
 }				t_camera;
 
 typedef struct s_light
@@ -207,7 +203,9 @@ typedef struct  s_rt
         void    	*win;
         t_img	  	img;
 		t_info		*infos;
+		t_vec		pix;
 		t_ray		ray;
+		int			sky_light;
 
 }               t_rt;
 

@@ -30,7 +30,8 @@ char	*next_nbr(char *line)
 		line++;
 	while (*line && (ft_isdigit(*line) || *line == '.'))
 		line++;
-	if (ft_isdigit(*(line + 1)) && *line == ',')
+	if ((ft_isdigit(*(line + 1)) || *(line + 1) == '+' || *(line + 1) == '-') \
+		&& *line == ',')
 		line++;
 	if (line == o_line)
 		handle_error(PARSING_NBR);
