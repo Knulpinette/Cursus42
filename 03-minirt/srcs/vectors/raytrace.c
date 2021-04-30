@@ -40,6 +40,27 @@ with 0<t<1 normalized from -1<t<1
 
 */
 
+float	intersect_sphere(t_rt *rt)
+{
+	t_sphere 	*sp;
+	t_vec		oc;
+	float		a;
+	float		b;
+	float		c;
+	float		discriminant;
+
+	sp = &rt->infos->objs->shape.sp;
+	oc = vec_sub(rt->ray.ori, sp->point);
+	a = vec_dot(rt->ray.dir, rt->ray.dir);
+	b = vec_dot(oc, rt->ray.dir);
+	c = vec_dot(oc, oc) - (sp->d * sp->d);
+	discriminant = b*b - a*c;
+	if (discriminant < 0)
+		return (-1.0);
+	else
+		return ((-b -sqrt(discriminant)) / a);
+}
+
 
 
 t_vec		get_direction(int x, int y, t_rt *rt)
@@ -60,31 +81,29 @@ t_vec		get_direction(int x, int y, t_rt *rt)
 	return (unit_vec);
 }
 
-t_vec	create_vec(float a, float b, float c)
+t_vec	shade_color(t_rt *rt)
 {
-	t_vec v;
+	t_vec	unit_dir;
+	float	t;
+	t_vec	white;
+	t_vec	blue;
+	t_vec	N;
+	t_vec	point_at_parameter;
 
-	v.x = a;
-	v.y = b;
-	v.z = c;
-	return (v);
-}
-
-t_vec	shade_color(t_ray *ray)
-{
-	t_vec unit_dir;
-	float t;
-	t_vec un;
-	t_vec deux;
-
-	unit_dir = unit_vec(ray->dir);
+	t = intersect_sphere(rt);
+	if (t > 0.0)
+	{
+		point_at_parameter = vec_add(rt->ray.ori, vec_multi(rt->ray.dir, t));
+		N = unit_vec(vec_sub(point_at_parameter, create_vec(0, 0, -1)));
+		return (vec_multi(create_vec(N.x + 1, N.y + 1, N.z + 1), 0.5));
+	}
+	unit_dir = unit_vec(rt->ray.dir);
 	t = 0.5*(unit_dir.y + 1.0);
-	printf("t >> %f\n", t);
-	un = create_vec(1.0, 1.0, 1.0);
-	deux = create_vec(0.5, 0.7, 1.0);
-	un = vec_multi(un, 1.0-t);
-	deux = vec_multi(deux, t);
-	return(vec_add(un, deux));
+	white = create_vec(1.0, 1.0, 1.0);
+	blue = create_vec(0.5, 0.7, 1.0);
+	white = vec_multi(white, 1.0-t);
+	blue = vec_multi(blue, t);
+	return(vec_add(white, blue));
 }
 
 void	render_minirt(t_rt *rt)
@@ -95,8 +114,7 @@ void	render_minirt(t_rt *rt)
 	t_vec	horizontal;
 	t_vec	horizontal2;
 	t_vec	vertical;
-	t_vec	vertical2;
-	t_vec	origin;
+	t_vec	vertical2; 
 	t_vec	shadow_color;
 	t_vec	pixel_color;
 	t_color pix_color;
@@ -109,13 +127,8 @@ void	render_minirt(t_rt *rt)
 	lower_left_corner = create_vec(-2.0, -1.0, -1.0);
 	horizontal = create_vec(4.0, 0.0, 0.0);
 	vertical = create_vec(0.0, 2.0, 0.0);
-	origin = create_vec(0.0, 0.0, 0.0);
 
-	rt->ray.ori = origin;
-	// origin = A
-	// dir = B
-	//point_at_parameter = A + t*B;
-	
+	rt->ray.ori = rt->infos->scene->cam->point;
 	y = 0;
 	while (y < scene->res.y)
 	{
@@ -125,12 +138,12 @@ void	render_minirt(t_rt *rt)
 			u = (float)x / (float)scene->res.x;
 			v = (float)y / (float)scene->res.y;
 
-			//rt->ray.dir = get_direction(u, v, rt);
+			//rt->ray.dir = get_direction(x, y, rt);
 			vertical2 = vec_multi(vertical, v);
 			horizontal2 = vec_multi(horizontal, u);
 			rt->ray.dir = vec_add(vec_add(lower_left_corner, vertical2), horizontal2);
 
-			shadow_color = shade_color(&rt->ray);
+			shadow_color = shade_color(rt);
 			//printf("R = %f || G = %f || B = %f\n", shadow_color.x, shadow_color.y, shadow_color.z);
 			pixel_color = vec_multi(shadow_color, 255.99);
 			pix_color.r = (int)pixel_color.x;
