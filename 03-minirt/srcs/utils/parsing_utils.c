@@ -49,3 +49,29 @@ char	*pass_spaces(char *line)
 		handle_error(PARSING_SPACE);
 	return (line);
 }
+
+void	get_color(char *line, t_color *color)
+{
+	line = next_nbr(line);
+	line = pass_spaces(line);
+	color->r = ft_atoi(line);
+	line = next_nbr(line);
+	color->g = ft_atoi(line);
+	line = next_nbr(line);
+	color->b = ft_atoi(line);
+	if ((color->r < 0 || color->r > 255) \
+		|| (color->g < 0 || color->g > 255) \
+		|| (color->b < 0 || color->b > 255))
+		handle_error(PARSING_COLOR);
+}
+
+char	*get_vector(char *line, t_vec *vec)
+{
+	line = pass_spaces(line);
+	vec->x = ft_atof(line);
+	line = next_nbr(line);
+	vec->y = ft_atof(line);
+	line = next_nbr(line);
+	vec->z = ft_atof(line);
+	return (line);
+}

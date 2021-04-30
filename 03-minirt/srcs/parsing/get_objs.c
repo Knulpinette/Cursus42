@@ -20,16 +20,11 @@ void	get_sphere(char *line, t_info *infos, int add_mem)
 		infos->objs = add_mem_obj(infos->nb_objs, infos->objs);
 	obj = &infos->objs[infos->nb_objs];
 	obj->type = SPHERE;
-	line = pass_spaces(line);
-	obj->shape.sp.x = ft_atof(line);
-	line = next_nbr(line);
-	obj->shape.sp.y = ft_atof(line);
-	line = next_nbr(line);
-	obj->shape.sp.z = ft_atof(line);
+	line = get_vector(line, &obj->shape.sp.point);
 	line = next_nbr(line);
 	line = pass_spaces(line);
 	obj->shape.sp.d = ft_atof(line);
-	get_color(line, obj);
+	get_color(line, &obj->color);
 }
 
 void	get_square(char *line, t_info *infos, int add_mem)
@@ -40,23 +35,13 @@ void	get_square(char *line, t_info *infos, int add_mem)
 		infos->objs = add_mem_obj(infos->nb_objs, infos->objs);
 	obj = &infos->objs[infos->nb_objs];
 	obj->type = SQUARE;
-	line = pass_spaces(line);
-	obj->shape.sq.x = ft_atof(line);
+	line = get_vector(line, &obj->shape.sq.point);
 	line = next_nbr(line);
-	obj->shape.sq.y = ft_atof(line);
-	line = next_nbr(line);
-	obj->shape.sq.z = ft_atof(line);
-	line = next_nbr(line);
-	line = pass_spaces(line);
-	obj->shape.sq.vec.x = ft_atof(line);
-	line = next_nbr(line);
-	obj->shape.sq.vec.y = ft_atof(line);
-	line = next_nbr(line);
-	obj->shape.sq.vec.z = ft_atof(line);
+	line = get_vector(line, &obj->shape.sq.orient);
 	line = next_nbr(line);
 	line = pass_spaces(line);
 	obj->shape.sq.side = ft_atof(line);
-	get_color(line, obj);
+	get_color(line, &obj->color);
 }
 
 void	get_plane(char *line, t_info *infos, int add_mem)
@@ -67,20 +52,10 @@ void	get_plane(char *line, t_info *infos, int add_mem)
 		infos->objs = add_mem_obj(infos->nb_objs, infos->objs);
 	obj = &infos->objs[infos->nb_objs];
 	obj->type = PLANE;
-	line = pass_spaces(line);
-	obj->shape.pl.x = ft_atof(line);
+	line = get_vector(line, &obj->shape.pl.point);
 	line = next_nbr(line);
-	obj->shape.pl.y = ft_atof(line);
-	line = next_nbr(line);
-	obj->shape.pl.z = ft_atof(line);
-	line = next_nbr(line);
-	line = pass_spaces(line);
-	obj->shape.pl.vec.x = ft_atof(line);
-	line = next_nbr(line);
-	obj->shape.pl.vec.y = ft_atof(line);
-	line = next_nbr(line);
-	obj->shape.pl.vec.z = ft_atof(line);
-	get_color(line, obj);
+	line = get_vector(line, &obj->shape.pl.orient);
+	get_color(line, &obj->color);
 }
 
 void	get_triangle(char *line, t_info *infos, int add_mem)
@@ -91,32 +66,12 @@ void	get_triangle(char *line, t_info *infos, int add_mem)
 		infos->objs = add_mem_obj(infos->nb_objs, infos->objs);
 	obj = &infos->objs[infos->nb_objs];
 	obj->type = TRIANGLE;
-	line = pass_spaces(line);
-	obj->shape.tr.x0 = ft_atof(line);
+	line = get_vector(line, &obj->shape.tr.point_x);
 	line = next_nbr(line);
-	obj->shape.tr.x1 = ft_atof(line);
+	line = get_vector(line, &obj->shape.tr.point_y);
 	line = next_nbr(line);
-	obj->shape.tr.x2 = ft_atof(line);
-	line = next_nbr(line);
-	line = pass_spaces(line);
-	get_triangle2(line, obj);
-}
-
-void	get_triangle2(char *line, t_obj *obj)
-{
-	obj->shape.tr.y0 = ft_atof(line);
-	line = next_nbr(line);
-	obj->shape.tr.y1 = ft_atof(line);
-	line = next_nbr(line);
-	obj->shape.tr.y2 = ft_atof(line);
-	line = next_nbr(line);
-	line = pass_spaces(line);
-	obj->shape.tr.z0 = ft_atof(line);
-	line = next_nbr(line);
-	obj->shape.tr.z1 = ft_atof(line);
-	line = next_nbr(line);
-	obj->shape.tr.z2 = ft_atof(line);
-	get_color(line, obj);
+	line = get_vector(line, &obj->shape.tr.point_z);
+	get_color(line, &obj->color);
 }
 
 void	get_cylinder(char *line, t_info *infos, int add_mem)
@@ -127,46 +82,21 @@ void	get_cylinder(char *line, t_info *infos, int add_mem)
 		infos->objs = add_mem_obj(infos->nb_objs, infos->objs);
 	obj = &infos->objs[infos->nb_objs];
 	obj->type = CYLINDER;
-	line = pass_spaces(line);
-	obj->shape.cy.x = ft_atof(line);
+	line = get_vector(line, &obj->shape.cy.point);
 	line = next_nbr(line);
-	obj->shape.cy.y = ft_atof(line);
-	line = next_nbr(line);
-	obj->shape.cy.z = ft_atof(line);
-	line = next_nbr(line);
-	line = pass_spaces(line);
-	obj->shape.cy.vec.x = ft_atof(line);
-	line = next_nbr(line);
-	obj->shape.cy.vec.y = ft_atof(line);
-	line = next_nbr(line);
-	obj->shape.cy.vec.z = ft_atof(line);
+	line = get_vector(line, &obj->shape.cy.orient);
 	line = next_nbr(line);
 	line = pass_spaces(line);
 	obj->shape.cy.h = ft_atof(line);
 	line = next_nbr(line);
 	line = pass_spaces(line);
 	obj->shape.cy.d = ft_atof(line);
-	get_color(line, obj);
-}
-
-void	get_color(char *line, t_obj *obj)
-{
-	line = next_nbr(line);
-	line = pass_spaces(line);
-	obj->color.r = ft_atoi(line);
-	line = next_nbr(line);
-	obj->color.g = ft_atoi(line);
-	line = next_nbr(line);
-	obj->color.b = ft_atoi(line);
-	if ((obj->color.r < 0 || obj->color.r > 255) \
-		|| (obj->color.g < 0 || obj->color.g > 255) \
-		|| (obj->color.b < 0 || obj->color.b > 255))
-		handle_error(PARSING_COLOR);
+	get_color(line, &obj->color);
 }
 
 /*
 
-	printf("   type = %i \n\
+		printf("   type = %i \n\
 			x0 = %f \n\
 			x1 = %f \n\
 			x2 = %f \n\
@@ -178,15 +108,15 @@ void	get_color(char *line, t_obj *obj)
 			z2 = %f \n\
 			r, g, b = %i, %i, %i \n",
 		   infos->objs[infos->nb_objs].type,
-		   infos->objs[infos->nb_objs].shape.tr.x0,
-		   infos->objs[infos->nb_objs].shape.tr.x1,
-		   infos->objs[infos->nb_objs].shape.tr.x2,
-		   infos->objs[infos->nb_objs].shape.tr.y0,
-		   infos->objs[infos->nb_objs].shape.tr.y1,
-		   infos->objs[infos->nb_objs].shape.tr.y2,
-			infos->objs[infos->nb_objs].shape.tr.z0,
-			infos->objs[infos->nb_objs].shape.tr.z1,
-			infos->objs[infos->nb_objs].shape.tr.z2,
+		   infos->objs[infos->nb_objs].shape.tr.point_x.x,
+		   infos->objs[infos->nb_objs].shape.tr.point_x.y,
+		   infos->objs[infos->nb_objs].shape.tr.point_x.z,
+		   infos->objs[infos->nb_objs].shape.tr.point_y.x,
+		   infos->objs[infos->nb_objs].shape.tr.point_y.y,
+		   infos->objs[infos->nb_objs].shape.tr.point_y.z,
+		   infos->objs[infos->nb_objs].shape.tr.point_z.x,
+		   infos->objs[infos->nb_objs].shape.tr.point_z.y,
+		   infos->objs[infos->nb_objs].shape.tr.point_z.z,
 		   infos->objs[infos->nb_objs].color.r,
 		   infos->objs[infos->nb_objs].color.g,
 		   infos->objs[infos->nb_objs].color.b);

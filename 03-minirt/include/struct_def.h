@@ -32,50 +32,36 @@ typedef struct	s_vec
 
 typedef struct s_sphere
 {
-	float	x;
-	float	y;
-	float	z;
+	t_vec	point;
 	float	d;
 }				t_sphere;
 
 typedef struct s_plane
 {
-	float	x;
-	float	y;
-	float	z;
-	t_vec	vec;
+	t_vec	point;
+	t_vec	orient;
 }				t_plane;
 
 typedef struct s_square
 {
-	float	x;
-	float	y;
-	float	z;
-	t_vec	vec;
+	t_vec	point;
+	t_vec	orient;
 	float	side;
 }				t_square;
 
 typedef struct s_cylinder
 {
-	float	x;
-	float	y;
-	float	z;
-	t_vec	vec;
+	t_vec	point;
+	t_vec	orient;
 	float	h;
 	float	d;
 }				t_cylinder;
 
 typedef struct s_triangle
 {
-	float	x0;
-	float	x1;
-	float	x2;
-	float	y0;
-	float	y1;
-	float	y2;
-	float	z0;
-	float	z1;
-	float	z2;
+	t_vec	point_x;
+	t_vec	point_y;
+	t_vec	point_z;
 }				t_triangle;
 
 typedef struct s_color
@@ -134,16 +120,14 @@ typedef struct 	s_ambient
 
 typedef struct s_camera
 {
-	t_vec	position;
+	t_vec	point;
 	t_vec	orient;
-	int		FOV;
+	float	FOV;
 }				t_camera;
 
 typedef struct s_light
 {
-	int		x;
-	int		y;
-	int		z;
+	t_vec	point;
 	float	bright;
 	t_color	color;
 }				t_light;

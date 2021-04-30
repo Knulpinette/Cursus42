@@ -20,19 +20,15 @@ void	get_res(char *line, t_scene *scene)
 		line++;
 	line = pass_spaces(line);
 	scene->res.y = ft_atoi(line);
+	if (scene->res.x < 0 || scene->res.y < 0)
+		handle_error(PARSING_SCENE);
 }
 
 void	get_amb(char *line, t_scene *scene)
 {
 	scene->amb.r = ft_atof(line);
 	line = pass_spaces(line);
-	line = next_nbr(line);
-	line = pass_spaces(line);
-	scene->amb.color.r = ft_atoi(line);
-	line = next_nbr(line);
-	scene->amb.color.g = ft_atoi(line); 
-	line = next_nbr(line);
-	scene->amb.color.b = ft_atoi(line); 
+	get_color(line, &scene->amb.color);
 }
 
 void	get_light(char *line, t_scene *scene, int add_mem)
@@ -41,22 +37,11 @@ void	get_light(char *line, t_scene *scene, int add_mem)
 		scene->light = ft_calloc(sizeof(t_light), 1);
 	if (add_mem)
 		scene->light = add_mem_light(scene->nb_light, scene->light);
-	line = pass_spaces(line);
-	scene->light->x = ft_atof(line);
-	line = next_nbr(line);
-	scene->light->y = ft_atof(line);
-	line = next_nbr(line);
-	scene->light->z = ft_atof(line);
+	line = get_vector(line, &scene->light->point);
 	line = next_nbr(line);
 	line = pass_spaces(line);
 	scene->light->bright = ft_atof(line);
-	line = next_nbr(line);
-	line = pass_spaces(line);
-	scene->light->color.r = ft_atoi(line);
-	line = next_nbr(line);
-	scene->light->color.g = ft_atoi(line); 
-	line = next_nbr(line);
-	scene->light->color.b = ft_atoi(line); 
+	get_color(line, &scene->light->color);
 }
 
 void	get_cam(char *line, t_scene *scene, int add_mem)
@@ -65,21 +50,12 @@ void	get_cam(char *line, t_scene *scene, int add_mem)
 		scene->cam = ft_calloc(sizeof(t_camera), 1);
 	if (add_mem)
 		scene->cam = add_mem_cam(scene->nb_cam, scene->cam);
-	line = pass_spaces(line);
-	scene->cam->position.x = ft_atof(line);
+	line = get_vector(line, &scene->cam->point);
 	line = next_nbr(line);
-	scene->cam->position.y = ft_atof(line);
-	line = next_nbr(line);
-	scene->cam->position.z = ft_atof(line);
+	line = get_vector(line, &scene->cam->orient);
 	line = next_nbr(line);
 	line = pass_spaces(line);
-	scene->cam->orient.x = ft_atof(line);
-	line = next_nbr(line);
-	scene->cam->orient.y = ft_atof(line);
-	line = next_nbr(line);
-	scene->cam->orient.z = ft_atof(line);
-	line = next_nbr(line);
-	scene->cam->FOV = ft_atoi(line);
+	scene->cam->FOV = ft_atof(line);
 }
 
 /*
@@ -89,33 +65,33 @@ printf("AMB   ratio = %f \n \
 				scene.amb.color.r,\
 				scene.amb.color.g,\
 				scene.amb.color.b);
-printf("  cam x = %i \n\
-			cam y = %i \n\
-			cam z = %i \n\
-			vec.x = %i \n\
-			vec.y = %i \n\
-			vec.z = %i \n\
-			FOV   = %i \n", \
-			scene.cam.x, \
-			scene.cam.y, \
-			scene.cam.z, \
-			scene.cam.vec.x, \
-			scene.cam.vec.y, \
-			scene.cam.vec.z, \
-			scene.cam.FOV);
+printf("  cam x = %f \n\
+			cam y = %f \n\
+			cam z = %f \n\
+			vec.x = %f \n\
+			vec.y = %f \n\
+			vec.z = %f \n\
+			FOV   = %f \n", \
+			scene->cam->position.x, \
+			scene->cam->position.y, \
+			scene->cam->position.z, \
+			scene->cam->orient.x, \
+			scene->cam->orient.y, \
+			scene->cam->orient.z, \
+			scene->cam->FOV);
 
-printf("  x = %i \n\
-			 y = %i \n\
-			 z = %i \n\
-			vec.x = %i \n\
-			vec.y = %i \n\
-			vec.z = %i \n\
+printf("  x = %f \n\
+			 y = %f \n\
+			 z = %f \n\
+			r = %i \n\
+			g = %i \n\
+			b = %i \n\
 			bright = %f \n", \
-			scene.light->x, \
-			scene.light.y, \
-			scene.light.z, \
-			scene.light.color.r, \
-			scene.light.color.g, \
-			scene.light.color.b, \
-			scene.light.bright);
+			scene->light->point.x, \
+			scene->light->point.y, \
+			scene->light->point.z, \
+			scene->light->color.r, \
+			scene->light->color.g, \
+			scene->light->color.b, \
+			scene->light->bright);
 */
