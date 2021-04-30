@@ -20,41 +20,7 @@
 ** 🦕
 */
 
-/*void    draw_rectangle(t_img *img)
-{
-    int x;
-    int y;
-
-    x = 10;
-    y = 10;
-    while (x++ < 400)
-        my_mlx_pixel_put(img, x, y, 0x00FF0000);
-    while (y++ < 400)
-        my_mlx_pixel_put(img, x, y, 0x00FF0000);
-    while (x-- > 10)
-        my_mlx_pixel_put(img, x, y, 0x00FF0000);
-    while (y-- > 10)
-        my_mlx_pixel_put(img, x, y, 0x00FF0000);
-}
-
-void    draw_triangle(t_img *img)
-{
-    int x;
-    int y;
-    //int z;
-
-    x = 100;
-    y = 100;
-   // z = 500;
-    while (x++ < 500)
-        my_mlx_pixel_put(img, x, y, 0x0000FF00);
-    while (x-- > 300 && y++ < 500)
-        my_mlx_pixel_put(img, x, y, 0x0000FF00);
-    while (x-- > 100 && y-- > 100)
-        my_mlx_pixel_put(img, x, y, 0x0000FF00);
-}
-
-void    draw_circle(t_img *img)
+/*void    draw_circle(t_img *img)
 {
     int x;
     int y;
@@ -91,16 +57,10 @@ void	start_minirt(t_rt *rt)
     rt->img.addr = mlx_get_data_addr(rt->img.ptr, &rt->img.bit_pix, &rt->img.line_l,
                                 &rt->img.endian);
 
-    /*
-	//RENDER SHAPES => DRAWING THEM WITH TRIG
-    draw_rectangle(&rt->img);
-    draw_triangle(&rt->img);
-    draw_circle(&rt->img);
-	*/
-
+	//HANDLE RENDERING
     render_minirt(rt);
 
-    //EVENTS
+    //EVENTS (clean that up when pushing !!!)
     mlx_key_hook(rt->win, exit_and_free_ESC, rt); //escape clean exit
     #if __APPLE__
         mlx_hook(rt->win, 17, 0, exit_and_free_X, rt);

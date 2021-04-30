@@ -56,23 +56,3 @@ float	vec_dot(t_vec v1, t_vec v2)
 {
 	return ((v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z));
 }
-
-float	length_squared(t_vec v)
-{
-	float x;
-	float y;
-	float z;
-
-	x = v.x * v.x;
-	y = v.y * v.y;
-	z = v.z * v.z;
-	return (x + y + z);
-}
-
-float	length(t_vec v)
-{
-	float length_sqrd;
-
-	length_sqrd = length_squared(v);
-	return (sqrt(length_sqrd));
-}

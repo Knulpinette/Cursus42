@@ -43,7 +43,7 @@ float	intersect_sphere(t_rt *rt)
 	a = vec_dot(rt->ray.dir, rt->ray.dir);
 	b = vec_dot(oc, rt->ray.dir);
 	c = vec_dot(oc, oc) - (sp->radius * sp->radius);
-	discriminant = b*b - a*c;
+	discriminant = (b * b) - (a * c);
 	if (discriminant < 0)
 		return (-1.0);
 	else
@@ -67,7 +67,7 @@ t_vec	shade_color(t_rt *rt)
 		return (vec_multi(create_vec(N.x + 1, N.y + 1, N.z + 1), 0.5));
 	}
 	unit_dir = unit_vec(rt->ray.dir);
-	t = 0.5*(unit_dir.y + 1.0);
+	t = 0.5 * (unit_dir.y + 1.0);
 	white = create_vec(1.0, 1.0, 1.0);
 	blue = create_vec(0.5, 0.7, 1.0);
 	white = vec_multi(white, (1.0-t));
@@ -81,36 +81,35 @@ void	render_minirt(t_rt *rt)
 	int	y;
 	t_vec	lower_left_corner;
 	t_vec	horizontal;
-	t_vec	horizontal2;
 	t_vec	vertical;
-	t_vec	vertical2; 
 	t_vec	shadow_color;
 	t_vec	pixel_color;
 	t_color pix_color;
 	float	u;
 	float	v;
 	t_scene *scene;
+	//float	fov_angle;
+	//float	aspect_ratio;
 
 	scene = rt->infos->scene;
 
-	lower_left_corner = create_vec(-2.0, -1.0, -1.0);
-	horizontal = create_vec(4.0, 0.0, 0.0);
-	vertical = create_vec(0.0, 2.0, 0.0);
-
 	rt->ray.ori = rt->infos->scene->cam->point;
-	y = 0;
-	while (y < scene->res.y)
+	y = scene->res.y - 1;
+	while (y >= 0)
 	{
 		x = 0;
 		while (x < scene->res.x)
 		{
-			u = (float)x / (float)scene->res.x;
-			v = (float)y / (float)scene->res.y;
+			//fov_angle = tan((float)rt->infos->scene->cam->FOV / 2 * M_PI / 180);
+			//aspect_ratio = (float)rt->infos->scene->res.x / (float)rt->infos->scene->res.y;
+			u = (2 * (x + 0.5) / (float)scene->res.x) - 1;
+			v = 1 - (2 * (y + 0.5) / (float)scene->res.y);
 
 			//rt->ray.dir = get_direction(x, y, rt);
-			vertical2 = vec_multi(vertical, v);
-			horizontal2 = vec_multi(horizontal, u);
-			rt->ray.dir = vec_add(vec_add(vertical2, horizontal2), lower_left_corner);
+			vertical = vec_multi(create_vec(0.0, 2.0, 0.0), v);
+			horizontal = vec_multi(create_vec(4.0, 0.0, 0.0), u);
+			lower_left_corner = create_vec(-2.0, -1.0, -1.0);
+			rt->ray.dir = vec_add(vec_add(vertical, horizontal), lower_left_corner);
 
 			shadow_color = shade_color(rt);
 			//printf("R = %f || G = %f || B = %f\n", shadow_color.x, shadow_color.y, shadow_color.z);
@@ -124,7 +123,7 @@ void	render_minirt(t_rt *rt)
 			//printf("x = %f || y = %f || z = %f\n", rt->ray.dir.x, rt->ray.dir.y, rt->ray.dir.z);
 			x++;
 		}
-		y++;
+		y--;
 	}
 }
 
