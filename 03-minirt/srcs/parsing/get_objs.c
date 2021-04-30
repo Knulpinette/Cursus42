@@ -23,7 +23,7 @@ void	get_sphere(char *line, t_info *infos, int add_mem)
 	line = get_vector(line, &obj->shape.sp.point);
 	line = next_nbr(line);
 	line = pass_spaces(line);
-	obj->shape.sp.d = ft_atof(line);
+	obj->shape.sp.radius = ft_atof(line);
 	get_color(line, &obj->color);
 }
 

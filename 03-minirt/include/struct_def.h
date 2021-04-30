@@ -33,7 +33,7 @@ typedef struct	s_vec
 typedef struct s_sphere
 {
 	t_vec	point;
-	float	d;
+	float	radius;
 }				t_sphere;
 
 typedef struct s_plane

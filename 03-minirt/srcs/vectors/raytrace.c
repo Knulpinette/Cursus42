@@ -12,33 +12,22 @@
 
 #include "minirt.h"
 
-/*
-void	intersect_sp(t_obj *obj, t_ray primRay, float *pHit, float *nHit)
+
+/*t_vec		get_direction(int x, int y, t_rt *rt)
 {
+	float fov_angle;
+	float aspect_ratio;
+	float p_x;
+	float p_y;
 
-}
-
-
-int			get_color(int x, int y, t_rt *rt)
-{
-	intersect(x, y, rt);
-	return(0x00FFFFFF);
-}
-
-*/
-/*
-create_sphere()
-
-dot((p(t) - c),(p(t) - c)) = R*R
-=> point - center
-
-====> any of the point satisfying this in on the sphere
+	fov_angle = tan((float)rt->infos->scene->cam->FOV / 2 * M_PI / 180);
+	aspect_ratio = (float)rt->infos->scene->res.x / (float)rt->infos->scene->res.y;
+	p_x = (2 * (x + 0.5) / (float)rt->infos->scene->res.x - 1) * aspect_ratio * fov_angle;
+	p_y = (1 - (2 * (y + 0.5)) / (float)rt->infos->scene->res.y) * fov_angle; //verifier si cette valeur est pour y ou z. forward direction
+	return (create_vec(p_x, p_y, 1));
+}*/
 
 
-blended shadow value = 1-t*start_value+t*end_value
-with 0<t<1 normalized from -1<t<1
-
-*/
 
 float	intersect_sphere(t_rt *rt)
 {
@@ -53,32 +42,12 @@ float	intersect_sphere(t_rt *rt)
 	oc = vec_sub(rt->ray.ori, sp->point);
 	a = vec_dot(rt->ray.dir, rt->ray.dir);
 	b = vec_dot(oc, rt->ray.dir);
-	c = vec_dot(oc, oc) - (sp->d * sp->d);
+	c = vec_dot(oc, oc) - (sp->radius * sp->radius);
 	discriminant = b*b - a*c;
 	if (discriminant < 0)
 		return (-1.0);
 	else
 		return ((-b -sqrt(discriminant)) / a);
-}
-
-
-
-t_vec		get_direction(int x, int y, t_rt *rt)
-{
-	float fov_angle;
-	float aspect_ratio;
-	float p_x;
-	float p_y;
-	t_vec unit_vec;
-
-	fov_angle = tan((float)rt->infos->scene->cam->FOV / 2 * M_PI / 180);
-	aspect_ratio = (float)rt->infos->scene->res.x / (float)rt->infos->scene->res.y;
-	p_x = (2 * (x + 0.5) / (float)rt->infos->scene->res.x - 1) * aspect_ratio * fov_angle;
-	p_y = (1 - (2 * (y + 0.5)) / (float)rt->infos->scene->res.y) * fov_angle; //verifier si cette valeur est pour y ou z. forward direction
-	unit_vec.x = p_x;
-	unit_vec.y = p_y;
-	unit_vec.z = 1;
-	return (unit_vec);
 }
 
 t_vec	shade_color(t_rt *rt)
@@ -101,9 +70,9 @@ t_vec	shade_color(t_rt *rt)
 	t = 0.5*(unit_dir.y + 1.0);
 	white = create_vec(1.0, 1.0, 1.0);
 	blue = create_vec(0.5, 0.7, 1.0);
-	white = vec_multi(white, 1.0-t);
+	white = vec_multi(white, (1.0-t));
 	blue = vec_multi(blue, t);
-	return(vec_add(white, blue));
+	return(vec_add(blue, white));
 }
 
 void	render_minirt(t_rt *rt)
@@ -141,7 +110,7 @@ void	render_minirt(t_rt *rt)
 			//rt->ray.dir = get_direction(x, y, rt);
 			vertical2 = vec_multi(vertical, v);
 			horizontal2 = vec_multi(horizontal, u);
-			rt->ray.dir = vec_add(vec_add(lower_left_corner, vertical2), horizontal2);
+			rt->ray.dir = vec_add(vec_add(vertical2, horizontal2), lower_left_corner);
 
 			shadow_color = shade_color(rt);
 			//printf("R = %f || G = %f || B = %f\n", shadow_color.x, shadow_color.y, shadow_color.z);
@@ -149,8 +118,7 @@ void	render_minirt(t_rt *rt)
 			pix_color.r = (int)pixel_color.x;
 			pix_color.g = (int)pixel_color.y;
 			pix_color.b = (int)pixel_color.z;
-			rt->sky_light = create_rgb(pix_color); // pix_color = get_color(x, y, rt);
-			//printf("pix_color = %i\n\n", rt->sky_light);
+			rt->sky_light = create_rgb(pix_color); 
 
 			my_mlx_pixel_put(&rt->img, x, y, rt->sky_light);
 			//printf("x = %f || y = %f || z = %f\n", rt->ray.dir.x, rt->ray.dir.y, rt->ray.dir.z);
