@@ -187,6 +187,7 @@ typedef struct  s_rt
         void    	*win;
         t_img	  	img;
 		t_info		*infos;
+		t_obj		curr_obj;
 		t_vec		pix;
 		t_ray		ray;
 		int			sky_light;

@@ -29,19 +29,19 @@
 
 
 
-float	intersect_sphere(t_rt *rt)
+float	intersect_sphere(t_ray *ray, t_obj *obj)
 {
-	t_sphere 	*sp;
+	t_sphere	*sp;
 	t_vec		oc;
 	float		a;
 	float		b;
 	float		c;
 	float		discriminant;
 
-	sp = &rt->infos->objs->shape.sp;
-	oc = vec_sub(rt->ray.ori, sp->point);
-	a = vec_dot(rt->ray.dir, rt->ray.dir);
-	b = vec_dot(oc, rt->ray.dir);
+	sp = &obj->shape.sp;
+	oc = vec_sub(ray->ori, sp->point);
+	a = vec_dot(ray->dir, ray->dir);
+	b = vec_dot(oc, ray->dir);
 	c = vec_dot(oc, oc) - (sp->radius * sp->radius);
 	discriminant = (b * b) - (a * c);
 	if (discriminant < 0)
@@ -50,7 +50,7 @@ float	intersect_sphere(t_rt *rt)
 		return ((-b -sqrt(discriminant)) / a);
 }
 
-t_vec	shade_color(t_rt *rt)
+t_vec	shadow_color(t_rt *rt)
 {
 	t_vec	unit_dir;
 	float	t;
@@ -59,7 +59,7 @@ t_vec	shade_color(t_rt *rt)
 	t_vec	N;
 	t_vec	point_at_parameter;
 
-	t = intersect_sphere(rt);
+	t = intersect_sphere(&rt->ray, &rt->curr_obj);
 	if (t > 0.0)
 	{
 		point_at_parameter = vec_add(rt->ray.ori, vec_multi(rt->ray.dir, t));
@@ -75,14 +75,27 @@ t_vec	shade_color(t_rt *rt)
 	return(vec_add(blue, white));
 }
 
+float	intersect_obj(t_rt *rt, int k)
+{
+	if (rt->infos->objs[k].type != -1.0)
+	{
+		if (rt->infos->objs[k].type == SPHERE)
+			return (intersect_sphere(&rt->ray, &rt->infos->objs[k]) >= 0);
+	}
+	return (0);
+}
+
 void	render_minirt(t_rt *rt)
 {
 	int	x;
 	int	y;
+	int k;
+	int	nb_objs;
+	float	min_distance;
 	t_vec	lower_left_corner;
 	t_vec	horizontal;
 	t_vec	vertical;
-	t_vec	shadow_color;
+	t_vec	shade_color;
 	t_vec	pixel_color;
 	t_color pix_color;
 	float	u;
@@ -92,6 +105,7 @@ void	render_minirt(t_rt *rt)
 	//float aspect_ratio;
 
 	scene = rt->infos->scene;
+	nb_objs = rt->infos->nb_objs;
 
 	rt->ray.ori = rt->infos->scene->cam->point;
 	y = scene->res.y - 1;
@@ -114,9 +128,28 @@ void	render_minirt(t_rt *rt)
 			lower_left_corner = create_vec(-2.0, -1.0, -1.0);
 			rt->ray.dir = vec_add(vec_add(vertical, horizontal), lower_left_corner);
 
-			shadow_color = shade_color(rt);
-			//printf("R = %f || G = %f || B = %f\n", shadow_color.x, shadow_color.y, shadow_color.z);
-			pixel_color = vec_multi(shadow_color, 255.99);
+			//INTERSECT
+			k = 0;
+			min_distance = INFINITY;
+			while (k < nb_objs)
+			{
+				if (intersect_obj(rt, k))
+				{
+					printf("k +++ %i\n", k);
+					float distance;
+					distance = intersect_sphere(&rt->ray, &rt->infos->objs[k]);
+					if (distance < min_distance)
+					{
+						printf("hello\n");
+						rt->curr_obj = rt->infos->objs[k];
+						//printf("Curr_Obj ID = %i", rt->curr_obj.type);
+						min_distance = distance;
+					}
+				}
+				k++;
+			}
+			shade_color = shadow_color(rt);
+			pixel_color = vec_multi(shade_color, 255.99);
 			pix_color.r = (int)pixel_color.x;
 			pix_color.g = (int)pixel_color.y;
 			pix_color.b = (int)pixel_color.z;
