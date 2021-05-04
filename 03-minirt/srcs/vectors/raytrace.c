@@ -88,8 +88,8 @@ void	render_minirt(t_rt *rt)
 	float	u;
 	float	v;
 	t_scene *scene;
-	//float	fov_angle;
-	//float	aspect_ratio;
+	//float fov_angle;
+	//float aspect_ratio;
 
 	scene = rt->infos->scene;
 
@@ -100,10 +100,13 @@ void	render_minirt(t_rt *rt)
 		x = 0;
 		while (x < scene->res.x)
 		{
-			//fov_angle = tan((float)rt->infos->scene->cam->FOV / 2 * M_PI / 180);
-			//aspect_ratio = (float)rt->infos->scene->res.x / (float)rt->infos->scene->res.y;
-			u = (2 * (x + 0.5) / (float)scene->res.x) - 1;
-			v = 1 - (2 * (y + 0.5) / (float)scene->res.y);
+			//fov_angle = tan((float)scene->cam->FOV / 2 * M_PI / 180);
+			//aspect_ratio = 0.5 * ((float)scene->res.x / (float)scene->res.y);
+			//u = (((2 * ((float)x + 0.5) / (float)scene->res.x))) * fov_angle * aspect_ratio;
+			//v = 1 - ((2 * ((float)y + 0.5) / (float)scene->res.y)) * fov_angle;
+
+			u = ((float)x + 0.5) / (float)scene->res.x;
+			v = 1 - (((float)y + 0.5) / (float)scene->res.y);
 
 			//rt->ray.dir = get_direction(x, y, rt);
 			vertical = vec_multi(create_vec(0.0, 2.0, 0.0), v);
