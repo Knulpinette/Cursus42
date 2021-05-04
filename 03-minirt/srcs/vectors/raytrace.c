@@ -135,14 +135,11 @@ void	render_minirt(t_rt *rt)
 			{
 				if (intersect_obj(rt, k))
 				{
-					printf("k +++ %i\n", k);
 					float distance;
 					distance = intersect_sphere(&rt->ray, &rt->infos->objs[k]);
 					if (distance < min_distance)
 					{
-						printf("hello\n");
 						rt->curr_obj = rt->infos->objs[k];
-						//printf("Curr_Obj ID = %i", rt->curr_obj.type);
 						min_distance = distance;
 					}
 				}
