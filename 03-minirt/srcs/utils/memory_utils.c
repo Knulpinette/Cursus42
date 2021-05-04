@@ -16,6 +16,7 @@ void	init_objs(t_rt *rt)
 {
 	t_info	*init;
 
+	rt->curr_obj.type = 0;
 	rt->infos = ft_calloc(sizeof(t_info), 1);
 	if (!rt->infos)
 		return ;
