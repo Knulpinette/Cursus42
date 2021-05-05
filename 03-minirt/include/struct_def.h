@@ -26,6 +26,14 @@ typedef struct	s_vec
 	float	z;
 }				t_vec;
 
+typedef	struct	s_hit
+{
+	float	t;
+	t_vec	p;
+	t_vec	n;
+}				t_hit;
+
+
 /*
 ** ELEMENTS OF OBJS STRUCT
 */
@@ -188,9 +196,10 @@ typedef struct  s_rt
         t_img	  	img;
 		t_info		*infos;
 		t_obj		curr_obj;
+		t_hit		pHit;
 		t_vec		pix;
 		t_ray		ray;
-		int			sky_light;
+		t_color		pixel;
 
 }               t_rt;
 

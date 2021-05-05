@@ -63,6 +63,7 @@ void	get_color(char *line, t_color *color)
 		|| (color->g < 0 || color->g > 255) \
 		|| (color->b < 0 || color->b > 255))
 		handle_error(PARSING_COLOR);
+	color->color = create_rgb(*color);
 }
 
 char	*get_vector(char *line, t_vec *vec)

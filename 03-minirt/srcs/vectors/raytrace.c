@@ -27,100 +27,19 @@
 	return (create_vec(p_x, p_y, 1));
 }*/
 
-
-
-float	intersect_sphere(t_ray *ray, t_obj *obj)
-{
-	t_sphere	*sp;
-	t_vec		oc;
-	float		a;
-	float		b;
-	float		c;
-	float		discriminant;
-
-	sp = &obj->shape.sp;
-	oc = vec_sub(ray->ori, sp->point);
-	a = vec_dot(ray->dir, ray->dir);
-	b = vec_dot(oc, ray->dir);
-	c = vec_dot(oc, oc) - (sp->radius * sp->radius);
-	discriminant = (b * b) - (a * c);
-	//if (discriminant > 0) //retirer
-		//printf("discriminant = %f\n", (-b -sqrt(discriminant) / a)); //retirer
-	if (discriminant < 0)
-		return (-1.0);
-	else
-		return ((-b -sqrt(discriminant)) / a);
-}
-
-t_vec	obj_color(t_rt *rt, float t)
-{
-	t_vec	unit_dir;
-	t_vec	white;
-	t_vec	blue;
-	t_vec	N;
-	t_vec	point_at_parameter;
-
-	if (t > 0.0)
-	{
-		point_at_parameter = vec_add(rt->ray.ori, vec_multi(rt->ray.dir, t));
-		N = unit_vec(vec_sub(point_at_parameter, create_vec(0, 0, -1)));
-		return (vec_multi(create_vec(N.x + 1, N.y + 1, N.z + 1), 0.5));
-	}
-	unit_dir = unit_vec(rt->ray.dir);
-	t = 0.5 * (unit_dir.y + 1.0);
-	white = create_vec(1.0, 1.0, 1.0);
-	blue = create_vec(0.5, 0.7, 1.0);
-	white = vec_multi(white, (1.0-t));
-	blue = vec_multi(blue, t);
-	return(vec_add(blue, white));
-}
-
-float	intersect_obj(t_ray *ray, t_obj *obj)
-{
-	if (obj->type != -1.0)
-	{
-		if (obj->type == SPHERE)
-			return (intersect_sphere(ray, obj));
-	}
-	return (0);
-}
-
-t_vec	intersection_point(t_ray *ray, t_obj *obj)
-{
-	t_sphere	*sp;
-	t_vec		oc;
-	float		a;
-	float		b;
-	float		c;
-
-	sp = &obj->shape.sp;
-	oc = vec_sub(ray->ori, sp->point);
-	a = vec_dot(ray->dir, ray->dir);
-	b = vec_dot(oc, ray->dir);
-	c = vec_dot(oc, oc) - (sp->radius * sp->radius);
-	//printf("a >>> %f || b >>> %f || c >>> %f\n", a, b, c);
-	return(create_vec(a, b, c));
-}
-
 void	render_minirt(t_rt *rt)
 {
 	int	x;
 	int	y;
 	int k;
 	int	nb_objs;
-	t_vec	pHit;
 	float	min_distance;
 	t_vec	lower_left_corner;
 	t_vec	horizontal;
 	t_vec	vertical;
-	t_vec	object_color;
-	t_vec	pixel_color;
-	t_color pix_color;
 	float	u;
 	float	v;
 	t_scene *scene;
-	//float fov_angle;
-	//float aspect_ratio;
 
 	scene = rt->infos->scene;
 	nb_objs = rt->infos->nb_objs;
@@ -132,11 +51,6 @@ void	render_minirt(t_rt *rt)
 		x = 0;
 		while (x < scene->res.x)
 		{
-			//fov_angle = tan((float)scene->cam->FOV / 2 * M_PI / 180);
-			//aspect_ratio = 0.5 * ((float)scene->res.x / (float)scene->res.y);
-			//u = (((2 * ((float)x + 0.5) / (float)scene->res.x))) * fov_angle * aspect_ratio;
-			//v = 1 - ((2 * ((float)y + 0.5) / (float)scene->res.y)) * fov_angle;
-
 			u = ((float)x + 0.5) / (float)scene->res.x;
 			v = 1 - (((float)y + 0.5) / (float)scene->res.y);
 
@@ -149,11 +63,12 @@ void	render_minirt(t_rt *rt)
 			//INTERSECT
 			k = 0;
 			min_distance = INFINITY;
+			float distance;
+			distance = INFINITY;
 			while (k < nb_objs)
 			{
 				if (intersect_obj(&rt->ray, &rt->infos->objs[k]) > 0.0)
 				{
-					float distance;
 					distance = intersect_sphere(&rt->ray, &rt->infos->objs[k]);
 					if (distance < min_distance)
 					{
@@ -163,10 +78,10 @@ void	render_minirt(t_rt *rt)
 				}
 				k++;
 			}
-			int isShadow = no;
-			pHit = intersection_point(&rt->ray, &rt->curr_obj);
+			/*int isShadow = no;
+			pHit = vec_multi(vec_add(rt->ray.ori, rt->ray.dir), distance);
 			t_ray shadowRay;
-			if (rt->curr_obj.type) // this is not zorking AT ALL haha
+			if (rt->curr_obj.type) 
 			{
 				shadowRay.dir = vec_sub(scene->light->point, pHit);
 				k = 0;
@@ -181,24 +96,14 @@ void	render_minirt(t_rt *rt)
 				}
 			}
 			if (!isShadow)
-			{
-				float t;
+			{ */
 				//t = intersect_sphere(&shadowRay, &rt->curr_obj); // this ALSO haha
-				t = intersect_sphere(&rt->ray, &rt->curr_obj);
-
-				object_color = obj_color(rt, t);
-
-				pixel_color = vec_multi(object_color, scene->light->bright);
-				pix_color.r = (int)pixel_color.x;
-				pix_color.g = (int)pixel_color.y;
-				pix_color.b = (int)pixel_color.z;
-
-				rt->sky_light = create_rgb(pix_color); 
-				my_mlx_pixel_put(&rt->img, x, y, rt->sky_light);
-			}
+				rt->pHit.t = intersect_sphere(&rt->ray, &rt->curr_obj);
+				get_pixel_color(rt);
+				my_mlx_pixel_put(&rt->img, x, y, rt->pixel.color);
+			/*}
 			else 
-				my_mlx_pixel_put(&rt->img, x, y, 0x00FFFFFF);
-			//printf("x = %f || y = %f || z = %f\n", rt->ray.dir.x, rt->ray.dir.y, rt->ray.dir.z);
+				my_mlx_pixel_put(&rt->img, x, y, 0x00000000);*/
 			x++;
 		}
 		y--;
