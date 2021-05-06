@@ -78,12 +78,15 @@ void	render_minirt(t_rt *rt)
 				}
 				k++;
 			}
-			/*int isShadow = no;
-			pHit = vec_multi(vec_add(rt->ray.ori, rt->ray.dir), distance);
+			int isShadow = no;
+			distance = sqrt(vec_dot(scene->light->point, scene->light->point));
+			rt->pHit.p = vec_add(rt->ray.ori, vec_multi(rt->ray.dir, distance));
+			rt->pHit.n = vec_normalize(rt->pHit.p);
 			t_ray shadowRay;
+			shadowRay.ori = vec_add(rt->pHit.p, vec_multi(rt->pHit.n, distance));
+			shadowRay.dir = vec_div(vec_sub(scene->light->point, rt->pHit.p), 10000.0f);
 			if (rt->curr_obj.type) 
 			{
-				shadowRay.dir = vec_sub(scene->light->point, pHit);
 				k = 0;
 				while (k < nb_objs)
 				{
@@ -96,14 +99,14 @@ void	render_minirt(t_rt *rt)
 				}
 			}
 			if (!isShadow)
-			{ */
-				//t = intersect_sphere(&shadowRay, &rt->curr_obj); // this ALSO haha
-				rt->pHit.t = intersect_sphere(&rt->ray, &rt->curr_obj);
+			{
+				//rt->pHit.t = intersect_sphere(&shadowRay, &rt->curr_obj); // this ALSO haha */
+				rt->pHit.t = intersect_sphere(&rt->ray, &rt->curr_obj); 
 				get_pixel_color(rt);
 				my_mlx_pixel_put(&rt->img, x, y, rt->pixel.color);
-			/*}
+			}
 			else 
-				my_mlx_pixel_put(&rt->img, x, y, 0x00000000);*/
+				my_mlx_pixel_put(&rt->img, x, y, 0x00000000);
 			x++;
 		}
 		y--;
