@@ -198,7 +198,9 @@ typedef struct  s_rt
 		t_obj		curr_obj;
 		t_hit		pHit;
 		t_ray		ray;
+		t_ray		shadowRay;
 		t_color		pixel;
+		float		distance;
 }               t_rt;
 
 #endif
