@@ -34,31 +34,31 @@ void	render_minirt(t_rt *rt)
 	int k;
 	int	nb_objs;
 	float	min_distance;
-	t_vec	lower_left_corner;
-	t_vec	horizontal;
-	t_vec	vertical;
-	float	u;
-	float	v;
+	t_vec	z_axis;
+	t_vec	x_axis;
+	t_vec	y_axis;
+	float	pixel_ratio_horizontal;
+	float	pixel_ratio_vertical;
 	t_scene *scene;
 
 	scene = rt->infos->scene;
 	nb_objs = rt->infos->nb_objs;
 
-	rt->ray.ori = rt->infos->scene->cam->point;
+	rt->cam_ray.ori = rt->infos->scene->cam->point;
 	y = scene->res.y - 1;
 	while (y >= 0)
 	{
 		x = 0;
 		while (x < scene->res.x)
 		{
-			u = ((float)x + 0.5) / (float)scene->res.x;
-			v = 1 - (((float)y + 0.5) / (float)scene->res.y);
+			pixel_ratio_horizontal = ((float)x + 0.5) / (float)scene->res.x;
+			pixel_ratio_vertical = 1 - (((float)y + 0.5) / (float)scene->res.y);
 
-			//rt->ray.dir = get_direction(x, y, rt);
-			vertical = vec_multi(create_vec(0.0, 2.0, 0.0), v);
-			horizontal = vec_multi(create_vec(4.0, 0.0, 0.0), u);
-			lower_left_corner = create_vec(-2.0, -1.0, -1.0);
-			rt->ray.dir = vec_add(vec_add(vertical, horizontal), lower_left_corner);
+			//rt->cam_ray.dir = get_direction(x, y, rt);
+			x_axis = vec_multi(create_vec(4.0, 0.0, 0.0), pixel_ratio_horizontal);
+			y_axis = vec_multi(create_vec(0.0, 2.0, 0.0), pixel_ratio_vertical);
+			z_axis = create_vec(-2.0, -1.0, -1.0);
+			rt->cam_ray.dir = vec_add(vec_add(x_axis, y_axis), z_axis);
 
 			//INTERSECT
 			k = 0;
@@ -66,9 +66,9 @@ void	render_minirt(t_rt *rt)
 			rt->distance = INFINITY;
 			while (k < nb_objs)
 			{
-				if (intersect_obj(&rt->ray, &rt->infos->objs[k]) > 0.0)
+				if (intersect_obj(&rt->cam_ray, &rt->infos->objs[k]) > 0.0)
 				{
-					rt->distance = intersect_sphere(&rt->ray, &rt->infos->objs[k]);
+					rt->distance = intersect_obj(&rt->cam_ray, &rt->infos->objs[k]);
 					if (rt->distance < min_distance)
 					{
 						rt->curr_obj = rt->infos->objs[k];
@@ -78,17 +78,17 @@ void	render_minirt(t_rt *rt)
 				k++;
 			}
 			//int isShadow = no;
-			rt->distance = sqrt(vec_dot(scene->light->point, scene->light->point));
-			rt->pHit.p = vec_add(rt->ray.ori, vec_multi(rt->ray.dir, rt->distance));
+			//rt->distance = sqrt(vec_dot(scene->light->point, scene->light->point));
+			rt->pHit.p = vec_add(rt->cam_ray.ori, vec_multi(rt->cam_ray.dir, rt->distance));
 			rt->pHit.n = vec_normalize(rt->pHit.p);
-			rt->shadowRay.ori = vec_div(vec_add(rt->pHit.p, vec_multi(rt->pHit.n, rt->distance)),10000.0f);
-			rt->shadowRay.dir = vec_div(vec_sub(scene->light->point, rt->pHit.p), rt->distance);
+			//rt->shadow_ray.ori = vec_div(vec_add(rt->pHit.p, vec_multi(rt->pHit.n, rt->distance)),10000.0f);
+			//rt->shadow_ray.dir = vec_div(vec_sub(scene->light->point, rt->pHit.p), rt->distance);
 			/*if (rt->curr_obj.type) 
 			{
 				k = 0;
 				while (k < nb_objs)
 				{
-					if (intersect_obj(&rt->shadowRay, &rt->infos->objs[k]) > 0.0)
+					if (intersect_obj(&rt->shadow_ray, &rt->infos->objs[k]) > 0.0)
 					{
 						isShadow = yes;
 						break;
@@ -98,8 +98,8 @@ void	render_minirt(t_rt *rt)
 			}
 			if (!isShadow)
 			{*/
-				//rt->pHit.t = intersect_sphere(&shadowRay, &rt->curr_obj); // this ALSO haha */
-				rt->pHit.t = intersect_sphere(&rt->ray, &rt->curr_obj); 
+				//rt->pHit.t = intersect_obj(&shadow_ray, &rt->curr_obj); // this ALSO haha */
+				rt->pHit.t = intersect_obj(&rt->cam_ray, &rt->curr_obj); 
 				//calculate brightness and bam
 				get_pixel_color(rt);
 				my_mlx_pixel_put(&rt->img, x, y, rt->pixel.color);

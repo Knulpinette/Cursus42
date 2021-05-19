@@ -17,7 +17,7 @@ int		create_trgb(int t, int r, int g, int b)
 	return(t << 24 | r << 16 | g << 8 | b);
 }
 
-int		create_rgb(t_color color)
+int		create_color(t_color color)
 {
 	return(color.r << 16 | color.g << 8 | color.b);
 }

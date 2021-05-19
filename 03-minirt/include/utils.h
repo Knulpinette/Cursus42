@@ -40,6 +40,11 @@ void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
 ** Colors
 */
 
-int		create_rgb(t_color color);
+int		create_color(t_color color);
+t_color	color_add(t_color c1, t_color c2);
+t_color	color_sub(t_color c1, t_color c2);
+t_color	color_coeff(t_color c1, float m);
+t_color	color_div(t_color c1, float d);
+t_color	color_multi(t_color c1, t_color c2);
 
 #endif

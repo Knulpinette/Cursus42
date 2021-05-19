@@ -34,16 +34,19 @@ t_vec	get_obj_color(t_rt *rt, float t)
 		obj_color.x = rt->curr_obj.color.r;
 		obj_color.y = rt->curr_obj.color.g;
 		obj_color.z = rt->curr_obj.color.b;
-		return (vec_multi(obj_color, 0.5));
+		//rt->distance = sqrt(vec_dot(rt->infos->scene->light->point, rt->infos->scene->light->point));
+		//rt->infos->scene->light->bright = rt->infos->scene->light->bright * rt->distance;
+		//return (vec_multi(obj_color, 0.5));
+		return (obj_color);
 	}
 	//create the sky
-	unit_dir = unit_vec(rt->ray.dir);
+	unit_dir = unit_vec(rt->cam_ray.dir);
 	t = 0.5 * (unit_dir.y + 1.0);
 	white = create_vec(1.0, 1.0, 1.0);
 	blue = create_vec(0.5, 0.7, 1.0);
 	white = vec_multi(white, (1.0-t));
 	blue = vec_multi(blue, t);
-	return(vec_add(blue, white));
+	return(vec_multi(vec_add(blue, white), rt->infos->scene->light->bright));
 }
 
 //Light contribution => then mix colors => then get normal depending on which type of shape it is
@@ -53,9 +56,10 @@ void	get_pixel_color(t_rt *rt)
 	t_vec	mix_color;
 
 	mix_color = get_obj_color(rt, rt->pHit.t);
-	mix_color = vec_multi(mix_color, rt->infos->scene->light->bright);
+	//rt->infos->scene->light->bright = rt->infos->scene->light->bright / rt->distance;
+	//mix_color = vec_multi(mix_color, rt->infos->scene->light->bright);
 	rt->pixel.r = (int)mix_color.x;
 	rt->pixel.g = (int)mix_color.y;
 	rt->pixel.b = (int)mix_color.z;
-	rt->pixel.color = create_rgb(rt->pixel);
+	rt->pixel.color = create_color(rt->pixel);
 }

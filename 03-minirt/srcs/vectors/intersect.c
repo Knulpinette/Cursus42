@@ -14,10 +14,7 @@
 
 float	intersect_obj(t_ray *ray, t_obj *obj)
 {
-	if (obj->type != -1.0)
-	{
-		if (obj->type == SPHERE)
-			return (intersect_sphere(ray, obj));
-	}
+	if (obj->type == SPHERE)
+		return (intersect_sphere(ray, obj));
 	return (0);
 }
