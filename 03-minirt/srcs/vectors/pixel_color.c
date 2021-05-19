@@ -18,24 +18,25 @@ t_vec	get_obj_color(t_rt *rt, float t)
 	t_vec	obj_color;
 	t_vec	white;
 	t_vec	blue;
-	/*float cosine;
+	float	 cosine;
 
-	rt->pHit.p = vec_add(rt->ray.ori, vec_multi(rt->ray.dir, t));
-	rt->pHit.n = vec_normalize(rt->pHit.p);
-	cosine = vec_dot(rt->pHit.n, rt->shadowRay.dir);
-	if (cosine < 0)
-		cosine = 0;
-	obj_color.x = cosine * rt->curr_obj.color.r * rt->infos->scene->light->color.r;
-	obj_color.y = cosine * rt->curr_obj.color.g * rt->infos->scene->light->color.g;
-	obj_color.z = cosine * rt->curr_obj.color.b * rt->infos->scene->light->color.b;*/
-
+	cosine = vec_dot(rt->pHit.n, rt->light_ray.dir);
 	if (t > 0.0)
 	{
-		obj_color.x = rt->curr_obj.color.r;
-		obj_color.y = rt->curr_obj.color.g;
-		obj_color.z = rt->curr_obj.color.b;
-		//rt->distance = sqrt(vec_dot(rt->infos->scene->light->point, rt->infos->scene->light->point));
-		//rt->infos->scene->light->bright = rt->infos->scene->light->bright * rt->distance;
+		if (cosine < 0)
+			cosine = 0;
+		obj_color.x = cosine * rt->curr_obj.color.r * rt->infos->scene->light->color.r;
+		obj_color.y = cosine * rt->curr_obj.color.g * rt->infos->scene->light->color.g;
+		obj_color.z = cosine * rt->curr_obj.color.b * rt->infos->scene->light->color.b;
+		//if (obj_color.x > 1) 
+		//	obj_color.x = 1;
+		//if (obj_color.y > 1)
+		//	obj_color.y = 1;
+		//if (obj_color.z > 1)
+		//	obj_color.z = 1;
+		//obj_color.x = rt->curr_obj.color.r;
+		//obj_color.y = rt->curr_obj.color.g;
+		//obj_color.z = rt->curr_obj.color.b;
 		//return (vec_multi(obj_color, 0.5));
 		return (obj_color);
 	}

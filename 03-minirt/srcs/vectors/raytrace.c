@@ -78,11 +78,16 @@ void	render_minirt(t_rt *rt)
 				k++;
 			}
 			//int isShadow = no;
-			//rt->distance = sqrt(vec_dot(scene->light->point, scene->light->point));
 			rt->pHit.p = vec_add(rt->cam_ray.ori, vec_multi(rt->cam_ray.dir, rt->distance));
 			rt->pHit.n = vec_normalize(rt->pHit.p);
-			//rt->shadow_ray.ori = vec_div(vec_add(rt->pHit.p, vec_multi(rt->pHit.n, rt->distance)),10000.0f);
-			//rt->shadow_ray.dir = vec_div(vec_sub(scene->light->point, rt->pHit.p), rt->distance);
+
+			rt->light_ray.ori = rt->infos->scene->light->point;
+			rt->light_ray.dir = vec_sub(rt->infos->scene->light->point, rt->pHit.p);
+			rt->distance = sqrt(vec_dot(rt->light_ray.dir, rt->light_ray.dir));
+			rt->light_ray.dir = vec_div(rt->light_ray.dir, rt->distance);
+
+			rt->shadow_ray.ori = vec_div(rt->light_ray.dir, 10000.0f);
+			rt->shadow_ray.dir = rt->light_ray.dir;
 			/*if (rt->curr_obj.type) 
 			{
 				k = 0;
@@ -98,7 +103,7 @@ void	render_minirt(t_rt *rt)
 			}
 			if (!isShadow)
 			{*/
-				//rt->pHit.t = intersect_obj(&shadow_ray, &rt->curr_obj); // this ALSO haha */
+				//rt->pHit.t = intersect_obj(&rt->shadow_ray, &rt->curr_obj); // this ALSO haha */
 				rt->pHit.t = intersect_obj(&rt->cam_ray, &rt->curr_obj); 
 				//calculate brightness and bam
 				get_pixel_color(rt);
