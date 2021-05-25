@@ -197,11 +197,13 @@ typedef struct  s_rt
 		t_info		*infos;
 		t_obj		curr_obj;
 		t_hit		pHit;
+		t_color		hit_color;
 		t_ray		cam_ray;
 		t_ray		shadow_ray;
 		t_ray		light_ray;
 		t_color		pixel;
 		float		distance;
+		t_color		mix_color;
 }               t_rt;
 
 #endif

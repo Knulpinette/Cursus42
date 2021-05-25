@@ -24,12 +24,12 @@ float	vec_dot(t_vec v1, t_vec v2);
 t_vec	vec_cross(t_vec v1, t_vec v2);
 t_vec	vec_normalize(t_vec v);
 float	vec_len(t_vec v);
+float	length_sqrt(t_vec v);
 t_vec	unit_vec(t_vec v);
 t_vec	create_vec(float a, float b, float c);
 
 //pixel_color
 void	get_pixel_color(t_rt *rt);
-t_vec	get_obj_color(t_rt *rt, float t);
 //intersect
 float	intersect_obj(t_ray *ray, t_obj *obj);
 //sphere

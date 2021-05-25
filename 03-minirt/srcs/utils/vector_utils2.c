@@ -42,6 +42,11 @@ float	vec_len(t_vec v)
 	return (len);
 }
 
+float	length_sqrt(t_vec v)
+{
+	return (v.x * v.x + v.y * v.y + v.z * v.z);
+}
+
 t_vec	unit_vec(t_vec v)
 {
 	return (vec_div(v, vec_len(v)));
