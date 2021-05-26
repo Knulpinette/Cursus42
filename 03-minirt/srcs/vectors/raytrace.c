@@ -68,19 +68,26 @@ void	render_minirt(t_rt *rt)
 			{
 				if (intersect_obj(&rt->cam_ray, &rt->infos->objs[k]) > 0.0)
 				{
-					rt->distance = intersect_obj(&rt->cam_ray, &rt->infos->objs[k]);
-					if (rt->distance < min_distance)
+					if (intersect_obj(&rt->cam_ray, &rt->infos->objs[k]) < min_distance)
 					{
 						rt->curr_obj = rt->infos->objs[k];
+						rt->distance = intersect_obj(&rt->cam_ray, &rt->curr_obj);
 						min_distance = rt->distance;
 					}
 				}
 				k++;
 			}
+
+			//Something weird here with the logic. go from the beginning again => why do I have infinity matter here
+			//what do I need to show if there's nothing going on on screen and it hit nothing ? 
+			// how to reorganise the code so it's easier to read ? 
+
+			if (rt->distance == INFINITY) //to handle the fact that rt isn't infinity when processed
+					rt->distance = intersect_obj(&rt->cam_ray, &rt->curr_obj);
 			//int isShadow = no;
 			rt->pHit.p = vec_add(rt->cam_ray.ori, vec_multi(rt->cam_ray.dir, rt->distance));
-			rt->pHit.n = vec_normalize(rt->pHit.p);
-			rt->pHit.t = intersect_obj(&rt->cam_ray, &rt->curr_obj);
+			//rt->pHit.n = vec_normalize(rt->pHit.p);
+			rt->pHit.n = vec_div(vec_sub(rt->pHit.p, rt->curr_obj.shape.sp.point), rt->curr_obj.shape.sp.radius);  
 
 			rt->light_ray.ori = rt->infos->scene->light->point;
 			rt->light_ray.dir = vec_sub(rt->infos->scene->light->point, rt->pHit.p);
@@ -103,7 +110,6 @@ void	render_minirt(t_rt *rt)
 			}
 			if (!isShadow)
 			{*/
-				//calculate brightness and bam
 				get_pixel_color(rt);
 				my_mlx_pixel_put(&rt->img, x, y, rt->pixel.color);
 			/*}

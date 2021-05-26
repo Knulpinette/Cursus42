@@ -12,32 +12,47 @@
 
 #include "minirt.h"
 
+t_color	convert_to_zero(t_color color)
+{
+	if (color.r < 0)
+		color.r = 0;
+	if (color.g < 0)
+		color.g = 0;
+	if (color.b < 0)
+		color.b = 0;
+	color.t = 0;
+	return (color);
+}
+
 t_color	get_obj_color(t_rt *rt, float t)
 {
-	t_color	obj_color;
 	float	l_gain;
-	float	distance;
+	float	length;
 	float	obj_bright;
 
+//CHECK OUT THAT pHIT.N AND LIGHT RAY DIR ARE GOOD. 
 	l_gain = vec_dot(rt->pHit.n, rt->light_ray.dir);
-	distance = vec_len(rt->light_ray.dir);
+	length = length_sqrt(rt->light_ray.dir);
 	if (t > 0.0)
 	{
 		if (l_gain <= 0.0)
 			obj_bright = 0.0;
 		else
-			obj_bright = (rt->infos->scene->light->bright * l_gain * 1000.0f) / (M_PI * distance);
-		obj_color = color_add(rt->curr_obj.color, color_coeff(rt->infos->scene->light->color, obj_bright));
-		return (obj_color);
+			obj_bright = (rt->infos->scene->light->bright * l_gain * 1000.0f) / (M_PI * length);
+		//printf("r >> %i g >> %i  b >> %i -> %f\n", convert_to_zero(color_div(rt->infos->scene->light->color, obj_bright)).r, convert_to_zero(color_div(rt->infos->scene->light->color, obj_bright)).g, convert_to_zero(color_div(rt->infos->scene->light->color, obj_bright)).b, obj_bright);
+		rt->pixel = color_add(rt->pixel, convert_to_zero(color_coeff(rt->infos->scene->light->color, obj_bright)));
+		return (rt->pixel);
 	}
 	else
 		return(color_coeff(rt->infos->scene->amb.color, rt->infos->scene->amb.r));
+	(void)t;
 }
 
 void	get_pixel_color(t_rt *rt)
 {
-	rt->mix_color = get_obj_color(rt, rt->pHit.t);
-	rt->pixel.color = (int)create_color(rt->mix_color);
+	rt->pixel = rt->curr_obj.color;
+	rt->mix_color = get_obj_color(rt, rt->distance);
+	rt->pixel.color = create_color(rt->mix_color);
 }
 
 
