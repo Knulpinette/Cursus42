@@ -33,6 +33,7 @@ void	render_minirt(t_rt *rt)
 	int	y;
 	int k;
 	int	nb_objs;
+	float	magnitude;
 	float	min_distance;
 	t_vec	z_axis;
 	t_vec	x_axis;
@@ -51,16 +52,34 @@ void	render_minirt(t_rt *rt)
 		x = 0;
 		while (x < scene->res.x)
 		{
+
+//********* GET DIRECTION OF CAMERA RAY [NEED TO SOLVE ASPECT RATIO]
+
 			pixel_ratio_horizontal = ((float)x + 0.5) / (float)scene->res.x;
 			pixel_ratio_vertical = 1 - (((float)y + 0.5) / (float)scene->res.y);
 
 			//rt->cam_ray.dir = get_direction(x, y, rt);
-			x_axis = vec_multi(create_vec(4.0, 0.0, 0.0), pixel_ratio_horizontal);
-			y_axis = vec_multi(create_vec(0.0, 2.0, 0.0), pixel_ratio_vertical);
-			z_axis = create_vec(-2.0, -1.0, -1.0);
-			rt->cam_ray.dir = vec_add(vec_add(x_axis, y_axis), z_axis);
+			//x_axis = vec_multi(create_vec(4.0, 0.0, 0.0), pixel_ratio_horizontal);
+			x_axis.x = 4.0 * pixel_ratio_horizontal; // u
+			x_axis.y = 0.0 * pixel_ratio_horizontal;
+			x_axis.z = 0.0 * pixel_ratio_horizontal;
 
-			//INTERSECT
+			//y_axis = vec_multi(create_vec(0.0, 2.0, 0.0), pixel_ratio_vertical);	
+			y_axis.x = 0.0 * pixel_ratio_vertical; // v
+			y_axis.y = 2.0 * pixel_ratio_vertical;
+			y_axis.z = 0.0 * pixel_ratio_vertical;
+
+			//z_axis = create_vec(-2.0, -1.0, -1.0);
+			z_axis.x = -2.0;
+			z_axis.y = -1.0;
+			z_axis.z = -1.0;
+
+			//rt->cam_ray.dir = vec_add(vec_add(x_axis, y_axis), z_axis);
+			rt->cam_ray.dir.x = x_axis.x + y_axis.x + z_axis.x;
+			rt->cam_ray.dir.y = x_axis.y + y_axis.y + z_axis.y;
+			rt->cam_ray.dir.z = x_axis.z + y_axis.z + z_axis.z;
+
+//********* INTERSECT OBJECT
 			k = 0;
 			min_distance = INFINITY;
 			rt->distance = INFINITY;
@@ -78,43 +97,43 @@ void	render_minirt(t_rt *rt)
 				k++;
 			}
 
-			//Something weird here with the logic. go from the beginning again => why do I have infinity matter here
-			//what do I need to show if there's nothing going on on screen and it hit nothing ? 
-			// how to reorganise the code so it's easier to read ? 
+//********* INTERSECTION POINT RECORD
 
-			if (rt->distance == INFINITY) //to handle the fact that rt isn't infinity when processed
-					rt->distance = intersect_obj(&rt->cam_ray, &rt->curr_obj);
-			//int isShadow = no;
-			rt->pHit.p = vec_add(rt->cam_ray.ori, vec_multi(rt->cam_ray.dir, rt->distance));
-			//rt->pHit.n = vec_normalize(rt->pHit.p);
-			rt->pHit.n = vec_div(vec_sub(rt->pHit.p, rt->curr_obj.shape.sp.point), rt->curr_obj.shape.sp.radius);  
+			//rt->pHit.p = vec_add(rt->cam_ray.ori, vec_multi(rt->cam_ray.dir, rt->distance));
+			rt->pHit.p.x = rt->cam_ray.ori.x + (rt->cam_ray.dir.x * rt->distance);
+			rt->pHit.p.y = rt->cam_ray.ori.y + (rt->cam_ray.dir.y * rt->distance);
+			rt->pHit.p.z = rt->cam_ray.ori.z + (rt->cam_ray.dir.z * rt->distance);
+
+			//rt->pHit.n = vec_normalize(vec_sub(rt->pHit.p, rt->curr_obj.shape.sp.point));
+			rt->pHit.n.x = (rt->pHit.p.x - rt->curr_obj.shape.sp.point.x) / rt->curr_obj.shape.sp.radius;
+			rt->pHit.n.y = (rt->pHit.p.y - rt->curr_obj.shape.sp.point.y) / rt->curr_obj.shape.sp.radius;
+			rt->pHit.n.z = (rt->pHit.p.z - rt->curr_obj.shape.sp.point.z) / rt->curr_obj.shape.sp.radius;  
+
+
+//********* COMPUTE LIGHT RAY
 
 			rt->light_ray.ori = rt->infos->scene->light->point;
-			rt->light_ray.dir = vec_sub(rt->infos->scene->light->point, rt->pHit.p);
-			rt->light_ray.dir = vec_normalize(rt->light_ray.dir);
 
-			rt->shadow_ray.ori = vec_div(rt->light_ray.dir, 10000.0f);
-			rt->shadow_ray.dir = rt->light_ray.dir;
-			/*if (rt->curr_obj.type) 
-			{
-				k = 0;
-				while (k < nb_objs)
-				{
-					if (intersect_obj(&rt->shadow_ray, &rt->infos->objs[k]) > 0.0)
-					{
-						isShadow = yes;
-						break;
-					}
-					k++;
-				}
-			}
-			if (!isShadow)
-			{*/
-				get_pixel_color(rt);
-				my_mlx_pixel_put(&rt->img, x, y, rt->pixel.color);
-			/*}
-			else 
-				my_mlx_pixel_put(&rt->img, x, y, 0x000000FF);*/
+			//rt->light_ray.dir = vec_sub(rt->infos->scene->light->point, rt->pHit.p);
+			//rt->light_ray.dir = vec_normalize(rt->light_ray.dir);
+			rt->light_ray.dir.x = rt->infos->scene->light->point.x - rt->pHit.p.x;
+			rt->light_ray.dir.y = rt->infos->scene->light->point.y - rt->pHit.p.y;
+			rt->light_ray.dir.z = rt->infos->scene->light->point.z - rt->pHit.p.z;
+
+			magnitude = sqrt(
+						(rt->light_ray.dir.x * rt->light_ray.dir.x) +
+						(rt->light_ray.dir.y * rt->light_ray.dir.y) +
+						(rt->light_ray.dir.z * rt->light_ray.dir.z));
+
+			rt->light_ray.dir.x = rt->light_ray.dir.x / magnitude;
+			rt->light_ray.dir.y = rt->light_ray.dir.y / magnitude;
+			rt->light_ray.dir.z = rt->light_ray.dir.z / magnitude;
+
+//********* GET COLOR OF PIXEL + PRINT PIXEL
+
+			get_pixel_color(rt);
+			my_mlx_pixel_put(&rt->img, x, y, rt->pixel.color);
+
 			x++;
 		}
 		y--;
@@ -139,4 +158,22 @@ t_ray		ray_to_pixel(int x, int y, t_scene *scene)
 	normalize_vector(&direction);
 return (create_ray(origin, direction));
 
+
+			//rt->shadow_ray.ori = vec_div(rt->light_ray.dir, 10000.0f);
+			//rt->shadow_ray.dir = rt->light_ray.dir;
+			if (rt->curr_obj.type) 
+			{
+				k = 0;
+				while (k < nb_objs)
+				{
+					if (intersect_obj(&rt->shadow_ray, &rt->infos->objs[k]) > 0.0)
+					{
+						isShadow = yes;
+						break;
+					}
+					k++;
+				}
+			}
+			if (!isShadow)
+			{
 */

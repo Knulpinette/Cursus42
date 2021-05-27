@@ -12,7 +12,74 @@
 
 #include "minirt.h"
 
-t_color	convert_to_zero(t_color color)
+t_color	get_obj_brightness(t_rt *rt, float t)
+{
+	float	l_gain;
+	float	magnitude;
+	float	obj_bright;
+
+	// l_gain = vec_dot(rt->pHit.n, rt->light_ray.dir);
+	// length = vec_magnitude(rt->light_ray.dir);
+	l_gain = (rt->pHit.n.x * rt->light_ray.dir.x) +
+			(rt->pHit.n.y * rt->light_ray.dir.y) +
+			(rt->pHit.n.z * rt->light_ray.dir.z);
+
+	magnitude = (rt->light_ray.dir.x * rt->light_ray.dir.x) +
+			(rt->light_ray.dir.y * rt->light_ray.dir.y) +
+			(rt->light_ray.dir.z * rt->light_ray.dir.z);
+
+	if (l_gain <= 0.0)
+		obj_bright = 0.0;
+	else
+		obj_bright = (rt->infos->scene->light->bright * l_gain * 1000.0f) / (M_PI * magnitude);
+	
+	rt->pixel.r = rt->pixel.r + (rt->infos->scene->light->color.r * obj_bright);
+	rt->pixel.g = rt->pixel.g + (rt->infos->scene->light->color.g * obj_bright);
+	rt->pixel.b = rt->pixel.b + (rt->infos->scene->light->color.b * obj_bright);
+
+	return (rt->pixel);
+
+	(void)t;
+}
+
+void	get_pixel_color(t_rt *rt)
+{
+	rt->pixel = rt->curr_obj.color;
+
+//********* IF INTERSECT_OBJ, GET BRIGHTNESS OF THE CONTACT POINT
+	if (rt->distance > 0.0 && rt->distance != INFINITY)
+		rt->pixel = get_obj_brightness(rt, rt->distance);
+
+	else
+	{
+		rt->pixel.r = rt->infos->scene->amb.color.r * rt->infos->scene->amb.r;
+		rt->pixel.g = rt->infos->scene->amb.color.g * rt->infos->scene->amb.r;
+		rt->pixel.b = rt->infos->scene->amb.color.b * rt->infos->scene->amb.r;
+	}
+	rt->pixel.color = create_color(rt->pixel);
+}
+
+
+// ******** CODE TO DEBUG ZEBRA ***************
+/*printf(">> %.f || l_gain %- .3f >> || length >> %- .1f \
+|| light_dir >> %- .3f, %- .3f, %- .3f\n", \
+rt->curr_obj.shape.sp.radius, l_gain, length, \
+rt->light_ray.dir.x, rt->light_ray.dir.y, \
+rt->light_ray.dir.z);
+
+printf("r >> %i g >> %i  b >> %i -> %f\n",
+convert_to_zero(color_div(rt->infos->scene->light->color, obj_bright)).r,
+convert_to_zero(color_div(rt->infos->scene->light->color, obj_bright)).g,
+convert_to_zero(color_div(rt->infos->scene->light->color, obj_bright)).b, obj_bright);
+rt->pixel = color_add(rt->pixel, convert_to_zero(color_coeff(rt->infos->scene->light->color, obj_bright))); */
+
+
+
+
+// MESS OF CODE
+
+
+/*static t_color	convert_to_zero(t_color color)
 {
 	if (color.r < 0)
 		color.r = 0;
@@ -24,36 +91,24 @@ t_color	convert_to_zero(t_color color)
 	return (color);
 }
 
-t_color	get_obj_color(t_rt *rt, float t)
+static t_color	convert_to_max(t_color color)
 {
-	float	l_gain;
-	float	length;
-	float	obj_bright;
+	if (color.r > 255)
+		color.r = 255;
+	if (color.g > 255)
+		color.g = 255;
+	if (color.b > 255)
+		color.b = 255;
+	color.t = 0;
+	return (color);
+} */
 
-//CHECK OUT THAT pHIT.N AND LIGHT RAY DIR ARE GOOD. 
-	l_gain = vec_dot(rt->pHit.n, rt->light_ray.dir);
-	length = length_sqrt(rt->light_ray.dir);
-	if (t > 0.0)
-	{
-		if (l_gain <= 0.0)
-			obj_bright = 0.0;
-		else
-			obj_bright = (rt->infos->scene->light->bright * l_gain * 1000.0f) / (M_PI * length);
-		//printf("r >> %i g >> %i  b >> %i -> %f\n", convert_to_zero(color_div(rt->infos->scene->light->color, obj_bright)).r, convert_to_zero(color_div(rt->infos->scene->light->color, obj_bright)).g, convert_to_zero(color_div(rt->infos->scene->light->color, obj_bright)).b, obj_bright);
-		rt->pixel = color_add(rt->pixel, convert_to_zero(color_coeff(rt->infos->scene->light->color, obj_bright)));
-		return (rt->pixel);
-	}
-	else
-		return(color_coeff(rt->infos->scene->amb.color, rt->infos->scene->amb.r));
-	(void)t;
-}
 
-void	get_pixel_color(t_rt *rt)
-{
-	rt->pixel = rt->curr_obj.color;
-	rt->mix_color = get_obj_color(rt, rt->distance);
-	rt->pixel.color = create_color(rt->mix_color);
-}
+
+
+
+
+
 
 
 

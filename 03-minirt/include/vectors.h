@@ -23,8 +23,8 @@ t_vec	vec_div(t_vec v1, float d);
 float	vec_dot(t_vec v1, t_vec v2);
 t_vec	vec_cross(t_vec v1, t_vec v2);
 t_vec	vec_normalize(t_vec v);
-float	vec_len(t_vec v);
-float	length_sqrt(t_vec v);
+float	vec_magnitude(t_vec v);
+float	length_product(t_vec v);
 t_vec	unit_vec(t_vec v);
 t_vec	create_vec(float a, float b, float c);
 

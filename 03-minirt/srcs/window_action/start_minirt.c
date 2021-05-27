@@ -20,33 +20,9 @@
 ** 🦕
 */
 
-/*void    draw_circle(t_img *img)
-{
-    int x;
-    int y;
-    int r;
-    double x1;
-    double y1;
-    double angle;
-    static const double PI = 3.1415926535;
-
-    r = 30;
-    x = 250;
-    y = 250;
-    angle = 0;
-    while (angle <= 360)
-    {
-        angle = angle + 1;
-        x1 = r * cos(angle * PI / 180);
-        y1 = r * sin(angle * PI / 180);
-        my_mlx_pixel_put(img, (x + x1), (y + y1), 0x0000FF);
-    }
-}*/
-
 void	start_minirt(t_rt *rt)
 {
     t_res   *res;
-	// SPHERE AND PLANE => ACCORDING TO WHERE THE CAMERA IS ? (POV BASICALLY)
 
     res = &rt->infos->scene->res;
     rt->mlx = mlx_init();

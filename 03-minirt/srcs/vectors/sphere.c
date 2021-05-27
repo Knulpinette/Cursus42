@@ -32,9 +32,27 @@ float	intersect_sphere(t_ray *ray, t_obj *obj)
 	float		c;
 
 	sp = &obj->shape.sp;
-	center_ori = vec_sub(ray->ori, sp->point);
-	a = vec_dot(ray->dir, ray->dir);
-	b = vec_dot(center_ori, ray->dir);
-	c = vec_dot(center_ori, center_ori) - (sp->radius * sp->radius);
+	
+	//center_ori = vec_sub(ray->ori, sp->point);
+	center_ori.x = ray->ori.x - sp->point.x;
+	center_ori.y = ray->ori.y - sp->point.y;
+	center_ori.z = ray->ori.z - sp->point.z;
+
+	//a = vec_dot(ray->dir, ray->dir);
+	a = (ray->dir.x * ray->dir.x) +
+		(ray->dir.y * ray->dir.y) +
+		(ray->dir.z * ray->dir.z);
+
+	//b = vec_dot(center_ori, ray->dir);
+	b = (center_ori.x * ray->dir.x) +
+		(center_ori.y * ray->dir.y) +
+		(center_ori.z * ray->dir.z);
+
+	//c = vec_dot(center_ori, center_ori) - (sp->radius * sp->radius);
+	c = ((center_ori.x * center_ori.x) +
+		(center_ori.y * center_ori.y) +
+		(center_ori.z * center_ori.z)) -
+		(sp->radius * sp->radius);
+	
 	return(solve_quadratic(a, b, c));
 }

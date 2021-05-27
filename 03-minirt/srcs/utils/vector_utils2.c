@@ -28,28 +28,30 @@ t_vec	vec_normalize(t_vec v)
 	float	len;
 
 	len = sqrt(pow(v.x, 2) + pow(v.y, 2) + pow(v.z, 2));
+	if (len == 0)
+		len = 1;
 	norm.x = v.x / len;
 	norm.y = v.y / len;
 	norm.z = v.z / len;
 	return (norm);
 }
 
-float	vec_len(t_vec v)
-{
-	float	len;
-
-	len = sqrt(pow(v.x, 2) + pow(v.y, 2) + pow(v.z, 2));
-	return (len);
-}
-
-float	length_sqrt(t_vec v)
+float	vec_magnitude(t_vec v)
 {
 	return (v.x * v.x + v.y * v.y + v.z * v.z);
 }
 
+float	vec_magnitude_sqrt(t_vec v)
+{
+	float	len;
+
+	len = sqrt(vec_magnitude(v));
+	return (len);
+}
+
 t_vec	unit_vec(t_vec v)
 {
-	return (vec_div(v, vec_len(v)));
+	return (vec_div(v, vec_magnitude_sqrt(v)));
 }
 
 t_vec	create_vec(float a, float b, float c)
