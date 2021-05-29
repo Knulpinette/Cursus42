@@ -33,7 +33,7 @@ void	render_minirt(t_rt *rt)
 	int	y;
 	int k;
 	int	nb_objs;
-	float	magnitude;
+	//float	magnitude;
 	float	min_distance;
 	t_vec	z_axis;
 	t_vec	x_axis;
@@ -97,7 +97,7 @@ void	render_minirt(t_rt *rt)
 				k++;
 			}
 
-//********* INTERSECTION POINT RECORD
+//********* INTERSECTION POINT RECORD 
 
 			//rt->pHit.p = vec_add(rt->cam_ray.ori, vec_multi(rt->cam_ray.dir, rt->distance));
 			rt->pHit.p.x = rt->cam_ray.ori.x + (rt->cam_ray.dir.x * rt->distance);
@@ -114,24 +114,45 @@ void	render_minirt(t_rt *rt)
 
 			rt->light_ray.ori = rt->infos->scene->light->point;
 
-			//rt->light_ray.dir = vec_sub(rt->infos->scene->light->point, rt->pHit.p);
-			//rt->light_ray.dir = vec_normalize(rt->light_ray.dir);
+			//rt->light_ray.dir = vec_sub(rt->infos->scene->light->point, rt->pHit.p); // needs to not be normalized !
 			rt->light_ray.dir.x = rt->infos->scene->light->point.x - rt->pHit.p.x;
 			rt->light_ray.dir.y = rt->infos->scene->light->point.y - rt->pHit.p.y;
 			rt->light_ray.dir.z = rt->infos->scene->light->point.z - rt->pHit.p.z;
 
-			magnitude = sqrt(
-						(rt->light_ray.dir.x * rt->light_ray.dir.x) +
-						(rt->light_ray.dir.y * rt->light_ray.dir.y) +
-						(rt->light_ray.dir.z * rt->light_ray.dir.z));
 
-			rt->light_ray.dir.x = rt->light_ray.dir.x / magnitude;
-			rt->light_ray.dir.y = rt->light_ray.dir.y / magnitude;
-			rt->light_ray.dir.z = rt->light_ray.dir.z / magnitude;
+// FIGURE OUT SHADOW RAY !!
+			rt->shadow_ray.ori =  rt->pHit.p;
+			rt->shadow_ray.dir.x = rt->infos->scene->light->point.x - rt->pHit.p.x;
+			rt->shadow_ray.dir.y = rt->infos->scene->light->point.y - rt->pHit.p.y;
+			rt->shadow_ray.dir.z = rt->infos->scene->light->point.z - rt->pHit.p.z;
+			rt->shadow_ray.dir = vec_normalize(rt->shadow_ray.dir);
 
+			int isShadow;
+			isShadow = no;
+
+			if (min_distance != INFINITY) 
+			{
+				k = 0;
+				while (k < nb_objs) //change light ray into shadow ray
+				{
+					if (intersect_obj(&rt->light_ray, &rt->infos->objs[k]) > 0.0)
+					{
+						isShadow = yes;
+						break;
+					}
+					k++;
+				}
+			}
+			if (!isShadow)
 //********* GET COLOR OF PIXEL + PRINT PIXEL
-
-			get_pixel_color(rt);
+				get_pixel_color(rt);
+			else
+			{
+				rt->pixel.r = 0;
+				rt->pixel.r = 0;
+				rt->pixel.r = 0;
+				rt->pixel.color = create_color(rt->pixel);
+			}
 			my_mlx_pixel_put(&rt->img, x, y, rt->pixel.color);
 
 			x++;
