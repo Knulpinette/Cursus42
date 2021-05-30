@@ -41,9 +41,9 @@ t_color	get_obj_brightness(t_rt *rt, float t)
 	else
 		obj_bright = (rt->infos->scene->light->bright * l_gain * 1000.0f) / (M_PI * magnitude);
 
-	rt->pixel.r = rt->pixel.r + (rt->infos->scene->light->color.r * obj_bright);
-	rt->pixel.g = rt->pixel.g + (rt->infos->scene->light->color.g * obj_bright);
-	rt->pixel.b = rt->pixel.b + (rt->infos->scene->light->color.b * obj_bright);
+	rt->pixel.r = rt->pixel.r + ((rt->infos->scene->light->color.r * obj_bright) + (rt->infos->scene->amb.color.r * rt->infos->scene->amb.r));
+	rt->pixel.g = rt->pixel.g + ((rt->infos->scene->light->color.g * obj_bright) + (rt->infos->scene->amb.color.g * rt->infos->scene->amb.r));
+	rt->pixel.b = rt->pixel.b + ((rt->infos->scene->light->color.b * obj_bright) + (rt->infos->scene->amb.color.b * rt->infos->scene->amb.r));
 	rt->pixel = convert_to_max(rt->pixel);
 
 	return (rt->pixel);

@@ -82,7 +82,7 @@ test:		${NAME}
 			@echo "🦕🍭🦕 ./miniRT ./scenes/scene-example.rt"
 			@echo "🍭🦄 IF WSL -> Launch vcxsrv.exe" 
 			@echo "🦄🍭 Type in command line :" 
-			@echo "🍭🦄🍭 DISPLAY=\$$(cat /etc/resolv.conf | grep nameserver | awk '{print \$$2}'):0 ./miniRT ./scenes/scene-1-el.rt"
+			@echo "🍭🦄🍭 DISPLAY=\$$(cat /etc/resolv.conf | grep nameserver | awk '{print \$$2}'):0 ./miniRT ./scenes/scene-debug.rt"
 
 bonus:		${OBJS_BONUS}
 			${MAKE} bonus -C ${LIBFT_DIR}

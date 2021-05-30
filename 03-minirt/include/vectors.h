@@ -34,6 +34,8 @@ void	get_pixel_color(t_rt *rt);
 float	intersect_obj(t_ray *ray, t_obj *obj);
 //sphere
 float	intersect_sphere(t_ray *ray, t_obj *obj);
+//plane
+float	intersect_plane(t_ray *ray, t_obj *obj);
 
 #endif
 

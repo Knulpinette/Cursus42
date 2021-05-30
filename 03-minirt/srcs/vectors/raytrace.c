@@ -97,17 +97,27 @@ void	render_minirt(t_rt *rt)
 				k++;
 			}
 
-//********* INTERSECTION POINT RECORD 
+//********* INTERSECTION POINT RECORD => maybe do a t_hit category with curr_obj + infos hit in the class ?
 
 			//rt->pHit.p = vec_add(rt->cam_ray.ori, vec_multi(rt->cam_ray.dir, rt->distance));
 			rt->pHit.p.x = rt->cam_ray.ori.x + (rt->cam_ray.dir.x * rt->distance);
 			rt->pHit.p.y = rt->cam_ray.ori.y + (rt->cam_ray.dir.y * rt->distance);
 			rt->pHit.p.z = rt->cam_ray.ori.z + (rt->cam_ray.dir.z * rt->distance);
 
-			//rt->pHit.n = vec_normalize(vec_sub(rt->pHit.p, rt->curr_obj.shape.sp.point));
-			rt->pHit.n.x = (rt->pHit.p.x - rt->curr_obj.shape.sp.point.x) / rt->curr_obj.shape.sp.radius;
-			rt->pHit.n.y = (rt->pHit.p.y - rt->curr_obj.shape.sp.point.y) / rt->curr_obj.shape.sp.radius;
-			rt->pHit.n.z = (rt->pHit.p.z - rt->curr_obj.shape.sp.point.z) / rt->curr_obj.shape.sp.radius;  
+			if (rt->curr_obj.type == SPHERE)
+			{
+				//rt->pHit.n = vec_normalize(vec_sub(rt->pHit.p, rt->curr_obj.shape.sp.point));
+				rt->pHit.n.x = (rt->pHit.p.x - rt->curr_obj.shape.sp.point.x) / rt->curr_obj.shape.sp.radius;
+				rt->pHit.n.y = (rt->pHit.p.y - rt->curr_obj.shape.sp.point.y) / rt->curr_obj.shape.sp.radius;
+				rt->pHit.n.z = (rt->pHit.p.z - rt->curr_obj.shape.sp.point.z) / rt->curr_obj.shape.sp.radius;  
+			}
+			if (rt->curr_obj.type == PLANE)
+			{
+				//if (vec_dot(rt->cam_ray.dir, rt->curr_obj.shape.pl.orient) < 0.0f)
+				//	rt->pHit.n = vec_multi(vec_normalize(rt->pHit.p), -1.0f);
+				//else
+					rt->pHit.n = vec_normalize(rt->pHit.p);
+			}
 
 
 //********* COMPUTE LIGHT RAY
