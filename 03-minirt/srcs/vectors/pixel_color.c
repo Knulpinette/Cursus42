@@ -68,31 +68,7 @@ void	get_pixel_color(t_rt *rt)
 }
 
 
-// ******** CODE TO DEBUG ZEBRA ***************
-/*printf(">> %.f || l_gain %- .3f >> || length >> %- .1f \
-|| light_dir >> %- .3f, %- .3f, %- .3f\n", \
-rt->curr_obj.shape.sp.radius, l_gain, length, \
-rt->light_ray.dir.x, rt->light_ray.dir.y, \
-rt->light_ray.dir.z);
-
-printf("r >> %i g >> %i  b >> %i -> %f\n",
-convert_to_zero(color_div(rt->infos->scene->light->color, obj_bright)).r,
-convert_to_zero(color_div(rt->infos->scene->light->color, obj_bright)).g,
-convert_to_zero(color_div(rt->infos->scene->light->color, obj_bright)).b, obj_bright);
-rt->pixel = color_add(rt->pixel, convert_to_zero(color_coeff(rt->infos->scene->light->color, obj_bright))); 
-
-
-
-printf(">> %.f || l_gain %- .3f >> || magnitude >> %- .1f \
-	|| light_dir >> %- .3f, %- .3f, %- .3f || ", \
-	rt->curr_obj.shape.sp.radius, l_gain, magnitude, \
-	rt->light_ray.dir.x, rt->light_ray.dir.y, \
-	rt->light_ray.dir.z);
-
-printf("brightness = %.3f", obj_bright); */
-
-
-// MESS OF CODE
+ // MESS OF CODE
 
 
 /*static t_color	convert_to_min(t_color color)

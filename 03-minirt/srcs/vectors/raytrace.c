@@ -104,6 +104,7 @@ void	render_minirt(t_rt *rt)
 			rt->pHit.p.y = rt->cam_ray.ori.y + (rt->cam_ray.dir.y * rt->distance);
 			rt->pHit.p.z = rt->cam_ray.ori.z + (rt->cam_ray.dir.z * rt->distance);
 
+			//compute different normal according to shape of objec
 			if (rt->curr_obj.type == SPHERE)
 			{
 				//rt->pHit.n = vec_normalize(vec_sub(rt->pHit.p, rt->curr_obj.shape.sp.point));
@@ -113,6 +114,7 @@ void	render_minirt(t_rt *rt)
 			}
 			if (rt->curr_obj.type == PLANE)
 			{
+				//ADDS LIGHT BUT WHY ?
 				//if (vec_dot(rt->cam_ray.dir, rt->curr_obj.shape.pl.orient) < 0.0f)
 				//	rt->pHit.n = vec_multi(vec_normalize(rt->pHit.p), -1.0f);
 				//else

@@ -12,24 +12,22 @@
 
 #include "minirt.h"
 
-// DEBUG PLANE AND UNDERSTAND WHAT'S WHAT ! 
-//+ DO CYLINDER
-
 float	intersect_plane(t_ray *ray, t_obj *obj)
 {
 	float	d;
 	float	t;
 
-	d = (ray->dir.x + obj->shape.pl.orient.x) +
-		(ray->dir.y + obj->shape.pl.orient.y) +
-		(ray->dir.z + obj->shape.pl.orient.z);
+	d = (ray->dir.x * obj->shape.pl.orient.x) +
+		(ray->dir.y * obj->shape.pl.orient.y) +
+		(ray->dir.z * obj->shape.pl.orient.z);
 		
 	if (!d)
 		return (d);
 
-	t = ((obj->shape.pl.point.x - ray->ori.x) +
-		(obj->shape.pl.point.y - ray->ori.y) +
-		(obj->shape.pl.point.z - ray->ori.z)) 
+	//t = vec_dot(vec_sub(obj->shape.pl.point, ray->ori), obj->shape.pl.orient) / d;
+	t = (((obj->shape.pl.point.x - ray->ori.x) * (obj->shape.pl.orient.x)) +
+		((obj->shape.pl.point.y - ray->ori.y) * (obj->shape.pl.orient.y)) +
+		((obj->shape.pl.point.z - ray->ori.z) * (obj->shape.pl.orient.z)))
 		/ d;
 	return (t);
 }
