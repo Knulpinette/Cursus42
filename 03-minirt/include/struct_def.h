@@ -29,9 +29,16 @@ typedef struct	s_vec
 typedef	struct	s_hit
 {
 	float	t;
-	t_vec	p;
-	t_vec	n;
+	t_vec	point;
+	t_vec	normal;
 }				t_hit;
+
+typedef struct	s_params
+{
+	float	a;
+	float	b;
+	float	c;
+}				t_params;
 
 
 /*
@@ -78,7 +85,7 @@ typedef struct s_color
 	int		r;
 	int		g;
 	int 	b;
-	int		color;
+	int		rgb;
 }				t_color;
 
 enum e_obj 
@@ -109,6 +116,19 @@ typedef struct s_obj
 	t_type	shape; //union to allocate only one type of memory
 	t_color	color; //struct
 }				t_obj;
+
+typedef struct s_rec
+{
+	t_obj		obj;
+	t_hit		hit;
+	t_color		pix_color;
+	t_params	param; //quadratic params
+	float		t0; //solutions for cylinder
+	float		t1;
+	float		t_max;
+	float		t_min;
+
+}				t_rec;
 
 /*
 ** ELEMENTS OF SCENE SETUP STRUCT
@@ -195,15 +215,10 @@ typedef struct  s_rt
         void    	*win;
         t_img	  	img;
 		t_info		*infos;
-		t_obj		curr_obj;
-		t_hit		pHit;
-		t_color		hit_color;
+		t_rec		curr;
 		t_ray		cam_ray;
 		t_ray		shadow_ray;
 		t_ray		light_ray;
-		t_color		pixel;
-		float		distance;
-		t_color		mix_color;
 }               t_rt;
 
 #endif

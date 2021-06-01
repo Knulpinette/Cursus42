@@ -31,11 +31,14 @@ t_vec	create_vec(float a, float b, float c);
 //pixel_color
 void	get_pixel_color(t_rt *rt);
 //intersect
-float	intersect_obj(t_ray *ray, t_obj *obj);
+float	intersect_obj(t_ray *ray, t_rec *curr);
 //sphere
-float	intersect_sphere(t_ray *ray, t_obj *obj);
+float	intersect_sphere(t_ray *ray, t_rec *curr);
 //plane
-float	intersect_plane(t_ray *ray, t_obj *obj);
+float	intersect_plane(t_ray *ray, t_rec *curr);
+//quadratic
+float	solve_quadratic(t_params param, float *t0, float *t1);
+t_params	new_params(float a, float b, float c);
 
 #endif
 

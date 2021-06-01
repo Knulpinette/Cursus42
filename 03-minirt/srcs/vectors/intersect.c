@@ -12,11 +12,11 @@
 
 #include "minirt.h"
 
-float	intersect_obj(t_ray *ray, t_obj *obj)
+float	intersect_obj(t_ray *ray, t_rec *curr)
 {
-	if (obj->type == SPHERE)
-		return (intersect_sphere(ray, obj));
-	if (obj->type == PLANE)
-		return (intersect_plane(ray, obj));
+	if (curr->obj.type == SPHERE)
+		return (intersect_sphere(ray, curr));
+	if (curr->obj.type == PLANE)
+		return (intersect_plane(ray, curr));
 	return (0);
 }

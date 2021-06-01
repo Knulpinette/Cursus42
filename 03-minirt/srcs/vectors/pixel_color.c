@@ -30,7 +30,7 @@ t_color	get_obj_brightness(t_rt *rt, float t)
 	float	magnitude;
 	float	obj_bright;
 
-	l_gain = vec_dot(rt->pHit.n, vec_normalize(rt->light_ray.dir));
+	l_gain = vec_dot(rt->curr.hit.normal, vec_normalize(rt->light_ray.dir));
 
 	magnitude = (rt->light_ray.dir.x * rt->light_ray.dir.x) +
 			(rt->light_ray.dir.y * rt->light_ray.dir.y) +
@@ -41,30 +41,30 @@ t_color	get_obj_brightness(t_rt *rt, float t)
 	else
 		obj_bright = (rt->infos->scene->light->bright * l_gain * 1000.0f) / (M_PI * magnitude);
 
-	rt->pixel.r = rt->pixel.r + ((rt->infos->scene->light->color.r * obj_bright) + (rt->infos->scene->amb.color.r * rt->infos->scene->amb.r));
-	rt->pixel.g = rt->pixel.g + ((rt->infos->scene->light->color.g * obj_bright) + (rt->infos->scene->amb.color.g * rt->infos->scene->amb.r));
-	rt->pixel.b = rt->pixel.b + ((rt->infos->scene->light->color.b * obj_bright) + (rt->infos->scene->amb.color.b * rt->infos->scene->amb.r));
-	rt->pixel = convert_to_max(rt->pixel);
+	rt->curr.pix_color.r = rt->curr.pix_color.r + ((rt->infos->scene->light->color.r * obj_bright) + (rt->infos->scene->amb.color.r * rt->infos->scene->amb.r));
+	rt->curr.pix_color.g = rt->curr.pix_color.g + ((rt->infos->scene->light->color.g * obj_bright) + (rt->infos->scene->amb.color.g * rt->infos->scene->amb.r));
+	rt->curr.pix_color.b = rt->curr.pix_color.b + ((rt->infos->scene->light->color.b * obj_bright) + (rt->infos->scene->amb.color.b * rt->infos->scene->amb.r));
+	rt->curr.pix_color = convert_to_max(rt->curr.pix_color);
 
-	return (rt->pixel);
+	return (rt->curr.pix_color);
 
 	(void)t;
 }
 
 void	get_pixel_color(t_rt *rt)
 {
-	rt->pixel = rt->curr_obj.color;
+	rt->curr.pix_color = rt->curr.obj.color;
 
 //********* IF INTERSECT_OBJ, GET BRIGHTNESS OF THE CONTACT POINT
-	if (rt->distance > 0.0 && rt->distance != INFINITY)
-		rt->pixel = get_obj_brightness(rt, rt->distance);
+	if (rt->curr.hit.t > 0.0 && rt->curr.hit.t != INFINITY)
+		rt->curr.pix_color = get_obj_brightness(rt, rt->curr.hit.t);
 	else
 	{
-		rt->pixel.r = rt->infos->scene->amb.color.r * rt->infos->scene->amb.r;
-		rt->pixel.g = rt->infos->scene->amb.color.g * rt->infos->scene->amb.r;
-		rt->pixel.b = rt->infos->scene->amb.color.b * rt->infos->scene->amb.r;
+		rt->curr.pix_color.r = rt->infos->scene->amb.color.r * rt->infos->scene->amb.r;
+		rt->curr.pix_color.g = rt->infos->scene->amb.color.g * rt->infos->scene->amb.r;
+		rt->curr.pix_color.b = rt->infos->scene->amb.color.b * rt->infos->scene->amb.r;
 	}
-	rt->pixel.color = create_color(rt->pixel);
+	rt->curr.pix_color.rgb = create_color(rt->curr.pix_color);
 }
 
 
@@ -109,7 +109,7 @@ void	get_pixel_color(t_rt *rt)
 	float	distance;
 	float	obj_bright;
 
-	l_gain = vec_dot(rt->pHit.n, rt->light_ray.dir);
+	l_gain = vec_dot(rt->pHit.normal, rt->light_ray.dir);
 	distance = vec_len(rt->light_ray.dir);
 	if (t > 0.0)
 	{

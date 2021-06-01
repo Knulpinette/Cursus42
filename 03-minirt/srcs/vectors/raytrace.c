@@ -81,17 +81,19 @@ void	render_minirt(t_rt *rt)
 
 //********* INTERSECT OBJECT
 			k = 0;
+			t_rec temp;
 			min_distance = INFINITY;
-			rt->distance = INFINITY;
+			rt->curr.hit.t = INFINITY;
 			while (k < nb_objs)
 			{
-				if (intersect_obj(&rt->cam_ray, &rt->infos->objs[k]) > 0.0)
+				temp.obj = rt->infos->objs[k];
+				if (intersect_obj(&rt->cam_ray, &temp) > 0.0)
 				{
-					if (intersect_obj(&rt->cam_ray, &rt->infos->objs[k]) < min_distance)
+					if (intersect_obj(&rt->cam_ray, &temp) < min_distance)
 					{
-						rt->curr_obj = rt->infos->objs[k];
-						rt->distance = intersect_obj(&rt->cam_ray, &rt->curr_obj);
-						min_distance = rt->distance;
+						rt->curr.obj = rt->infos->objs[k];
+						rt->curr.hit.t = intersect_obj(&rt->cam_ray, &rt->curr);
+						min_distance = rt->curr.hit.t;
 					}
 				}
 				k++;
@@ -99,26 +101,26 @@ void	render_minirt(t_rt *rt)
 
 //********* INTERSECTION POINT RECORD => maybe do a t_hit category with curr_obj + infos hit in the class ?
 
-			//rt->pHit.p = vec_add(rt->cam_ray.ori, vec_multi(rt->cam_ray.dir, rt->distance));
-			rt->pHit.p.x = rt->cam_ray.ori.x + (rt->cam_ray.dir.x * rt->distance);
-			rt->pHit.p.y = rt->cam_ray.ori.y + (rt->cam_ray.dir.y * rt->distance);
-			rt->pHit.p.z = rt->cam_ray.ori.z + (rt->cam_ray.dir.z * rt->distance);
+			//rt->curr.hit.point = vec_add(rt->cam_ray.ori, vec_multi(rt->cam_ray.dir, rt->curr.hit.t));
+			rt->curr.hit.point.x = rt->cam_ray.ori.x + (rt->cam_ray.dir.x * rt->curr.hit.t);
+			rt->curr.hit.point.y = rt->cam_ray.ori.y + (rt->cam_ray.dir.y * rt->curr.hit.t);
+			rt->curr.hit.point.z = rt->cam_ray.ori.z + (rt->cam_ray.dir.z * rt->curr.hit.t);
 
 			//compute different normal according to shape of objec
-			if (rt->curr_obj.type == SPHERE)
+			if (rt->curr.obj.type == SPHERE)
 			{
-				//rt->pHit.n = vec_normalize(vec_sub(rt->pHit.p, rt->curr_obj.shape.sp.point));
-				rt->pHit.n.x = (rt->pHit.p.x - rt->curr_obj.shape.sp.point.x) / rt->curr_obj.shape.sp.radius;
-				rt->pHit.n.y = (rt->pHit.p.y - rt->curr_obj.shape.sp.point.y) / rt->curr_obj.shape.sp.radius;
-				rt->pHit.n.z = (rt->pHit.p.z - rt->curr_obj.shape.sp.point.z) / rt->curr_obj.shape.sp.radius;  
+				//rt->curr.hit.normal = vec_normalize(vec_sub(rt->curr.hit.point, rt->curr.obj.shape.sp.point));
+				rt->curr.hit.normal.x = (rt->curr.hit.point.x - rt->curr.obj.shape.sp.point.x) / rt->curr.obj.shape.sp.radius;
+				rt->curr.hit.normal.y = (rt->curr.hit.point.y - rt->curr.obj.shape.sp.point.y) / rt->curr.obj.shape.sp.radius;
+				rt->curr.hit.normal.z = (rt->curr.hit.point.z - rt->curr.obj.shape.sp.point.z) / rt->curr.obj.shape.sp.radius;  
 			}
-			if (rt->curr_obj.type == PLANE)
+			if (rt->curr.obj.type == PLANE)
 			{
 				//ADDS LIGHT BUT WHY ?
-				//if (vec_dot(rt->cam_ray.dir, rt->curr_obj.shape.pl.orient) < 0.0f)
-				//	rt->pHit.n = vec_multi(vec_normalize(rt->pHit.p), -1.0f);
+				//if (vec_dot(rt->cam_ray.dir, rt->curr.obj.shape.pl.orient) < 0.0f)
+				//	rt->curr.hit.normal = vec_multi(vec_normalize(rt->curr.hit.point), -1.0f);
 				//else
-					rt->pHit.n = vec_normalize(rt->pHit.p);
+					rt->curr.hit.normal = vec_normalize(rt->curr.hit.point);
 			}
 
 
@@ -126,17 +128,17 @@ void	render_minirt(t_rt *rt)
 
 			rt->light_ray.ori = rt->infos->scene->light->point;
 
-			//rt->light_ray.dir = vec_sub(rt->infos->scene->light->point, rt->pHit.p); // needs to not be normalized !
-			rt->light_ray.dir.x = rt->infos->scene->light->point.x - rt->pHit.p.x;
-			rt->light_ray.dir.y = rt->infos->scene->light->point.y - rt->pHit.p.y;
-			rt->light_ray.dir.z = rt->infos->scene->light->point.z - rt->pHit.p.z;
+			//rt->light_ray.dir = vec_sub(rt->infos->scene->light->point, rt->curr.hit.point); // needs to not be normalized !
+			rt->light_ray.dir.x = rt->infos->scene->light->point.x - rt->curr.hit.point.x;
+			rt->light_ray.dir.y = rt->infos->scene->light->point.y - rt->curr.hit.point.y;
+			rt->light_ray.dir.z = rt->infos->scene->light->point.z - rt->curr.hit.point.z;
 
 
 // FIGURE OUT SHADOW RAY !!
-			rt->shadow_ray.ori =  rt->pHit.p;
-			rt->shadow_ray.dir.x = rt->infos->scene->light->point.x - rt->pHit.p.x;
-			rt->shadow_ray.dir.y = rt->infos->scene->light->point.y - rt->pHit.p.y;
-			rt->shadow_ray.dir.z = rt->infos->scene->light->point.z - rt->pHit.p.z;
+			rt->shadow_ray.ori =  rt->curr.hit.point;
+			rt->shadow_ray.dir.x = rt->infos->scene->light->point.x - rt->curr.hit.point.x;
+			rt->shadow_ray.dir.y = rt->infos->scene->light->point.y - rt->curr.hit.point.y;
+			rt->shadow_ray.dir.z = rt->infos->scene->light->point.z - rt->curr.hit.point.z;
 			rt->shadow_ray.dir = vec_normalize(rt->shadow_ray.dir);
 
 			int isShadow;
@@ -147,7 +149,8 @@ void	render_minirt(t_rt *rt)
 				k = 0;
 				while (k < nb_objs) //change light ray into shadow ray
 				{
-					if (intersect_obj(&rt->light_ray, &rt->infos->objs[k]) > 0.0)
+					temp.obj = rt->infos->objs[k]; //cf plus haut pour premiere definiton de temp
+					if (intersect_obj(&rt->light_ray, &temp) > 0.0)
 					{
 						isShadow = yes;
 						break;
@@ -160,12 +163,12 @@ void	render_minirt(t_rt *rt)
 				get_pixel_color(rt);
 			else
 			{
-				rt->pixel.r = 0;
-				rt->pixel.r = 0;
-				rt->pixel.r = 0;
-				rt->pixel.color = create_color(rt->pixel);
+				rt->curr.pix_color.r = 0;
+				rt->curr.pix_color.r = 0;
+				rt->curr.pix_color.r = 0;
+				rt->curr.pix_color.rgb = create_color(rt->curr.pix_color);
 			}
-			my_mlx_pixel_put(&rt->img, x, y, rt->pixel.color);
+			my_mlx_pixel_put(&rt->img, x, y, rt->curr.pix_color.rgb);
 
 			x++;
 		}
@@ -194,7 +197,7 @@ return (create_ray(origin, direction));
 
 			//rt->shadow_ray.ori = vec_div(rt->light_ray.dir, 10000.0f);
 			//rt->shadow_ray.dir = rt->light_ray.dir;
-			if (rt->curr_obj.type) 
+			if (rt->curr.obj.type) 
 			{
 				k = 0;
 				while (k < nb_objs)

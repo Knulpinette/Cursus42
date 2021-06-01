@@ -12,31 +12,20 @@
 
 #include "minirt.h"
 
-float	solve_quadratic(float a, float b, float c)
-{
-	float		discriminant;
-
-	discriminant = (b * b) - (a * c);
-	if (discriminant < 0)
-		return ((-b + sqrt(discriminant)) / a);
-	else
-		return ((-b - sqrt(discriminant)) / a);
-}
-
-float	intersect_sphere(t_ray *ray, t_obj *obj)
+float	intersect_sphere(t_ray *ray, t_rec *curr)
 {
 	t_sphere	*sp;
-	t_vec		center_ori;
+	t_vec		center_origin;
 	float		a;
 	float		b;
 	float		c;
 
-	sp = &obj->shape.sp;
+	sp = &curr->obj.shape.sp;
 	
 	//center_ori = vec_sub(ray->ori, sp->point);
-	center_ori.x = ray->ori.x - sp->point.x;
-	center_ori.y = ray->ori.y - sp->point.y;
-	center_ori.z = ray->ori.z - sp->point.z;
+	center_origin.x = ray->ori.x - sp->point.x;
+	center_origin.y = ray->ori.y - sp->point.y;
+	center_origin.z = ray->ori.z - sp->point.z;
 
 	//a = vec_dot(ray->dir, ray->dir);
 	a = (ray->dir.x * ray->dir.x) +
@@ -44,15 +33,15 @@ float	intersect_sphere(t_ray *ray, t_obj *obj)
 		(ray->dir.z * ray->dir.z);
 
 	//b = vec_dot(center_ori, ray->dir);
-	b = (center_ori.x * ray->dir.x) +
-		(center_ori.y * ray->dir.y) +
-		(center_ori.z * ray->dir.z);
+	b = (center_origin.x * ray->dir.x) +
+		(center_origin.y * ray->dir.y) +
+		(center_origin.z * ray->dir.z);
 
 	//c = vec_dot(center_ori, center_ori) - (sp->radius * sp->radius);
-	c = ((center_ori.x * center_ori.x) +
-		(center_ori.y * center_ori.y) +
-		(center_ori.z * center_ori.z)) -
+	c = ((center_origin.x * center_origin.x) +
+		(center_origin.y * center_origin.y) +
+		(center_origin.z * center_origin.z)) -
 		(sp->radius * sp->radius);
 	
-	return(solve_quadratic(a, b, c));
+	return(solve_quadratic(new_params(a, b, c), &curr->t0, &curr->t1));
 }

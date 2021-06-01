@@ -12,22 +12,22 @@
 
 #include "minirt.h"
 
-float	intersect_plane(t_ray *ray, t_obj *obj)
+float	intersect_plane(t_ray *ray, t_rec *curr)
 {
 	float	d;
 	float	t;
 
-	d = (ray->dir.x * obj->shape.pl.orient.x) +
-		(ray->dir.y * obj->shape.pl.orient.y) +
-		(ray->dir.z * obj->shape.pl.orient.z);
+	d = (ray->dir.x * curr->obj.shape.pl.orient.x) +
+		(ray->dir.y * curr->obj.shape.pl.orient.y) +
+		(ray->dir.z * curr->obj.shape.pl.orient.z);
 		
 	if (!d)
 		return (d);
 
 	//t = vec_dot(vec_sub(obj->shape.pl.point, ray->ori), obj->shape.pl.orient) / d;
-	t = (((obj->shape.pl.point.x - ray->ori.x) * (obj->shape.pl.orient.x)) +
-		((obj->shape.pl.point.y - ray->ori.y) * (obj->shape.pl.orient.y)) +
-		((obj->shape.pl.point.z - ray->ori.z) * (obj->shape.pl.orient.z)))
+	t = (((curr->obj.shape.pl.point.x - ray->ori.x) * (curr->obj.shape.pl.orient.x)) +
+		((curr->obj.shape.pl.point.y - ray->ori.y) * (curr->obj.shape.pl.orient.y)) +
+		((curr->obj.shape.pl.point.z - ray->ori.z) * (curr->obj.shape.pl.orient.z)))
 		/ d;
 	return (t);
 }
