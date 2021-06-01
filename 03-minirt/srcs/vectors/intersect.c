@@ -18,5 +18,7 @@ float	intersect_obj(t_ray *ray, t_rec *curr)
 		return (intersect_sphere(ray, curr));
 	if (curr->obj.type == PLANE)
 		return (intersect_plane(ray, curr));
+	if (curr->obj.type == CYLINDER)
+		return (intersect_cylinder(ray, curr));
 	return (0);
 }

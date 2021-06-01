@@ -36,6 +36,8 @@ float	intersect_obj(t_ray *ray, t_rec *curr);
 float	intersect_sphere(t_ray *ray, t_rec *curr);
 //plane
 float	intersect_plane(t_ray *ray, t_rec *curr);
+//cylinder
+float	intersect_cylinder(t_ray *ray, t_rec *curr);
 //quadratic
 float	solve_quadratic(t_params param, float *t0, float *t1);
 t_params	new_params(float a, float b, float c);

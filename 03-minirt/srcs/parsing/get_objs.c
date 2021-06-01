@@ -89,10 +89,10 @@ void	get_cylinder(char *line, t_info *infos, int add_mem)
 	line = get_vector(line, &obj->shape.cy.orient);
 	line = next_nbr(line);
 	line = pass_spaces(line);
-	obj->shape.cy.h = ft_atof(line);
+	obj->shape.cy.height = ft_atof(line);
 	line = next_nbr(line);
 	line = pass_spaces(line);
-	obj->shape.cy.d = ft_atof(line);
+	obj->shape.cy.radius = ft_atof(line);
 	get_color(line, &obj->color);
 }
 

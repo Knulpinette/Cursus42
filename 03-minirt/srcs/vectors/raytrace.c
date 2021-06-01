@@ -116,12 +116,17 @@ void	render_minirt(t_rt *rt)
 			}
 			if (rt->curr.obj.type == PLANE)
 			{
-				//ADDS LIGHT BUT WHY ?
-				//if (vec_dot(rt->cam_ray.dir, rt->curr.obj.shape.pl.orient) < 0.0f)
-				//	rt->curr.hit.normal = vec_multi(vec_normalize(rt->curr.hit.point), -1.0f);
-				//else
+				if (vec_dot(rt->cam_ray.dir, rt->curr.obj.shape.pl.orient) < 0.0f)
+					rt->curr.hit.normal = vec_multi(vec_normalize(rt->curr.hit.point), -1.0f);
+				else
 					rt->curr.hit.normal = vec_normalize(rt->curr.hit.point);
 			}
+			/*if (rt->curr.obj.type == PLANE)
+			{
+				rt->curr.hit.normal = vec_sub(rt->curr.hit.point, rt->curr.obj.shape.cy.point);
+				rt->curr.hit.normal = vec_sub(rt->curr.hit.normal, vec_multi(rt->curr.obj.shape.cy.orient, vec_dot(rt->curr.obj.shape.cy.orient, rt->curr.hit.normal)));
+				rt->curr.hit.normal = vec_normalize(rt->curr.hit.normal);
+			}*/
 
 
 //********* COMPUTE LIGHT RAY

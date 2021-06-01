@@ -68,8 +68,8 @@ typedef struct s_cylinder
 {
 	t_vec	point;
 	t_vec	orient;
-	float	h;
-	float	d;
+	float	height;
+	float	radius;
 }				t_cylinder;
 
 typedef struct s_triangle

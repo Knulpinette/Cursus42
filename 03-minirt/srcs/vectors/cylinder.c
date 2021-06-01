@@ -34,8 +34,8 @@
         my_mlx_pixel_put(img, (x + x1), (y + y1), 0x0000FF);
     }
 }*/
-/*
-float	intersect_cylinder(t_ray *ray, t_obj *obj)
+
+float	intersect_cylinder(t_ray *ray, t_rec *curr)
 {
 
 	// find t1 & t2
@@ -45,54 +45,46 @@ float	intersect_cylinder(t_ray *ray, t_obj *obj)
 	// then do calculation with candidates
 
 
-	t_vec	A; // position cross product
-	t_vec	B; // direction cross product
-	int	a;
-	int	b;
-	int	t;
-	int	d;
-	int	k;
+	t_params param;
+	t_vec	A;
+	t_vec	B;
+	t_cylinder *cy;
 
-	A.x = (ray->ori.x - obj->shape.cy.point.x) * obj->shape.cy.orient.x;
-	A.y = (ray->ori.y - obj->shape.cy.point.y) * obj->shape.cy.orient.y;
-	A.y = (ray->ori.z - obj->shape.cy.point.z) * obj->shape.cy.orient.z;
+	cy = &curr->obj.shape.cy;
+	cy->orient = vec_sub(curr->hit.point, curr->obj.shape.cy.point);
+	cy->orient = vec_sub(cy->orient, vec_multi(curr->obj.shape.cy.orient, vec_dot(curr->obj.shape.cy.orient, cy->orient)));
+	cy->orient = vec_normalize(cy->orient);
 
-	B.x = ray->dir.x * obj->shape.cy.orient.x;
-	B.y = ray->dir.y * obj->shape.cy.orient.y;
-	B.y = ray->dir.z * obj->shape.cy.orient.z;
+	A.x = ray->dir.x - (cy->orient.x * vec_dot(ray->dir, cy->orient));
+	A.y = ray->dir.y - (cy->orient.y * vec_dot(ray->dir, cy->orient));
+	A.x = ray->dir.z - (cy->orient.z * vec_dot(ray->dir, cy->orient));
 
-	a = (
+	B.x = (ray->ori.x - cy->point.x) - 
+		(cy->orient.x * 
+		(vec_dot(vec_sub(ray->dir, cy->point), cy->orient)));
+	B.y = (ray->ori.y - cy->point.y) - 
+		(cy->orient.y * 
+		(vec_dot(vec_sub(ray->dir, cy->point), cy->orient)));
+	B.z = (ray->ori.z - cy->point.z) - 
+		(cy->orient.z * 
+		(vec_dot(vec_sub(ray->dir, cy->point), cy->orient)));
+	
 
-	);
+	param.a = vec_dot(A, A);
+	param.b = 2 * vec_dot(A, B);
+	param.c = vec_dot(B, B) - (cy->radius * cy->radius);
 
-	b = (
+	if (!solve_quadratic(param, &curr->t0, &curr->t1))
+		return (0);
+	return (solve_quadratic(param, &curr->t0, &curr->t1));
 
-	);
-
-	t = A / B;
-	d = ;
-
+	//figure out how to handle the t0 and t1
+	//figure out how to check t, the extremities and figure out how to insert the height into all this
+	
 }
 
-
-
-
-	a_sqrt = substract(ray.direction,
-								v3_multiply(cylinder.normal,
-								dot_product(ray.direction, cylinder.normal)));
-	a = dot_product(a_sqrt, a_sqrt);
-	right = substract(substract(ray.origin, cylinder.p),
-						v3_multiply(cylinder.normal,
-							dot_product(substract(ray.origin, cylinder.p),
-							cylinder.normal)));
-	b = 2 * dot_product(a_sqrt, right);
-	c = dot_product(right, right) - (cylinder.radius * cylinder.radius);
-	if (!solve_quadratic(new_qparams(a, b, c), t0, t1))
-		return (0);
-	return (1);
-
-tmp = (A.B * A.B) - (B.B * A.A) - 
-(R2 * (cyl.orient . cyl.orient));
-
-
-		𝑡=𝐴′⋅(𝐴′−𝐵′)/(𝐴′−𝐵′)⋅(𝐴′−𝐵′)*/
+/*
+ctp = substract(point, cylinder.p);
+	normal = substract(ctp, v3_multiply(cylinder.normal,
+										dot_product(cylinder.normal, ctp)));
+	normalize_vector(&normal);*/
