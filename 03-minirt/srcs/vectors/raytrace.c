@@ -121,12 +121,12 @@ void	render_minirt(t_rt *rt)
 				else
 					rt->curr.hit.normal = vec_normalize(rt->curr.hit.point);
 			}
-			/*if (rt->curr.obj.type == PLANE)
+			if (rt->curr.obj.type == CYLINDER)
 			{
 				rt->curr.hit.normal = vec_sub(rt->curr.hit.point, rt->curr.obj.shape.cy.point);
 				rt->curr.hit.normal = vec_sub(rt->curr.hit.normal, vec_multi(rt->curr.obj.shape.cy.orient, vec_dot(rt->curr.obj.shape.cy.orient, rt->curr.hit.normal)));
 				rt->curr.hit.normal = vec_normalize(rt->curr.hit.normal);
-			}*/
+			}
 
 
 //********* COMPUTE LIGHT RAY
