@@ -87,14 +87,11 @@ void	render_minirt(t_rt *rt)
 			while (k < nb_objs)
 			{
 				temp.obj = rt->infos->objs[k];
-				if (intersect_obj(&rt->cam_ray, &temp) > 0.0)
+				if (intersect_obj(&rt->cam_ray, &temp) > 0.0 && intersect_obj(&rt->cam_ray, &temp) < min_distance)
 				{
-					if (intersect_obj(&rt->cam_ray, &temp) < min_distance)
-					{
-						rt->curr.obj = rt->infos->objs[k];
-						rt->curr.hit.t = intersect_obj(&rt->cam_ray, &rt->curr);
-						min_distance = rt->curr.hit.t;
-					}
+					rt->curr.obj = rt->infos->objs[k];
+					rt->curr.hit.t = intersect_obj(&rt->cam_ray, &rt->curr);
+					min_distance = rt->curr.hit.t;
 				}
 				k++;
 			}
@@ -140,13 +137,13 @@ void	render_minirt(t_rt *rt)
 
 
 // FIGURE OUT SHADOW RAY !!
-			rt->shadow_ray.ori =  rt->curr.hit.point;
-			rt->shadow_ray.dir.x = rt->infos->scene->light->point.x - rt->curr.hit.point.x;
-			rt->shadow_ray.dir.y = rt->infos->scene->light->point.y - rt->curr.hit.point.y;
-			rt->shadow_ray.dir.z = rt->infos->scene->light->point.z - rt->curr.hit.point.z;
-			rt->shadow_ray.dir = vec_normalize(rt->shadow_ray.dir);
+			//rt->shadow_ray.ori =  rt->curr.hit.point;
+			//rt->shadow_ray.dir.x = rt->curr.hit.point.x - rt->infos->scene->light->point.x;
+			//rt->shadow_ray.dir.y = rt->curr.hit.point.y - rt->infos->scene->light->point.y;
+			//rt->shadow_ray.dir.z = rt->curr.hit.point.z - rt->infos->scene->light->point.z;
+		//	rt->shadow_ray.dir = vec_normalize(rt->shadow_ray.dir);
 
-			int isShadow;
+			/*int isShadow;
 			isShadow = no;
 
 			if (min_distance != INFINITY) 
@@ -163,16 +160,16 @@ void	render_minirt(t_rt *rt)
 					k++;
 				}
 			}
-			if (!isShadow)
+			if (!isShadow)*/
 //********* GET COLOR OF PIXEL + PRINT PIXEL
 				get_pixel_color(rt);
-			else
+			/*else
 			{
 				rt->curr.pix_color.r = 0;
 				rt->curr.pix_color.r = 0;
 				rt->curr.pix_color.r = 0;
 				rt->curr.pix_color.rgb = create_color(rt->curr.pix_color);
-			}
+			}*/
 			my_mlx_pixel_put(&rt->img, x, y, rt->curr.pix_color.rgb);
 
 			x++;

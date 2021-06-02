@@ -24,6 +24,35 @@ static t_color	convert_to_max(t_color color)
 	return (color);
 }
 
+bool	check_shadow(t_rt *rt)
+{
+	int		k;
+	t_rec	temp;
+
+	k = 0;
+
+	rt->shadow_ray.ori =  rt->curr.hit.point;
+	rt->shadow_ray.dir.x = rt->infos->scene->light->point.x - rt->curr.hit.point.x;
+	rt->shadow_ray.dir.y = rt->infos->scene->light->point.y - rt->curr.hit.point.y;
+	rt->shadow_ray.dir.z = rt->infos->scene->light->point.z - rt->curr.hit.point.z;
+
+	rt->curr.t_max = vec_magnitude(rt->shadow_ray.dir);
+	rt->curr.t_min = rt->curr.t_max;
+	rt->shadow_ray.dir = vec_normalize(rt->shadow_ray.dir);
+
+	while (k < rt->infos->nb_objs) 
+	{
+		temp.obj = rt->infos->objs[k];
+		temp.t0 = intersect_obj(&rt->shadow_ray, &temp);
+		if (temp.t0 > 0.00001 && temp.t0 < rt->curr.t_min)
+				rt->curr.t_min = temp.t0;
+		k++;
+	}
+	if (rt->curr.t_min < rt->curr.t_max)
+		return (true);
+	return (false);
+}
+
 t_color	get_obj_brightness(t_rt *rt, float t)
 {
 	float	l_gain;
@@ -39,8 +68,11 @@ t_color	get_obj_brightness(t_rt *rt, float t)
 	if (l_gain <= 0.0)
 		obj_bright = 0.0;
 	else
+	{
 		obj_bright = (rt->infos->scene->light->bright * l_gain * 1000.0f) / (M_PI * magnitude);
-
+		if (check_shadow(rt))
+			obj_bright = 0.0;
+	}
 	rt->curr.pix_color.r = rt->curr.pix_color.r + ((rt->infos->scene->light->color.r * obj_bright) + (rt->infos->scene->amb.color.r * rt->infos->scene->amb.r));
 	rt->curr.pix_color.g = rt->curr.pix_color.g + ((rt->infos->scene->light->color.g * obj_bright) + (rt->infos->scene->amb.color.g * rt->infos->scene->amb.r));
 	rt->curr.pix_color.b = rt->curr.pix_color.b + ((rt->infos->scene->light->color.b * obj_bright) + (rt->infos->scene->amb.color.b * rt->infos->scene->amb.r));
