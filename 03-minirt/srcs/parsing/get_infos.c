@@ -47,6 +47,14 @@ void	parse_light(char *line, t_scene *scene)
 		add_mem = yes;
 	get_light(line + 1, scene, add_mem);
 	scene->nb_light += 1;
+
+	int x;
+	x = 0;
+	while (x < scene->nb_light)
+	{
+		printf("LIGHT POINT = %f, %f, %f || LIGHT BRIGHT = %f\n", scene->light[x].point.x, scene->light[x].point.y, scene->light[x].point.z, scene->light[x].bright);
+		x++;
+	}
 }
 
 void	parse_cam(char *line, t_scene *scene)

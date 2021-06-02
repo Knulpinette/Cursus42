@@ -24,40 +24,37 @@ static t_color	convert_to_max(t_color color)
 	return (color);
 }
 
-bool	check_shadow(t_rt *rt)
+bool	check_shadow(t_rt *rt, int k)
 {
-	int		k;
+	int		i;
 	t_rec	temp;
 
-	k = 0;
+	i = 0;
 
 	rt->shadow_ray.ori =  rt->curr.hit.point;
-	rt->shadow_ray.dir.x = rt->infos->scene->light->point.x - rt->curr.hit.point.x;
-	rt->shadow_ray.dir.y = rt->infos->scene->light->point.y - rt->curr.hit.point.y;
-	rt->shadow_ray.dir.z = rt->infos->scene->light->point.z - rt->curr.hit.point.z;
-
+	rt->shadow_ray.dir.x = rt->infos->scene->light[k].point.x - rt->curr.hit.point.x;
+	rt->shadow_ray.dir.y = rt->infos->scene->light[k].point.y - rt->curr.hit.point.y;
+	rt->shadow_ray.dir.z = rt->infos->scene->light[k].point.z - rt->curr.hit.point.z;
 	rt->curr.t_max = vec_magnitude(rt->shadow_ray.dir);
 	rt->curr.t_min = rt->curr.t_max;
 	rt->shadow_ray.dir = vec_normalize(rt->shadow_ray.dir);
-
-	while (k < rt->infos->nb_objs) 
+	while (i < rt->infos->nb_objs) 
 	{
-		temp.obj = rt->infos->objs[k];
+		temp.obj = rt->infos->objs[i];
 		temp.t0 = intersect_obj(&rt->shadow_ray, &temp);
 		if (temp.t0 > 0.00001 && temp.t0 < rt->curr.t_min)
 				rt->curr.t_min = temp.t0;
-		k++;
+		i++;
 	}
 	if (rt->curr.t_min < rt->curr.t_max)
 		return (true);
 	return (false);
 }
 
-t_color	get_obj_brightness(t_rt *rt, float t)
+float	get_obj_brightness(t_rt *rt, float obj_bright, int k)
 {
 	float	l_gain;
 	float	magnitude;
-	float	obj_bright;
 
 	l_gain = vec_dot(rt->curr.hit.normal, vec_normalize(rt->light_ray.dir));
 
@@ -69,27 +66,45 @@ t_color	get_obj_brightness(t_rt *rt, float t)
 		obj_bright = 0.0;
 	else
 	{
-		obj_bright = (rt->infos->scene->light->bright * l_gain * 1000.0f) / (M_PI * magnitude);
-		if (check_shadow(rt))
+		obj_bright = (rt->infos->scene->light[k].bright * l_gain * 1000.0f) / (M_PI * magnitude) + obj_bright;
+		if (check_shadow(rt, k))
 			obj_bright = 0.0;
 	}
-	rt->curr.pix_color.r = rt->curr.pix_color.r + ((rt->infos->scene->light->color.r * obj_bright) + (rt->infos->scene->amb.color.r * rt->infos->scene->amb.r));
-	rt->curr.pix_color.g = rt->curr.pix_color.g + ((rt->infos->scene->light->color.g * obj_bright) + (rt->infos->scene->amb.color.g * rt->infos->scene->amb.r));
-	rt->curr.pix_color.b = rt->curr.pix_color.b + ((rt->infos->scene->light->color.b * obj_bright) + (rt->infos->scene->amb.color.b * rt->infos->scene->amb.r));
-	rt->curr.pix_color = convert_to_max(rt->curr.pix_color);
-
-	return (rt->curr.pix_color);
-
-	(void)t;
+	return (obj_bright);
 }
 
 void	get_pixel_color(t_rt *rt)
 {
-	rt->curr.pix_color = rt->curr.obj.color;
+	float	obj_bright;
+	int		k;
 
-//********* IF INTERSECT_OBJ, GET BRIGHTNESS OF THE CONTACT POINT
+	obj_bright = 0.0;
+	k = 0;
+	rt->curr.pix_color = rt->curr.obj.color;
+	rt->curr.obj.color.r = 0;
+	rt->curr.obj.color.g = 0;
+	rt->curr.obj.color.b = 0;
+
 	if (rt->curr.hit.t > 0.0 && rt->curr.hit.t != INFINITY)
-		rt->curr.pix_color = get_obj_brightness(rt, rt->curr.hit.t);
+	{
+		while (k < rt->infos->scene->nb_light)
+		{
+			//printf("LIGHT POINT = %f, %f, %f || LIGHT BRIGHT = %f\n", rt->infos->scene->light[k].point.x, rt->infos->scene->light[k].point.y, rt->infos->scene->light[k].point.z, rt->infos->scene->light[k].bright);
+			rt->light_ray.ori = rt->infos->scene->light[k].point;
+			rt->light_ray.dir.x = rt->infos->scene->light[k].point.x - rt->curr.hit.point.x;
+			rt->light_ray.dir.y = rt->infos->scene->light[k].point.y - rt->curr.hit.point.y;
+			rt->light_ray.dir.z = rt->infos->scene->light[k].point.z - rt->curr.hit.point.z;
+
+			obj_bright = get_obj_brightness(rt, obj_bright, k);
+			rt->curr.obj.color = color_add(rt->curr.obj.color, color_coeff(rt->infos->scene->light[k].color, obj_bright));
+			//printf("light nb = %i || light infos %f \nbrightness = %f || color added lights = %i, %i, %i \n", k, rt->infos->scene->light[k].point.x, obj_bright, rt->curr.obj.color.r, rt->curr.obj.color.g, rt->curr.obj.color.b);
+			k++;
+		}
+		rt->curr.pix_color.r = rt->curr.pix_color.r + (rt->curr.obj.color.r + (rt->infos->scene->amb.color.r * rt->infos->scene->amb.r));
+		rt->curr.pix_color.g = rt->curr.pix_color.g + (rt->curr.obj.color.g + (rt->infos->scene->amb.color.g * rt->infos->scene->amb.r));
+		rt->curr.pix_color.b = rt->curr.pix_color.b + (rt->curr.obj.color.b + (rt->infos->scene->amb.color.b * rt->infos->scene->amb.r));
+		rt->curr.pix_color = convert_to_max(rt->curr.pix_color);
+		}
 	else
 	{
 		rt->curr.pix_color.r = rt->infos->scene->amb.color.r * rt->infos->scene->amb.r;
@@ -132,68 +147,3 @@ void	get_pixel_color(t_rt *rt)
 	blue = vec_multi(blue, t);
 	return(vec_multi(vec_add(blue, white), rt->infos->scene->light->bright));*/
 
-	
-
-/*t_color	get_obj_color(t_rt *rt, float t, int curr_light)
-{
-	t_color	obj_color;
-	float	l_gain;
-	float	distance;
-	float	obj_bright;
-
-	l_gain = vec_dot(rt->pHit.normal, rt->light_ray.dir);
-	distance = vec_len(rt->light_ray.dir);
-	if (t > 0.0)
-	{
-		if (l_gain <= 0.0)
-			obj_bright = 0.0;
-		else
-			obj_bright = (rt->infos->scene->light[curr_light].bright * l_gain * 1000.0f) / (M_PI * distance);
-		obj_color = color_add(rt->curr_obj.color, color_coeff(rt->infos->scene->light[curr_light].color, obj_bright));
-		if (curr_light > 0)
-			return (color_add(obj_color, rt->mix_color));
-		else
-			return (obj_color);
-	}
-	else
-		return(color_coeff(rt->infos->scene->amb.color, rt->infos->scene->amb.r));
-}
-
-void	get_pixel_color(t_rt *rt)
-{
-	int	curr_light;
-	int isShadow;
-	int k;
-
-	isShadow = no;
-	curr_light = 0;
-	while (curr_light < rt->infos->scene->nb_light)
-	{
-		rt->light_ray.ori = rt->infos->scene->light[curr_light].point;
-		rt->light_ray.dir = vec_sub(rt->infos->scene->light[curr_light].point, rt->pHit.p);
-		rt->light_ray.dir = vec_normalize(rt->light_ray.dir);
-		
-		rt->shadow_ray.ori = vec_div(rt->light_ray.dir, 10000.0f);
-		rt->shadow_ray.dir = rt->light_ray.dir;
-
-		if (rt->curr_obj.type) 
-		{
-			k = 0;
-			while (k < rt->infos->nb_objs)
-			{
-				if (intersect_obj(&rt->light_ray, &rt->infos->objs[k]) > 0.0)
-				{
-					isShadow = yes;
-					break;
-				}
-				k++;
-			}
-		}
-		if (!isShadow)
-		{
-			rt->mix_color = get_obj_color(rt, rt->pHit.t, curr_light);
-			rt->pixel.color = (int)create_color(rt->mix_color);
-		}
-		else
-			rt->pixel.color = 12;
-	}*/
