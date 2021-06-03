@@ -22,8 +22,8 @@
 
 	fov_angle = tan((float)rt->infos->scene->cam->FOV / 2 * M_PI / 180);
 	aspect_ratio = (float)rt->infos->scene->res.x / (float)rt->infos->scene->res.y;
-	p_x = (2 * (x + 0.5) / (float)rt->infos->scene->res.x - 1) * aspect_ratio * fov_angle;
-	p_y = (1 - (2 * (y + 0.5)) / (float)rt->infos->scene->res.y) * fov_angle; //verifier si cette valeur est pour y ou z. forward direction
+	p_x = ((x + 0.5) / (float)rt->infos->scene->res.x - 1) * aspect_ratio * fov_angle;
+	p_y = (1 - ((y + 0.5)) / (float)rt->infos->scene->res.y) * fov_angle; //verifier si cette valeur est pour y ou z. forward direction
 	return (create_vec(p_x, p_y, 1));
 }*/
 

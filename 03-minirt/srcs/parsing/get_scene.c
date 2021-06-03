@@ -33,30 +33,36 @@ void	get_amb(char *line, t_scene *scene)
 
 void	get_light(char *line, t_scene *scene, int add_mem)
 {
+	int	k;
+
+	k = scene->nb_light;
 	if (!add_mem)
 		scene->light = ft_calloc(sizeof(t_light), 1);
 	if (add_mem)
 		scene->light = add_mem_light(scene->nb_light, scene->light);
-	line = get_vector(line, &scene->light->point);
+	line = get_vector(line, &scene->light[k].point);
 	line = next_nbr(line);
 	line = pass_spaces(line);
-	scene->light->bright = ft_atof(line);
-	get_color(line, &scene->light->color);
+	scene->light[k].bright = ft_atof(line);
+	get_color(line, &scene->light[k].color);
 }
 
 void	get_cam(char *line, t_scene *scene, int add_mem)
 {
+	int	k;
+
+	k = scene->nb_cam;
 	if (!add_mem)
 		scene->cam = ft_calloc(sizeof(t_camera), 1);
 	if (add_mem)
 		scene->cam = add_mem_cam(scene->nb_cam, scene->cam);
-	line = get_vector(line, &scene->cam->point);
+	line = get_vector(line, &scene->cam[k].point);
 	line = next_nbr(line);
-	line = get_vector(line, &scene->cam->orient);
-	scene->cam->orient = vec_normalize(scene->cam->orient);
+	line = get_vector(line, &scene->cam[k].orient);
+	scene->cam[k].orient = vec_normalize(scene->cam[k].orient);
 	line = next_nbr(line);
 	line = pass_spaces(line);
-	scene->cam->FOV = ft_atof(line);
+	scene->cam[k].FOV = ft_atof(line);
 }
 
 /*

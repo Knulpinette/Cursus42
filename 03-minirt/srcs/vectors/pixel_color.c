@@ -42,7 +42,7 @@ bool	check_shadow(t_rt *rt, int k)
 	{
 		temp.obj = rt->infos->objs[i];
 		temp.t0 = intersect_obj(&rt->shadow_ray, &temp);
-		if (temp.t0 > 0.00001 && temp.t0 < rt->curr.t_min)
+		if (temp.t0 > 0.0001f && temp.t0 < rt->curr.t_min)
 				rt->curr.t_min = temp.t0;
 		i++;
 	}
