@@ -49,11 +49,6 @@ float	vec_magnitude_sqrt(t_vec v)
 	return (len);
 }
 
-t_vec	unit_vec(t_vec v)
-{
-	return (vec_div(v, vec_magnitude_sqrt(v)));
-}
-
 t_vec	create_vec(float a, float b, float c)
 {
 	t_vec v;
