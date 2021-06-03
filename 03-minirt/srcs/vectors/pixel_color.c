@@ -66,7 +66,7 @@ float	get_obj_brightness(t_rt *rt, float obj_bright, int k)
 		obj_bright = 0.0;
 	else
 	{
-		obj_bright = (rt->infos->scene->light[k].bright * l_gain * 1000.0f) / (M_PI * magnitude) + obj_bright;
+		obj_bright = (rt->infos->scene->light[k].bright * l_gain * 1000.0f) / (M_PI * magnitude) ;
 		if (check_shadow(rt, k))
 			obj_bright = 0.0;
 	}
@@ -96,8 +96,9 @@ void	get_pixel_color(t_rt *rt)
 			rt->light_ray.dir.z = rt->infos->scene->light[k].point.z - rt->curr.hit.point.z;
 
 			obj_bright = get_obj_brightness(rt, obj_bright, k);
+			if (obj_bright > 1.0)
+				obj_bright = 1.0;
 			rt->curr.obj.color = color_add(rt->curr.obj.color, color_coeff(rt->infos->scene->light[k].color, obj_bright));
-			//printf("light nb = %i || light infos %f \nbrightness = %f || color added lights = %i, %i, %i \n", k, rt->infos->scene->light[k].point.x, obj_bright, rt->curr.obj.color.r, rt->curr.obj.color.g, rt->curr.obj.color.b);
 			k++;
 		}
 		rt->curr.pix_color.r = rt->curr.pix_color.r + (rt->curr.obj.color.r + (rt->infos->scene->amb.color.r * rt->infos->scene->amb.r));
