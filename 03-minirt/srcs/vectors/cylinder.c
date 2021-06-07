@@ -51,9 +51,6 @@ float	intersect_cylinder(t_ray *ray, t_rec *curr)
 	t_cylinder *cy;
 
 	cy = &curr->obj.shape.cy;
-	cy->orient = vec_sub(curr->hit.point, curr->obj.shape.cy.point);
-	cy->orient = vec_sub(cy->orient, vec_multi(curr->obj.shape.cy.orient, vec_dot(curr->obj.shape.cy.orient, cy->orient)));
-	cy->orient = vec_normalize(cy->orient);
 
 	A.x = ray->dir.x - (cy->orient.x * vec_dot(ray->dir, cy->orient));
 	A.y = ray->dir.y - (cy->orient.y * vec_dot(ray->dir, cy->orient));

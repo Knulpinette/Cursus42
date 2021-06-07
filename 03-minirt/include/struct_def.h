@@ -40,6 +40,11 @@ typedef struct	s_params
 	float	c;
 }				t_params;
 
+typedef struct	s_matrix
+{
+	float m[4][4];
+}				t_matrix;
+
 
 /*
 ** ELEMENTS OF OBJS STRUCT
