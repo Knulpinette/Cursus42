@@ -68,8 +68,8 @@ static t_vec	get_direction(int x, int y, t_rt *rt)
 	res.y = (float)rt->infos->scene->res.y;
 	fov_angle = tan(((float)rt->infos->scene->cam->FOV / 2) * (M_PI / 180));
 	aspect_ratio = res.x / res.y;
-	x_ratio = (2 * (x + 0.5) / res.x - 1) * aspect_ratio * fov_angle;
-	y_ratio = (1 - 2 * (y + 0.5) / res.y) * fov_angle;
+	x_ratio = ((x + 0.5) / (res.x / 2) - 1) * aspect_ratio * fov_angle;
+	y_ratio = (1 - (y + 0.5) / (res.y / 2)) * fov_angle;
 	return (create_vec(x_ratio, y_ratio, 1));
 }
 
@@ -81,7 +81,6 @@ void	gen_cam_ray(int x, int y, t_rt *rt)
 	cam = rt->infos->scene->cam;
 	cam_to_world = look_at(cam->point, cam->orient);
 	rt->cam_ray.ori = cam->point;
-	rt->cam_ray.ori = multiply_by_matrix(create_vec(0, 0, 0), cam_to_world);
 	rt->cam_ray.dir = get_direction(x, y, rt);
 	rt->cam_ray.dir = multiply_by_matrix(rt->cam_ray.dir, cam_to_world);
 	rt->cam_ray.dir = substract(rt->cam_ray.dir, rt->cam_ray.ori);

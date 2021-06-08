@@ -35,7 +35,7 @@
     }
 }*/
 
-float	intersect_cylinder(t_ray *ray, t_rec *curr)
+float	cylinder(t_ray *ray, t_rec *curr)
 {
 
 	// find t1 & t2

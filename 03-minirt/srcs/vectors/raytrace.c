@@ -14,16 +14,11 @@
 
 static void	get_obj_normal(t_rec *curr, t_ray *cam_ray)
 {
-//compute different normal according to shape of objec
+//compute different normal according to shape of object
 	if (curr->obj.type == SPHERE)
 		curr->hit.normal = divide(substract(curr->hit.point, curr->obj.shape.sp.point), curr->obj.shape.sp.radius);
 	if (curr->obj.type == PLANE)
-	{
-		if (dot_product(cam_ray->dir, curr->obj.shape.pl.orient) < 0.0f)
-			curr->hit.normal = multiply(normalize(curr->hit.point), -1.0f);
-		else
-			curr->hit.normal = normalize(curr->hit.point);
-	}
+		plane_normal(curr, cam_ray);
 	if (curr->obj.type == CYLINDER)
 	{
 		curr->hit.normal = substract(curr->hit.point, curr->obj.shape.cy.point);

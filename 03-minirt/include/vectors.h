@@ -16,31 +16,24 @@
 # include "minirt.h"
 
 void	render_minirt(t_rt *rt);
-t_vec	create_vec(float a, float b, float c);
-t_vec	add(t_vec v1, t_vec v2);
-t_vec	substract(t_vec v1, t_vec v2);
-t_vec	multiply(t_vec v1, float m);
-t_vec	divide(t_vec v1, float d);
-float	dot_product(t_vec v1, t_vec v2);
-t_vec	cross_product(t_vec v1, t_vec v2);
-t_vec	normalize(t_vec v);
-float	magnitude(t_vec v);
 
 //pixel_color
 void	get_pixel_color(t_rt *rt);
 //intersect
 float	intersect_obj(t_ray *ray, t_rec *curr);
-//sphere
-float	intersect_sphere(t_ray *ray, t_rec *curr);
-//plane
-float	intersect_plane(t_ray *ray, t_rec *curr);
-//cylinder
-float	intersect_cylinder(t_ray *ray, t_rec *curr);
+float	sphere(t_ray *ray, t_rec *curr);
+float	plane(t_ray *ray, t_rec *curr);
+float	cylinder(t_ray *ray, t_rec *curr);
 //quadratic
 float	solve_quadratic(t_params param, float *t0, float *t1);
 t_params	new_params(float a, float b, float c);
+//normals
+void	plane_normal(t_rec *curr, t_ray *cam_ray);
 
-//cam-ray + lookat
+/*
+**	Generate the camera ray
+*/
+
 void	gen_cam_ray(int x, int y, t_rt *rt);
 
 #endif

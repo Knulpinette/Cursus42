@@ -24,15 +24,6 @@ static t_color	convert_to_max(t_color color)
 	return (color);
 }
 
-static void	set_variables(t_color *pix, t_color *obj, float *brightness)
-{
-	*brightness = 0.0;
-	*pix = *obj;
-	obj->r = 0;
-	obj->g = 0;
-	obj->b = 0;
-}
-
 static bool	in_shadow(t_rt *rt, int k)
 {
 	t_vec	light_position;
@@ -46,12 +37,12 @@ static bool	in_shadow(t_rt *rt, int k)
 	rt->curr.t_max = rt->curr.t_min;
 	rt->shadow_ray.dir = normalize(rt->shadow_ray.dir);
 	i = 0;
-	while (i < rt->infos->nb_objs) 
+	while (i < rt->infos->nb_objs)
 	{
 		temp.obj = rt->infos->objs[i];
 		temp.t0 = intersect_obj(&rt->shadow_ray, &temp);
 		if (temp.t0 > 0.0001f && temp.t0 < rt->curr.t_min)
-				rt->curr.t_min = temp.t0;
+			rt->curr.t_min = temp.t0;
 		i++;
 	}
 	if (rt->curr.t_min < rt->curr.t_max)
@@ -64,6 +55,7 @@ static float	get_obj_brightness(t_rt *rt, float obj_brightness, int k)
 	float	light_gain;
 	float	light_brightness;
 	float	cosine;
+	float	degr_to_rad;
 
 	light_brightness = rt->infos->scene->light[k].bright;
 	light_gain = dot_product(rt->curr.hit.normal, normalize(rt->light_ray.dir));
@@ -72,44 +64,58 @@ static float	get_obj_brightness(t_rt *rt, float obj_brightness, int k)
 		obj_brightness = 0.0;
 	else
 	{
-		obj_brightness = (light_brightness * light_gain * 1000.0f) / (M_PI * cosine) ;
+		degr_to_rad = M_PI * cosine;
+		obj_brightness = (light_brightness * light_gain * 1000.0) / degr_to_rad;
 		if (in_shadow(rt, k))
 			obj_brightness = 0.0;
 	}
 	return (obj_brightness);
 }
 
+static float	get_obj_color(t_rt *rt, float obj_brightness, t_color ambient)
+{
+	t_color	light_color;
+	t_color	add_light_color;
+	t_color	add_ambient;
+	int		k;
+
+	k = 0;
+	while (k < rt->infos->scene->nb_light)
+	{
+		rt->light_ray.ori = rt->infos->scene->light[k].point;
+		rt->light_ray.dir = substract(rt->light_ray.ori, rt->curr.hit.point);
+		obj_brightness = get_obj_brightness(rt, obj_brightness, k);
+		if (obj_brightness > 1.0)
+			obj_brightness = 1.0;
+		light_color = rt->infos->scene->light[k].color;
+		add_light_color = color_multiply(light_color, obj_brightness);
+		rt->curr.obj.color = color_add(rt->curr.obj.color, add_light_color);
+		k++;
+	}
+	add_ambient = color_add(rt->curr.obj.color, ambient);
+	rt->curr.pix_color = color_add(rt->curr.pix_color, add_ambient);
+	rt->curr.pix_color = convert_to_max(rt->curr.pix_color);
+	return (create_color(rt->curr.pix_color));
+}
+
 void	get_pixel_color(t_rt *rt)
 {
 	float	obj_brightness;
 	t_color	ambient;
-	int		k;
 
-	set_variables(&rt->curr.pix_color, &rt->curr.obj.color, &obj_brightness);
-	k = 0;
-	ambient = color_multiply(rt->infos->scene->amb.color, rt->infos->scene->amb.r);
+	obj_brightness = 0.0;
+	rt->curr.pix_color = rt->curr.obj.color;
+	rt->curr.obj.color.r = 0;
+	rt->curr.obj.color.g = 0;
+	rt->curr.obj.color.b = 0;
+	ambient.r = rt->infos->scene->amb.color.r * rt->infos->scene->amb.r;
+	ambient.g = rt->infos->scene->amb.color.g * rt->infos->scene->amb.r;
+	ambient.b = rt->infos->scene->amb.color.b * rt->infos->scene->amb.r;
 	if (rt->curr.hit.t > 0.0 && rt->curr.hit.t != INFINITY)
-	{
-		while (k < rt->infos->scene->nb_light)
-		{
-			rt->light_ray.ori = rt->infos->scene->light[k].point;
-			rt->light_ray.dir = substract(rt->infos->scene->light[k].point, rt->curr.hit.point);
-
-			obj_brightness = get_obj_brightness(rt, obj_brightness, k);
-			if (obj_brightness > 1.0)
-				obj_brightness = 1.0;
-			rt->curr.obj.color = color_add(rt->curr.obj.color, color_multiply(rt->infos->scene->light[k].color, obj_brightness));
-			k++;
-		}
-		rt->curr.pix_color = color_add(rt->curr.pix_color, color_add(rt->curr.obj.color, ambient));
-		rt->curr.pix_color = convert_to_max(rt->curr.pix_color);
-		rt->curr.pix_color.rgb = create_color(rt->curr.pix_color);
-	}
+		rt->curr.pix_color.rgb = get_obj_color(rt, obj_brightness, ambient);
 	else
 		rt->curr.pix_color.rgb = create_color(ambient);
 }
-
-
 
 /*
 //create the sky
@@ -123,4 +129,3 @@ void	get_pixel_color(t_rt *rt)
 	white = multiply(white, (1.0-t));
 	blue = multiply(blue, t);
 	return(multiply(add(blue, white), rt->infos->scene->light->bright));*/
-

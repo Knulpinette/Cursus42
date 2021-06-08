@@ -12,22 +12,24 @@
 
 #include "minirt.h"
 
-float	intersect_plane(t_ray *ray, t_rec *curr)
+//change to true/false
+void	plane_normal(t_rec *curr, t_ray *cam_ray)
 {
-	float	d;
-	float	t;
+	if (dot_product(cam_ray->dir, curr->obj.shape.pl.orient) < 0.0f)
+		curr->hit.normal = multiply(normalize(curr->hit.point), -1.0f);
+	else
+		curr->hit.normal = normalize(curr->hit.point);
+}
 
-	d = (ray->dir.x * curr->obj.shape.pl.orient.x) +
-		(ray->dir.y * curr->obj.shape.pl.orient.y) +
-		(ray->dir.z * curr->obj.shape.pl.orient.z);
-		
-	if (!d)
-		return (d);
+float	plane(t_ray *ray, t_rec *curr)
+{
+	t_vec	ray_to_center;
+	float	perpendicular;
 
-	//t = vec_dot(vec_sub(obj->shape.pl.point, ray->ori), obj->shape.pl.orient) / d;
-	t = (((curr->obj.shape.pl.point.x - ray->ori.x) * (curr->obj.shape.pl.orient.x)) +
-		((curr->obj.shape.pl.point.y - ray->ori.y) * (curr->obj.shape.pl.orient.y)) +
-		((curr->obj.shape.pl.point.z - ray->ori.z) * (curr->obj.shape.pl.orient.z)))
-		/ d;
-	return (t);
+	perpendicular = dot_product(ray->dir, curr->obj.shape.pl.orient);		
+	if (!perpendicular)
+		return (0.0);
+	ray_to_center = substract(curr->obj.shape.pl.point, ray->ori);
+	curr->hit.t = dot_product(ray_to_center, curr->obj.shape.pl.orient) / perpendicular;
+	return (curr->hit.t);
 }

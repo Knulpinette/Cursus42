@@ -12,33 +12,16 @@
 
 #include "minirt.h"
 
-float	intersect_sphere(t_ray *ray, t_rec *curr)
+float	sphere(t_ray *ray, t_rec *curr)
 {
 	t_sphere	*sp;
 	t_vec		center_origin;
 	t_params	param;
-	sp = &curr->obj.shape.sp;
-	
-	//center_ori = vec_sub(ray->ori, sp->point);
-	center_origin.x = ray->ori.x - sp->point.x;
-	center_origin.y = ray->ori.y - sp->point.y;
-	center_origin.z = ray->ori.z - sp->point.z;
 
-	//a = vec_dot(ray->dir, ray->dir);
-	param.a = (ray->dir.x * ray->dir.x) +
-		(ray->dir.y * ray->dir.y) +
-		(ray->dir.z * ray->dir.z);
-
-	//b = vec_dot(center_ori, ray->dir);
-	param.b = (center_origin.x * ray->dir.x) +
-		(center_origin.y * ray->dir.y) +
-		(center_origin.z * ray->dir.z);
-
-	//c = vec_dot(center_ori, center_ori) - (sp->radius * sp->radius);
-	param.c = ((center_origin.x * center_origin.x) +
-		(center_origin.y * center_origin.y) +
-		(center_origin.z * center_origin.z)) -
-		(sp->radius * sp->radius);
-	
+	sp = &curr->obj.shape.sp;	
+	center_origin = substract(ray->ori, sp->point);
+	param.a = dot_product(ray->dir, ray->dir);
+	param.b = dot_product(center_origin, ray->dir);
+	param.c = dot_product(center_origin, center_origin) - (sp->radius * sp->radius);	
 	return(solve_quadratic(param, &curr->t0, &curr->t1));
 }

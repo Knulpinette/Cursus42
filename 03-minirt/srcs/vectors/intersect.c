@@ -15,10 +15,10 @@
 float	intersect_obj(t_ray *ray, t_rec *curr)
 {
 	if (curr->obj.type == SPHERE)
-		return (intersect_sphere(ray, curr));
+		return (sphere(ray, curr));
 	if (curr->obj.type == PLANE)
-		return (intersect_plane(ray, curr));
+		return (plane(ray, curr));
 	if (curr->obj.type == CYLINDER)
-		return (intersect_cylinder(ray, curr));
+		return (cylinder(ray, curr));
 	return (0);
 }
