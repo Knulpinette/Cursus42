@@ -26,14 +26,18 @@ t_matrix	look_at(t_vec cam_origin, t_vec cam_dir)
 {
 	t_matrix	cam_to_world;
 	t_vec		random;
+	t_vec		forward;
 	t_vec		right;
 	t_vec		up;
 
+
 	random = create_vec(0.0, 1.0, 0.0);
 	random = vec_normalize(random);
-	right = vec_cross(random, cam_dir);
+	forward = vec_sub(cam_origin, cam_dir);
+	forward = vec_normalize(forward);
+	right = vec_cross(random, forward);
 	right = vec_normalize(right);
-	up = vec_cross(cam_dir, right);
+	up = vec_cross(forward, right);
 	up = vec_normalize(up);
 	cam_to_world.m[0][0] = right.x;
 	cam_to_world.m[0][1] = right.y;
@@ -49,3 +53,4 @@ t_matrix	look_at(t_vec cam_origin, t_vec cam_dir)
 	cam_to_world.m[3][2] = cam_origin.z;
 	return (cam_to_world);
 }
+

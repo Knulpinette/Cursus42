@@ -13,21 +13,19 @@
 #include "minirt.h"
 
 
-t_vec		get_ray_direction(int x, int y, t_rt *rt)
+t_vec		get_cam_ray_direction(int x, int y, t_rt *rt)
 {
 	float fov_angle;
 	float aspect_ratio;
 	float pixel_ratio_horizontal;
 	float pixel_ratio_vertical;
 
-	fov_angle = tan((float)rt->infos->scene->cam->FOV / 2 * M_PI / 180);
+	fov_angle = tan(((float)rt->infos->scene->cam->FOV / 2) * (M_PI / 180));
 	aspect_ratio = (float)rt->infos->scene->res.x / (float)rt->infos->scene->res.y;
-	pixel_ratio_horizontal = (2 * (x + 0.5) / (float)rt->infos->scene->res.x) * aspect_ratio * fov_angle;
+	pixel_ratio_horizontal = (2 * (x + 0.5) / (float)rt->infos->scene->res.x - 1) * aspect_ratio * fov_angle;
 	pixel_ratio_vertical = (1 - 2 * (y + 0.5) / (float)rt->infos->scene->res.y) * fov_angle;
 	return (create_vec(pixel_ratio_horizontal, pixel_ratio_vertical, 1));
 }
-
-
 
 void	render_minirt(t_rt *rt)
 {
@@ -37,62 +35,29 @@ void	render_minirt(t_rt *rt)
 	int	nb_objs;
 	//float	magnitude;
 	float	min_distance;
-	t_vec	z_axis;
-	t_vec	x_axis;
-	t_vec	y_axis;
-	float	pixel_ratio_horizontal;
-	float	pixel_ratio_vertical;
 
 	t_scene *scene;
 
-	//t_matrix cam_to_world;
 
 	scene = rt->infos->scene;
 	nb_objs = rt->infos->nb_objs;
 
 	rt->cam_ray.ori = rt->infos->scene->cam->point;
-	y = scene->res.y - 1;
-
+	y = 0;
 	x = 0;
 
-	while (y >= 0)
+	while (y < scene->res.y)
 	{
 		x = 0;
 		while (x < scene->res.x)
 		{
-			/*cam_to_world = look_at(rt->infos->scene->cam->point, rt->infos->scene->cam->orient);
+			t_matrix cam_to_world;
+			cam_to_world = look_at(rt->infos->scene->cam->point, rt->infos->scene->cam->orient);
 			rt->cam_ray.ori = multiply_by_matrix(create_vec(0, 0, 0), cam_to_world);
-			rt->cam_ray.dir = get_ray_direction(x, y, rt);
+			rt->cam_ray.dir = get_cam_ray_direction(x, y, rt);
 			rt->cam_ray.dir = multiply_by_matrix(rt->cam_ray.dir, cam_to_world);
 			rt->cam_ray.dir = vec_sub(rt->cam_ray.dir, rt->cam_ray.ori);
-			rt->cam_ray.dir = vec_normalize(rt->cam_ray.dir);	*/
-
-//********* GET DIRECTION OF CAMERA RAY [NEED TO SOLVE ASPECT RATIO]
-			
-		
-			pixel_ratio_horizontal = ((float)x + 0.5) / (float)scene->res.x;
-			pixel_ratio_vertical = 1 - (((float)y + 0.5) / (float)scene->res.y);
-		
-			//rt->cam_ray.dir = get_direction(x, y, rt);
-			//x_axis = vec_multi(create_vec(4.0, 0.0, 0.0), pixel_ratio_horizontal);
-			x_axis.x = 4.0 * pixel_ratio_horizontal; // u
-			x_axis.y = 0.0 * pixel_ratio_horizontal;
-			x_axis.z = 0.0 * pixel_ratio_horizontal;
-
-			//y_axis = vec_multi(create_vec(0.0, 2.0, 0.0), pixel_ratio_vertical);	
-			y_axis.x = 0.0 * pixel_ratio_vertical; // v
-			y_axis.y = 2.0 * pixel_ratio_vertical;
-			y_axis.z = 0.0 * pixel_ratio_vertical;
-
-			//z_axis = create_vec(-2.0, -1.0, -1.0);
-			z_axis.x = -2.0;
-			z_axis.y = -1.0;
-			z_axis.z = -1.0;
-
-			//rt->cam_ray.dir = vec_add(vec_add(x_axis, y_axis), z_axis);
-			rt->cam_ray.dir.x = x_axis.x + y_axis.x + z_axis.x;
-			rt->cam_ray.dir.y = x_axis.y + y_axis.y + z_axis.y;
-			rt->cam_ray.dir.z = x_axis.z + y_axis.z + z_axis.z;
+			rt->cam_ray.dir = vec_normalize(rt->cam_ray.dir); 
 
 
 
@@ -148,7 +113,7 @@ void	render_minirt(t_rt *rt)
 
 			x++;
 		}
-		y--;
+		y++;
 	}
 }
 
