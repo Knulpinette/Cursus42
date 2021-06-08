@@ -33,7 +33,6 @@ void	render_minirt(t_rt *rt)
 	int	y;
 	int k;
 	int	nb_objs;
-	//float	magnitude;
 	float	min_distance;
 
 	t_scene *scene;
@@ -42,9 +41,9 @@ void	render_minirt(t_rt *rt)
 	scene = rt->infos->scene;
 	nb_objs = rt->infos->nb_objs;
 
-	rt->cam_ray.ori = rt->infos->scene->cam->point;
 	y = 0;
 	x = 0;
+	rt->cam_ray.ori = rt->infos->scene->cam->point;
 
 	while (y < scene->res.y)
 	{
@@ -116,23 +115,3 @@ void	render_minirt(t_rt *rt)
 		y++;
 	}
 }
-
-/*
-
-t_ray		ray_to_pixel(int x, int y, t_scene *scene)
-{
-	t_v3		origin;
-	t_v3		direction;
-	t_matrix	c2w;
-	t_camera	camera;
-
-	camera = pick_camera(scene);
-	c2w = look_at(camera.origin, camera.direction);
-	origin = multiply_by_matrix(create_v3(0, 0, 0), c2w);
-	direction = get_direction(x, y, scene, camera);
-	direction = multiply_by_matrix(direction, c2w);
-	direction = substract(direction, origin);
-	normalize_vector(&direction);
-return (create_ray(origin, direction));
-
-*/
