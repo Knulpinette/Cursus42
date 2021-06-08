@@ -24,20 +24,28 @@ static t_color	convert_to_max(t_color color)
 	return (color);
 }
 
-bool	check_shadow(t_rt *rt, int k)
+static void	set_variables(t_color *pix, t_color *obj, float *brightness)
 {
-	int		i;
+	*brightness = 0.0;
+	*pix = *obj;
+	obj->r = 0;
+	obj->g = 0;
+	obj->b = 0;
+}
+
+static bool	in_shadow(t_rt *rt, int k)
+{
+	t_vec	light_position;
 	t_rec	temp;
+	int		i;
 
-	i = 0;
-
-	rt->shadow_ray.ori =  rt->curr.hit.point;
-	rt->shadow_ray.dir.x = rt->infos->scene->light[k].point.x - rt->curr.hit.point.x;
-	rt->shadow_ray.dir.y = rt->infos->scene->light[k].point.y - rt->curr.hit.point.y;
-	rt->shadow_ray.dir.z = rt->infos->scene->light[k].point.z - rt->curr.hit.point.z;
-	rt->curr.t_max = magnitude(rt->shadow_ray.dir);
-	rt->curr.t_min = rt->curr.t_max;
+	light_position = rt->infos->scene->light[k].point;
+	rt->shadow_ray.ori = rt->curr.hit.point;
+	rt->shadow_ray.dir = substract(light_position, rt->curr.hit.point);
+	rt->curr.t_min = magnitude(rt->shadow_ray.dir);
+	rt->curr.t_max = rt->curr.t_min;
 	rt->shadow_ray.dir = normalize(rt->shadow_ray.dir);
+	i = 0;
 	while (i < rt->infos->nb_objs) 
 	{
 		temp.obj = rt->infos->objs[i];
@@ -51,7 +59,7 @@ bool	check_shadow(t_rt *rt, int k)
 	return (false);
 }
 
-float	get_obj_brightness(t_rt *rt, float obj_brightness, int k)
+static float	get_obj_brightness(t_rt *rt, float obj_brightness, int k)
 {
 	float	light_gain;
 	float	light_brightness;
@@ -59,17 +67,13 @@ float	get_obj_brightness(t_rt *rt, float obj_brightness, int k)
 
 	light_brightness = rt->infos->scene->light[k].bright;
 	light_gain = dot_product(rt->curr.hit.normal, normalize(rt->light_ray.dir));
-
-	cosine = (rt->light_ray.dir.x * rt->light_ray.dir.x) +
-			(rt->light_ray.dir.y * rt->light_ray.dir.y) +
-			(rt->light_ray.dir.z * rt->light_ray.dir.z);
-
+	cosine = dot_product(rt->light_ray.dir, rt->light_ray.dir);
 	if (light_gain <= 0.0)
 		obj_brightness = 0.0;
 	else
 	{
 		obj_brightness = (light_brightness * light_gain * 1000.0f) / (M_PI * cosine) ;
-		if (check_shadow(rt, k))
+		if (in_shadow(rt, k))
 			obj_brightness = 0.0;
 	}
 	return (obj_brightness);
@@ -81,12 +85,8 @@ void	get_pixel_color(t_rt *rt)
 	t_color	ambient;
 	int		k;
 
-	obj_brightness = 0.0;
+	set_variables(&rt->curr.pix_color, &rt->curr.obj.color, &obj_brightness);
 	k = 0;
-	rt->curr.pix_color = rt->curr.obj.color;
-	rt->curr.obj.color.r = 0;
-	rt->curr.obj.color.g = 0;
-	rt->curr.obj.color.b = 0;
 	ambient = color_multiply(rt->infos->scene->amb.color, rt->infos->scene->amb.r);
 	if (rt->curr.hit.t > 0.0 && rt->curr.hit.t != INFINITY)
 	{
@@ -101,41 +101,21 @@ void	get_pixel_color(t_rt *rt)
 			rt->curr.obj.color = color_add(rt->curr.obj.color, color_multiply(rt->infos->scene->light[k].color, obj_brightness));
 			k++;
 		}
-		rt->curr.pix_color.r = rt->curr.pix_color.r + (rt->curr.obj.color.r + (rt->infos->scene->amb.color.r * rt->infos->scene->amb.r));
-		rt->curr.pix_color.g = rt->curr.pix_color.g + (rt->curr.obj.color.g + (rt->infos->scene->amb.color.g * rt->infos->scene->amb.r));
-		rt->curr.pix_color.b = rt->curr.pix_color.b + (rt->curr.obj.color.b + (rt->infos->scene->amb.color.b * rt->infos->scene->amb.r));
+		rt->curr.pix_color = color_add(rt->curr.pix_color, color_add(rt->curr.obj.color, ambient));
 		rt->curr.pix_color = convert_to_max(rt->curr.pix_color);
-		}
+		rt->curr.pix_color.rgb = create_color(rt->curr.pix_color);
+	}
 	else
-		rt->curr.pix_color = color_multiply(rt->infos->scene->amb.color, rt->infos->scene->amb.r);
-	rt->curr.pix_color.rgb = create_color(rt->curr.pix_color);
+		rt->curr.pix_color.rgb = create_color(ambient);
 }
-
-
- // MESS OF CODE
-
-
-/*static t_color	convert_to_min(t_color color)
-{
-	if (color.r < 0)
-		color.r = 0;
-	if (color.g < 0)
-		color.g = 0;
-	if (color.b < 0)
-		color.b = 0;
-	color.t = 0;
-	return (color);
-}
-*/
 
 
 
 /*
+//create the sky
 	//t_vec	unit_dir;
 	//t_vec	white;
 	//t_vec	blue;
-
-//create the sky
 	unit_dir = unit_vec(rt->cam_ray.dir);
 	t = 0.5 * (unit_dir.y + 1.0);
 	white = create_vec(1.0, 1.0, 1.0);

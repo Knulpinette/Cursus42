@@ -40,11 +40,14 @@ typedef struct	s_params
 	float	c;
 }				t_params;
 
+/*
+** MATRIX STRUCT
+*/
+
 typedef struct	s_matrix
 {
 	float m[4][4];
 }				t_matrix;
-
 
 /*
 ** ELEMENTS OF OBJS STRUCT
@@ -128,6 +131,7 @@ typedef struct s_rec
 	t_hit		hit;
 	t_color		pix_color;
 	t_params	param; //quadratic params
+	float		t;
 	float		t0; //solutions for cylinder
 	float		t1;
 	float		t_max;

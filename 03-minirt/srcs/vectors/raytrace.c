@@ -12,104 +12,68 @@
 
 #include "minirt.h"
 
-
-t_vec		get_cam_ray_direction(int x, int y, t_rt *rt)
+static void	get_obj_normal(t_rec *curr, t_ray *cam_ray)
 {
-	float fov_angle;
-	float aspect_ratio;
-	float pixel_ratio_horizontal;
-	float pixel_ratio_vertical;
+//compute different normal according to shape of objec
+	if (curr->obj.type == SPHERE)
+		curr->hit.normal = divide(substract(curr->hit.point, curr->obj.shape.sp.point), curr->obj.shape.sp.radius);
+	if (curr->obj.type == PLANE)
+	{
+		if (dot_product(cam_ray->dir, curr->obj.shape.pl.orient) < 0.0f)
+			curr->hit.normal = multiply(normalize(curr->hit.point), -1.0f);
+		else
+			curr->hit.normal = normalize(curr->hit.point);
+	}
+	if (curr->obj.type == CYLINDER)
+	{
+		curr->hit.normal = substract(curr->hit.point, curr->obj.shape.cy.point);
+		curr->hit.normal = substract(curr->hit.normal, multiply(curr->obj.shape.cy.orient, dot_product(curr->obj.shape.cy.orient, curr->hit.normal)));
+		curr->hit.normal = normalize(curr->hit.normal);
+	}
+}
 
-	fov_angle = tan(((float)rt->infos->scene->cam->FOV / 2) * (M_PI / 180));
-	aspect_ratio = (float)rt->infos->scene->res.x / (float)rt->infos->scene->res.y;
-	pixel_ratio_horizontal = (2 * (x + 0.5) / (float)rt->infos->scene->res.x - 1) * aspect_ratio * fov_angle;
-	pixel_ratio_vertical = (1 - 2 * (y + 0.5) / (float)rt->infos->scene->res.y) * fov_angle;
-	return (create_vec(pixel_ratio_horizontal, pixel_ratio_vertical, 1));
+static void	check_if_it_hits_object(t_rt *rt)
+{
+	int k;
+	t_rec temp;
+
+	k = 0;
+	rt->curr.t_min = INFINITY;
+	rt->curr.hit.t = INFINITY;
+	while (k < rt->infos->nb_objs)
+	{
+		temp.obj = rt->infos->objs[k];
+		if (intersect_obj(&rt->cam_ray, &temp) > 0.0 && intersect_obj(&rt->cam_ray, &temp) < rt->curr.t_min)
+		{
+			rt->curr.obj = rt->infos->objs[k];
+			rt->curr.hit.t = intersect_obj(&rt->cam_ray, &rt->curr);
+			rt->curr.t_min = rt->curr.hit.t;
+		}
+		k++;
+	}
+	rt->curr.hit.point = add(rt->cam_ray.ori, multiply(rt->cam_ray.dir, rt->curr.hit.t));
+	get_obj_normal(&rt->curr, &rt->cam_ray);
 }
 
 void	render_minirt(t_rt *rt)
 {
 	int	x;
 	int	y;
-	int k;
-	int	nb_objs;
-	float	min_distance;
-
 	t_scene *scene;
 
 
 	scene = rt->infos->scene;
-	nb_objs = rt->infos->nb_objs;
-
 	y = 0;
 	x = 0;
-	rt->cam_ray.ori = rt->infos->scene->cam->point;
-
 	while (y < scene->res.y)
 	{
 		x = 0;
 		while (x < scene->res.x)
 		{
-			t_matrix cam_to_world;
-			cam_to_world = look_at(rt->infos->scene->cam->point, rt->infos->scene->cam->orient);
-			rt->cam_ray.ori = multiply_by_matrix(create_vec(0, 0, 0), cam_to_world);
-			rt->cam_ray.dir = get_cam_ray_direction(x, y, rt);
-			rt->cam_ray.dir = multiply_by_matrix(rt->cam_ray.dir, cam_to_world);
-			rt->cam_ray.dir = substract(rt->cam_ray.dir, rt->cam_ray.ori);
-			rt->cam_ray.dir = normalize(rt->cam_ray.dir); 
-
-
-
-//********* INTERSECT OBJECT
-			k = 0;
-			t_rec temp;
-			min_distance = INFINITY;
-			rt->curr.hit.t = INFINITY;
-			while (k < nb_objs)
-			{
-				temp.obj = rt->infos->objs[k];
-				if (intersect_obj(&rt->cam_ray, &temp) > 0.0 && intersect_obj(&rt->cam_ray, &temp) < min_distance)
-				{
-					rt->curr.obj = rt->infos->objs[k];
-					rt->curr.hit.t = intersect_obj(&rt->cam_ray, &rt->curr);
-					min_distance = rt->curr.hit.t;
-				}
-				k++;
-			}
-
-//********* INTERSECTION POINT RECORD => maybe do a t_hit category with curr_obj + infos hit in the class ?
-
-			//rt->curr.hit.point = add(rt->cam_ray.ori, multiply(rt->cam_ray.dir, rt->curr.hit.t));
-			rt->curr.hit.point.x = rt->cam_ray.ori.x + (rt->cam_ray.dir.x * rt->curr.hit.t);
-			rt->curr.hit.point.y = rt->cam_ray.ori.y + (rt->cam_ray.dir.y * rt->curr.hit.t);
-			rt->curr.hit.point.z = rt->cam_ray.ori.z + (rt->cam_ray.dir.z * rt->curr.hit.t);
-
-			//compute different normal according to shape of objec
-			if (rt->curr.obj.type == SPHERE)
-			{
-				//rt->curr.hit.normal = normalize(substract(rt->curr.hit.point, rt->curr.obj.shape.sp.point));
-				rt->curr.hit.normal.x = (rt->curr.hit.point.x - rt->curr.obj.shape.sp.point.x) / rt->curr.obj.shape.sp.radius;
-				rt->curr.hit.normal.y = (rt->curr.hit.point.y - rt->curr.obj.shape.sp.point.y) / rt->curr.obj.shape.sp.radius;
-				rt->curr.hit.normal.z = (rt->curr.hit.point.z - rt->curr.obj.shape.sp.point.z) / rt->curr.obj.shape.sp.radius;  
-			}
-			if (rt->curr.obj.type == PLANE)
-			{
-				if (dot_product(rt->cam_ray.dir, rt->curr.obj.shape.pl.orient) < 0.0f)
-					rt->curr.hit.normal = multiply(normalize(rt->curr.hit.point), -1.0f);
-				else
-					rt->curr.hit.normal = normalize(rt->curr.hit.point);
-			}
-			if (rt->curr.obj.type == CYLINDER)
-			{
-				rt->curr.hit.normal = substract(rt->curr.hit.point, rt->curr.obj.shape.cy.point);
-				rt->curr.hit.normal = substract(rt->curr.hit.normal, multiply(rt->curr.obj.shape.cy.orient, dot_product(rt->curr.obj.shape.cy.orient, rt->curr.hit.normal)));
-				rt->curr.hit.normal = normalize(rt->curr.hit.normal);
-			}
-
-
+			gen_cam_ray(x, y, rt);
+			check_if_it_hits_object(rt);
 			get_pixel_color(rt);
 			my_mlx_pixel_put(&rt->img, x, y, rt->curr.pix_color.rgb);
-
 			x++;
 		}
 		y++;

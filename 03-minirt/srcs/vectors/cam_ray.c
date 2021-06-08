@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lookat.c                                           :+:      :+:    :+:   */
+/*   cam_ray.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osurcouf <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,24 +12,26 @@
 
 #include "minirt.h"
 
-t_vec	multiply_by_matrix(t_vec ray, t_matrix cam)
+static t_vec	multiply_by_matrix(t_vec ray, t_matrix cam)
 {
 	t_vec	multi;
 
-	multi.x = ray.x * cam.m[0][0] + ray.y * cam.m[1][0] + ray.z * cam.m[2][0] + cam.m[3][0];
-	multi.y = ray.x * cam.m[0][1] + ray.y * cam.m[1][1] + ray.z * cam.m[2][1] + cam.m[3][1];
-	multi.z = ray.x * cam.m[0][2] + ray.y * cam.m[1][2] + ray.z * cam.m[2][2] + cam.m[3][2];
+	multi.x = ray.x * cam.m[0][0] + ray.y * cam.m[1][0] 
+			+ ray.z * cam.m[2][0] + cam.m[3][0];
+	multi.y = ray.x * cam.m[0][1] + ray.y * cam.m[1][1] 
+			+ ray.z * cam.m[2][1] + cam.m[3][1];
+	multi.z = ray.x * cam.m[0][2] + ray.y * cam.m[1][2]
+			+ ray.z * cam.m[2][2] + cam.m[3][2];
 	return (multi);
 }
 
-t_matrix	look_at(t_vec cam_origin, t_vec cam_dir)
+static t_matrix	look_at(t_vec cam_origin, t_vec cam_dir)
 {
 	t_matrix	cam_to_world;
 	t_vec		random;
 	t_vec		forward;
 	t_vec		right;
 	t_vec		up;
-
 
 	random = create_vec(0.0, 1.0, 0.0);
 	random = normalize(random);
@@ -52,4 +54,36 @@ t_matrix	look_at(t_vec cam_origin, t_vec cam_dir)
 	cam_to_world.m[3][1] = cam_origin.y;
 	cam_to_world.m[3][2] = cam_origin.z;
 	return (cam_to_world);
+}
+
+static t_vec	get_direction(int x, int y, t_rt *rt)
+{
+	float fov_angle;
+	float aspect_ratio;
+	float x_ratio;
+	float y_ratio;
+	t_vec res;
+
+	res.x = (float)rt->infos->scene->res.x;
+	res.y = (float)rt->infos->scene->res.y;
+	fov_angle = tan(((float)rt->infos->scene->cam->FOV / 2) * (M_PI / 180));
+	aspect_ratio = res.x / res.y;
+	x_ratio = (2 * (x + 0.5) / res.x - 1) * aspect_ratio * fov_angle;
+	y_ratio = (1 - 2 * (y + 0.5) / res.y) * fov_angle;
+	return (create_vec(x_ratio, y_ratio, 1));
+}
+
+void	gen_cam_ray(int x, int y, t_rt *rt)
+{
+	t_matrix	cam_to_world;
+	t_camera	*cam;
+
+	cam = rt->infos->scene->cam;
+	cam_to_world = look_at(cam->point, cam->orient);
+	rt->cam_ray.ori = cam->point;
+	rt->cam_ray.ori = multiply_by_matrix(create_vec(0, 0, 0), cam_to_world);
+	rt->cam_ray.dir = get_direction(x, y, rt);
+	rt->cam_ray.dir = multiply_by_matrix(rt->cam_ray.dir, cam_to_world);
+	rt->cam_ray.dir = substract(rt->cam_ray.dir, rt->cam_ray.ori);
+	rt->cam_ray.dir = normalize(rt->cam_ray.dir); 
 }

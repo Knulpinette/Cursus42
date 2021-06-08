@@ -40,9 +40,8 @@ float	intersect_cylinder(t_ray *ray, t_rec *curr);
 float	solve_quadratic(t_params param, float *t0, float *t1);
 t_params	new_params(float a, float b, float c);
 
-//lookat
-t_matrix	look_at(t_vec cam_origin, t_vec cam_dir);
-t_vec	multiply_by_matrix(t_vec ray, t_matrix cam);
+//cam-ray + lookat
+void	gen_cam_ray(int x, int y, t_rt *rt);
 
 #endif
 
