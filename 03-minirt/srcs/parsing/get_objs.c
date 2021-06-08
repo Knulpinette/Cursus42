@@ -40,7 +40,7 @@ void	get_square(char *line, t_info *infos, int add_mem)
 	line = get_vector(line, &obj->shape.sq.orient);
 	line = next_nbr(line);
 	line = pass_spaces(line);
-	obj->shape.sq.orient = vec_normalize(obj->shape.sq.orient);
+	obj->shape.sq.orient = normalize(obj->shape.sq.orient);
 	obj->shape.sq.side = ft_atof(line);
 	get_color(line, &obj->color);
 }
@@ -56,7 +56,7 @@ void	get_plane(char *line, t_info *infos, int add_mem)
 	line = get_vector(line, &obj->shape.pl.point);
 	line = next_nbr(line);
 	line = get_vector(line, &obj->shape.pl.orient);
-	obj->shape.pl.orient = vec_normalize(obj->shape.pl.orient);
+	obj->shape.pl.orient = normalize(obj->shape.pl.orient);
 	get_color(line, &obj->color);
 }
 

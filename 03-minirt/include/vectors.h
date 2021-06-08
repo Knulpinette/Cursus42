@@ -16,17 +16,15 @@
 # include "minirt.h"
 
 void	render_minirt(t_rt *rt);
-t_vec	vec_add(t_vec v1, t_vec v2);
-t_vec	vec_sub(t_vec v1, t_vec v2);
-t_vec	vec_multi(t_vec v1, float m);
-t_vec	vec_div(t_vec v1, float d);
-float	vec_dot(t_vec v1, t_vec v2);
-t_vec	vec_cross(t_vec v1, t_vec v2);
-t_vec	vec_normalize(t_vec v);
-float	vec_magnitude(t_vec v);
-float	length_product(t_vec v);
-t_vec	unit_vec(t_vec v);
 t_vec	create_vec(float a, float b, float c);
+t_vec	add(t_vec v1, t_vec v2);
+t_vec	substract(t_vec v1, t_vec v2);
+t_vec	multiply(t_vec v1, float m);
+t_vec	divide(t_vec v1, float d);
+float	dot_product(t_vec v1, t_vec v2);
+t_vec	cross_product(t_vec v1, t_vec v2);
+t_vec	normalize(t_vec v);
+float	magnitude(t_vec v);
 
 //pixel_color
 void	get_pixel_color(t_rt *rt);

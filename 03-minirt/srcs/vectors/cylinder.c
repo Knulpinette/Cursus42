@@ -52,24 +52,24 @@ float	intersect_cylinder(t_ray *ray, t_rec *curr)
 
 	cy = &curr->obj.shape.cy;
 
-	A.x = ray->dir.x - (cy->orient.x * vec_dot(ray->dir, cy->orient));
-	A.y = ray->dir.y - (cy->orient.y * vec_dot(ray->dir, cy->orient));
-	A.x = ray->dir.z - (cy->orient.z * vec_dot(ray->dir, cy->orient));
+	A.x = ray->dir.x - (cy->orient.x * dot_product(ray->dir, cy->orient));
+	A.y = ray->dir.y - (cy->orient.y * dot_product(ray->dir, cy->orient));
+	A.x = ray->dir.z - (cy->orient.z * dot_product(ray->dir, cy->orient));
 
 	B.x = (ray->ori.x - cy->point.x) - 
 		(cy->orient.x * 
-		(vec_dot(vec_sub(ray->dir, cy->point), cy->orient)));
+		(dot_product(substract(ray->dir, cy->point), cy->orient)));
 	B.y = (ray->ori.y - cy->point.y) - 
 		(cy->orient.y * 
-		(vec_dot(vec_sub(ray->dir, cy->point), cy->orient)));
+		(dot_product(substract(ray->dir, cy->point), cy->orient)));
 	B.z = (ray->ori.z - cy->point.z) - 
 		(cy->orient.z * 
-		(vec_dot(vec_sub(ray->dir, cy->point), cy->orient)));
+		(dot_product(substract(ray->dir, cy->point), cy->orient)));
 	
 
-	param.a = vec_dot(A, A);
-	param.b = 2 * vec_dot(A, B);
-	param.c = vec_dot(B, B) - (cy->radius * cy->radius);
+	param.a = dot_product(A, A);
+	param.b = 2 * dot_product(A, B);
+	param.c = dot_product(B, B) - (cy->radius * cy->radius);
 
 	if (!solve_quadratic(param, &curr->t0, &curr->t1))
 		return (0);

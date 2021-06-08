@@ -63,7 +63,7 @@ void	get_cam(char *line, t_scene *scene, int add_mem)
 	line = get_vector(line, &scene->cam[current].point);
 	line = next_nbr(line);
 	line = get_vector(line, &scene->cam[current].orient);
-	scene->cam[current].orient = vec_normalize(scene->cam[current].orient);
+	scene->cam[current].orient = normalize(scene->cam[current].orient);
 	line = next_nbr(line);
 	line = pass_spaces(line);
 	scene->cam[current].FOV = ft_atof(line);

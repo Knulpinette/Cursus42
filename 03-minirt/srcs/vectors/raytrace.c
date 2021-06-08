@@ -55,8 +55,8 @@ void	render_minirt(t_rt *rt)
 			rt->cam_ray.ori = multiply_by_matrix(create_vec(0, 0, 0), cam_to_world);
 			rt->cam_ray.dir = get_cam_ray_direction(x, y, rt);
 			rt->cam_ray.dir = multiply_by_matrix(rt->cam_ray.dir, cam_to_world);
-			rt->cam_ray.dir = vec_sub(rt->cam_ray.dir, rt->cam_ray.ori);
-			rt->cam_ray.dir = vec_normalize(rt->cam_ray.dir); 
+			rt->cam_ray.dir = substract(rt->cam_ray.dir, rt->cam_ray.ori);
+			rt->cam_ray.dir = normalize(rt->cam_ray.dir); 
 
 
 
@@ -79,7 +79,7 @@ void	render_minirt(t_rt *rt)
 
 //********* INTERSECTION POINT RECORD => maybe do a t_hit category with curr_obj + infos hit in the class ?
 
-			//rt->curr.hit.point = vec_add(rt->cam_ray.ori, vec_multi(rt->cam_ray.dir, rt->curr.hit.t));
+			//rt->curr.hit.point = add(rt->cam_ray.ori, multiply(rt->cam_ray.dir, rt->curr.hit.t));
 			rt->curr.hit.point.x = rt->cam_ray.ori.x + (rt->cam_ray.dir.x * rt->curr.hit.t);
 			rt->curr.hit.point.y = rt->cam_ray.ori.y + (rt->cam_ray.dir.y * rt->curr.hit.t);
 			rt->curr.hit.point.z = rt->cam_ray.ori.z + (rt->cam_ray.dir.z * rt->curr.hit.t);
@@ -87,23 +87,23 @@ void	render_minirt(t_rt *rt)
 			//compute different normal according to shape of objec
 			if (rt->curr.obj.type == SPHERE)
 			{
-				//rt->curr.hit.normal = vec_normalize(vec_sub(rt->curr.hit.point, rt->curr.obj.shape.sp.point));
+				//rt->curr.hit.normal = normalize(substract(rt->curr.hit.point, rt->curr.obj.shape.sp.point));
 				rt->curr.hit.normal.x = (rt->curr.hit.point.x - rt->curr.obj.shape.sp.point.x) / rt->curr.obj.shape.sp.radius;
 				rt->curr.hit.normal.y = (rt->curr.hit.point.y - rt->curr.obj.shape.sp.point.y) / rt->curr.obj.shape.sp.radius;
 				rt->curr.hit.normal.z = (rt->curr.hit.point.z - rt->curr.obj.shape.sp.point.z) / rt->curr.obj.shape.sp.radius;  
 			}
 			if (rt->curr.obj.type == PLANE)
 			{
-				if (vec_dot(rt->cam_ray.dir, rt->curr.obj.shape.pl.orient) < 0.0f)
-					rt->curr.hit.normal = vec_multi(vec_normalize(rt->curr.hit.point), -1.0f);
+				if (dot_product(rt->cam_ray.dir, rt->curr.obj.shape.pl.orient) < 0.0f)
+					rt->curr.hit.normal = multiply(normalize(rt->curr.hit.point), -1.0f);
 				else
-					rt->curr.hit.normal = vec_normalize(rt->curr.hit.point);
+					rt->curr.hit.normal = normalize(rt->curr.hit.point);
 			}
 			if (rt->curr.obj.type == CYLINDER)
 			{
-				rt->curr.hit.normal = vec_sub(rt->curr.hit.point, rt->curr.obj.shape.cy.point);
-				rt->curr.hit.normal = vec_sub(rt->curr.hit.normal, vec_multi(rt->curr.obj.shape.cy.orient, vec_dot(rt->curr.obj.shape.cy.orient, rt->curr.hit.normal)));
-				rt->curr.hit.normal = vec_normalize(rt->curr.hit.normal);
+				rt->curr.hit.normal = substract(rt->curr.hit.point, rt->curr.obj.shape.cy.point);
+				rt->curr.hit.normal = substract(rt->curr.hit.normal, multiply(rt->curr.obj.shape.cy.orient, dot_product(rt->curr.obj.shape.cy.orient, rt->curr.hit.normal)));
+				rt->curr.hit.normal = normalize(rt->curr.hit.normal);
 			}
 
 
