@@ -16,6 +16,7 @@ static bool	in_shadow(t_rt *rt, int k)
 {
 	t_vec	light_position;
 	t_rec	temp;
+	float	hit_dist;
 	int		i;
 
 	light_position = rt->infos->scene->light[k].point;
@@ -28,9 +29,9 @@ static bool	in_shadow(t_rt *rt, int k)
 	while (i < rt->infos->nb_objs)
 	{
 		temp.obj = rt->infos->objs[i];
-		temp.t0 = intersect_obj(&rt->shadow_ray, &temp);
-		if (temp.t0 > 0.0001f && temp.t0 < rt->curr.t_min)
-			rt->curr.t_min = temp.t0;
+		hit_dist = intersect_obj(&rt->shadow_ray, &temp);
+		if (hit_dist > 0.0001f && hit_dist < rt->curr.t_min)
+			rt->curr.t_min = hit_dist;
 		i++;
 	}
 	if (rt->curr.t_min < rt->curr.t_max)
