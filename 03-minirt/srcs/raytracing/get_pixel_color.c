@@ -12,18 +12,6 @@
 
 #include "minirt.h"
 
-static t_color	convert_to_max(t_color color)
-{
-	if (color.r > 255)
-		color.r = 255;
-	if (color.g > 255)
-		color.g = 255;
-	if (color.b > 255)
-		color.b = 255;
-	color.t = 0;
-	return (color);
-}
-
 static bool	in_shadow(t_rt *rt, int k)
 {
 	t_vec	light_position;
@@ -75,11 +63,13 @@ static float	get_obj_brightness(t_rt *rt, float obj_brightness, int k)
 static float	get_obj_color(t_rt *rt, float obj_brightness, t_color ambient)
 {
 	t_color	light_color;
-	t_color	add_light_color;
+	t_color	add_l_brightness;
+	t_color	add_previous_light;
 	t_color	add_ambient;
 	int		k;
 
 	k = 0;
+	add_previous_light = set(0, 0, 0);
 	while (k < rt->infos->scene->nb_light)
 	{
 		rt->light_ray.ori = rt->infos->scene->light[k].point;
@@ -88,14 +78,14 @@ static float	get_obj_color(t_rt *rt, float obj_brightness, t_color ambient)
 		if (obj_brightness > 1.0)
 			obj_brightness = 1.0;
 		light_color = rt->infos->scene->light[k].color;
-		add_light_color = color_multiply(light_color, obj_brightness);
-		rt->curr.obj.color = color_add(rt->curr.obj.color, add_light_color);
+		add_l_brightness = color_multiply(light_color, obj_brightness);
+		add_previous_light = color_add(add_previous_light, add_l_brightness);
 		k++;
 	}
-	add_ambient = color_add(rt->curr.obj.color, ambient);
-	rt->curr.pix_color = color_add(rt->curr.pix_color, add_ambient);
-	rt->curr.pix_color = convert_to_max(rt->curr.pix_color);
-	return (create_color(rt->curr.pix_color));
+	add_ambient = color_add(add_previous_light, ambient);
+	rt->curr.obj.color = color_add(rt->curr.obj.color, add_ambient);
+	rt->curr.obj.color = convert_to_max(rt->curr.obj.color);
+	return (create_color(rt->curr.obj.color));
 }
 
 void	get_pixel_color(t_rt *rt)
@@ -104,17 +94,12 @@ void	get_pixel_color(t_rt *rt)
 	t_color	ambient;
 
 	obj_brightness = 0.0;
-	rt->curr.pix_color = rt->curr.obj.color;
-	rt->curr.obj.color.r = 0;
-	rt->curr.obj.color.g = 0;
-	rt->curr.obj.color.b = 0;
-	ambient.r = rt->infos->scene->amb.color.r * rt->infos->scene->amb.r;
-	ambient.g = rt->infos->scene->amb.color.g * rt->infos->scene->amb.r;
-	ambient.b = rt->infos->scene->amb.color.b * rt->infos->scene->amb.r;
+	ambient = rt->infos->scene->amb.color;
+	ambient = color_multiply(ambient, rt->infos->scene->amb.r);
 	if (rt->curr.hit.t > 0.0 && rt->curr.hit.t != INFINITY)
-		rt->curr.pix_color.rgb = get_obj_color(rt, obj_brightness, ambient);
+		rt->curr.pix_color = get_obj_color(rt, obj_brightness, ambient);
 	else
-		rt->curr.pix_color.rgb = create_color(ambient);
+		rt->curr.pix_color = create_color(ambient);
 }
 
 /*

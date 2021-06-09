@@ -1,37 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_minirt.c                                    :+:      :+:    :+:   */
+/*   colors_utils.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/26 15:56:12 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/04/26 15:56:14 by osurcouf         ###   ########.fr       */
+/*   Created: 2021/06/09 01:30:19 by osurcouf          #+#    #+#             */
+/*   Updated: 2021/06/09 01:30:21 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	render_minirt(t_rt *rt)
+t_color	set(int r, int g, int b)
 {
-	int	x;
-	int	y;
-	t_scene *scene;
-	
-	scene = rt->infos->scene;
-	y = 0;
-	x = 0;
-	while (y < scene->res.y)
-	{
-		x = 0;
-		while (x < scene->res.x)
-		{
-			gen_cam_ray(x, y, rt);
-			check_if_it_hits_object(rt);
-			get_pixel_color(rt);
-			my_mlx_pixel_put(&rt->img, x, y, rt->curr.pix_color);
-			x++;
-		}
-		y++;
-	}
+	t_color c;
+
+	c.r = r;
+	c.g = g;
+	c.b = b;
+	c.t = 0;
+
+	return (c);
+}
+
+t_color	convert_to_max(t_color color)
+{
+	if (color.r > 255)
+		color.r = 255;
+	if (color.g > 255)
+		color.g = 255;
+	if (color.b > 255)
+		color.b = 255;
+	color.t = 0;
+	return (color);
 }

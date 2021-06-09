@@ -54,14 +54,16 @@ t_vec		normalize(t_vec v);
 float		magnitude(t_vec v);
 
 /*
-** Colors operations
+** Colors
 */
 
 int			create_color(t_color color);
+t_color		set(int r, int g, int b);
 t_color		color_add(t_color c1, t_color c2);
 t_color		color_sub(t_color c1, t_color c2);
 t_color		color_multiply(t_color c1, float m);
 t_color		color_div(t_color c1, float d);
+t_color		convert_to_max(t_color color);
 
 /*
 **	Parsing

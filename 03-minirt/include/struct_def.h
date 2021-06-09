@@ -129,7 +129,7 @@ typedef struct s_rec
 {
 	t_obj		obj;
 	t_hit		hit;
-	t_color		pix_color;
+	float		pix_color;
 	t_params	param; //quadratic params
 	float		t;
 	float		t0; //solutions for cylinder
