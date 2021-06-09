@@ -44,7 +44,7 @@ static float	get_obj_brightness(t_rt *rt, float obj_brightness, int k)
 	float	light_gain;
 	float	light_brightness;
 	float	cosine;
-	float	degr_to_rad;
+	float	ray_angle;
 
 	light_brightness = rt->infos->scene->light[k].bright;
 	light_gain = dot_product(rt->curr.hit.normal, normalize(rt->light_ray.dir));
@@ -53,8 +53,8 @@ static float	get_obj_brightness(t_rt *rt, float obj_brightness, int k)
 		obj_brightness = 0.0;
 	else
 	{
-		degr_to_rad = M_PI * cosine;
-		obj_brightness = (light_brightness * light_gain * 1000.0) / degr_to_rad;
+		ray_angle = M_PI * cosine;
+		obj_brightness = (light_brightness * light_gain * 1000.0) / ray_angle;
 		if (in_shadow(rt, k))
 			obj_brightness = 0.0;
 	}
@@ -64,7 +64,7 @@ static float	get_obj_brightness(t_rt *rt, float obj_brightness, int k)
 static float	get_obj_color(t_rt *rt, float obj_brightness, t_color ambient)
 {
 	t_color	light_color;
-	t_color	add_l_brightness;
+	t_color	add_brightness;
 	t_color	add_previous_light;
 	t_color	add_ambient;
 	int		k;
@@ -79,8 +79,8 @@ static float	get_obj_color(t_rt *rt, float obj_brightness, t_color ambient)
 		if (obj_brightness > 1.0)
 			obj_brightness = 1.0;
 		light_color = rt->infos->scene->light[k].color;
-		add_l_brightness = color_multiply(light_color, obj_brightness);
-		add_previous_light = color_add(add_previous_light, add_l_brightness);
+		add_brightness = color_multiply(light_color, obj_brightness);
+		add_previous_light = color_add(add_previous_light, add_brightness);
 		k++;
 	}
 	add_ambient = color_add(add_previous_light, ambient);
