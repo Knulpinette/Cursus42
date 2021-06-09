@@ -24,10 +24,7 @@
 # include <stdbool.h>
 # include "../libft/libft.h"
 # include "struct_def.h"
-# include "parsing.h"
 # include "utils.h"
-# include "window.h"
-# include "vectors.h"
 
 enum e_y_or_no
 {
@@ -35,6 +32,56 @@ enum e_y_or_no
 	yes,
 };
 
-void	start_minirt(t_rt *rt);
+void		start_minirt(t_rt *rt);
+void		render_minirt(t_rt *rt);
+
+/*
+**	Generate the camera ray
+*/
+
+void		gen_cam_ray(int x, int y, t_rt *rt);
+
+/*
+**	Intersecting objects
+*/
+
+void		check_if_it_hits_object(t_rt *rt);
+float		intersect_obj(t_ray *ray, t_rec *curr);
+float		sphere(t_ray *ray, t_rec *curr);
+float		plane(t_ray *ray, t_rec *curr);
+float		cylinder(t_ray *ray, t_rec *curr);
+float		solve_quadratic(t_params param, float *t0, float *t1);
+t_params	new_params(float a, float b, float c);
+void		sphere_normal(t_rec *curr);
+void		plane_normal(t_rec *curr, t_ray *cam_ray);
+void		cylinder_normal(t_rec *curr);
+
+/*
+**	Get the pixel color
+*/
+
+void		get_pixel_color(t_rt *rt);
+
+/*
+**	Window management
+*/
+
+int			exit_and_free_X(t_rt *rt);
+int			exit_and_free_ESC(int keycode, t_rt *rt);
+
+/*
+**	Parsing
+*/
+
+void		get_infos(char *argv, t_rt *rt);
+void		get_res(char *line, t_scene *scene);
+void		get_amb(char *line, t_scene *scene);
+void		get_cam(char *line, t_scene *scene, int add_mem);
+void		get_light(char *line, t_scene *scene, int add_mem);
+void		get_sphere(char *line, t_info *infos, int add_mem);
+void		get_square(char *line, t_info *infos, int add_mem);
+void		get_plane(char *line, t_info *infos, int add_mem);
+void		get_cylinder(char *line, t_info *infos, int add_mem);
+void		get_triangle(char *line, t_info *infos, int add_mem);
 
 #endif

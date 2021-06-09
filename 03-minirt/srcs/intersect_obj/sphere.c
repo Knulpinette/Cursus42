@@ -12,6 +12,14 @@
 
 #include "minirt.h"
 
+void	sphere_normal(t_rec *curr)
+{
+	t_vec	hit_to_center;
+	
+	hit_to_center = substract(curr->hit.point, curr->obj.shape.sp.point);
+	curr->hit.normal = divide(hit_to_center, curr->obj.shape.sp.radius);
+}
+
 float	sphere(t_ray *ray, t_rec *curr)
 {
 	t_sphere	*sp;

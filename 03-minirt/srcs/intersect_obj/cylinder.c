@@ -35,6 +35,13 @@
     }
 }*/
 
+void	cylinder_normal(t_rec *curr)
+{
+	curr->hit.normal = substract(curr->hit.point, curr->obj.shape.cy.point);
+	curr->hit.normal = substract(curr->hit.normal, multiply(curr->obj.shape.cy.orient, dot_product(curr->obj.shape.cy.orient, curr->hit.normal)));
+	curr->hit.normal = normalize(curr->hit.normal);
+}
+
 float	cylinder(t_ray *ray, t_rec *curr)
 {
 

@@ -61,10 +61,10 @@ endif
 # Create and compile objects files in a dedicated folder
 ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c 
 			@mkdir -p objs
-			@mkdir -p objs/window_action
 			@mkdir -p objs/parsing
 			@mkdir -p objs/utils
-			@mkdir -p objs/vectors
+			@mkdir -p objs/intersect_obj
+			@mkdir -p objs/raytracing
 			${CC} ${CFLAGS} ${INCLUDES} -O3 -c $< -o $@
 
 #	Active rules
