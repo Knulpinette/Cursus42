@@ -92,26 +92,14 @@ static float	get_obj_color(t_rt *rt, float obj_brightness, t_color ambient)
 void	get_pixel_color(t_rt *rt)
 {
 	float	obj_brightness;
-	t_color	ambient;
+	t_color	amb_color;
+	t_color amb_light;
 
 	obj_brightness = 0.0;
-	ambient = rt->infos->scene->amb.color;
-	ambient = color_multiply(ambient, rt->infos->scene->amb.r);
+	amb_color = rt->infos->scene->amb.color;
+	amb_light = color_multiply(amb_color, rt->infos->scene->amb.r);
 	if (rt->curr.hit.t > 0.0 && rt->curr.hit.t != INFINITY)
-		rt->curr.pix_color = get_obj_color(rt, obj_brightness, ambient);
+		rt->curr.pix_color = get_obj_color(rt, obj_brightness, amb_light);
 	else
-		rt->curr.pix_color = create_color(ambient);
+		rt->curr.pix_color = create_color(amb_light);
 }
-
-/*
-//create the sky
-	//t_vec	unit_dir;
-	//t_vec	white;
-	//t_vec	blue;
-	unit_dir = unit_vec(rt->cam_ray.dir);
-	t = 0.5 * (unit_dir.y + 1.0);
-	white = create_vec(1.0, 1.0, 1.0);
-	blue = create_vec(0.5, 0.7, 1.0);
-	white = multiply(white, (1.0-t));
-	blue = multiply(blue, t);
-	return(multiply(add(blue, white), rt->infos->scene->light->bright));*/
