@@ -33,7 +33,6 @@ enum e_y_or_no
 };
 
 void		start_minirt(t_rt *rt);
-void		render_minirt(t_rt *rt);
 
 /*
 **	Generate the camera ray
@@ -50,7 +49,7 @@ float		intersect_obj(t_ray *ray, t_rec *curr);
 float		sphere(t_ray *ray, t_rec *curr);
 float		plane(t_ray *ray, t_rec *curr);
 float		cylinder(t_ray *ray, t_rec *curr);
-float		solve_quadratic(t_params param, float *t0, float *t1);
+bool		solve_quadratic(t_params param, float *t0, float *t1);
 t_params	new_params(float a, float b, float c);
 void		sphere_normal(t_rec *curr);
 void		plane_normal(t_rec *curr, t_ray *cam_ray);

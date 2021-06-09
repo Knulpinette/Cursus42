@@ -30,6 +30,14 @@ float	sphere(t_ray *ray, t_rec *curr)
 	center_origin = substract(ray->ori, sp->point);
 	param.a = dot_product(ray->dir, ray->dir);
 	param.b = dot_product(center_origin, ray->dir);
-	param.c = dot_product(center_origin, center_origin) - pow(sp->radius, 2);	
-	return(solve_quadratic(param, &curr->t0, &curr->t1));
+	param.c = dot_product(center_origin, center_origin)
+			- sp->radius * sp->radius;	
+	if (solve_quadratic(param, &curr->t0, &curr->t1))
+	{
+		if (curr->t0 > 0)
+			return (curr->t0);
+		if (curr->t1 > 0)
+			return (curr->t1);
+	}
+	return (0.0);
 }

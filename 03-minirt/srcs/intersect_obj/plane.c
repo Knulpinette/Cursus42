@@ -12,7 +12,6 @@
 
 #include "minirt.h"
 
-//change to true/false
 void	plane_normal(t_rec *curr, t_ray *cam_ray)
 {
 	if (dot_product(cam_ray->dir, curr->obj.shape.pl.orient) < 0.0f)

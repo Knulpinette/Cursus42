@@ -12,9 +12,8 @@
 
 #include "minirt.h"
 
-static void		get_obj_normal(t_rec *curr, t_ray *cam_ray)
+static void	get_obj_normal(t_rec *curr, t_ray *cam_ray)
 {
-//compute different normal according to shape of object
 	if (curr->obj.type == SPHERE)
 		sphere_normal(curr);
 	if (curr->obj.type == PLANE)
@@ -23,7 +22,7 @@ static void		get_obj_normal(t_rec *curr, t_ray *cam_ray)
 		cylinder_normal(curr);
 }
 
-float	intersect_obj(t_ray *ray, t_rec *curr)
+float		intersect_obj(t_ray *ray, t_rec *curr)
 {
 	if (curr->obj.type == SPHERE)
 		return (sphere(ray, curr));
@@ -34,22 +33,23 @@ float	intersect_obj(t_ray *ray, t_rec *curr)
 	return (0);
 }
 
-void	check_if_it_hits_object(t_rt *rt)
+void		check_if_it_hits_object(t_rt *rt)
 {
-	int k;
-	t_rec temp;
+	int		k;
+	t_rec	temp;
+	float	intersect_point;
 
 	k = 0;
-	rt->curr.t_min = INFINITY;
 	rt->curr.hit.t = INFINITY;
 	while (k < rt->infos->nb_objs)
 	{
 		temp.obj = rt->infos->objs[k];
-		if (intersect_obj(&rt->cam_ray, &temp) > 0.0 && intersect_obj(&rt->cam_ray, &temp) < rt->curr.t_min)
+		intersect_point = intersect_obj(&rt->cam_ray, &temp);
+		if (intersect_point > 0.0 
+			&& intersect_point < rt->curr.hit.t)
 		{
 			rt->curr.obj = rt->infos->objs[k];
-			rt->curr.hit.t = intersect_obj(&rt->cam_ray, &rt->curr);
-			rt->curr.t_min = rt->curr.hit.t;
+			rt->curr.hit.t = intersect_point;
 		}
 		k++;
 	}

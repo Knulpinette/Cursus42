@@ -20,6 +20,30 @@
 ** 🦕
 */
 
+static void	render_minirt(t_rt *rt)
+{
+	int	x;
+	int	y;
+	t_scene *scene;
+	
+	scene = rt->infos->scene;
+	y = 0;
+	x = 0;
+	while (y < scene->res.y)
+	{
+		x = 0;
+		while (x < scene->res.x)
+		{
+			gen_cam_ray(x, y, rt);
+			check_if_it_hits_object(rt);
+			get_pixel_color(rt);
+			my_mlx_pixel_put(&rt->img, x, y, rt->curr.pix_color);
+			x++;
+		}
+		y++;
+	}
+}
+
 void	start_minirt(t_rt *rt)
 {
     t_res   *res;

@@ -22,16 +22,30 @@ t_params	new_params(float a, float b, float c)
 	return (params);
 }
 
-float	solve_quadratic(t_params param, float *t0, float *t1)
+bool	solve_quadratic(t_params param, float *t0, float *t1)
 {
-	float		discriminant;
+	float	discriminant;
+	float	temp;
 
 	discriminant = (param.b * param.b) - (param.a * param.c);
 	if (discriminant < 0)
-		return ((-param.b + sqrt(discriminant)) / param.a);
+		return (false);
+	else if (discriminant == 0)
+	{
+		*t0 = param.b / param.a;
+		*t1 = param.b / param.a;
+	}
 	else
-		return ((-param.b - sqrt(discriminant)) / param.a);
-	(void)t0;
-	(void)t1;
+	{
+		*t0 = -param.b - sqrt(discriminant) / param.a;
+		*t1 = -param.b + sqrt(discriminant) / param.a;
+	}
+	if (*t0 > *t1)
+	{
+		temp = *t0;
+		*t0 = *t1;
+		*t1 = temp;
+	}
+	return (true);
 }
 
