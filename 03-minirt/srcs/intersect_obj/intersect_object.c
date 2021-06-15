@@ -12,14 +12,14 @@
 
 #include "minirt.h"
 
-static void	get_obj_normal(t_rec *curr, t_ray *cam_ray)
+static void	get_obj_normal(t_rec *curr, t_ray *ray)
 {
 	if (curr->obj.type == SPHERE)
 		sphere_normal(curr);
 	if (curr->obj.type == PLANE)
-		plane_normal(curr, cam_ray);
+		plane_normal(curr, ray);
 	if (curr->obj.type == CYLINDER)
-		cylinder_normal(curr);
+		cylinder_normal(curr, ray);
 }
 
 float		intersect_obj(t_ray *ray, t_rec *curr)

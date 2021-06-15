@@ -68,6 +68,10 @@ void	start_minirt(t_rt *rt)
         mlx_hook(rt->win, 33, 0, exit_and_free_X, rt);
     #endif  
 
+	//if (rt->infos->scene->nb_cam > 1)
+		//mlx_key_hook(rt->win, change_cam, rt);
+		//KEY_UP = 126 on mac
+
     //PUT IMG TO WINDOW
     mlx_put_image_to_window(rt->mlx, rt->win, rt->img.ptr, 0, 0);
     mlx_loop(rt->mlx);
