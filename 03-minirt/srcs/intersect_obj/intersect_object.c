@@ -19,7 +19,7 @@ static void	get_obj_normal(t_rec *curr, t_ray *ray)
 	if (curr->obj.type == PLANE)
 		plane_normal(curr, ray);
 	if (curr->obj.type == CYLINDER)
-		cylinder_normal(curr, ray);
+		cylinder_normal(curr);
 }
 
 float		intersect_obj(t_ray *ray, t_rec *curr)

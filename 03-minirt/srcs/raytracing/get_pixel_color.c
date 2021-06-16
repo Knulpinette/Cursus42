@@ -44,7 +44,7 @@ static float	get_obj_brightness(t_rt *rt, float obj_brightness, int k)
 	float	light_gain;
 	float	light_brightness;
 	float	cosine;
-	float	ray_angle;
+	float	ray_distance;
 
 	light_brightness = rt->infos->scene->light[k].bright;
 	light_gain = dot_product(rt->curr.hit.normal, normalize(rt->light_ray.dir));
@@ -53,8 +53,8 @@ static float	get_obj_brightness(t_rt *rt, float obj_brightness, int k)
 		obj_brightness = 0.0;
 	else
 	{
-		ray_angle = M_PI * cosine;
-		obj_brightness = (light_brightness * light_gain * 1000.0) / ray_angle;
+		ray_distance = M_PI * cosine;
+		obj_brightness = (light_brightness * light_gain * 1000.0) / ray_distance;
 		if (in_shadow(rt, k))
 			obj_brightness = 0.0;
 	}
