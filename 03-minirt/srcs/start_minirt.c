@@ -20,8 +20,6 @@
 ** 🦕
 */
 
-void	init_img(t_rt *rt);
-
 static void	render_minirt(t_rt *rt)
 {
 	int	x;
@@ -46,7 +44,7 @@ static void	render_minirt(t_rt *rt)
 	}
 }
 
-int change_cam(int keycode, t_rt *rt)
+static int change_cam(int keycode, t_rt *rt)
 {
 	int	LEFT_KEY;
 	int	RIGHT_KEY;
@@ -63,11 +61,13 @@ int change_cam(int keycode, t_rt *rt)
 
     if (keycode == RIGHT_KEY)
     {
-		if (curr_cam < rt->infos->scene->nb_cam)
+		if (curr_cam < rt->infos->scene->nb_cam - 1)
 		{
 			rt->curr.cam = rt->infos->scene->cam[curr_cam + 1];
 			curr_cam += 1;
-			init_img(rt);
+			if (curr_cam == rt->infos->scene->nb_cam - 1)
+				printf("Last Camera\n");
+			create_img(rt);
 			return(yes);
 		}
     }
@@ -77,16 +77,17 @@ int change_cam(int keycode, t_rt *rt)
 		{
 			rt->curr.cam = rt->infos->scene->cam[curr_cam - 1];
 			curr_cam -= 1;
-			init_img(rt);
+			if (curr_cam == 0)
+				printf("First Camera\n");
+			create_img(rt);
 			return(yes);
 		}
 	}
     return (no);
 }
 
-void	init_img(t_rt *rt)
+void	create_img(t_rt *rt)
 {
-			//HANDLE RENDERING
     render_minirt(rt);
 
     //EVENTS (clean MAC/LINUX when pushing !!!)
@@ -104,12 +105,11 @@ void	init_img(t_rt *rt)
     mlx_put_image_to_window(rt->mlx, rt->win, rt->img.ptr, 0, 0);
 }
 
-void	create_img(t_rt *rt)
+static void	create_window(t_rt *rt)
 {
 	t_res   *res;
 
     res = &rt->infos->scene->res;
-	rt->curr.cam = rt->infos->scene->cam[0];
     rt->mlx = mlx_init();
 
     //OPEN WINDOW
@@ -117,11 +117,13 @@ void	create_img(t_rt *rt)
     rt->img.ptr = mlx_new_image(rt->mlx, res->x, res->y);
     rt->img.addr = mlx_get_data_addr(rt->img.ptr, &rt->img.bit_pix, &rt->img.line_l,
                                 &rt->img.endian);
+	return ;
 }
 
 void	start_minirt(t_rt *rt)
 {
+	rt->curr.cam = rt->infos->scene->cam[0];
+	create_window(rt);
 	create_img(rt);
-	init_img(rt);
     mlx_loop(rt->mlx);
 }

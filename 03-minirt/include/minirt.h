@@ -65,6 +65,7 @@ void		get_pixel_color(t_rt *rt);
 **	Window management
 */
 
+void		create_img(t_rt *rt);
 int			exit_and_free_X(t_rt *rt);
 int			exit_and_free_ESC(int keycode, t_rt *rt);
 
