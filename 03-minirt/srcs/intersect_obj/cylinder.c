@@ -14,10 +14,12 @@
 
 void	cylinder_normal(t_rec *curr)
 {
+	//(void)curr;
 	t_vec	center_to_hitpoint;
 	float	center_angle;
 	t_vec	cy_orient;
 	
+	curr->obj.shape.cy.orient = normalize(curr->obj.shape.cy.orient);
 	center_to_hitpoint = substract(curr->hit.point, curr->obj.shape.cy.point);
 	center_angle = dot_product(curr->obj.shape.cy.orient, center_to_hitpoint);
 	cy_orient = multiply(curr->obj.shape.cy.orient, center_angle);
@@ -38,12 +40,10 @@ void		check_t_is_in_height(float *hit_point, t_cylinder *cylinder, t_ray *ray)
 
 float	get_right_intersection_point(t_ray *ray, t_rec *curr)
 {
-	//printf("AVANT >>> t0 = %f || t1 = %f\n", curr->t0, curr->t1);
 	if (curr->t0 > 0)
 		check_t_is_in_height(&curr->t0, &curr->obj.shape.cy, ray);
 	if (curr->t1 > 0)
 		check_t_is_in_height(&curr->t1, &curr->obj.shape.cy, ray);
-	//printf("APRES >>>>> t0 = %f || t1 = %f\n", curr->t0, curr->t1);
 	if ((curr->t0 < 0 && curr->t1 < 0)
 		|| (curr->t0 > 0 && curr->t1 > 0))
 		return (0.0);

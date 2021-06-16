@@ -62,7 +62,7 @@ static t_vec	get_2D_plane(int x, int y, t_rt *rt)
 
 	res.x = (float)rt->infos->scene->res.x;
 	res.y = (float)rt->infos->scene->res.y;
-	vertical_fov = tan(((float)rt->infos->scene->cam->FOV / 2) 
+	vertical_fov = tan(((float)rt->curr.cam.FOV / 2) 
 					* (M_PI / 180));
 	aspect_ratio = res.x / res.y;
 	x_ratio = ((x + 0.5) / (res.x / 2) - 1) * aspect_ratio * vertical_fov;
@@ -78,7 +78,7 @@ void	gen_cam_ray(int x, int y, t_rt *rt)
 	t_vec		matrix_plane_2D;
 	t_vec		orient_plane_2D;
 
-	cam = rt->infos->scene->cam;
+	cam = &rt->curr.cam;
 	cam_to_world = look_at(cam->point, cam->orient);
 	rt->cam_ray.ori = cam->point;
 	unit_vector_2D = get_2D_plane(x, y, rt);

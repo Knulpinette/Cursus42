@@ -125,20 +125,6 @@ typedef struct s_obj
 	t_color	color; //struct
 }				t_obj;
 
-typedef struct s_rec
-{
-	t_obj		obj;
-	t_hit		hit;
-	float		pix_color;
-	t_params	param; //quadratic params
-	float		t;
-	float		t0; //solutions for cylinder
-	float		t1;
-	float		t_max;
-	float		t_min;
-
-}				t_rec;
-
 /*
 ** ELEMENTS OF SCENE SETUP STRUCT
 */
@@ -217,6 +203,29 @@ typedef struct  s_img
     int     line_l; //line_length
     int     endian; // endian
 }               t_img;
+
+/*
+** CURRENT OBJECT AND SCENE STRUCT
+*/
+
+typedef struct s_rec
+{
+	t_obj		obj;
+	t_camera	cam;
+	t_hit		hit;
+	float		pix_color;
+	t_params	param; //quadratic params
+	float		t;
+	float		t0; //solutions for cylinder
+	float		t1;
+	float		t_max;
+	float		t_min;
+
+}				t_rec;
+
+/*
+** MINIRT STRUCT
+*/
 
 typedef struct  s_rt
 {
