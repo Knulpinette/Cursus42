@@ -65,7 +65,7 @@ ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c
 			@mkdir -p objs/utils
 			@mkdir -p objs/intersect_obj
 			@mkdir -p objs/raytracing
-			${CC} ${CFLAGS} ${INCLUDES} -O3 -c $< -o $@
+			@${CC} ${CFLAGS} ${INCLUDES} -O3 -c $< -o $@
 
 #	Active rules
 
