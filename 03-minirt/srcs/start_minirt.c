@@ -122,7 +122,12 @@ static void	create_window(t_rt *rt)
 
 void	start_minirt(t_rt *rt)
 {
-	rt->curr.cam = rt->infos->scene->cam[0];
+	if (rt->infos->scene->res.x == 0 || rt->infos->scene->res.y == 0)
+		handle_error(PARSING_SCENE);
+	if (rt->infos->scene->nb_cam == 0)
+		handle_error(PARSING_SCENE);
+	else
+		rt->curr.cam = rt->infos->scene->cam[0];
 	create_window(rt);
 	create_img(rt);
     mlx_loop(rt->mlx);

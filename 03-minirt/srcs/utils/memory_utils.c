@@ -27,6 +27,8 @@ void	init_objs(t_rt *rt)
 		return ;
 	init->scene->nb_cam = 0;
 	init->scene->nb_light = 0;
+	init->scene->cam = ft_calloc(sizeof(t_camera), 1);
+	init->scene->light = ft_calloc(sizeof(t_light), 1);
 	init->objs = ft_calloc(sizeof(t_obj), 1);
 	if (!init->objs)
 		return ;

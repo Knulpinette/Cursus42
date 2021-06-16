@@ -38,8 +38,6 @@ void	get_light(char *line, t_scene *scene, int add_mem)
 	int	current;
 
 	current = scene->nb_light;
-	if (!add_mem)
-		scene->light = ft_calloc(sizeof(t_light), 1);
 	if (add_mem)
 		scene->light = add_mem_light(scene->nb_light, scene->light);
 	line = get_vector(line, &scene->light[current].point);
@@ -56,8 +54,6 @@ void	get_cam(char *line, t_scene *scene, int add_mem)
 	int	current;
 
 	current = scene->nb_cam;
-	if (!add_mem)
-		scene->cam = ft_calloc(sizeof(t_camera), 1);
 	if (add_mem)
 		scene->cam = add_mem_cam(scene->nb_cam, scene->cam);
 	line = get_vector(line, &scene->cam[current].point);
