@@ -53,7 +53,6 @@ float		circle(t_ray *ray, t_rec *curr);
 bool		solve_quadratic(t_params param, float *t0, float *t1);
 t_params	new_params(float a, float b, float c);
 void		sphere_normal(t_rec *curr);
-void		plane_normal(t_rec *curr, t_ray *cam_ray, t_vec point, t_vec orient);
 void		cylinder_normal(t_rec *curr);
 
 /*

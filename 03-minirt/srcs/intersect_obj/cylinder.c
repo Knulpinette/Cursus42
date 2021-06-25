@@ -26,22 +26,21 @@ void	cylinder_normal(t_rec *curr)
 
 float		circle(t_ray *ray, t_rec *curr)
 {
-	t_vec	hit_point;
-	t_vec	center_to_hit;
-	float	length_center_to_hit;
+	float		result;
+	t_vec		hit_point;
+	t_vec		center_to_hit;
+	float		length_center_to_hit;
 	t_circle	circle;
 	
 	circle = curr->obj.shape.circle;
-	if (plane(ray, curr, circle.center, circle.orient) >= 0.0)
+	result = plane(ray, curr, circle.center, circle.orient);
+	if (result >= 0.0)
 	{
 		hit_point = add(ray->ori, multiply(ray->dir, curr->hit.t));
 		center_to_hit = substract(hit_point, curr->obj.shape.circle.center);
 		length_center_to_hit = dot_product(center_to_hit, center_to_hit);
 		if (length_center_to_hit <= circle.radius * circle.radius)
-		{
-			printf("plane t = %f || circle t = %f\n", plane(ray, curr, circle.center, circle.orient), length_center_to_hit);
-			return (length_center_to_hit);
-		}
+			return (result);
 	}
 	return (0.0);
 }

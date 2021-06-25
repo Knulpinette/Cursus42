@@ -12,21 +12,12 @@
 
 #include "minirt.h"
 
-static void	get_obj_normal(t_rec *curr, t_ray *ray)
+static void	get_obj_normal(t_rec *curr)
 {
-	t_plane		plane;
-	t_circle	circle;
-
 	if (curr->obj.type == PLANE)
-	{
-		plane = curr->obj.shape.pl;
-		plane_normal(curr, ray, plane.point, plane.orient);
-	}
+		curr->hit.normal = normalize(curr->obj.shape.pl.orient);
 	if (curr->obj.type == CIRCLE)
-	{
-		circle = curr->obj.shape.circle;
-		plane_normal(curr, ray, circle.center, circle.orient);
-	}
+		curr->hit.normal = normalize(curr->obj.shape.circle.orient);
 	if (curr->obj.type == SPHERE)
 		sphere_normal(curr);
 	if (curr->obj.type == CYLINDER)
@@ -65,7 +56,7 @@ void		check_if_it_hits_object(t_rt *rt)
 		intersect_point = intersect_obj(&rt->cam_ray, &temp);
 		if (intersect_point > 0.0 
 			&& intersect_point < rt->curr.hit.t)
-		{
+		{ 
 			rt->curr.obj = rt->infos->objs[k];
 			rt->curr.hit.t = intersect_point;
 		}
@@ -74,6 +65,6 @@ void		check_if_it_hits_object(t_rt *rt)
 	if (rt->curr.hit.t != INFINITY)
 	{
 		rt->curr.hit.point = add(rt->cam_ray.ori, multiply(rt->cam_ray.dir, rt->curr.hit.t));
-		get_obj_normal(&rt->curr, &rt->cam_ray);
+		get_obj_normal(&rt->curr);
 	}
 }
