@@ -53,6 +53,9 @@ void		check_if_it_hits_object(t_rt *rt)
 		}
 		k++;
 	}
-	rt->curr.hit.point = add(rt->cam_ray.ori, multiply(rt->cam_ray.dir, rt->curr.hit.t));
-	get_obj_normal(&rt->curr, &rt->cam_ray);
+	if (rt->curr.hit.t != INFINITY)
+	{
+		rt->curr.hit.point = add(rt->cam_ray.ori, multiply(rt->cam_ray.dir, rt->curr.hit.t));
+		get_obj_normal(&rt->curr, &rt->cam_ray);
+	}
 }

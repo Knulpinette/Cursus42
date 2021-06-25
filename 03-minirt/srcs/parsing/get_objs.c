@@ -87,6 +87,7 @@ void	get_cylinder(char *line, t_info *infos, int add_mem)
 	line = get_vector(line, &obj->shape.cy.point);
 	line = next_nbr(line);
 	line = get_vector(line, &obj->shape.cy.orient);
+	obj->shape.cy.orient = normalize(obj->shape.cy.orient);
 	line = next_nbr(line);
 	line = pass_spaces(line);
 	obj->shape.cy.height = ft_atof(line);

@@ -14,70 +14,65 @@
 
 void	cylinder_normal(t_rec *curr)
 {
-	//(void)curr;
 	t_vec	center_to_hitpoint;
-	float	center_angle;
-	t_vec	cy_orient;
+	float	hit_angle;
+	t_vec	hit_length;
 	
-	curr->obj.shape.cy.orient = normalize(curr->obj.shape.cy.orient);
 	center_to_hitpoint = substract(curr->hit.point, curr->obj.shape.cy.point);
-	center_angle = dot_product(curr->obj.shape.cy.orient, center_to_hitpoint);
-	cy_orient = multiply(curr->obj.shape.cy.orient, center_angle);
-	curr->hit.normal = normalize(substract(center_to_hitpoint, cy_orient));
+	hit_angle = dot_product(curr->obj.shape.cy.orient, center_to_hitpoint);
+	hit_length = multiply(curr->obj.shape.cy.orient, hit_angle);
+	curr->hit.normal = normalize(substract(center_to_hitpoint, hit_length));
 }
 
-void		check_t_is_in_height(float *hit_point, t_cylinder *cylinder, t_ray *ray)
+bool	hit_point_is_in_length(float *hit_point, t_cylinder *cylinder, t_ray *ray)
 {
-	t_vec orientation;
-	t_vec point_to_height;
+	t_vec	cylinder_length;
+	t_vec	distance_to_hit_point;
+	float	entry_point;
+	float	exit_point;
 
-	point_to_height = add(cylinder->point, multiply(cylinder->orient, cylinder->height));
-	orientation = add(ray->ori, multiply(ray->dir, *hit_point));
-	if (dot_product(cylinder->orient, substract(orientation, cylinder->point)) < 0.0
-		|| dot_product(cylinder->orient, substract(orientation, point_to_height)) > 0.0)
-		*hit_point = -1;
+	cylinder_length = add(cylinder->point, 
+					multiply(cylinder->orient, cylinder->height));
+	distance_to_hit_point = add(ray->ori, multiply(ray->dir, *hit_point));
+	entry_point = dot_product(cylinder->orient, substract(distance_to_hit_point, cylinder->point));
+	exit_point = dot_product(cylinder->orient, substract(distance_to_hit_point, cylinder_length));
+	if (entry_point < 0.0 || exit_point > 0.0)
+		return (false);
+	return (true);
 }
 
 float	get_right_intersection_point(t_ray *ray, t_rec *curr)
 {
 	if (curr->t0 > 0)
-		check_t_is_in_height(&curr->t0, &curr->obj.shape.cy, ray);
+		if (hit_point_is_in_length(&curr->t0, &curr->obj.shape.cy, ray))
+			return (curr->t0);
 	if (curr->t1 > 0)
-		check_t_is_in_height(&curr->t1, &curr->obj.shape.cy, ray);
-	if ((curr->t0 < 0 && curr->t1 < 0)
-		|| (curr->t0 > 0 && curr->t1 > 0))
-		return (0.0);
-	if (curr->t1 < curr->t0)
-		if (curr->t1 > 0)
+		if (hit_point_is_in_length(&curr->t1, &curr->obj.shape.cy, ray))
 			return (curr->t1);
-		else
-			return (curr->t0);
-	else
-	{
-		if (curr->t0 > 0)
-			return (curr->t0);
-		else
-			return (curr->t1);
-	}
+	return (0.0);
 }
 
 float	cylinder(t_ray *ray, t_rec *curr)
 {
-	t_params param;
-	t_vec	A;
-	t_vec	B;
-	t_vec center_to_hit;
-	t_cylinder *cy;
+	t_params 	param;
+	t_vec		radius_in_direction_ray;
+	t_vec		radius_in_direction_center;
+	t_vec		center_to_ray;
+	t_cylinder	*cy;
+
+	//change ray->ori => to ray->origin
+	// tout les ori => origin. et orient = orient. Uniformiser.
+	//bien vérifier tous les noms, qu'ils soient clairs. 
 
 	cy = &curr->obj.shape.cy;
-	A = cross_product(ray->dir, cy->orient);
-	center_to_hit = substract(ray->ori, cy->point);
-	B = cross_product(center_to_hit, cy->orient);
-	param.a = dot_product(A, A);
-	param.b = dot_product(A, B);
-	param.c = dot_product(B, B)
-			- ((cy->radius * cy->radius)  
-			* dot_product(cy->orient, cy->orient));
+	//here I'm calculating the radius thats perpendicular to the two vector I'm cross producting
+	radius_in_direction_ray = cross_product(ray->dir, cy->orient);
+	center_to_ray = substract(ray->ori, cy->point);
+	radius_in_direction_center = cross_product(center_to_ray, cy->orient);
+	param.a = dot_product(radius_in_direction_ray, radius_in_direction_ray);
+	param.b = dot_product(radius_in_direction_ray, radius_in_direction_center);
+	param.c = dot_product(radius_in_direction_center, radius_in_direction_center)
+			- (cy->radius * cy->radius);
 	if (solve_quadratic(param, &curr->t0, &curr->t1))
 		return(get_right_intersection_point(ray, curr));
 	else
