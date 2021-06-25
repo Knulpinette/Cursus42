@@ -17,20 +17,20 @@ static void	get_obj_normal(t_rec *curr, t_ray *ray)
 	t_plane		plane;
 	t_circle	circle;
 
-	if (curr->obj.type == SPHERE)
-		sphere_normal(curr);
 	if (curr->obj.type == PLANE)
 	{
 		plane = curr->obj.shape.pl;
 		plane_normal(curr, ray, plane.point, plane.orient);
 	}
-	if (curr->obj.type == CYLINDER)
-		cylinder_normal(curr);
 	if (curr->obj.type == CIRCLE)
 	{
 		circle = curr->obj.shape.circle;
 		plane_normal(curr, ray, circle.center, circle.orient);
 	}
+	if (curr->obj.type == SPHERE)
+		sphere_normal(curr);
+	if (curr->obj.type == CYLINDER)
+		cylinder_normal(curr);
 }
 
 float		intersect_obj(t_ray *ray, t_rec *curr)

@@ -17,7 +17,7 @@ void	cylinder_normal(t_rec *curr)
 	t_vec	center_to_hitpoint;
 	float	hit_angle;
 	t_vec	hit_length;
-	
+
 	center_to_hitpoint = substract(curr->hit.point, curr->obj.shape.cy.point);
 	hit_angle = dot_product(curr->obj.shape.cy.orient, center_to_hitpoint);
 	hit_length = multiply(curr->obj.shape.cy.orient, hit_angle);
@@ -38,27 +38,30 @@ float		circle(t_ray *ray, t_rec *curr)
 		center_to_hit = substract(hit_point, curr->obj.shape.circle.center);
 		length_center_to_hit = dot_product(center_to_hit, center_to_hit);
 		if (length_center_to_hit <= circle.radius * circle.radius)
+		{
+			printf("plane t = %f || circle t = %f\n", plane(ray, curr, circle.center, circle.orient), length_center_to_hit);
 			return (length_center_to_hit);
+		}
 	}
 	return (0.0);
 }
 
 bool	hit_point_is_in_length(float *hit_point, t_cylinder *cylinder, t_ray *ray)
 {
-	t_vec	cylinder_length;
-	t_vec	cylinder_half;
+	t_vec	cylinder_top;
+	t_vec	cylinder_bottom;
 	t_vec	distance_to_hit_point;
 	t_vec	top_cap;
 	t_vec	bottom_cap;
 
-	cylinder_length = add(cylinder->point, 
-					multiply(cylinder->orient, cylinder->height / 2));
-	cylinder_half = add(cylinder->point, 
+	cylinder_top = add(cylinder->point, 
 					multiply(multiply(cylinder->orient, -1), 
 					cylinder->height / 2));
+	cylinder_bottom = add(cylinder->point, 
+					multiply(cylinder->orient, cylinder->height / 2));
 	distance_to_hit_point = add(ray->ori, multiply(ray->dir, *hit_point));
-	top_cap = substract(distance_to_hit_point, cylinder_half);
-	bottom_cap = substract(distance_to_hit_point, cylinder_length);
+	top_cap = substract(distance_to_hit_point, cylinder_top);
+	bottom_cap = substract(distance_to_hit_point, cylinder_bottom);
 	if (dot_product(cylinder->orient, top_cap) < 0.0 
 		|| dot_product(cylinder->orient, bottom_cap) > 0.0)
 		return (false);

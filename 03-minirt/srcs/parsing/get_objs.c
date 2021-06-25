@@ -81,6 +81,8 @@ void	get_triangle(char *line, t_info *infos, int add_mem)
 void	get_cylinder(char *line, t_info *infos, int add_mem)
 {
 	t_obj	*obj;
+	t_vec	orient;
+	float	diameter;
 
 	if (add_mem)
 		infos->objs = add_mem_obj(infos->nb_objs, infos->objs);
@@ -88,14 +90,15 @@ void	get_cylinder(char *line, t_info *infos, int add_mem)
 	obj->type = CYLINDER;
 	line = get_vector(line, &obj->shape.cy.point);
 	line = next_nbr(line);
-	line = get_vector(line, &obj->shape.cy.orient);
-	obj->shape.cy.orient = normalize(obj->shape.cy.orient);
+	line = get_vector(line, &orient);
+	obj->shape.cy.orient = normalize(orient);
 	line = next_nbr(line);
 	line = pass_spaces(line);
 	obj->shape.cy.height = ft_atof(line);
 	line = next_nbr(line);
 	line = pass_spaces(line);
-	obj->shape.cy.radius = ft_atof(line) / 2;
+	diameter = ft_atof(line);
+	obj->shape.cy.radius = diameter / 2;
 	get_color(line, &obj->color);
 	get_caps(infos);
 }
