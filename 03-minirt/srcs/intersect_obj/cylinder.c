@@ -24,19 +24,43 @@ void	cylinder_normal(t_rec *curr)
 	curr->hit.normal = normalize(substract(center_to_hitpoint, hit_length));
 }
 
+float		circle(t_ray *ray, t_rec *curr)
+{
+	t_vec	hit_point;
+	t_vec	center_to_hit;
+	float	length_center_to_hit;
+	t_circle	circle;
+	
+	circle = curr->obj.shape.circle;
+	if (plane(ray, curr, circle.center, circle.orient) >= 0.0)
+	{
+		hit_point = add(ray->ori, multiply(ray->dir, curr->hit.t));
+		center_to_hit = substract(hit_point, curr->obj.shape.circle.center);
+		length_center_to_hit = dot_product(center_to_hit, center_to_hit);
+		if (length_center_to_hit <= circle.radius * circle.radius)
+			return (length_center_to_hit);
+	}
+	return (0.0);
+}
+
 bool	hit_point_is_in_length(float *hit_point, t_cylinder *cylinder, t_ray *ray)
 {
 	t_vec	cylinder_length;
+	t_vec	cylinder_half;
 	t_vec	distance_to_hit_point;
-	float	entry_point;
-	float	exit_point;
+	t_vec	top_cap;
+	t_vec	bottom_cap;
 
 	cylinder_length = add(cylinder->point, 
-					multiply(cylinder->orient, cylinder->height));
+					multiply(cylinder->orient, cylinder->height / 2));
+	cylinder_half = add(cylinder->point, 
+					multiply(multiply(cylinder->orient, -1), 
+					cylinder->height / 2));
 	distance_to_hit_point = add(ray->ori, multiply(ray->dir, *hit_point));
-	entry_point = dot_product(cylinder->orient, substract(distance_to_hit_point, cylinder->point));
-	exit_point = dot_product(cylinder->orient, substract(distance_to_hit_point, cylinder_length));
-	if (entry_point < 0.0 || exit_point > 0.0)
+	top_cap = substract(distance_to_hit_point, cylinder_half);
+	bottom_cap = substract(distance_to_hit_point, cylinder_length);
+	if (dot_product(cylinder->orient, top_cap) < 0.0 
+		|| dot_product(cylinder->orient, bottom_cap) > 0.0)
 		return (false);
 	return (true);
 }
@@ -60,12 +84,7 @@ float	cylinder(t_ray *ray, t_rec *curr)
 	t_vec		center_to_ray;
 	t_cylinder	*cy;
 
-	//change ray->ori => to ray->origin
-	// tout les ori => origin. et orient = orient. Uniformiser.
-	//bien vérifier tous les noms, qu'ils soient clairs. 
-
 	cy = &curr->obj.shape.cy;
-	//here I'm calculating the radius thats perpendicular to the two vector I'm cross producting
 	radius_in_direction_ray = cross_product(ray->dir, cy->orient);
 	center_to_ray = substract(ray->ori, cy->point);
 	radius_in_direction_center = cross_product(center_to_ray, cy->orient);
@@ -77,6 +96,5 @@ float	cylinder(t_ray *ray, t_rec *curr)
 		return(get_right_intersection_point(ray, curr));
 	else
 		return (0.0);
-	
 }
 	

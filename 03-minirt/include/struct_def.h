@@ -87,6 +87,14 @@ typedef struct s_triangle
 	t_vec	point_z;
 }				t_triangle;
 
+typedef struct s_circle
+{
+	t_vec	center;
+	t_vec	orient;
+	float	radius;
+}				t_circle;
+
+
 typedef struct s_color
 {
 	int		t;
@@ -103,6 +111,7 @@ enum e_obj
 	SQUARE,
 	CYLINDER,
 	TRIANGLE,
+	CIRCLE,
 };
 
 typedef union u_type 
@@ -112,6 +121,7 @@ typedef union u_type
 	t_square	sq;
 	t_cylinder	cy;
 	t_triangle	tr;
+	t_circle	circle;
 }				t_type;
 
 /*
@@ -121,7 +131,7 @@ typedef union u_type
 typedef struct s_obj
 {
 	int		type;  //enum return so we know what type of union we have/get
-	t_type	shape; //union to allocate only one type of memory
+	t_type	shape; //union to allocate only one type of memory // RENAME 'IS'
 	t_color	color; //struct
 }				t_obj;
 

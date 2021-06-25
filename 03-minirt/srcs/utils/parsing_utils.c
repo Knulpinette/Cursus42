@@ -76,3 +76,31 @@ char	*get_vector(char *line, t_vec *vec)
 	vec->z = ft_atof(line);
 	return (line);
 }
+
+void	get_caps(t_info *infos)
+{
+	t_cylinder	*cy;
+	t_circle	*top_cap;
+	t_circle	*bottom_cap;
+	t_color		cy_color;
+
+	cy = &infos->objs[infos->nb_objs].shape.cy;
+	cy_color = infos->objs[infos->nb_objs].color;
+	//cy_color = set(0,255,0);
+	infos->nb_objs += 1;
+	infos->objs = add_mem_obj(infos->nb_objs, infos->objs);
+	infos->objs[infos->nb_objs].type = CIRCLE;
+	infos->objs[infos->nb_objs].color = cy_color;
+	top_cap = &infos->objs[infos->nb_objs].shape.circle;
+	top_cap->center = add(cy->point, multiply(cy->orient, cy->height / 2));
+	top_cap->radius = cy->radius;
+	top_cap->orient = cy->orient;
+	infos->nb_objs += 1;
+	infos->objs = add_mem_obj(infos->nb_objs, infos->objs);
+	infos->objs[infos->nb_objs].type = CIRCLE;
+	infos->objs[infos->nb_objs].color = cy_color;
+	bottom_cap = &infos->objs[infos->nb_objs].shape.circle;
+	bottom_cap->center = add(cy->point, multiply(cy->orient, -(cy->height / 2)));
+	bottom_cap->radius = cy->radius;
+	bottom_cap->orient = cy->orient;
+}

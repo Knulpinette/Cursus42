@@ -47,12 +47,13 @@ void		gen_cam_ray(int x, int y, t_rt *rt);
 void		check_if_it_hits_object(t_rt *rt);
 float		intersect_obj(t_ray *ray, t_rec *curr);
 float		sphere(t_ray *ray, t_rec *curr);
-float		plane(t_ray *ray, t_rec *curr);
+float		plane(t_ray *ray, t_rec *curr, t_vec point, t_vec orient);
 float		cylinder(t_ray *ray, t_rec *curr);
+float		circle(t_ray *ray, t_rec *curr);
 bool		solve_quadratic(t_params param, float *t0, float *t1);
 t_params	new_params(float a, float b, float c);
 void		sphere_normal(t_rec *curr);
-void		plane_normal(t_rec *curr, t_ray *cam_ray);
+void		plane_normal(t_rec *curr, t_ray *cam_ray, t_vec point, t_vec orient);
 void		cylinder_normal(t_rec *curr);
 
 /*
@@ -83,5 +84,6 @@ void		get_square(char *line, t_info *infos, int add_mem);
 void		get_plane(char *line, t_info *infos, int add_mem);
 void		get_cylinder(char *line, t_info *infos, int add_mem);
 void		get_triangle(char *line, t_info *infos, int add_mem);
+void		get_caps(t_info *infos);
 
 #endif

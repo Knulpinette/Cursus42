@@ -12,6 +12,8 @@
 
 #include "minirt.h"
 
+//refactor even better with t_sphere etc plutôt que obj comme raccourci.
+
 void	get_sphere(char *line, t_info *infos, int add_mem)
 {
 	t_obj	*obj;
@@ -93,8 +95,9 @@ void	get_cylinder(char *line, t_info *infos, int add_mem)
 	obj->shape.cy.height = ft_atof(line);
 	line = next_nbr(line);
 	line = pass_spaces(line);
-	obj->shape.cy.radius = ft_atof(line);
+	obj->shape.cy.radius = ft_atof(line) / 2;
 	get_color(line, &obj->color);
+	get_caps(infos);
 }
 
 /*
