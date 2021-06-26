@@ -36,7 +36,7 @@ float		circle(t_ray *ray, t_rec *curr)
 	result = plane(ray, curr, circle.center, circle.orient);
 	if (result >= 0.0)
 	{
-		hit_point = add(ray->ori, multiply(ray->dir, curr->hit.t));
+		hit_point = add(ray->origin, multiply(ray->dir, curr->hit.t));
 		center_to_hit = substract(hit_point, curr->obj.shape.circle.center);
 		length_center_to_hit = dot_product(center_to_hit, center_to_hit);
 		if (length_center_to_hit <= circle.radius * circle.radius)
@@ -58,7 +58,7 @@ bool	hit_point_is_in_length(float *hit_point, t_cylinder *cylinder, t_ray *ray)
 					cylinder->height / 2));
 	cylinder_bottom = add(cylinder->point, 
 					multiply(cylinder->orient, cylinder->height / 2));
-	distance_to_hit_point = add(ray->ori, multiply(ray->dir, *hit_point));
+	distance_to_hit_point = add(ray->origin, multiply(ray->dir, *hit_point));
 	top_cap = substract(distance_to_hit_point, cylinder_top);
 	bottom_cap = substract(distance_to_hit_point, cylinder_bottom);
 	if (dot_product(cylinder->orient, top_cap) < 0.0 
@@ -88,7 +88,7 @@ float	cylinder(t_ray *ray, t_rec *curr)
 
 	cy = &curr->obj.shape.cy;
 	radius_in_direction_ray = cross_product(ray->dir, cy->orient);
-	center_to_ray = substract(ray->ori, cy->point);
+	center_to_ray = substract(ray->origin, cy->point);
 	radius_in_direction_center = cross_product(center_to_ray, cy->orient);
 	param.a = dot_product(radius_in_direction_ray, radius_in_direction_ray);
 	param.b = dot_product(radius_in_direction_ray, radius_in_direction_center);

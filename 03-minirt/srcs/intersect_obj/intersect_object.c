@@ -22,6 +22,8 @@ static void	get_obj_normal(t_rec *curr)
 		cylinder_normal(curr);
 	if (curr->obj.type == CIRCLE)
 		curr->hit.normal = normalize(curr->obj.shape.circle.orient);
+	if (curr->obj.type == SQUARE)
+		curr->hit.normal = normalize(curr->hit.point);
 }
 
 float		intersect_obj(t_ray *ray, t_rec *curr)
@@ -39,6 +41,8 @@ float		intersect_obj(t_ray *ray, t_rec *curr)
 		return (cylinder(ray, curr));
 	if (curr->obj.type == CIRCLE)
 		return (circle(ray, curr));
+	if (curr->obj.type == SQUARE)
+		return (square(ray, curr));
 	return (0);
 }
 
@@ -64,7 +68,8 @@ void		check_if_it_hits_object(t_rt *rt)
 	}
 	if (rt->curr.hit.t != INFINITY)
 	{
-		rt->curr.hit.point = add(rt->cam_ray.ori, multiply(rt->cam_ray.dir, rt->curr.hit.t));
+		rt->curr.hit.point = add(rt->cam_ray.origin,
+							multiply(rt->cam_ray.dir, rt->curr.hit.t));
 		get_obj_normal(&rt->curr);
 	}
 }

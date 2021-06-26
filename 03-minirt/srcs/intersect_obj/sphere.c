@@ -27,7 +27,7 @@ float	sphere(t_ray *ray, t_rec *curr)
 	t_params	param;
 
 	sp = &curr->obj.shape.sp;	
-	center_origin = substract(ray->ori, sp->point);
+	center_origin = substract(ray->origin, sp->point);
 	param.a = dot_product(ray->dir, ray->dir);
 	param.b = dot_product(center_origin, ray->dir);
 	param.c = dot_product(center_origin, center_origin)

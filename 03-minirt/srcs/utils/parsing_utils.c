@@ -31,7 +31,8 @@ char	*next_nbr(char *line, t_info *infos)
 		&& *line == ',')
 		line++;
 	if (line == o_line)
-		handle_error("parsing nbr", infos);
+		handle_error("🔢 Character is in the wild. Danger. Can't parse.",
+					 infos);
 	return (line);
 	(void)infos;
 }
@@ -44,7 +45,8 @@ char	*pass_spaces(char *line, t_info *infos)
 	while (*line == ' ' || *line == 9)
 		line++;
 	if (line == o_line)
-		handle_error("parsing spaces", infos);
+		handle_error("⌨️ There's a lonely character attached to a number.",
+						infos);
 	return (line);
 }
 
@@ -60,7 +62,8 @@ void	get_color(char *line, t_color *color, t_info *infos)
 	if ((color->r < 0 || color->r > 255) \
 		|| (color->g < 0 || color->g > 255) \
 		|| (color->b < 0 || color->b > 255))
-		handle_error("parsing color", infos);
+		handle_error("🎨 Color values should in between 0 and 255.",
+						infos);
 	color->rgb = create_color(*color);
 }
 

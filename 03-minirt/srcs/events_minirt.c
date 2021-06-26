@@ -12,11 +12,9 @@
 
 #include "minirt.h"
 
-// ATTENTION ! GET RID OF APPLE / LINUX CODE
-
-
 int exit_and_free_X(t_rt *rt)
 {
+    printf("\n\n"COLOR_YELLOW"👋 Bye bye 👋\n\n");
     del_mem_infos(rt->infos);
     mlx_clear_window(rt->mlx, rt->win);
     mlx_destroy_window(rt->mlx, rt->win);
@@ -24,23 +22,29 @@ int exit_and_free_X(t_rt *rt)
     return (yes);
 }
 
-int exit_and_free_ESC(int keycode, t_rt *rt)
+int change_cam(int keycode, t_rt *rt)
 {
-	int	ESC_KEY;
+	static int curr_cam = 0;
 
-	#if __APPLE__
-	ESC_KEY = 53;
-	#else
-	ESC_KEY = 65307;
-	#endif
-
-    if (keycode == ESC_KEY)
+    if (keycode == KEY_RIGHT)
     {
-        del_mem_infos(rt->infos);
-        mlx_clear_window(rt->mlx, rt->win);
-        mlx_destroy_window(rt->mlx, rt->win);
-        exit(EXIT_SUCCESS);
-		return(yes);
+		if (curr_cam < rt->infos->scene->nb_cam - 1)
+		{
+			rt->curr.cam = rt->infos->scene->cam[curr_cam + 1];
+			curr_cam += 1;
+			create_img(rt);
+			return(yes);
+		}
     }
+	if (keycode == KEY_LEFT)
+	{
+	 	if (curr_cam > 0)
+		{
+			rt->curr.cam = rt->infos->scene->cam[curr_cam - 1];
+			curr_cam -= 1;
+			create_img(rt);
+			return(yes);
+		}
+	}
     return (no);
 }

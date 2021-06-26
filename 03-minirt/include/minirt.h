@@ -25,6 +25,8 @@
 # include "../libft/libft.h"
 # include "struct_def.h"
 # include "utils.h"
+# include "keys.h"
+# include "colors.h"
 
 enum e_y_or_no
 {
@@ -50,6 +52,7 @@ float		sphere(t_ray *ray, t_rec *curr);
 float		plane(t_ray *ray, t_rec *curr, t_vec point, t_vec orient);
 float		cylinder(t_ray *ray, t_rec *curr);
 float		circle(t_ray *ray, t_rec *curr);
+float		square(t_ray *ray, t_rec *curr);
 bool		solve_quadratic(t_params param, float *t0, float *t1);
 t_params	new_params(float a, float b, float c);
 void		sphere_normal(t_rec *curr);
@@ -62,12 +65,12 @@ void		cylinder_normal(t_rec *curr);
 void		get_pixel_color(t_rt *rt);
 
 /*
-**	Window management
+**	Window management & Events
 */
 
 void		create_img(t_rt *rt);
 int			exit_and_free_X(t_rt *rt);
-int			exit_and_free_ESC(int keycode, t_rt *rt);
+int			change_cam(int keycode, t_rt *rt);
 
 /*
 **	Parsing

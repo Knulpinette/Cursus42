@@ -19,19 +19,6 @@
 **	Error Handling
 */
 
-enum e_errors {
-	NOT_CLOSED = 1,
-	NOT_READ,
-	NOT_OPEN,
-	NO_WINDOW,
-	PARSING_SCENE,
-	PARSING_OBJS,
-	PARSING_COLOR,
-	PARSING_SPACE,
-	PARSING_NBR,
-};
-
-//void		handle_error(int error);
 void		handle_error(char *error, t_info *infos);
 
 /*

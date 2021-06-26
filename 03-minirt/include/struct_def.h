@@ -131,7 +131,7 @@ typedef union u_type
 typedef struct s_obj
 {
 	int		type;  //enum return so we know what type of union we have/get
-	t_type	shape; //union to allocate only one type of memory // RENAME 'IS'
+	t_type	shape; //union to allocate only one type of memory
 	t_color	color; //struct
 }				t_obj;
 
@@ -147,7 +147,7 @@ typedef struct s_res
 	
 typedef struct 	s_ambient
 {
-	float		r;
+	float	r;
 	t_color	color;
 }				t_ambient;
 
@@ -196,8 +196,8 @@ typedef struct s_info
 
 typedef struct	s_ray 
 {
-	t_vec	ori; //origin
-	t_vec	dir; //direction
+	t_vec	origin;
+	t_vec	dir;
 }				t_ray;
 
 

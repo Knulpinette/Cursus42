@@ -80,9 +80,9 @@ void	gen_cam_ray(int x, int y, t_rt *rt)
 
 	cam = &rt->curr.cam;
 	cam_to_world = look_at(cam->point, cam->orient);
-	rt->cam_ray.ori = cam->point;
+	rt->cam_ray.origin = cam->point;
 	unit_vector_2D = get_2D_plane(x, y, rt);
 	matrix_plane_2D = multiply_by_matrix(unit_vector_2D, cam_to_world);
-	orient_plane_2D = substract(matrix_plane_2D, rt->cam_ray.ori);
+	orient_plane_2D = substract(matrix_plane_2D, rt->cam_ray.origin);
 	rt->cam_ray.dir = normalize(orient_plane_2D); 
 }

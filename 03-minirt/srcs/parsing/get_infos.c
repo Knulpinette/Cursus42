@@ -34,7 +34,7 @@ static void	parse_obj(char *line, t_info *infos)
 	else if (*line == 't' && *(line + 1) == 'r' && *(line + 2) == ' ')
 		get_triangle((line + 2), infos, add_mem);
 	else
-		handle_error("parsing_obj", infos);
+		handle_error("While parsing the objects.", infos);
 	infos->nb_objs += 1;
 }
 
@@ -67,7 +67,7 @@ static void	parse(char *line, t_info *infos)
 
 	while (*line == ' ')
 		line++;
-	if (ft_isalnum(*line)) // check that for all cases (no spaces) => also whitespace or tab ok or not ?
+	if (ft_isalnum(*line))
 	{
 		if ((*line == 'R' && *(line + 1) == ' ') && res == no)
 		{
@@ -86,7 +86,7 @@ static void	parse(char *line, t_info *infos)
 		else if (*line == 'c' || *line == 's' || *line == 'p' || *line == 't')
 			parse_obj(line, infos);
 		else
-			handle_error("parsing scene", infos);
+			handle_error("While parsing the elements' names.", infos);
 	}
 }
 
@@ -99,17 +99,17 @@ void	get_infos(char *argv, t_rt *rt)
 
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
-		handle_error("not open", rt->infos);
+		handle_error("Cannot open file", rt->infos);
 	init = init_objs(rt);
 	if (!init)
-		handle_error("not read", rt->infos);
+		handle_error("Cannot initiate the struct elements.", rt->infos);
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
 		parse(line, rt->infos);
 		free(line);
 	}
 	if (ret == -1)
-		handle_error("not read", rt->infos);
+		handle_error("Cannot read the file.", rt->infos);
 	else if (!ret && line)
 	{
 		if (line)
@@ -117,5 +117,5 @@ void	get_infos(char *argv, t_rt *rt)
 		free(line);
 	}
 	if (close(fd) < 0)
-		handle_error("not closed", rt->infos);
+		handle_error("Cannot close the file.", rt->infos);
 }
