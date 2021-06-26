@@ -12,56 +12,66 @@
 
 #include "minirt.h"
 
-void	get_res(char *line, t_scene *scene)
+void	get_res(char *line, t_info *infos)
 {
-	line = pass_spaces(line);
-	scene->res.x = ft_atoi(line);
+	t_res	*res;
+
+	res = &infos->scene->res;
+	line = pass_spaces(line, infos);
+	res->x = ft_atoi(line);
 	while (ft_isdigit(*line))
 		line++;
-	line = pass_spaces(line);
-	scene->res.y = ft_atoi(line);
-	if (scene->res.x < 0 || scene->res.y < 0)
-		handle_error(PARSING_SCENE);
+	line = pass_spaces(line, infos);
+	res->y = ft_atoi(line);
+	if (res->x < 0 || res->y < 0)
+		handle_error("parsing scene", infos);
 }
 
-void	get_amb(char *line, t_scene *scene)
+void	get_amb(char *line, t_info *infos)
 {
-	scene->amb.r = ft_atof(line);
-	if (scene->amb.r < 0.0 || scene->amb.r > 1.0)
-		handle_error(PARSING_SCENE);
-	line = pass_spaces(line);
-	get_color(line, &scene->amb.color);
+	t_ambient	*amb;
+
+	amb = &infos->scene->amb;
+	amb->r = ft_atof(line);
+	if (amb->r < 0.0 || amb->r > 1.0)
+		handle_error("parsing scene", infos);
+	line = pass_spaces(line, infos);
+	get_color(line, &amb->color, infos);
 }
 
-void	get_light(char *line, t_scene *scene, int add_mem)
+void	get_light(char *line, t_info *infos, int add_mem)
 {
-	int	current;
+	int		current;
+	t_scene	*scene;
 
+	scene = infos->scene;
 	current = scene->nb_light;
 	if (add_mem)
 		scene->light = add_mem_light(scene->nb_light, scene->light);
-	line = get_vector(line, &scene->light[current].point);
-	line = next_nbr(line);
-	line = pass_spaces(line);
+	line = get_vector(line, &scene->light[current].point, infos);
+	line = next_nbr(line, infos);
+	line = pass_spaces(line, infos);
 	scene->light[current].bright = ft_atof(line);
 	if (scene->light[current].bright < 0.0 || scene->light[current].bright > 1.0)
-		handle_error(PARSING_SCENE);
-	get_color(line, &scene->light[current].color);
+		handle_error("parsing scene", infos);
+	get_color(line, &scene->light[current].color, infos);
 }
 
-void	get_cam(char *line, t_scene *scene, int add_mem)
+void	get_cam(char *line, t_info *infos, int add_mem)
 {
-	int	current;
+	int		current;
+	t_scene	*scene;
 
+	scene = infos->scene;
 	current = scene->nb_cam;
 	if (add_mem)
 		scene->cam = add_mem_cam(scene->nb_cam, scene->cam);
-	line = get_vector(line, &scene->cam[current].point);
-	line = next_nbr(line);
-	line = get_vector(line, &scene->cam[current].orient);
+	line = get_vector(line, &scene->cam[current].point, infos);
+	line = next_nbr(line, infos);
+	line = get_vector(line, &scene->cam[current].orient, infos);
 	scene->cam[current].orient = normalize(scene->cam[current].orient);
-	line = next_nbr(line);
-	line = pass_spaces(line);
+	line = next_nbr(line, infos);
+	line = pass_spaces(line, infos);
 	scene->cam[current].FOV = ft_atof(line);
 }
 

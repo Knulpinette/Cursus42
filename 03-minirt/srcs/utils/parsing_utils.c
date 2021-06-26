@@ -18,10 +18,7 @@
 ** 🦕
 */
 
-// DO ERROR HANDLING OF PARSING IN THOSE FUNCTIONS !
-// CHECK HOW STRERROR WORKS
-
-char	*next_nbr(char *line)
+char	*next_nbr(char *line, t_info *infos)
 {
 	char	*o_line;
 
@@ -34,11 +31,12 @@ char	*next_nbr(char *line)
 		&& *line == ',')
 		line++;
 	if (line == o_line)
-		handle_error(PARSING_NBR);
+		handle_error("parsing nbr", infos);
 	return (line);
+	(void)infos;
 }
 
-char	*pass_spaces(char *line)
+char	*pass_spaces(char *line, t_info *infos)
 {
 	char	*o_line;
 
@@ -46,33 +44,33 @@ char	*pass_spaces(char *line)
 	while (*line == ' ' || *line == 9)
 		line++;
 	if (line == o_line)
-		handle_error(PARSING_SPACE);
+		handle_error("parsing spaces", infos);
 	return (line);
 }
 
-void	get_color(char *line, t_color *color)
+void	get_color(char *line, t_color *color, t_info *infos)
 {
-	line = next_nbr(line);
-	line = pass_spaces(line);
+	line = next_nbr(line, infos);
+	line = pass_spaces(line, infos);
 	color->r = ft_atoi(line);
-	line = next_nbr(line);
+	line = next_nbr(line, infos);
 	color->g = ft_atoi(line);
-	line = next_nbr(line);
+	line = next_nbr(line, infos);
 	color->b = ft_atoi(line);
 	if ((color->r < 0 || color->r > 255) \
 		|| (color->g < 0 || color->g > 255) \
 		|| (color->b < 0 || color->b > 255))
-		handle_error(PARSING_COLOR);
+		handle_error("parsing color", infos);
 	color->rgb = create_color(*color);
 }
 
-char	*get_vector(char *line, t_vec *vec)
+char	*get_vector(char *line, t_vec *vec, t_info *infos)
 {
-	line = pass_spaces(line);
+	line = pass_spaces(line, infos);
 	vec->x = ft_atof(line);
-	line = next_nbr(line);
+	line = next_nbr(line, infos);
 	vec->y = ft_atof(line);
-	line = next_nbr(line);
+	line = next_nbr(line, infos);
 	vec->z = ft_atof(line);
 	return (line);
 }
@@ -86,7 +84,6 @@ void	get_caps(t_info *infos)
 
 	cy = &infos->objs[infos->nb_objs].shape.cy;
 	cy_color = infos->objs[infos->nb_objs].color;
-	//cy_color = set(0,255,0);
 	infos->nb_objs += 1;
 	infos->objs = add_mem_obj(infos->nb_objs, infos->objs);
 	infos->objs[infos->nb_objs].type = CIRCLE;
@@ -100,7 +97,7 @@ void	get_caps(t_info *infos)
 	infos->objs[infos->nb_objs].type = CIRCLE;
 	infos->objs[infos->nb_objs].color = cy_color;
 	bottom_cap = &infos->objs[infos->nb_objs].shape.circle;
-	bottom_cap->center = add(cy->point, multiply(cy->orient, -(cy->height / 2)));
+	bottom_cap->center = add(cy->point, multiply(cy->orient, -cy->height / 2));
 	bottom_cap->radius = cy->radius;
 	bottom_cap->orient = cy->orient;
 }

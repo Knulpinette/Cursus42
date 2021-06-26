@@ -12,26 +12,27 @@
 
 #include "minirt.h"
 
-void	init_objs(t_rt *rt)
+int		init_objs(t_rt *rt)
 {
 	t_info	*init;
 
 	rt->curr.obj.type = 0;
 	rt->infos = ft_calloc(sizeof(t_info), 1);
 	if (!rt->infos)
-		return ;
+		return (no);
 	init = rt->infos;
 	init->nb_objs = 0;
 	init->scene = ft_calloc(sizeof(t_scene), 1);
 	if (!init->scene)
-		return ;
+		return (no);
 	init->scene->nb_cam = 0;
 	init->scene->nb_light = 0;
 	init->scene->cam = ft_calloc(sizeof(t_camera), 1);
 	init->scene->light = ft_calloc(sizeof(t_light), 1);
 	init->objs = ft_calloc(sizeof(t_obj), 1);
 	if (!init->objs)
-		return ;
+		return (no);
+	return (yes);
 }
 
 t_obj	*add_mem_obj(int nb_objs, t_obj *objs)
@@ -87,9 +88,13 @@ t_light	*add_mem_light(int nb_light, t_light *light)
 
 void	del_mem_infos(t_info *infos)
 {
-	free(infos->scene->cam);
-	free(infos->scene->light);
-	free(infos->scene);
-	free(infos->objs);
+	if (infos->scene->cam)
+		free(infos->scene->cam);
+	if (infos->scene->light)
+		free(infos->scene->light);
+	if (infos->scene)
+		free(infos->scene);
+	if (infos->objs)
+		free(infos->objs);
 	free((void *)infos);
 }

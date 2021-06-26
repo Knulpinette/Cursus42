@@ -74,15 +74,15 @@ int			exit_and_free_ESC(int keycode, t_rt *rt);
 */
 
 void		get_infos(char *argv, t_rt *rt);
-void		get_res(char *line, t_scene *scene);
-void		get_amb(char *line, t_scene *scene);
-void		get_cam(char *line, t_scene *scene, int add_mem);
-void		get_light(char *line, t_scene *scene, int add_mem);
+void		get_res(char *line, t_info *infos);
+void		get_amb(char *line, t_info *infos);
+void		get_cam(char *line, t_info *infos, int add_mem);
+void		get_light(char *line, t_info *infos, int add_mem);
 void		get_sphere(char *line, t_info *infos, int add_mem);
 void		get_square(char *line, t_info *infos, int add_mem);
 void		get_plane(char *line, t_info *infos, int add_mem);
-void		get_cylinder(char *line, t_info *infos, int add_mem);
 void		get_triangle(char *line, t_info *infos, int add_mem);
+void		get_cylinder(char *line, t_info *infos, int add_mem);
 void		get_caps(t_info *infos);
 
 #endif

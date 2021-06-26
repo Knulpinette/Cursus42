@@ -22,11 +22,11 @@ void	get_sphere(char *line, t_info *infos, int add_mem)
 		infos->objs = add_mem_obj(infos->nb_objs, infos->objs);
 	obj = &infos->objs[infos->nb_objs];
 	obj->type = SPHERE;
-	line = get_vector(line, &obj->shape.sp.point);
-	line = next_nbr(line);
-	line = pass_spaces(line);
+	line = get_vector(line, &obj->shape.sp.point, infos);
+	line = next_nbr(line, infos);
+	line = pass_spaces(line, infos);
 	obj->shape.sp.radius = ft_atof(line);
-	get_color(line, &obj->color);
+	get_color(line, &obj->color, infos);
 }
 
 void	get_square(char *line, t_info *infos, int add_mem)
@@ -37,14 +37,14 @@ void	get_square(char *line, t_info *infos, int add_mem)
 		infos->objs = add_mem_obj(infos->nb_objs, infos->objs);
 	obj = &infos->objs[infos->nb_objs];
 	obj->type = SQUARE;
-	line = get_vector(line, &obj->shape.sq.point);
-	line = next_nbr(line);
-	line = get_vector(line, &obj->shape.sq.orient);
-	line = next_nbr(line);
-	line = pass_spaces(line);
+	line = get_vector(line, &obj->shape.sq.point, infos);
+	line = next_nbr(line, infos);
+	line = get_vector(line, &obj->shape.sq.orient, infos);
+	line = next_nbr(line, infos);
+	line = pass_spaces(line, infos);
 	obj->shape.sq.orient = normalize(obj->shape.sq.orient);
 	obj->shape.sq.side = ft_atof(line);
-	get_color(line, &obj->color);
+	get_color(line, &obj->color, infos);
 }
 
 void	get_plane(char *line, t_info *infos, int add_mem)
@@ -55,11 +55,11 @@ void	get_plane(char *line, t_info *infos, int add_mem)
 		infos->objs = add_mem_obj(infos->nb_objs, infos->objs);
 	obj = &infos->objs[infos->nb_objs];
 	obj->type = PLANE;
-	line = get_vector(line, &obj->shape.pl.point);
-	line = next_nbr(line);
-	line = get_vector(line, &obj->shape.pl.orient);
+	line = get_vector(line, &obj->shape.pl.point, infos);
+	line = next_nbr(line, infos);
+	line = get_vector(line, &obj->shape.pl.orient, infos);
 	obj->shape.pl.orient = normalize(obj->shape.pl.orient);
-	get_color(line, &obj->color);
+	get_color(line, &obj->color, infos);
 }
 
 void	get_triangle(char *line, t_info *infos, int add_mem)
@@ -70,36 +70,38 @@ void	get_triangle(char *line, t_info *infos, int add_mem)
 		infos->objs = add_mem_obj(infos->nb_objs, infos->objs);
 	obj = &infos->objs[infos->nb_objs];
 	obj->type = TRIANGLE;
-	line = get_vector(line, &obj->shape.tr.point_x);
-	line = next_nbr(line);
-	line = get_vector(line, &obj->shape.tr.point_y);
-	line = next_nbr(line);
-	line = get_vector(line, &obj->shape.tr.point_z);
-	get_color(line, &obj->color);
+	line = get_vector(line, &obj->shape.tr.point_x, infos);
+	line = next_nbr(line, infos);
+	line = get_vector(line, &obj->shape.tr.point_y, infos);
+	line = next_nbr(line, infos);
+	line = get_vector(line, &obj->shape.tr.point_z, infos);
+	get_color(line, &obj->color, infos);
 }
 
 void	get_cylinder(char *line, t_info *infos, int add_mem)
 {
-	t_obj	*obj;
-	t_vec	orient;
-	float	diameter;
+	t_obj		*obj;
+	t_cylinder	*cylinder;
+	t_vec		orient;
+	float		diameter;
 
 	if (add_mem)
 		infos->objs = add_mem_obj(infos->nb_objs, infos->objs);
 	obj = &infos->objs[infos->nb_objs];
 	obj->type = CYLINDER;
-	line = get_vector(line, &obj->shape.cy.point);
-	line = next_nbr(line);
-	line = get_vector(line, &orient);
-	obj->shape.cy.orient = normalize(orient);
-	line = next_nbr(line);
-	line = pass_spaces(line);
-	obj->shape.cy.height = ft_atof(line);
-	line = next_nbr(line);
-	line = pass_spaces(line);
+	cylinder = &infos->objs[infos->nb_objs].shape.cy;
+	line = get_vector(line, &cylinder->point, infos);
+	line = next_nbr(line, infos);
+	line = get_vector(line, &orient, infos);
+	cylinder->orient = normalize(orient);
+	line = next_nbr(line, infos);
+	line = pass_spaces(line, infos);
+	cylinder->height = ft_atof(line);
+	line = next_nbr(line, infos);
+	line = pass_spaces(line, infos);
 	diameter = ft_atof(line);
-	obj->shape.cy.radius = diameter / 2;
-	get_color(line, &obj->color);
+	cylinder->radius = diameter / 2;
+	get_color(line, &obj->color, infos);
 	get_caps(infos);
 }
 

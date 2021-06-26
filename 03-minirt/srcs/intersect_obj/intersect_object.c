@@ -16,12 +16,12 @@ static void	get_obj_normal(t_rec *curr)
 {
 	if (curr->obj.type == PLANE)
 		curr->hit.normal = normalize(curr->obj.shape.pl.orient);
-	if (curr->obj.type == CIRCLE)
-		curr->hit.normal = normalize(curr->obj.shape.circle.orient);
 	if (curr->obj.type == SPHERE)
 		sphere_normal(curr);
 	if (curr->obj.type == CYLINDER)
 		cylinder_normal(curr);
+	if (curr->obj.type == CIRCLE)
+		curr->hit.normal = normalize(curr->obj.shape.circle.orient);
 }
 
 float		intersect_obj(t_ray *ray, t_rec *curr)

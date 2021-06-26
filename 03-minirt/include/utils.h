@@ -31,7 +31,8 @@ enum e_errors {
 	PARSING_NBR,
 };
 
-void		handle_error(int error);
+//void		handle_error(int error);
+void		handle_error(char *error, t_info *infos);
 
 /*
 **	Rendering
@@ -69,16 +70,16 @@ t_color		convert_to_max(t_color color);
 **	Parsing
 */
 
-char		*next_nbr(char *line);
-char		*pass_spaces(char *line);
-char		*get_vector(char *line, t_vec *vec);
-void		get_color(char *line, t_color *color);
+char		*next_nbr(char *line, t_info *infos);
+char		*pass_spaces(char *line, t_info *infos);
+char		*get_vector(char *line, t_vec *vec, t_info *infos);
+void		get_color(char *line, t_color *color, t_info *infos);
 
 /*
 **	Memory utils
 */
 
-void		init_objs(t_rt *rt);
+int			init_objs(t_rt *rt);
 void		del_mem_infos(t_info *infos);
 t_obj		*add_mem_obj(int nb_objs, t_obj *objs);
 t_light		*add_mem_light(int nb_light, t_light *light);

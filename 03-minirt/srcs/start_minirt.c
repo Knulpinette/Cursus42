@@ -123,9 +123,9 @@ static void	create_window(t_rt *rt)
 void	start_minirt(t_rt *rt)
 {
 	if (rt->infos->scene->res.x == 0 || rt->infos->scene->res.y == 0)
-		handle_error(PARSING_SCENE);
+		handle_error("parsing scene", rt->infos);
 	if (rt->infos->scene->nb_cam == 0)
-		handle_error(PARSING_SCENE);
+		handle_error("parsing scene", rt->infos);
 	else
 		rt->curr.cam = rt->infos->scene->cam[0];
 	create_window(rt);

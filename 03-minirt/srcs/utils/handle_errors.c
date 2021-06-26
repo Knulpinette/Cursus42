@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-void	handle_error(int error)
+/*void	handle_error(int error)
 {
 	if (error == NOT_OPEN)
 		printf("ERROR : can't open file\n");
@@ -32,5 +32,16 @@ void	handle_error(int error)
 		printf("ERROR : when parsing spaces\n");	
 	if (error == PARSING_NBR)
 		printf("ERROR : wrong nbr of arguments in line\n");
+	exit(EXIT_SUCCESS);
+}*/
+
+//ATTENTION !! DEBUGGER POUR RETOURNER ERREUR SI PAS DE CAMERA ou de RESOLUTION
+//also put up warning when no objects etc
+//also put up pretty stuff so that there's a progress bar etc.
+
+void	handle_error(char *error, t_info *infos)
+{
+	del_mem_infos(infos);
+	printf("Error\n %s", error);
 	exit(EXIT_SUCCESS);
 }
