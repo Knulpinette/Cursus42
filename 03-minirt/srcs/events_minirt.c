@@ -26,25 +26,24 @@ int change_cam(int keycode, t_rt *rt)
 {
 	static int curr_cam = 0;
 
-    if (keycode == KEY_RIGHT)
+    if (keycode == KEY_RIGHT && 
+		curr_cam < rt->infos->scene->nb_cam - 1)
     {
-		if (curr_cam < rt->infos->scene->nb_cam - 1)
-		{
-			rt->curr.cam = rt->infos->scene->cam[curr_cam + 1];
-			curr_cam += 1;
-			create_img(rt);
-			return(yes);
-		}
+		rt->curr.cam = rt->infos->scene->cam[curr_cam + 1];
+		curr_cam += 1;
+		create_img(rt);
+		if (curr_cam == rt->infos->scene->nb_cam - 1)
+			printf("🎥 Last Camera\n");
+		return(yes);
     }
-	if (keycode == KEY_LEFT)
+	if (keycode == KEY_LEFT && curr_cam > 0)
 	{
-	 	if (curr_cam > 0)
-		{
-			rt->curr.cam = rt->infos->scene->cam[curr_cam - 1];
-			curr_cam -= 1;
-			create_img(rt);
-			return(yes);
-		}
+	 	rt->curr.cam = rt->infos->scene->cam[curr_cam - 1];
+		curr_cam -= 1;
+		create_img(rt);
+		if (curr_cam == 0)
+			printf("🎥 First Camera\n");
+		return(yes);
 	}
     return (no);
 }

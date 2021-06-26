@@ -25,6 +25,7 @@ void	get_res(char *line, t_info *infos)
 	res->y = ft_atoi(line);
 	if (res->x < 0 || res->y < 0)
 		handle_error("📏 Resolution is negative.\n", infos);
+	line = next_nbr(line, infos);
 }
 
 void	get_amb(char *line, t_info *infos)

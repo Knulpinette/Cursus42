@@ -106,6 +106,7 @@ void	get_infos(char *argv, t_rt *rt)
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
 		parse(line, rt->infos);
+		//verify_end_line(line, rt->infos);
 		free(line);
 	}
 	if (ret == -1)

@@ -22,6 +22,7 @@
 # include <fcntl.h>
 # include <errno.h>
 # include <stdbool.h>
+# include <limits.h>
 # include <pthread.h>
 # include "../libft/libft.h"
 # include "struct_def.h"

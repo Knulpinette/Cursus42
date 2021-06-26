@@ -18,3 +18,23 @@ void	handle_error(char *error, t_info *infos)
 	printf(""COLOR_RED"Error\n"COLOR_WHITE"%s\n", error);
 	exit(EXIT_SUCCESS);
 }
+
+void	verify_end_line(char *line, t_info *infos)
+{
+	char c;
+	int	i;
+
+	i = 0;
+	c = 0xd;
+	//line = next_nbr(line, infos);
+	while (*line && *line == ' ')
+	{
+		printf("%c || %x >> %i\n", *line, *line, i);
+		line++;
+		i++;
+	}
+	printf("%x >> %i\n", *line, i);
+	if (*line != c)
+		handle_error("You have a wandering character at the end of a line.\n",
+						infos);
+}

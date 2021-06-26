@@ -13,8 +13,6 @@
 #include "minirt.h"
 
 //Figure out CAM ANGLE problem
-//Do Antialiasing
-//Do charging bar
 //Figure out more events and how to write stuff with changing the cam
 //Do a text at the beginning to explain how it works
 
