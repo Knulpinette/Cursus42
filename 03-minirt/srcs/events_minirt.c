@@ -14,7 +14,7 @@
 
 int exit_and_free_X(t_rt *rt)
 {
-    printf("\n\n"COLOR_YELLOW"👋 Bye bye 👋\n\n");
+    printf("\n"COLOR_YELLOW"👋 Bye bye 👋\n\n");
     del_mem_infos(rt->infos);
     mlx_clear_window(rt->mlx, rt->win);
     mlx_destroy_window(rt->mlx, rt->win);

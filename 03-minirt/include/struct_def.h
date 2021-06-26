@@ -82,9 +82,9 @@ typedef struct s_cylinder
 
 typedef struct s_triangle
 {
-	t_vec	point_x;
-	t_vec	point_y;
-	t_vec	point_z;
+	t_vec	point1;
+	t_vec	point2;
+	t_vec	point3;
 }				t_triangle;
 
 typedef struct s_circle

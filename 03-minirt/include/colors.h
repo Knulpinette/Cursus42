@@ -17,7 +17,7 @@
 ** Color codes
 */
 
-# define COLOR_NC "\e[0m"
+# define COLOR_END "\e[0m"
 # define COLOR_BLACK "\e[0;30m"
 # define COLOR_BOLDGRAY "\e[1;30m"
 # define COLOR_RED "\e[0;31m"

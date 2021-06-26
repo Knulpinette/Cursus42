@@ -31,7 +31,7 @@ char	*next_nbr(char *line, t_info *infos)
 		&& *line == ',')
 		line++;
 	if (line == o_line)
-		handle_error("🔢 Character is in the wild. Danger. Can't parse.",
+		handle_error("🔢 Character is in the wild. Danger. Can't parse.\n",
 					 infos);
 	return (line);
 	(void)infos;
@@ -45,7 +45,7 @@ char	*pass_spaces(char *line, t_info *infos)
 	while (*line == ' ' || *line == 9)
 		line++;
 	if (line == o_line)
-		handle_error("⌨️ There's a lonely character attached to a number.",
+		handle_error("⌨️ There's a lonely character attached to a number.\n",
 						infos);
 	return (line);
 }
@@ -62,7 +62,7 @@ void	get_color(char *line, t_color *color, t_info *infos)
 	if ((color->r < 0 || color->r > 255) \
 		|| (color->g < 0 || color->g > 255) \
 		|| (color->b < 0 || color->b > 255))
-		handle_error("🎨 Color values should in between 0 and 255.",
+		handle_error("🎨 Color values should in between 0 and 255.\n",
 						infos);
 	color->rgb = create_color(*color);
 }
@@ -81,26 +81,25 @@ char	*get_vector(char *line, t_vec *vec, t_info *infos)
 void	get_caps(t_info *infos)
 {
 	t_cylinder	*cy;
-	t_circle	*top_cap;
-	t_circle	*bottom_cap;
+	t_circle	*cap;
 	t_color		cy_color;
-
+	int			i;
+	
 	cy = &infos->objs[infos->nb_objs].shape.cy;
 	cy_color = infos->objs[infos->nb_objs].color;
-	infos->nb_objs += 1;
-	infos->objs = add_mem_obj(infos->nb_objs, infos->objs);
-	infos->objs[infos->nb_objs].type = CIRCLE;
-	infos->objs[infos->nb_objs].color = cy_color;
-	top_cap = &infos->objs[infos->nb_objs].shape.circle;
-	top_cap->center = add(cy->point, multiply(cy->orient, cy->height / 2));
-	top_cap->radius = cy->radius;
-	top_cap->orient = cy->orient;
-	infos->nb_objs += 1;
-	infos->objs = add_mem_obj(infos->nb_objs, infos->objs);
-	infos->objs[infos->nb_objs].type = CIRCLE;
-	infos->objs[infos->nb_objs].color = cy_color;
-	bottom_cap = &infos->objs[infos->nb_objs].shape.circle;
-	bottom_cap->center = add(cy->point, multiply(cy->orient, -cy->height / 2));
-	bottom_cap->radius = cy->radius;
-	bottom_cap->orient = cy->orient;
+	i = 0;
+	while (i < 2)
+	{
+		infos->nb_objs += 1;
+		infos->objs = add_mem_obj(infos->nb_objs, infos->objs);
+		if (!infos->objs)
+			handle_error("💧 Fail to malloc circle.\n", infos);
+		infos->objs[infos->nb_objs].type = CIRCLE;
+		infos->objs[infos->nb_objs].color = cy_color;
+		cap = &infos->objs[infos->nb_objs].shape.circle;
+		cap->center = add(cy->point, multiply(cy->orient, cy->height / 2));
+		cap->radius = cy->radius;
+		cap->orient = cy->orient;
+		i++;
+	}
 }

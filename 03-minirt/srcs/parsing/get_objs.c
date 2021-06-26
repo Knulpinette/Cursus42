@@ -21,6 +21,8 @@ void	get_sphere(char *line, t_info *infos, int add_mem)
 
 	if (add_mem)
 		infos->objs = add_mem_obj(infos->nb_objs, infos->objs);
+	if (!infos->objs)
+		handle_error("💧 Fail to malloc sphere\n", infos);
 	obj = &infos->objs[infos->nb_objs];
 	obj->type = SPHERE;
 	sphere = &obj->shape.sp;
@@ -38,6 +40,8 @@ void	get_square(char *line, t_info *infos, int add_mem)
 
 	if (add_mem)
 		infos->objs = add_mem_obj(infos->nb_objs, infos->objs);
+	if (!infos->objs)
+		handle_error("💧 Fail to malloc square.\n", infos);
 	obj = &infos->objs[infos->nb_objs];
 	obj->type = SQUARE;
 	square = &obj->shape.sq;
@@ -58,6 +62,8 @@ void	get_plane(char *line, t_info *infos, int add_mem)
 
 	if (add_mem)
 		infos->objs = add_mem_obj(infos->nb_objs, infos->objs);
+	if (!infos->objs)
+		handle_error("💧 Fail to malloc plane.\n", infos);
 	obj = &infos->objs[infos->nb_objs];
 	obj->type = PLANE;
 	plane = &obj->shape.pl;
@@ -75,14 +81,16 @@ void	get_triangle(char *line, t_info *infos, int add_mem)
 
 	if (add_mem)
 		infos->objs = add_mem_obj(infos->nb_objs, infos->objs);
+	if (!infos->objs)
+		handle_error("💧 Fail to malloc triangle.\n", infos);
 	obj = &infos->objs[infos->nb_objs];
 	obj->type = TRIANGLE;
 	triangle = &obj->shape.tr;
-	line = get_vector(line, &triangle->point_x, infos);
+	line = get_vector(line, &triangle->point1, infos);
 	line = next_nbr(line, infos);
-	line = get_vector(line, &triangle->point_y, infos);
+	line = get_vector(line, &triangle->point2, infos);
 	line = next_nbr(line, infos);
-	line = get_vector(line, &triangle->point_z, infos);
+	line = get_vector(line, &triangle->point3, infos);
 	get_color(line, &obj->color, infos);
 }
 
@@ -95,6 +103,8 @@ void	get_cylinder(char *line, t_info *infos, int add_mem)
 
 	if (add_mem)
 		infos->objs = add_mem_obj(infos->nb_objs, infos->objs);
+	if (!infos->objs)
+		handle_error("💧 Fail to malloc cylinder.\n", infos);
 	obj = &infos->objs[infos->nb_objs];
 	obj->type = CYLINDER;
 	cylinder = &infos->objs[infos->nb_objs].shape.cy;

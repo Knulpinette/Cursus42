@@ -72,11 +72,12 @@ static void	create_window(t_rt *rt)
 void	start_minirt(t_rt *rt)
 {
 	if (rt->infos->scene->res.x == 0 || rt->infos->scene->res.y == 0)
-		handle_error("📏 Careful, resolution is 0.", rt->infos);
+		handle_error("📏 Careful, resolution is 0.\n", rt->infos);
 	if (rt->infos->scene->nb_cam == 0)
-		handle_error("🎥 There are no cameras.", rt->infos);
+		handle_error("🎥 There are no cameras.\n", rt->infos);
 	else
 		rt->curr.cam = rt->infos->scene->cam[0];
+	printf(""COLOR_LIGHT_CYAN"\n🖼️ Starting miniRT 🖼️"COLOR_END"\n\n");
 	create_window(rt);
 	create_img(rt);
     mlx_loop(rt->mlx);

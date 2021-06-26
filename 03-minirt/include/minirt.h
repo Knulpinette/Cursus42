@@ -22,6 +22,7 @@
 # include <fcntl.h>
 # include <errno.h>
 # include <stdbool.h>
+# include <pthread.h>
 # include "../libft/libft.h"
 # include "struct_def.h"
 # include "utils.h"
@@ -53,10 +54,12 @@ float		plane(t_ray *ray, t_rec *curr, t_vec point, t_vec orient);
 float		cylinder(t_ray *ray, t_rec *curr);
 float		circle(t_ray *ray, t_rec *curr);
 float		square(t_ray *ray, t_rec *curr);
+float		triangle(t_ray *ray, t_rec *curr);
 bool		solve_quadratic(t_params param, float *t0, float *t1);
 t_params	new_params(float a, float b, float c);
 void		sphere_normal(t_rec *curr);
 void		cylinder_normal(t_rec *curr);
+void		triangle_normal(t_rec *curr);
 
 /*
 **	Get the pixel color
