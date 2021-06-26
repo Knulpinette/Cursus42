@@ -23,7 +23,7 @@ static void	get_obj_normal(t_rec *curr)
 	if (curr->obj.type == CIRCLE)
 		curr->hit.normal = normalize(curr->obj.shape.circle.orient);
 	if (curr->obj.type == SQUARE)
-		curr->hit.normal = normalize(curr->hit.point);
+		curr->hit.normal = normalize(curr->obj.shape.sq.orient);
 }
 
 float		intersect_obj(t_ray *ray, t_rec *curr)
