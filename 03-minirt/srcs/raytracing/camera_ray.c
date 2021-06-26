@@ -86,3 +86,5 @@ void	gen_cam_ray(int x, int y, t_rt *rt)
 	orient_plane_2D = substract(matrix_plane_2D, rt->cam_ray.origin);
 	rt->cam_ray.dir = normalize(orient_plane_2D); 
 }
+
+//vector not normalized ? 
