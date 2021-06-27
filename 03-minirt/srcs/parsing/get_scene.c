@@ -25,6 +25,7 @@ void	get_res(char *line, t_info *infos)
 	res->y = ft_atoi(line);
 	if (res->x < 0 || res->y < 0)
 		handle_error("📏 Resolution is negative.\n", infos);
+	line = next_nbr(line, infos);
 }
 
 void	get_amb(char *line, t_info *infos)
@@ -53,7 +54,7 @@ void	get_light(char *line, t_info *infos, int add_mem)
 	line = next_nbr(line, infos);
 	line = pass_spaces(line, infos);
 	scene->light[current].bright = ft_atof(line);
-	if (scene->light[current].bright < 0.0 
+	if (scene->light[current].bright < 0.0
 		|| scene->light[current].bright > 1.0)
 		handle_error("💡 Light brightness should be between 0.0 and 1.0.\n",
 						infos);

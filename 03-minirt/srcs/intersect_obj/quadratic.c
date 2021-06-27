@@ -48,4 +48,3 @@ bool	solve_quadratic(t_params param, float *t0, float *t1)
 	}
 	return (true);
 }
-

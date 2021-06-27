@@ -24,14 +24,14 @@ void	cylinder_normal(t_rec *curr)
 	curr->hit.normal = normalize(substract(center_to_hitpoint, hit_length));
 }
 
-float		circle(t_ray *ray, t_rec *curr)
+float	circle(t_ray *ray, t_rec *curr)
 {
 	float		result;
 	t_vec		hit_point;
 	t_vec		center_to_hit;
 	float		length_center_to_hit;
 	t_circle	circle;
-	
+
 	circle = curr->obj.shape.circle;
 	result = plane(ray, curr, circle.center, circle.orient);
 	if (result >= 0.0)
@@ -45,7 +45,7 @@ float		circle(t_ray *ray, t_rec *curr)
 	return (0.0);
 }
 
-bool	hit_point_is_in_length(float *hit_point, t_cylinder *cylinder, t_ray *ray)
+bool	hit_point_is_in_length(float *hit_point, t_cylinder *cy, t_ray *ray)
 {
 	t_vec	cylinder_top;
 	t_vec	cylinder_bottom;
@@ -53,16 +53,15 @@ bool	hit_point_is_in_length(float *hit_point, t_cylinder *cylinder, t_ray *ray)
 	t_vec	top_cap;
 	t_vec	bottom_cap;
 
-	cylinder_top = add(cylinder->point, 
-					multiply(multiply(cylinder->orient, -1), 
-					cylinder->height / 2));
-	cylinder_bottom = add(cylinder->point, 
-					multiply(cylinder->orient, cylinder->height / 2));
+	cylinder_top = add(cy->point,
+			multiply(multiply(cy->orient, -1), cy->height / 2));
+	cylinder_bottom = add(cy->point,
+			multiply(cy->orient, cy->height / 2));
 	distance_to_hit_point = add(ray->origin, multiply(ray->dir, *hit_point));
 	top_cap = substract(distance_to_hit_point, cylinder_top);
 	bottom_cap = substract(distance_to_hit_point, cylinder_bottom);
-	if (dot_product(cylinder->orient, top_cap) < 0.0 
-		|| dot_product(cylinder->orient, bottom_cap) > 0.0)
+	if (dot_product(cy->orient, top_cap) < 0.0
+		|| dot_product(cy->orient, bottom_cap) > 0.0)
 		return (false);
 	return (true);
 }
@@ -80,7 +79,7 @@ float	get_right_intersection_point(t_ray *ray, t_rec *curr)
 
 float	cylinder(t_ray *ray, t_rec *curr)
 {
-	t_params 	param;
+	t_params	param;
 	t_vec		radius_in_direction_ray;
 	t_vec		radius_in_direction_center;
 	t_vec		center_to_ray;
@@ -92,11 +91,10 @@ float	cylinder(t_ray *ray, t_rec *curr)
 	radius_in_direction_center = cross_product(center_to_ray, cy->orient);
 	param.a = dot_product(radius_in_direction_ray, radius_in_direction_ray);
 	param.b = dot_product(radius_in_direction_ray, radius_in_direction_center);
-	param.c = dot_product(radius_in_direction_center, radius_in_direction_center)
-			- (cy->radius * cy->radius);
+	param.c = dot_product(radius_in_direction_center,
+			radius_in_direction_center) - (cy->radius * cy->radius);
 	if (solve_quadratic(param, &curr->t0, &curr->t1))
-		return(get_right_intersection_point(ray, curr));
+		return (get_right_intersection_point(ray, curr));
 	else
 		return (0.0);
 }
-	

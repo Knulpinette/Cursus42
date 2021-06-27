@@ -62,21 +62,18 @@ static void	parse_cam(char *line, t_info *infos)
 
 static void	parse(char *line, t_info *infos)
 {
-	static int	res = no;
-	static int	amb = no;
-
 	while (*line == ' ')
 		line++;
 	if (ft_isalnum(*line))
 	{
-		if ((*line == 'R' && *(line + 1) == ' ') && res == no)
+		if ((*line == 'R' && *(line + 1) == ' ') && infos->res == no)
 		{
-			res = yes;
+			infos->res = yes;
 			get_res((line + 1), infos);
 		}
-		else if ((*line == 'A' && *(line + 1) == ' ') && amb == no)
+		else if ((*line == 'A' && *(line + 1) == ' ') && infos->amb == no)
 		{
-			amb = yes;
+			infos->amb = yes;
 			get_amb((line + 1), infos);
 		}
 		else if (*line == 'l' && *(line + 1) == ' ')
@@ -103,17 +100,13 @@ void	get_infos(char *argv, t_rt *rt)
 	init = init_objs(rt);
 	if (!init)
 		handle_error("💧 Fail to malloc struct elements.\n", rt->infos);
-	while ((ret = get_next_line(fd, &line)) > 0)
+	ret = 1;
+	while (ret > 0)
 	{
+		ret = get_next_line(fd, &line);
+		if (ret < 0)
+			handle_error("📖 Cannot read the file.\n", rt->infos);
 		parse(line, rt->infos);
-		free(line);
-	}
-	if (ret == -1)
-		handle_error("📖 Cannot read the file.\n", rt->infos);
-	else if (!ret && line)
-	{
-		if (line)
-			parse(line, rt->infos);
 		free(line);
 	}
 	if (close(fd) < 0)
