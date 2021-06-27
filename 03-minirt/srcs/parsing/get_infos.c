@@ -107,6 +107,7 @@ void	get_infos(char *argv, t_rt *rt)
 		if (ret < 0)
 			handle_error("📖 Cannot read the file.\n", rt->infos);
 		parse(line, rt->infos);
+		//verify_end_line(line, rt->infos);
 		free(line);
 	}
 	if (close(fd) < 0)
