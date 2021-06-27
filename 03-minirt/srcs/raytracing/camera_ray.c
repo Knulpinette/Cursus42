@@ -16,12 +16,12 @@ static t_vec	multiply_by_matrix(t_vec ray, t_matrix cam)
 {
 	t_vec	multi;
 
-	multi.x = ray.x * cam.m[0][0] + ray.y * cam.m[1][0] 
-			+ ray.z * cam.m[2][0] + cam.m[3][0];
-	multi.y = ray.x * cam.m[0][1] + ray.y * cam.m[1][1] 
-			+ ray.z * cam.m[2][1] + cam.m[3][1];
+	multi.x = ray.x * cam.m[0][0] + ray.y * cam.m[1][0]
+		+ ray.z * cam.m[2][0] + cam.m[3][0];
+	multi.y = ray.x * cam.m[0][1] + ray.y * cam.m[1][1]
+		+ ray.z * cam.m[2][1] + cam.m[3][1];
 	multi.z = ray.x * cam.m[0][2] + ray.y * cam.m[1][2]
-			+ ray.z * cam.m[2][2] + cam.m[3][2];
+		+ ray.z * cam.m[2][2] + cam.m[3][2];
 	return (multi);
 }
 
@@ -54,16 +54,15 @@ static t_matrix	look_at(t_vec cam_origin, t_vec cam_dir)
 
 static t_vec	get_2D_plane(int x, int y, t_rt *rt)
 {
-	float vertical_fov;
-	float aspect_ratio;
-	float x_ratio;
-	float y_ratio;
-	t_vec res;
+	float	vertical_fov;
+	float	aspect_ratio;
+	float	x_ratio;
+	float	y_ratio;
+	t_vec	res;
 
 	res.x = (float)rt->infos->scene->res.x;
 	res.y = (float)rt->infos->scene->res.y;
-	vertical_fov = tan(((float)rt->curr.cam.FOV / 2) 
-					* (M_PI / 180));
+	vertical_fov = tan((rt->curr.cam.FOV / 2) * (M_PI / 180));
 	aspect_ratio = res.x / res.y;
 	x_ratio = ((x + 0.5) / (res.x / 2) - 1) * aspect_ratio * vertical_fov;
 	y_ratio = (1 - (y + 0.5) / (res.y / 2)) * vertical_fov;
@@ -86,5 +85,3 @@ void	gen_cam_ray(int x, int y, t_rt *rt)
 	orient_plane_2D = substract(matrix_plane_2D, rt->cam_ray.origin);
 	rt->cam_ray.dir = normalize(orient_plane_2D); 
 }
-
-//vector not normalized ? 

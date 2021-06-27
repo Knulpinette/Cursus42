@@ -187,6 +187,8 @@ typedef struct s_info
 {
 	t_scene		*scene;
 	int			nb_objs;
+	int			res;
+	int			amb;
 	t_obj		*objs;
 }				t_info;
 

@@ -28,9 +28,9 @@ static void	get_obj_normal(t_rec *curr)
 		triangle_normal(curr);
 }
 
-float		intersect_obj(t_ray *ray, t_rec *curr)
+float	intersect_obj(t_ray *ray, t_rec *curr)
 {
-	t_plane plan;
+	t_plane	plan;
 
 	if (curr->obj.type == PLANE)
 	{
@@ -50,7 +50,7 @@ float		intersect_obj(t_ray *ray, t_rec *curr)
 	return (0);
 }
 
-void		check_if_it_hits_object(t_rt *rt)
+void	check_if_it_hits_object(t_rt *rt)
 {
 	int		k;
 	t_rec	temp;
@@ -62,9 +62,8 @@ void		check_if_it_hits_object(t_rt *rt)
 	{
 		temp.obj = rt->infos->objs[k];
 		intersect_point = intersect_obj(&rt->cam_ray, &temp);
-		if (intersect_point > 0.0 
-			&& intersect_point < rt->curr.hit.t)
-		{ 
+		if (intersect_point > 0.0 && intersect_point < rt->curr.hit.t)
+		{
 			rt->curr.obj = rt->infos->objs[k];
 			rt->curr.hit.t = intersect_point;
 		}
@@ -73,7 +72,7 @@ void		check_if_it_hits_object(t_rt *rt)
 	if (rt->curr.hit.t != INFINITY)
 	{
 		rt->curr.hit.point = add(rt->cam_ray.origin,
-							multiply(rt->cam_ray.dir, rt->curr.hit.t));
+				multiply(rt->cam_ray.dir, rt->curr.hit.t));
 		get_obj_normal(&rt->curr);
 	}
 }

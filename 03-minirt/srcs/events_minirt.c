@@ -12,38 +12,37 @@
 
 #include "minirt.h"
 
-int exit_and_free_X(t_rt *rt)
+int	exit_and_free_X(t_rt *rt)
 {
-    printf("\n"COLOR_YELLOW"👋 Bye bye 👋\n\n");
-    del_mem_infos(rt->infos);
-    mlx_clear_window(rt->mlx, rt->win);
-    mlx_destroy_window(rt->mlx, rt->win);
-    exit(EXIT_SUCCESS);
-    return (yes);
+	printf("\n"COLOR_YELLOW"👋 Bye bye 👋\n\n");
+	del_mem_infos(rt->infos);
+	mlx_clear_window(rt->mlx, rt->win);
+	mlx_destroy_window(rt->mlx, rt->win);
+	exit(EXIT_SUCCESS);
+	return (yes);
 }
 
-int change_cam(int keycode, t_rt *rt)
+int	change_cam(int keycode, t_rt *rt)
 {
-	static int curr_cam = 0;
+	static int	curr_cam = 0;
 
-    if (keycode == KEY_RIGHT && 
-		curr_cam < rt->infos->scene->nb_cam - 1)
-    {
+	if (keycode == KEY_RIGHT && curr_cam < rt->infos->scene->nb_cam - 1)
+	{
 		rt->curr.cam = rt->infos->scene->cam[curr_cam + 1];
 		curr_cam += 1;
 		create_img(rt);
 		if (curr_cam == rt->infos->scene->nb_cam - 1)
 			printf("🎥 Last Camera\n");
-		return(yes);
-    }
+		return (yes);
+	}
 	if (keycode == KEY_LEFT && curr_cam > 0)
 	{
-	 	rt->curr.cam = rt->infos->scene->cam[curr_cam - 1];
+		rt->curr.cam = rt->infos->scene->cam[curr_cam - 1];
 		curr_cam -= 1;
 		create_img(rt);
 		if (curr_cam == 0)
 			printf("🎥 First Camera\n");
-		return(yes);
+		return (yes);
 	}
-    return (no);
+	return (no);
 }

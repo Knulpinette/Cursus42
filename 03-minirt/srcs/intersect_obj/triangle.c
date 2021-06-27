@@ -12,10 +12,6 @@
 
 #include "minirt.h"
 
-//Figure out CAM ANGLE problem
-//Figure out more events and how to write stuff with changing the cam
-//Do a text at the beginning to explain how it works
-
 void	triangle_normal(t_rec *curr)
 {
 	t_vec		point1_to_point2;
@@ -30,17 +26,18 @@ void	triangle_normal(t_rec *curr)
 	curr->hit.normal = normalize(plane_orientation);
 }
 
-bool	check_edges(t_rec *curr, t_vec	point1, t_vec point2, t_vec plane_orientation)
+bool	check_edges(t_rec *curr, t_vec	point1, t_vec point2,
+	t_vec plane_orientation)
 {
 	t_vec	edge;
 	t_vec	distance;
 	t_vec	edge_orientation;
- 
+
 	edge = substract(point2, point1);
 	distance = substract(curr->hit.point, point1);
 	edge_orientation = cross_product(edge, distance);
 	if (dot_product(edge_orientation, plane_orientation) < 0)
-		return(false);
+		return (false);
 	return (true);
 }
 
@@ -59,8 +56,8 @@ float	triangle(t_ray *ray, t_rec *curr)
 	angle = dot_product(plane_orientation, ray->dir);
 	if (fabs(angle) < 0.0)
 		return (0.0);
-	curr->hit.t = dot_product(plane_orientation, substract(triangle->point1, ray->origin))
-					/ angle;
+	curr->hit.t = dot_product(plane_orientation,
+			substract(triangle->point1, ray->origin)) / angle;
 	if (curr->hit.t < 0)
 		return (0.0);
 	curr->hit.point = add(ray->origin, multiply(ray->dir, curr->hit.t));
