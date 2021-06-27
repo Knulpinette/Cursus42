@@ -14,32 +14,24 @@
 
 float	square(t_ray *ray, t_rec *curr)
 {
-	float		perpendicular;
 	t_square	*square;
+	float		angle;
 	t_vec		origin_to_center;
-	t_vec		hit_point;
 	t_vec		center_to_hit;
 
 	square = &curr->obj.shape.sq;
-
-	perpendicular = dot_product(square->orient, ray->dir);
-	if (!perpendicular)
+	angle = dot_product(square->orient, ray->dir);
+	if (!angle)
 		return (0.0);
 	origin_to_center = substract(square->point, ray->origin);
-	curr->hit.t = dot_product(origin_to_center, square->orient)
-					/ perpendicular;
-	hit_point = add(ray->origin, multiply(ray->dir, curr->hit.t));
-	center_to_hit = substract(hit_point, square->point);
-	if (curr->hit.t >= 0)
-	{
-		if (fabs(center_to_hit.x) > square->side / 2)
-			return (0.0);
-		if (fabs(center_to_hit.y) > square->side / 2)
-			return (0.0);
-		if (fabs(center_to_hit.z) > square->side / 2)
-			return (0.0);
-		else
-			return (curr->hit.t);
-	}
-	return (0.0);	
+	curr->hit.t = dot_product(origin_to_center, square->orient) / angle;
+	curr->hit.point = add(ray->origin, multiply(ray->dir, curr->hit.t));
+	center_to_hit = substract(curr->hit.point, square->point);
+	if (curr->hit.t < 0)
+		return (0.0);
+	else if (fabs(center_to_hit.x) > square->side / 2
+		|| fabs(center_to_hit.y) > square->side / 2
+		|| fabs(center_to_hit.z) > square->side / 2)
+		return (0.0);
+	return (curr->hit.t);
 }

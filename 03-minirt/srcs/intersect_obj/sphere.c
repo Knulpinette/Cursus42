@@ -15,7 +15,7 @@
 void	sphere_normal(t_rec *curr)
 {
 	t_vec	hit_to_center;
-	
+
 	hit_to_center = substract(curr->hit.point, curr->obj.shape.sp.point);
 	curr->hit.normal = divide(hit_to_center, curr->obj.shape.sp.radius);
 }
@@ -26,12 +26,11 @@ float	sphere(t_ray *ray, t_rec *curr)
 	t_vec		center_origin;
 	t_params	param;
 
-	sp = &curr->obj.shape.sp;	
+	sp = &curr->obj.shape.sp;
 	center_origin = substract(ray->origin, sp->point);
 	param.a = dot_product(ray->dir, ray->dir);
 	param.b = dot_product(center_origin, ray->dir);
-	param.c = dot_product(center_origin, center_origin)
-			- sp->radius * sp->radius;	
+	param.c = dot_product(center_origin, center_origin) - sp->radius * sp->radius;
 	if (solve_quadratic(param, &curr->t0, &curr->t1))
 	{
 		if (curr->t0 > 0)
