@@ -19,21 +19,21 @@
 ** VECTOR STRUCT
 */
 
-typedef struct	s_vec
+typedef struct s_vec
 {
 	float	x;
 	float	y;
 	float	z;
 }				t_vec;
 
-typedef	struct	s_hit
+typedef struct s_hit
 {
 	float	t;
 	t_vec	point;
 	t_vec	normal;
 }				t_hit;
 
-typedef struct	s_params
+typedef struct s_params
 {
 	float	a;
 	float	b;
@@ -44,9 +44,9 @@ typedef struct	s_params
 ** MATRIX STRUCT
 */
 
-typedef struct	s_matrix
+typedef struct s_matrix
 {
-	float m[4][4];
+	float	m[4][4];
 }				t_matrix;
 
 /*
@@ -94,17 +94,16 @@ typedef struct s_circle
 	float	radius;
 }				t_circle;
 
-
 typedef struct s_color
 {
 	int		t;
 	int		r;
 	int		g;
-	int 	b;
+	int		b;
 	int		rgb;
 }				t_color;
 
-enum e_obj 
+enum e_obj
 {
 	SPHERE = 1,
 	PLANE,
@@ -114,7 +113,7 @@ enum e_obj
 	CIRCLE,
 };
 
-typedef union u_type 
+typedef union u_type
 {
 	t_sphere	sp;
 	t_plane		pl;
@@ -130,9 +129,9 @@ typedef union u_type
 
 typedef struct s_obj
 {
-	int		type;  //enum return so we know what type of union we have/get
-	t_type	shape; //union to allocate only one type of memory
-	t_color	color; //struct
+	int		type;
+	t_type	shape;
+	t_color	color;
 }				t_obj;
 
 /*
@@ -144,8 +143,8 @@ typedef struct s_res
 	int	x;
 	int	y;
 }				t_res;
-	
-typedef struct 	s_ambient
+
+typedef struct s_ambient
 {
 	float	r;
 	t_color	color;
@@ -196,25 +195,24 @@ typedef struct s_info
 ** RAY STRUCT
 */
 
-typedef struct	s_ray 
+typedef struct s_ray
 {
 	t_vec	origin;
 	t_vec	dir;
 }				t_ray;
 
-
 /*
 ** MLX STRUCTS
 */
 
-typedef struct  s_img
+typedef struct s_img
 {
-    void    *ptr;
-    char    *addr;
-    int     bit_pix; // bits_per_pixels
-    int     line_l; //line_length
-    int     endian; // endian
-}               t_img;
+	void	*ptr;
+	char	*addr;
+	int	 	bit_pix;
+	int	 	line_l;
+	int	 	endian;
+}				t_img;
 
 /*
 ** CURRENT OBJECT AND SCENE STRUCT
@@ -226,9 +224,9 @@ typedef struct s_rec
 	t_camera	cam;
 	t_hit		hit;
 	float		pix_color;
-	t_params	param; //quadratic params
+	t_params	param;
 	float		t;
-	float		t0; //solutions for cylinder
+	float		t0;
 	float		t1;
 	float		t_max;
 	float		t_min;
@@ -239,16 +237,16 @@ typedef struct s_rec
 ** MINIRT STRUCT
 */
 
-typedef struct  s_rt
+typedef struct s_rt
 {
-        void    	*mlx;
-        void    	*win;
-        t_img	  	img;
-		t_info		*infos;
-		t_rec		curr;
-		t_ray		cam_ray;
-		t_ray		shadow_ray;
-		t_ray		light_ray;
-}               t_rt;
+	void		*mlx;
+	void		*win;
+	t_img		img;
+	t_info		*infos;
+	t_rec		curr;
+	t_ray		cam_ray;
+	t_ray		shadow_ray;
+	t_ray		light_ray;
+}				t_rt;
 
 #endif

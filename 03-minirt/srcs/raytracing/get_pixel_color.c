@@ -47,16 +47,16 @@ static float	get_obj_brightness(t_rt *rt, float obj_brightness, int k)
 	float	ray_distance;
 
 	light_brightness = rt->infos->scene->light[k].bright;
-	light_gain = dot_product(rt->curr.hit.normal, 
-					normalize(rt->light_ray.dir));
+	light_gain = dot_product(rt->curr.hit.normal,
+			normalize(rt->light_ray.dir));
 	cosine = dot_product(rt->light_ray.dir, rt->light_ray.dir);
 	if (light_gain <= 0.0)
 		obj_brightness = 0.0;
 	else
 	{
 		ray_distance = M_PI * cosine;
-		obj_brightness = (light_brightness * light_gain * 1000.0) 
-							/ ray_distance;
+		obj_brightness = (light_brightness * light_gain * 1000.0)
+			/ ray_distance;
 		if (in_shadow(rt, k))
 			obj_brightness = 0.0;
 	}
@@ -76,8 +76,7 @@ static float	get_obj_color(t_rt *rt, float obj_brightness, t_color ambient)
 	while (k < rt->infos->scene->nb_light)
 	{
 		rt->light_ray.origin = rt->infos->scene->light[k].point;
-		rt->light_ray.dir = substract(rt->light_ray.origin,
-										rt->curr.hit.point);
+		rt->light_ray.dir = substract(rt->light_ray.origin, rt->curr.hit.point);
 		obj_brightness = get_obj_brightness(rt, obj_brightness, k);
 		if (obj_brightness > 1.0)
 			obj_brightness = 1.0;
@@ -96,7 +95,7 @@ void	get_pixel_color(t_rt *rt)
 {
 	float	obj_brightness;
 	t_color	amb_color;
-	t_color amb_light;
+	t_color	amb_light;
 
 	obj_brightness = 0.0;
 	amb_color = rt->infos->scene->amb.color;

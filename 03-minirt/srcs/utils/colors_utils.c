@@ -14,13 +14,12 @@
 
 t_color	set(int r, int g, int b)
 {
-	t_color c;
+	t_color	c;
 
 	c.r = r;
 	c.g = g;
 	c.b = b;
 	c.t = 0;
-
 	return (c);
 }
 

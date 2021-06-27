@@ -14,7 +14,7 @@
 
 t_vec	create_vec(float a, float b, float c)
 {
-	t_vec v;
+	t_vec	v;
 
 	v.x = a;
 	v.y = b;

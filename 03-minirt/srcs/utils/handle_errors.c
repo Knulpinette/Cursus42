@@ -21,12 +21,11 @@ void	handle_error(char *error, t_info *infos)
 
 void	verify_end_line(char *line, t_info *infos)
 {
-	char c;
-	int	i;
+	char	c;
+	int		i;
 
 	i = 0;
 	c = 0xd;
-	//line = next_nbr(line, infos);
 	while (*line && *line == ' ')
 	{
 		printf("%c || %x >> %i\n", *line, *line, i);

@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-int		init_objs(t_rt *rt)
+int	init_objs(t_rt *rt)
 {
 	t_info	*init;
 
@@ -41,12 +41,12 @@ t_obj	*add_mem_obj(int nb_objs, t_obj *objs)
 
 	temp = (t_obj *)ft_calloc(sizeof(t_obj), nb_objs);
 	if (!temp)
-		return(NULL);
+		return (NULL);
 	ft_memcpy(temp, objs, (sizeof(t_obj) * nb_objs));
 	free(objs);
 	objs = (t_obj *)ft_calloc(sizeof(t_obj), nb_objs + 1);
 	if (!objs)
-		return(NULL);
+		return (NULL);
 	ft_memcpy(objs, temp, (sizeof(t_obj) * nb_objs));
 	free(temp);
 	return (objs);
@@ -58,12 +58,12 @@ t_camera	*add_mem_cam(int nb_cam, t_camera *cam)
 
 	temp = (t_camera *)ft_calloc(sizeof(t_camera), nb_cam);
 	if (!temp)
-		return(NULL);
+		return (NULL);
 	ft_memcpy(temp, cam, (sizeof(t_camera) * nb_cam));
 	free(cam);
 	cam = (t_camera *)ft_calloc(sizeof(t_camera), nb_cam + 1);
 	if (!cam)
-		return(NULL);
+		return (NULL);
 	ft_memcpy(cam, temp, (sizeof(t_camera) * nb_cam));
 	free(temp);
 	return (cam);
@@ -75,12 +75,12 @@ t_light	*add_mem_light(int nb_light, t_light *light)
 
 	temp = (t_light *)ft_calloc(sizeof(t_light), nb_light);
 	if (!temp)
-		return(NULL);
+		return (NULL);
 	ft_memcpy(temp, light, (sizeof(t_light) * nb_light));
 	free(light);
 	light = (t_light *)ft_calloc(sizeof(t_light), nb_light + 1);
 	if (!light)
-		return(NULL);
+		return (NULL);
 	ft_memcpy(light, temp, (sizeof(t_light) * nb_light));
 	free(temp);
 	return (light);

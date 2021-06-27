@@ -27,7 +27,7 @@ char	*next_nbr(char *line, t_info *infos)
 		line++;
 	while (*line && (ft_isdigit(*line) || *line == '.'))
 		line++;
-	if ((ft_isdigit(*(line + 1)) || *(line + 1) == '+' || *(line + 1) == '-') \
+	if ((ft_isdigit(*(line + 1)) || *(line + 1) == '+' || *(line + 1) == '-')
 		&& *line == ',')
 		line++;
 	if (line == o_line)
@@ -59,11 +59,10 @@ void	get_color(char *line, t_color *color, t_info *infos)
 	color->g = ft_atoi(line);
 	line = next_nbr(line, infos);
 	color->b = ft_atoi(line);
-	if ((color->r < 0 || color->r > 255) \
-		|| (color->g < 0 || color->g > 255) \
+	if ((color->r < 0 || color->r > 255)
+		|| (color->g < 0 || color->g > 255)
 		|| (color->b < 0 || color->b > 255))
-		handle_error("🎨 Color values should in between 0 and 255.\n",
-						infos);
+		handle_error("🎨 Color values should in between 0 and 255.\n", infos);
 	color->rgb = create_color(*color);
 }
 
@@ -84,7 +83,7 @@ void	get_caps(t_info *infos)
 	t_circle	*cap;
 	t_color		cy_color;
 	int			i;
-	
+
 	cy = &infos->objs[infos->nb_objs].shape.cy;
 	cy_color = infos->objs[infos->nb_objs].color;
 	i = 0;

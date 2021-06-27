@@ -12,9 +12,9 @@
 
 #include "minirt.h"
 
-int		create_color(t_color color)
+int	create_color(t_color color)
 {
-	return(color.r << 16 | color.g << 8 | color.b);
+	return (color.r << 16 | color.g << 8 | color.b);
 }
 
 t_color	color_add(t_color c1, t_color c2)

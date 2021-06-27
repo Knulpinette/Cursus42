@@ -126,8 +126,8 @@ int	get_next_line(int fd, char **line)
 	static char	*saved[1024];
 	int			ret;
 
-	if ((read(fd, 0, 0) == -1) || fd < 0 || fd >= 1024 \
-	|| !line || BUFFER_SIZE < 1)
+	if ((read(fd, 0, 0) == -1) || fd < 0 || fd >= 1024
+		|| !line || BUFFER_SIZE < 1)
 		return (-1);
 	buf = (char *)malloc(BUFFER_SIZE + 1);
 	if (!buf)
