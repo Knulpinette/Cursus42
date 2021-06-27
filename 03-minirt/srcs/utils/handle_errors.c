@@ -15,7 +15,7 @@
 void	handle_error(char *error, t_info *infos)
 {
 	del_mem_infos(infos);
-	printf(""COLOR_RED"Error\n"COLOR_WHITE"%s\n", error);
+	printf(""COLOR_RED"	Error\n"COLOR_WHITE"%s\n", error);
 	exit(EXIT_SUCCESS);
 }
 
@@ -34,6 +34,6 @@ void	verify_end_line(char *line, t_info *infos)
 	}
 	printf("%x >> %i\n", *line, i);
 	if (*line != c)
-		handle_error("You have a wandering character at the end of a line.\n",
+		handle_error("	You have a wandering character at the end of a line.\n",
 						infos);
 }

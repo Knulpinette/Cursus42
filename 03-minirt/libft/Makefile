@@ -25,27 +25,50 @@ CFLAGS		= -Wall -Wextra -Werror
 
 ${OBJS_DIR}/%.o: %.c ${HEADER}
 	@mkdir -p objs
-	${CC} ${FLAGS} -o $@ -c $<
+	@${CC} ${FLAGS} -o $@ -c $<
 
 #	Active rules
 
 all: $(NAME)
 
 $(NAME): ${OBJS} 
-	@ar rcs ${NAME} ${OBJS}
+	@printf "\n	\e[1;37m[\e[1;32m"
+	@printf "Compiling Libft\e[0m]\n\n"
+	@printf "\e[1;30m"
+	ar rcs ${NAME} ${OBJS}
+	@printf "\n\e[0m"
 
 bonus: ${OBJS} ${OBJS_BONUS} 
-	@ar rcs ${NAME} ${OBJS} ${OBJS_BONUS}
+	@printf "\n	\e[1;37m[\e[1;32m"
+	@printf "Compiling Libft -bonus\e[0m]\n\n"
+	@printf "\e[1;30m"
+	ar rcs ${NAME} ${OBJS} ${OBJS_BONUS}
+	@printf "\n\e[0m"
 
 #	Cleaning rules
 
 clean:
-	${RM} ${OBJS} ${OBJS_BONUS}
+	@echo "\n	\e[1;37m[\e[1;34m\
+	Cleaning libft objects\e[0m]\
+	\e[1;30m\n"
+	${RM} ${OBJS_BONUS}
 	@rm -rf objs
+	@printf "\n\e[0m"
 
 fclean: clean
+	@echo "\n	\e[1;37m[\e[1;34m\
+	Cleaning libft output files\e[0m]\
+	\e[1;30m\n"
 	${RM} ${NAME}
+	@printf "\n\e[0m"
+
+fclean_no_clean:
+	@echo "\n	\e[1;37m[\e[1;34m\
+	Cleaning libft output files\e[0m]\
+	\e[1;30m\n"
+	${RM} ${NAME}
+	@printf "\n\e[0m"
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean fclean_no_clean re

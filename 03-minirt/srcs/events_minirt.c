@@ -14,7 +14,7 @@
 
 int	exit_and_free_X(t_rt *rt)
 {
-	printf("\n"COLOR_YELLOW"👋 Bye bye 👋\n\n");
+	printf("\n"COLOR_YELLOW"	👋 Bye bye 👋\n\n");
 	del_mem_infos(rt->infos);
 	mlx_clear_window(rt->mlx, rt->win);
 	mlx_destroy_window(rt->mlx, rt->win);
@@ -32,7 +32,7 @@ int	change_cam(int keycode, t_rt *rt)
 		curr_cam += 1;
 		create_img(rt);
 		if (curr_cam == rt->infos->scene->nb_cam - 1)
-			printf("🎥 Last Camera\n");
+			printf("🎥	Last Camera\n");
 		return (yes);
 	}
 	if (keycode == KEY_LEFT && curr_cam > 0)
@@ -41,7 +41,7 @@ int	change_cam(int keycode, t_rt *rt)
 		curr_cam -= 1;
 		create_img(rt);
 		if (curr_cam == 0)
-			printf("🎥 First Camera\n");
+			printf("🎥	First Camera\n");
 		return (yes);
 	}
 	return (no);

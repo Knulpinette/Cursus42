@@ -74,30 +74,43 @@ all:		${NAME} test
 # Make libft + compile miniRT
 ${NAME}:	${OBJS}
 			@${MAKE} bonus -C ${LIBFT_DIR}
+			@printf "\n	\e[1;37m[\e[1;32m"
+			@printf "Compiling miniRT\e[0m]\n\n"
+			@printf "\e[1;30m"
 			$(CC) ${CFLAGS} ${OBJS} ${MLX_LIB} ${LIBFT_LIB} ${MLX_FLAGS} -o $(NAME)
-			#--------------------------------
+			@echo "\n	🎉 [\e[0;32mSUCCESS\e[0m] 🎉\n"
+			@echo "	\e[1;30m________________\e[0m\n"
 
 test:		${NAME}
-			@echo "🦕🍭 To just debug, type in command line :"
-			@echo "🦕🍭🦕 ./miniRT ./scenes/scene-example.rt"
-			@echo "🍭🦄 IF WSL -> Launch vcxsrv.exe" 
-			@echo "🦄🍭 Type in command line :" 
-			@echo "🍭🦄🍭 DISPLAY=\$$(cat /etc/resolv.conf | grep nameserver | awk '{print \$$2}'):0 ./miniRT ./scenes/scene-debug.rt"
-
-bonus:		${OBJS_BONUS}
-			${MAKE} bonus -C ${LIBFT_DIR}
-			$(CC) ${CFLAGS} ${OBJS_BONUS} ${MLX_LIB} ${MLX_FLAGS} -o $(NAME)
+			@echo "	📚 [\e[1;35mINSTRUCTIONS\e[0m] 📚"
+			@echo "\n🦕🍭	\e[1;33mTo start miniRT on MacOS or Linux\e[0m"
+			@echo "	[\e[1;30m./miniRT ./scenes/scene-example.rt\e[0m]\n"
+			@echo "🍭🦄	\e[1;36mTo start miniRT on WSL\e[0m" 
+			@echo "	[\e[1;30mLaunch vcxsrv.exe\e[0m]"
+			@echo "🦄🍭	\e[1;36mCopy the following command line\e[0m" 
+			@echo "	[\e[1;30mDISPLAY=\$$(cat /etc/resolv.conf | grep nameserver | awk '{print \$$2}'):0 ./miniRT ./scenes/scene-debug.rt\e[0m]\n"
+			@echo "\n🦕🍭\e[0;37mBy Ophélie Surcouf @ 42Lisboa\e[0m 🍭🦕"
 
 #	Cleaning rules
 
 clean:
+			@printf "\n\e[1;37m"
 			@${MAKE} clean -C ${LIBFT_DIR}
-			@${RM} ${OBJS} ${OBJS_BONUS}
+			@printf "\n	\e[1;37m[\e[1;34m"
+			@printf "Cleaning miniRT objects\e[0m]\n\n"
+			@printf "\e[1;30m"
+			${RM} ${OBJS} ${OBJS_BONUS}
 			@rm -rf objs
+			@printf "\e[0m"
 
 fclean:		clean
-			@${MAKE} fclean -C ${LIBFT_DIR}
-			@${RM} ${NAME}
+			@printf "\n\e[1;37m"
+			@${MAKE} fclean_no_clean -C ${LIBFT_DIR}
+			@printf "\n	\e[1;37m[\e[1;34m"
+			@printf "Cleaning miniRT output files\e[0m]\n\n"
+			@printf "\e[1;30m"
+			${RM} ${NAME}
+			@printf "\n\e[0m"
 
 re:			fclean all
 
