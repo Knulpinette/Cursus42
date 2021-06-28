@@ -6,7 +6,7 @@
 /*   By: osurcouf <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 14:24:46 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/06/07 14:24:50 by osurcouf         ###   ########.fr       */
+/*   Updated: 2021/06/28 17:32:38 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static t_matrix	look_at(t_vec cam_origin, t_vec cam_dir)
 
 static t_vec	get_2D_plane(int x, int y, t_rt *rt)
 {
-	float	vertical_fov;
+	float	horizontal_fov;
 	float	aspect_ratio;
 	float	x_ratio;
 	float	y_ratio;
@@ -94,10 +94,10 @@ static t_vec	get_2D_plane(int x, int y, t_rt *rt)
 
 	res.x = (float)rt->infos->scene->res.x;
 	res.y = (float)rt->infos->scene->res.y;
-	vertical_fov = tan((rt->curr.cam.FOV / 2) * (M_PI / 180));
-	aspect_ratio = res.x / res.y;
-	x_ratio = ((x + 0.5) / (res.x / 2) - 1) * aspect_ratio * vertical_fov;
-	y_ratio = (1 - (y + 0.5) / (res.y / 2)) * vertical_fov;
+	horizontal_fov = tan((rt->curr.cam.FOV / 2) * (M_PI / 180));
+	aspect_ratio = res.y / res.x;
+	x_ratio = ((x + 0.5) / (res.x / 2) - 1) * horizontal_fov;
+	y_ratio = (1 - (y + 0.5) / (res.y / 2)) * aspect_ratio * horizontal_fov;
 	return (create_vec(x_ratio, y_ratio, 1));
 }
 

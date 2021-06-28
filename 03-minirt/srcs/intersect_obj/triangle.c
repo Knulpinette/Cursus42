@@ -6,7 +6,7 @@
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 06:41:37 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/06/26 06:41:39 by osurcouf         ###   ########.fr       */
+/*   Updated: 2021/06/28 17:23:40 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,24 +56,24 @@ float	triangle(t_ray *ray, t_rec *curr)
 	t_triangle	*triangle;
 	t_vec		point1_to_point2;
 	t_vec		point1_to_point3;
-	t_vec		plane_orientation;
+	t_vec		plane_orient;
 	float		angle;
 
 	triangle = &curr->obj.shape.tr;
 	point1_to_point2 = substract(triangle->point2, triangle->point1);
 	point1_to_point3 = substract(triangle->point3, triangle->point1);
-	plane_orientation = cross_product(point1_to_point2, point1_to_point3);
-	angle = dot_product(plane_orientation, ray->dir);
+	plane_orient = cross_product(point1_to_point2, point1_to_point3);
+	angle = dot_product(plane_orient, ray->dir);
 	if (fabs(angle) < 0.0)
 		return (0.0);
-	curr->hit.t = dot_product(plane_orientation,
+	curr->hit.t = dot_product(plane_orient,
 			substract(triangle->point1, ray->origin)) / angle;
 	if (curr->hit.t < 0)
 		return (0.0);
 	curr->hit.point = add(ray->origin, multiply(ray->dir, curr->hit.t));
-	if (check_edges(curr, triangle->point1, triangle->point2, plane_orientation)
-		|| check_edges(curr, triangle->point2, triangle->point3, plane_orientation)
-		|| check_edges(curr, triangle->point3, triangle->point1, plane_orientation))
+	if (check_edges(curr, triangle->point1, triangle->point2, plane_orient)
+		|| check_edges(curr, triangle->point2, triangle->point3, plane_orient)
+		|| check_edges(curr, triangle->point3, triangle->point1, plane_orient))
 		return (curr->hit.t);
 	else
 		return (0.0);

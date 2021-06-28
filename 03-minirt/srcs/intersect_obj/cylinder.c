@@ -6,7 +6,7 @@
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 22:20:47 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/05/27 22:20:49 by osurcouf         ###   ########.fr       */
+/*   Updated: 2021/06/28 17:19:26 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@ float	circle(t_ray *ray, t_rec *curr)
 	if (result >= 0.0)
 	{
 		curr->hit.point = add(ray->origin, multiply(ray->dir, curr->hit.t));
-		center_to_hit = substract(curr->hit.point, curr->obj.shape.circle.center);
+		center_to_hit = substract(curr->hit.point,
+				curr->obj.shape.circle.center);
 		length_center_to_hit = dot_product(center_to_hit, center_to_hit);
 		if (length_center_to_hit <= circle.radius * circle.radius)
 			return (result);

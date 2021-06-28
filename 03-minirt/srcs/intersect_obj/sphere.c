@@ -6,7 +6,7 @@
 /*   By: osurcouf <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 14:21:15 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/05/05 14:21:16 by osurcouf         ###   ########.fr       */
+/*   Updated: 2021/06/28 17:17:21 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ float	sphere(t_ray *ray, t_rec *curr)
 	center_origin = substract(ray->origin, sp->point);
 	param.a = dot_product(ray->dir, ray->dir);
 	param.b = dot_product(center_origin, ray->dir);
-	param.c = dot_product(center_origin, center_origin) - sp->radius * sp->radius;
+	param.c = dot_product(center_origin, center_origin)
+		- sp->radius * sp->radius;
 	if (solve_quadratic(param, &curr->t0, &curr->t1))
 	{
 		if (curr->t0 > 0)
