@@ -17,7 +17,7 @@
 **
 ** function : Triangle
 **
-** Does not work at the moment. (At all)
+**		Sadly, does not work at the moment. (At all)
 **
 ** 🦕
 */

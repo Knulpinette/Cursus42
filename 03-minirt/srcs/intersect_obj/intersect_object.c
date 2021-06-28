@@ -17,7 +17,23 @@
 **
 ** function : Intersect Objects
 **
-** blabla
+**	1. First, we check for every pixel if the camera
+**	ray hit an object in the scene and we determine which
+**	is closest to the camera eye.
+**	If it does, we calculate where it intersect
+**	- distance (from cam to hit) : hit.t
+**	- position : hit.point
+**	- orientation : hit.normal
+**	If the ray goes to "infinity", it means it hits nothing.
+**		Note : we already calculate the hit.point in the
+**				square and circle (cylinder caps) function.
+**				No need to do it again.
+**
+**	2. If it hits an object, it need to compute the accurate
+**		function.
+**
+**	3. Same for the hit.normal that is different for every
+**		object and will affect how to diffuse the light.
 **
 ** 🦕
 */
@@ -81,8 +97,9 @@ void	check_if_it_hits_object(t_rt *rt)
 	}
 	if (rt->curr.hit.t != INFINITY)
 	{
-		rt->curr.hit.point = add(rt->cam_ray.origin,
-				multiply(rt->cam_ray.dir, rt->curr.hit.t));
+		if (rt->curr.obj.type != SQUARE || rt->curr.obj.type != CIRCLE)
+			rt->curr.hit.point = add(rt->cam_ray.origin,
+					multiply(rt->cam_ray.dir, rt->curr.hit.t));
 		get_obj_normal(&rt->curr);
 	}
 }

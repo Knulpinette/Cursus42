@@ -15,9 +15,14 @@
 /*
 ** 🦕
 **
-** function : Sphere
+** function : Sphere intersection
 **
-** blabla
+**	1. We calculate the sphere intersection point.
+**		It's a good idea to start with that one to
+**		figure out how miniRT works.
+**
+**		Good ressource to understand the equation
+**			https://www.youtube.com/watch?v=HFPlKQGChpE
 **
 ** 🦕
 */

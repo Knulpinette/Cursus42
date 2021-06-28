@@ -17,7 +17,23 @@
 **
 ** function : Quadratic
 **
-** blabla
+**	1. Function to solve the quadratic equation.
+**		Used for the sphere and the cylinder.
+**
+**		discriminant = 2(b * b) - 4a * c
+**
+**		Note : (I got rid of the 2 and 4 because from what
+**				I understand, I'm already handling the proportions
+**				already in camera_ray.c. Same after.)
+**
+**		Then the result will be either
+**
+**				t = -2b - sqrt(discriminant) / a
+**				t = -2b + sqrt(discriminant) / a
+**
+**		In the case of the sphere we keep the positive one
+**		In the case of the cylinder, we'll keep the
+**			closest one that's positive.
 **
 ** 🦕
 */

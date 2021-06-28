@@ -15,9 +15,14 @@
 /*
 ** 🦕
 **
-** function : Square
+** function : Square intersection
 **
-** blabla
+**	1. Squares basically are planes that are finite.
+**		So we first get the plane intersection and then
+**		only accept it as a valid intersection if it's
+**		within the boundaries of the square.
+**		Note : At one point, do cubes out of squares.
+**				Should be pretty easy.
 **
 ** 🦕
 */
@@ -25,23 +30,22 @@
 float	square(t_ray *ray, t_rec *curr)
 {
 	t_square	*square;
-	float		angle;
-	t_vec		origin_to_center;
+	float		result;
 	t_vec		center_to_hit;
 
 	square = &curr->obj.shape.sq;
-	angle = dot_product(square->orient, ray->dir);
-	if (!angle)
-		return (0.0);
-	origin_to_center = substract(square->point, ray->origin);
-	curr->hit.t = dot_product(origin_to_center, square->orient) / angle;
-	curr->hit.point = add(ray->origin, multiply(ray->dir, curr->hit.t));
-	center_to_hit = substract(curr->hit.point, square->point);
-	if (curr->hit.t < 0)
-		return (0.0);
-	else if (fabs(center_to_hit.x) > square->side / 2
-		|| fabs(center_to_hit.y) > square->side / 2
-		|| fabs(center_to_hit.z) > square->side / 2)
-		return (0.0);
-	return (curr->hit.t);
+	result = plane(ray, curr, square->point, square->orient);
+	if (result > 0.0)
+	{
+		curr->hit.point = add(ray->origin, multiply(ray->dir, result));
+		center_to_hit = substract(curr->hit.point, square->point);
+		if (result < 0)
+			return (0.0);
+		else if (fabs(center_to_hit.x) > square->side / 2
+			|| fabs(center_to_hit.y) > square->side / 2
+			|| fabs(center_to_hit.z) > square->side / 2)
+			return (0.0);
+		return (result);
+	}
+	return (0.0);
 }

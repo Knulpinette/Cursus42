@@ -15,9 +15,19 @@
 /*
 ** 🦕
 **
-** function : Plane
+** function : Plane intersection
 **
-** blabla
+**	Easiest shape of all !
+**	We just calculate the the intersection point
+**	from the angle between the cam_ray to pixel
+**	and cam_ray to the center of the plane.
+**	It's an infinite plane so we don't check for
+**	size limits. It just has to hit where the plane
+**	surface is.
+**
+**	Note : Since the normal is super simple
+**			(normalize the position of the hit point),
+**			it's in Intersect_object.
 **
 ** 🦕
 */
