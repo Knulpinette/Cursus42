@@ -12,6 +12,25 @@
 
 #include "minirt.h"
 
+/*
+** 🦕
+**
+** function : Events in miniRT
+**
+**	1. Exit & Free
+**		- Click on the cross on top of the window
+**			and it will close all nice and pretty.
+**	2. Change_cam
+**		- By pressing the left or right arrow, you
+**			can naviguate from one cam to the other.
+**
+**	Note : I want to make more events.
+**			- Rotate camera (keyboard)
+**			- Select & Move object (mouse)
+**
+** 🦕
+*/
+
 int	exit_and_free_X(t_rt *rt)
 {
 	printf("\n"COLOR_YELLOW"	👋 Bye bye 👋\n\n");

@@ -12,6 +12,33 @@
 
 #include "minirt.h"
 
+/*
+** 🦕
+**
+** function : Handles all memory-related utilities.
+**
+**	1. Initialize the global struct. Very important to
+**		calloc (or bzero) the memory. Since we're dealing
+**		with numbers and calculations the whole program.
+**		You don't want lone weird numbers derailing 
+**		everything !
+**		- Only allocate memory for the size of the arrays
+**			    -> (cameras, light, objects)
+**	2. Add memory for lights, cameras, objects.
+**		- Will copy the given array to a temporary one,
+**			free the given one,
+**			give it the same space + 1 element,
+**			copy the temp back into it.
+**		Note : it would be easier to handle the memory part
+**			   with lists, but since we never move the objects 
+**			   around and always access them in a row, it's
+**			   much faster and easier to use an array in the
+**			   program in general. Not sure what is best practice.
+** 3. Delete memory - all allocated memory has to be freed :)
+**
+** 🦕
+*/
+
 int	init_objs(t_rt *rt)
 {
 	t_info	*init;

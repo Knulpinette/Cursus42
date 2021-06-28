@@ -14,7 +14,27 @@
 
 /*
 ** 🦕
-** function : open a window and push pixels onto it
+**
+** function : Starts miniRT
+**  1. Checks for errors
+**		- Resolution 0 on one side
+**		- No cameras
+** 2. Creates the window with minilibX
+** 3. Create the image in the window
+		- Handles events (keyboard, mouse...)
+** 4. Render miniRT
+**		- Iterates through each pixel to determine which color
+**		  it will have in the window.
+**		- First, generate the ray from the camera to the scene.
+**		- Then, determine if it hits an object on the way and
+**		  which is closest.
+**		- Then get the actual color by calculating the light
+**		  the object gets, what color the object will be, and
+**		  if it's in the shadows or not.
+**		- Finally, put the pixel's color on the screen !
+**	5. Loop (so it keeps appearing and updating) thanks to
+	   mlx_loop.
+**
 ** 🦕
 */
 

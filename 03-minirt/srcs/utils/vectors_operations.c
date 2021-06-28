@@ -12,6 +12,21 @@
 
 #include "minirt.h"
 
+/*
+** 🦕
+**
+** function : Vector operations utilities
+**
+** Various operations to save space in your code.
+**	1. Create vector
+**	2. Add vectors
+**	3. Substract vectors
+**	4. Multiply vector (by a float)
+**	5. Divide vector (by a float)
+**
+** 🦕
+*/
+
 t_vec	create_vec(float a, float b, float c)
 {
 	t_vec	v;

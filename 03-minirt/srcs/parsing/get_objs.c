@@ -12,7 +12,26 @@
 
 #include "minirt.h"
 
-//refactor even better with t_sphere etc plutôt que obj comme raccourci.
+/*
+** 🦕
+**
+** function : parsing the scene elements
+**
+**	1. Sphere ↷
+**			sp point[x,y,z] [radius] [R,G,B]
+**	2. Square ↷
+**			sq point[x,y,z] orient[x,y,z] [side] [R,G,B]
+**	3. Plane ↷
+**			pl point[x,y,z] orient[x,y,z] [R,G,B]
+**	4. Triangle ↷
+**			tr point1[x,y,z] point2[x,y,z] point3[x,y,z] [R,G,B]
+**	5. Cylinder ↷
+**			cy point[x,y,z] orient[x,y,z] [height] [diameter] [R,G,B]
+**
+**	Note : orient[x,y,z] should be normalized (in range of -1, 1)
+**
+** 🦕
+*/
 
 void	get_sphere(char *line, t_info *infos, int add_mem)
 {

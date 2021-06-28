@@ -14,7 +14,27 @@
 
 /*
 ** 🦕
-** function : utils
+**
+** function : parsing utilities
+**
+**	1. Next_nbr
+**		- Moves the cursor from a number to the next while
+**			taing into account '-', '+', ','
+**	2. Pass_spaces
+**		- Passes spaces to naviguate from one block to the
+**			other.
+**	3. Get_color
+**		- Since that particular piece of code was repetitive,
+**			I put it aside. Gets the 'r,g,b' block.
+**	4. Get_caps
+**		- To get a full cylinder (and not just the tube part),
+**			I couldn't find another way than to make circles
+**			exactly in the right spot for the caps. They are
+**			added to the object array, like any other object.
+**		Note : if I have the time and motivation, I'll add
+**				circles to the list of object you can parse
+**				through in the scene.rt file.
+**
 ** 🦕
 */
 

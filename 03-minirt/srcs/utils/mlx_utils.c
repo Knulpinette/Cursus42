@@ -12,6 +12,19 @@
 
 #include "minirt.h"
 
+/*
+** 🦕
+**
+** function : a faster version of mlx_pixel_put from minilibX.
+**
+** Found this piece of code on the awesome 42Docs. Very good ressource
+** if you're working on any graphic project from 42.
+**
+** -> https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html
+**
+** 🦕
+*/
+
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dst;

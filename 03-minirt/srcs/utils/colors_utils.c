@@ -12,6 +12,22 @@
 
 #include "minirt.h"
 
+/*
+** 🦕
+**
+** function : Color additionnal utilities
+**
+** Various operations to save space in your code.
+**	1. Set color (r, g, b to t_color)
+**	2. Convert to max
+**		to cover when the light brightness calculations
+**		get your light color over 255 - thus resulting
+**		in very weird results looking like zebras and
+**		other distorsions. Or just black.
+**
+** 🦕
+*/
+
 t_color	set(int r, int g, int b)
 {
 	t_color	c;

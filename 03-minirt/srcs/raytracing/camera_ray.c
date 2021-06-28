@@ -12,6 +12,38 @@
 
 #include "minirt.h"
 
+/*
+** 🦕
+**
+** function : Generate the ray from the camera to the scene
+**				and handle all the aspect ratios problems
+**
+**	In this very important step, we basically create a 2D
+**	plane, a matrix, parallel to the 'lense' of the camera.
+**	We'll see the 'scene' (or 'world') through its scale.
+**	It will allow us to determine the orientation of the
+**	ray coming from the camera.
+**	
+**
+**	1. Look-at
+**		We create a matrix out of our camera position &
+**		orientation. This will set how 'up', 'right',
+**		'forward' and 'right' should be understood by it.
+**	2. Getting our 2D plane vector
+**		We get a unit vector to the right aspect ratio *
+**		vertical Field of View
+**	3. We get our fully sized scene matrix
+**		We scale the unit vector to the whole matrix so
+**		that we get the right dimensions.
+**	4. We get the orientation of the plane
+**		So that it's perpendicular to the camera's orientation.
+**	5. We normalize that orientation (always normalize an orient)
+**	6. Now we have the origin and orientation of the ray that's
+**		gonna hit our pixel.
+**
+** 🦕
+*/
+
 static t_vec	multiply_by_matrix(t_vec ray, t_matrix cam)
 {
 	t_vec	multi;

@@ -13,7 +13,29 @@
 #include "minirt.h"
 
 /*
-** BUFFER_SIZE 1000 is defined in libft.h
+** 🦕
+**
+** function : Parse the scene and get all the informations stored.
+**
+**	1. Open the scene.rt file.
+**	2. Initialize the t_rt structure. Put all values to 0 and malloc
+**		the arrays.
+**	3. Parse one line at a time. (Not the most efficient to figure
+**		the errors. Better go with storing the whole given file
+**		in a ft_split and then go through this instead of being
+**		blocked to one read.)
+**	4. Parse for the scene elements.
+**		- There can only be one resolution and one ambient lighting.
+**		- If there are more than one camera or light, you need to
+**			keep track to be able to allocate the right amount of
+**			memory. One of each is already allocated in the init
+**			function. (cf memory_utils)
+**	5. Parse for the objects.
+**		- Since memory for one object is already given in the
+**			initialisation function, only give more memory if more
+**			than one object.(cf memory_utils)
+**
+** 🦕
 */
 
 static void	parse_obj(char *line, t_info *infos)

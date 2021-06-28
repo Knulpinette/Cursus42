@@ -12,6 +12,21 @@
 
 #include "minirt.h"
 
+/*
+** 🦕
+**
+** function : Colors operations utilities
+**
+** Various operations to save space in your code.
+**	1. Create color (t_color to int)
+**	2. Add colors
+**	3. Substract colors
+**	4. Multiply colors (by a float)
+**	5. Divide colors (by a float)
+**
+** 🦕
+*/
+
 int	create_color(t_color color)
 {
 	return (color.r << 16 | color.g << 8 | color.b);

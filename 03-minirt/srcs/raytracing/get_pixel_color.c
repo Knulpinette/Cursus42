@@ -12,6 +12,41 @@
 
 #include "minirt.h"
 
+/*
+** 🦕
+**
+** function : calculates the color of the result pixel
+**
+**	1. If the camera ray doesn't hit anything, returns the
+**		ambient color by it's light. If it hits an object
+**		it goes get the color of that object.
+**		Note : object brightness has to be 0.0
+**				so that we can store the added light
+**				brightness if there's more than 1 light.
+**	2. Get the object brightness.
+**		Calculate how much light is hitting the object with
+**		a ray going from the light to the hit point.
+**		Note : If there is more than one light, we'll iterate
+**				over all of them, add together their ratios &
+**				color, and give it as a result.
+**	3. Check if the object is in the shadow or not.
+**		If it is, object brightness is 0.0. To check, we send
+**		a ray from the hit point to the light. If it hits
+**		another object, then it is in the shadows.
+**		Note : more advanced raytracing algorithms take into
+**				account the color and the distance with this
+**				object to determine what color will the final
+**				pixel be since in the natural world, the color
+**				we see is a result of light bouncing off of
+**				everything, basically.
+**	4. We calculate the actual color of the pixel.
+**		Once we have the brightness ratio of our object color,
+**		we need to mix in the object color, the light color, and
+**		the ambient color * light.	
+**
+** 🦕
+*/
+
 static bool	in_shadow(t_rt *rt, int k)
 {
 	t_vec	light_position;

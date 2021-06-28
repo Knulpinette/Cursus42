@@ -12,6 +12,18 @@
 
 #include "minirt.h"
 
+/*
+** 🦕
+** MiniRT Program
+**
+** Takes in two arguments ↷
+** 		[./minirt] [scene/map]
+**
+** Then sends the map to get parsed and starts miniRT
+**
+** 🦕
+*/
+
 int	main(int argc, char **argv)
 {
 	t_rt	rt;

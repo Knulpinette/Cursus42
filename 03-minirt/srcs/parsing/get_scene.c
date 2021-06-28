@@ -12,6 +12,24 @@
 
 #include "minirt.h"
 
+/*
+** 🦕
+** MiniRT Program
+**
+** function : parsing the scene elements
+**
+**	1. Resolution ↷
+**			R [x] [y]
+**	2. Ambient ↷
+**			A [ratio] [R,G,B]
+**	3. Lights ↷
+**			l point[x,y,z] [brightness] [R,G,B]
+**	4. Cameras ↷
+**			c point[x,y,z] orient[x,y,z] [FOV]
+**
+** 🦕
+*/
+
 void	get_res(char *line, t_info *infos)
 {
 	t_res	*res;

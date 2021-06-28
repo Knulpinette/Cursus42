@@ -12,6 +12,19 @@
 
 #include "minirt.h"
 
+/*
+** 🦕
+**
+** function : handle errors
+** Sends the infos block's malloced' memory to get deleted.
+** Prints the Error message.
+** Exit cleanly the program.
+**
+** function : verify_end_line doesn't work yet.
+**
+** 🦕
+*/
+
 void	handle_error(char *error, t_info *infos)
 {
 	del_mem_infos(infos);
