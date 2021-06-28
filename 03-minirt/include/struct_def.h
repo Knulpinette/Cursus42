@@ -6,7 +6,7 @@
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 16:48:14 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/04/02 16:48:16 by osurcouf         ###   ########.fr       */
+/*   Updated: 2021/06/28 17:36:32 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ typedef struct s_camera
 {
 	t_vec	point;
 	t_vec	orient;
-	float	FOV;
+	int		FOV;
 }				t_camera;
 
 typedef struct s_light

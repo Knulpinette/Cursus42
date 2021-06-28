@@ -6,7 +6,7 @@
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 18:22:37 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/06/28 16:55:54 by osurcouf         ###   ########.fr       */
+/*   Updated: 2021/06/28 17:36:53 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,7 @@ void	get_cam(char *line, t_info *infos, int add_mem)
 	scene->cam[current].orient = normalize(scene->cam[current].orient);
 	line = next_nbr(line, infos);
 	line = pass_spaces(line, infos);
-	scene->cam[current].FOV = ft_atof(line);
+	scene->cam[current].FOV = ft_atoi(line);
+	if (scene->cam[current].FOV < 0 || scene->cam[current].FOV > 180)
+		handle_error("	FOV should be in range 0 to 180.\n", infos);
 }
