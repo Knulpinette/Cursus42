@@ -6,7 +6,7 @@
 #    By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/01 16:35:43 by osurcouf          #+#    #+#              #
-#    Updated: 2021/04/01 16:35:44 by osurcouf         ###   ########.fr        #
+#    Updated: 2021/06/28 15:56:35 by osurcouf         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ LIBFT_LIB	= -Llibft -lft
 CC			= gcc
 RM			= rm -f
 MAKE		= make
-CFLAGS 		= -Wall -Wextra -Werror #-fsanitize=address
+CFLAGS 		= -Wall -Wextra -Werror -fsanitize=address
 
 # Will allow to compile the right library according to if the OS is WSL/Linux or Mac
 UNAME = ${shell uname}
@@ -78,18 +78,18 @@ ${NAME}:	${OBJS}
 			@printf "Compiling miniRT\e[0m]\n\n"
 			@printf "\e[1;30m"
 			$(CC) ${CFLAGS} ${OBJS} ${MLX_LIB} ${LIBFT_LIB} ${MLX_FLAGS} -o $(NAME)
-			@echo "\n	🎉 [\e[0;32mSUCCESS\e[0m] 🎉\n"
-			@echo "	\e[1;30m________________\e[0m\n"
+			@printf "\n	🎉 [\e[0;32m SUCCESS\e[0m] 🎉\n"
+			@printf "	\e[1;30m________________\e[0m\n"
 
 test:		${NAME}
-			@echo "	📚 [\e[1;35mINSTRUCTIONS\e[0m] 📚"
-			@echo "\n🦕🍭	\e[1;33mTo start miniRT on MacOS or Linux\e[0m"
-			@echo "	[\e[1;30m./miniRT ./scenes/scene-example.rt\e[0m]\n"
-			@echo "🍭🦄	\e[1;36mTo start miniRT on WSL\e[0m" 
-			@echo "	[\e[1;30mLaunch vcxsrv.exe\e[0m]"
-			@echo "🦄🍭	\e[1;36mCopy the following command line\e[0m" 
-			@echo "	[\e[1;30mDISPLAY=\$$(cat /etc/resolv.conf | grep nameserver | awk '{print \$$2}'):0 ./miniRT ./scenes/scene-debug.rt\e[0m]\n"
-			@echo "\n🦕🍭\e[0;37mBy Ophélie Surcouf @ 42Lisboa\e[0m 🍭🦕"
+			@printf "\n	📚 [\e[1;35mINSTRUCTIONS\e[0m] 📚\n"
+			@printf "\n🦕🍭	\e[1;33mTo start miniRT on MacOS or Linux\e[0m\n"
+			@printf "	[\e[1;30m./miniRT ./scenes/scene-example.rt\e[0m]\n"
+			@printf "\n🍭🦄	\e[1;36mTo start miniRT on WSL\e[0m\n" 
+			@printf "	[\e[1;30mLaunch vcxsrv.exe\e[0m]\n"
+			@printf "🦄🍭	\e[1;36mCopy the following command line\e[0m\n" 
+			@printf "	[\e[1;30mDISPLAY=\$$(cat /etc/resolv.conf | grep nameserver | awk '{print \$$2}'):0 ./miniRT ./scenes/scene-debug.rt\e[0m]\n"
+			@printf "\n🦕🍭\e[0;37mBy Ophélie Surcouf @ 42Lisboa\e[0m 🍭🦕\n"
 
 #	Cleaning rules
 

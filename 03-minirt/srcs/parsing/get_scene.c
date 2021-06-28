@@ -6,7 +6,7 @@
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 18:22:37 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/04/02 18:22:39 by osurcouf         ###   ########.fr       */
+/*   Updated: 2021/06/28 16:55:54 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	get_res(char *line, t_info *infos)
 	res->y = ft_atoi(line);
 	if (res->x < 0 || res->y < 0)
 		handle_error("📏	Resolution is negative.\n", infos);
-	line = next_nbr(line, infos);
 }
 
 void	get_amb(char *line, t_info *infos)

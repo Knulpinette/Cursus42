@@ -6,7 +6,7 @@
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:42:00 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/03/03 11:43:07 by osurcouf         ###   ########.fr       */
+/*   Updated: 2021/06/28 16:56:05 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ char	*next_nbr(char *line, t_info *infos)
 		handle_error("🔢	Character is in the wild. Danger. Can't parse.\n",
 					 infos);
 	return (line);
-	(void)infos;
 }
 
 char	*pass_spaces(char *line, t_info *infos)

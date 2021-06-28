@@ -6,7 +6,7 @@
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 17:55:35 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/04/02 18:29:14 by osurcouf         ###   ########.fr       */
+/*   Updated: 2021/06/28 16:31:28 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,12 +97,10 @@ void	start_minirt(t_rt *rt)
 		handle_error("🎥	There are no cameras.\n", rt->infos);
 	else
 		rt->curr.cam = rt->infos->scene->cam[0];
-	printf("\n	 🖼️🖼️🖼️🖼️🖼️🖼️🖼️🖼️🖼️\n");
-	printf("	"COLOR_LIGHT_CYAN"🖼️ Starting miniRT 🖼️"COLOR_END"");
-	printf("\n	  🖼️🖼️🖼️🖼️🖼️🖼️🖼️🖼️🖼️\n\n");
+	printf("\n	"COLOR_LIGHT_CYAN"🖼️  Starting miniRT 🖼️"COLOR_END"\n\n");
 	printf("	"COLOR_WHITE"["COLOR_LIGHT_PURPLE"INSTRUCTIONS"COLOR_WHITE"]\n");
 	if (rt->infos->scene->nb_cam > 1)
-		printf("🎥	[To Change Cameras] : Press 🢀 or 🢂\n");
+		printf("🎥	[To Change Cameras] : Press <- or ->\n");
 	printf(""COLOR_END"");
 	create_window(rt);
 	create_img(rt);

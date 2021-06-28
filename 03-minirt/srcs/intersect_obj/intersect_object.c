@@ -6,7 +6,7 @@
 /*   By: osurcouf <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 14:20:33 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/05/05 14:20:36 by osurcouf         ###   ########.fr       */
+/*   Updated: 2021/06/28 14:53:01 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	check_if_it_hits_object(t_rt *rt)
 	}
 	if (rt->curr.hit.t != INFINITY)
 	{
-		if (rt->curr.obj.type != SQUARE || rt->curr.obj.type != CIRCLE)
+		if (rt->curr.obj.type != SQUARE && rt->curr.obj.type != CIRCLE)
 			rt->curr.hit.point = add(rt->cam_ray.origin,
 					multiply(rt->cam_ray.dir, rt->curr.hit.t));
 		get_obj_normal(&rt->curr);

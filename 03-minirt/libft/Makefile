@@ -48,24 +48,24 @@ bonus: ${OBJS} ${OBJS_BONUS}
 #	Cleaning rules
 
 clean:
-	@echo "\n	\e[1;37m[\e[1;34m\
+	@printf "\n	\e[1;37m[\e[1;34m\
 	Cleaning libft objects\e[0m]\
-	\e[1;30m\n"
+	\e[1;30m \n\n"
 	${RM} ${OBJS_BONUS}
 	@rm -rf objs
 	@printf "\n\e[0m"
 
 fclean: clean
-	@echo "\n	\e[1;37m[\e[1;34m\
-	Cleaning libft output files\e[0m]\
-	\e[1;30m\n"
+	@printf "\n	\e[1;37m[\e[1;34m\
+	Cleaning libft output files\
+	\e[0m]\n \e[1;30m"
 	${RM} ${NAME}
 	@printf "\n\e[0m"
 
 fclean_no_clean:
-	@echo "\n	\e[1;37m[\e[1;34m\
+	@printf "\n	\e[1;37m[\e[1;34m\
 	Cleaning libft output files\e[0m]\
-	\e[1;30m\n"
+	\e[1;30m\n\n"
 	${RM} ${NAME}
 	@printf "\n\e[0m"
 

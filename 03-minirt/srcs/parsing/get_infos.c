@@ -6,7 +6,7 @@
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 18:22:44 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/04/02 18:22:45 by osurcouf         ###   ########.fr       */
+/*   Updated: 2021/06/28 16:44:03 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,12 @@ void	get_infos(char *argv, t_rt *rt)
 
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
-		handle_error("📂	Cannot open file.\n", rt->infos);
+	{
+		 printf(""COLOR_RED"\n	Error\n");
+		 printf(""COLOR_WHITE"📂	Cannot open file.\n\n");
+		 exit(EXIT_SUCCESS);
+		 return ;
+	}
 	init = init_objs(rt);
 	if (!init)
 		handle_error("💧	Fail to malloc struct elements.\n", rt->infos);
@@ -131,6 +136,8 @@ void	get_infos(char *argv, t_rt *rt)
 		parse(line, rt->infos);
 		free(line);
 	}
+	if (!rt->infos->amb)
+	   handle_error("	You're missing ambient lighting...\n", rt->infos);	
 	if (close(fd) < 0)
 		handle_error("❌	Cannot close the file.\n", rt->infos);
 }
