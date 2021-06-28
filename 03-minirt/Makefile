@@ -57,6 +57,7 @@ endif
 # Colors
 
 GRAY		= \e[1;30m
+END			= \e[0m
 
 # -*- The Rules -*-
 
@@ -79,21 +80,21 @@ all:		${NAME} test
 ${NAME}:	${OBJS}
 			@${MAKE} bonus -C ${LIBFT_DIR}
 			@printf "\n	\e[1;37m[\e[1;32m"
-			@printf "Compiling miniRT\e[0m]\n\n"
+			@printf "Compiling miniRT${END}]\n\n"
 			@printf "\e[1;30m"
 			$(CC) ${CFLAGS} ${OBJS} ${MLX_LIB} ${LIBFT_LIB} ${MLX_FLAGS} -o $(NAME)
-			@printf "\n	🎉 [\e[0;32m SUCCESS\e[0m] 🎉\n"
-			@printf "	\e[1;30m________________\e[0m\n"
+			@printf "\n	🎉 [\e[0;32m SUCCESS${END}] 🎉\n"
+			@printf "	${GRAY}________________${END}\n"
 
 test:		${NAME}
-			@printf "\n	📚 [\e[1;35mINSTRUCTIONS\e[0m] 📚\n"
-			@printf "\n🦕🍭	\e[1;33mTo start miniRT on MacOS or Linux\e[0m\n"
-			@printf "	[${GRAY}./miniRT ./scenes/scene-example.rt\e[0m]\n"
-			@printf "\n🍭🦄	\e[1;36mTo start miniRT on WSL\e[0m\n" 
-			@printf "	[\e[1;30mLaunch vcxsrv.exe\e[0m]\n"
-			@printf "🦄🍭	\e[1;36mCopy the following command line\e[0m\n" 
-			@printf "	[\e[1;30mDISPLAY=\$$(cat /etc/resolv.conf | grep nameserver | awk '{print \$$2}'):0 ./miniRT ./scenes/scene-debug.rt\e[0m]\n"
-			@printf "\n🦕🍭\e[0;37mBy Ophélie Surcouf @ 42Lisboa\e[0m 🍭🦕\n"
+			@printf "\n	📚 [\e[1;35mINSTRUCTIONS${END}] 📚\n"
+			@printf "\n🦕🍭	\e[1;33mTo start miniRT on MacOS or Linux${END}\n"
+			@printf "	[${GRAY}./miniRT ./scenes/scene-example.rt${END}]\n"
+			@printf "\n🍭🦄	\e[1;36mTo start miniRT on WSL${END}\n" 
+			@printf "	[\e[1;30mLaunch vcxsrv.exe${END}]\n"
+			@printf "🦄🍭	\e[1;36mCopy the following command line${END}\n" 
+			@printf "	[${GRAY}DISPLAY=\$$(cat /etc/resolv.conf | grep nameserver | awk '{print \$$2}'):0 ./miniRT ./scenes/scene-debug.rt${END}]\n"
+			@printf "\n🦕🍭\e[0;37mBy Ophélie Surcouf @ 42Lisboa${END} 🍭🦕\n"
 
 #	Cleaning rules
 
@@ -101,20 +102,20 @@ clean:
 			@printf "\n\e[1;37m"
 			@${MAKE} clean -C ${LIBFT_DIR}
 			@printf "\n	\e[1;37m[\e[1;34m"
-			@printf "Cleaning miniRT objects\e[0m]\n\n"
+			@printf "Cleaning miniRT objects${END}]\n\n"
 			@printf "\e[1;30m"
 			${RM} ${OBJS} ${OBJS_BONUS}
 			@rm -rf objs
-			@printf "\e[0m"
+			@printf "${END}"
 
 fclean:		clean
 			@printf "\n\e[1;37m"
 			@${MAKE} fclean_no_clean -C ${LIBFT_DIR}
 			@printf "\n	\e[1;37m[\e[1;34m"
-			@printf "Cleaning miniRT output files\e[0m]\n\n"
+			@printf "Cleaning miniRT output files${END}]\n\n"
 			@printf "\e[1;30m"
 			${RM} ${NAME}
-			@printf "\n\e[0m"
+			@printf "\n${END}"
 
 re:			fclean all
 
