@@ -6,7 +6,7 @@
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 16:48:25 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/04/02 16:48:26 by osurcouf         ###   ########.fr       */
+/*   Updated: 2021/06/28 18:21:06 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ void		get_pixel_color(t_rt *rt);
 */
 
 void		create_img(t_rt *rt);
-int			exit_and_free_X(t_rt *rt);
-int			change_cam_or_ESC(int keycode, t_rt *rt);
+int			exit_and_free(t_rt *rt);
+int			events(int keycode, t_rt *rt);
 
 /*
 **	Parsing

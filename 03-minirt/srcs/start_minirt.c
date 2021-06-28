@@ -6,7 +6,7 @@
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 17:55:35 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/06/28 17:03:14 by osurcouf         ###   ########.fr       */
+/*   Updated: 2021/06/28 18:23:18 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ static void	render_minirt(t_rt *rt)
 void	create_img(t_rt *rt)
 {
 	render_minirt(rt);
-	mlx_hook(rt->win, DESTROY, 0, exit_and_free_X, rt);
+	mlx_hook(rt->win, DESTROY, 0, exit_and_free, rt);
 	if (rt->infos->scene->nb_cam > 1)
-		mlx_key_hook(rt->win, change_cam_or_ESC, rt);
+		mlx_key_hook(rt->win, events, rt);
 	if (rt->infos->nb_objs == no)
 	{
 		printf(""COLOR_YELLOW"	Fair warning ✋\n");
