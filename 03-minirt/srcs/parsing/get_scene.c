@@ -6,7 +6,7 @@
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 18:22:37 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/06/28 17:36:53 by osurcouf         ###   ########.fr       */
+/*   Updated: 2021/06/28 18:27:25 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	get_amb(char *line, t_info *infos)
 	amb->r = ft_atof(line);
 	if (amb->r < 0.0 || amb->r > 1.0)
 		handle_error("☁️	Ambient ratio should be between 0.0 and 1.0.\n",
-						infos);
+			infos);
 	line = pass_spaces(line, infos);
 	get_color(line, &amb->color, infos);
 }
@@ -74,7 +74,7 @@ void	get_light(char *line, t_info *infos, int add_mem)
 	if (scene->light[current].bright < 0.0
 		|| scene->light[current].bright > 1.0)
 		handle_error("💡	Light brightness should be between 0.0 and 1.0.\n",
-						infos);
+			infos);
 	get_color(line, &scene->light[current].color, infos);
 }
 

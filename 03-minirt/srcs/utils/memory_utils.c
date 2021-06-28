@@ -6,7 +6,7 @@
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 15:56:58 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/06/28 16:29:35 by osurcouf         ###   ########.fr       */
+/*   Updated: 2021/06/28 18:31:30 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,5 +123,6 @@ void	del_mem_infos(t_info *infos)
 		free(infos->scene);
 	if (infos->objs)
 		free(infos->objs);
-	free((void *)infos);
+	if (infos)
+		free((void *)infos);
 }

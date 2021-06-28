@@ -6,7 +6,7 @@
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 18:29:19 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/06/28 18:21:16 by osurcouf         ###   ########.fr       */
+/*   Updated: 2021/06/28 18:25:01 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ int	events(int keycode, t_rt *rt)
 
 	if (keycode == KEY_ESC)
 		exit_and_free(rt);
-
 	if (keycode == KEY_RIGHT && curr_cam < rt->infos->scene->nb_cam - 1)
 		curr_cam++;
 	else if (keycode == KEY_LEFT && curr_cam > 0)

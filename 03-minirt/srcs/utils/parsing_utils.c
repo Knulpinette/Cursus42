@@ -6,7 +6,7 @@
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:42:00 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/06/28 16:56:05 by osurcouf         ###   ########.fr       */
+/*   Updated: 2021/06/28 18:28:37 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*next_nbr(char *line, t_info *infos)
 		line++;
 	if (line == o_line)
 		handle_error("🔢	Character is in the wild. Danger. Can't parse.\n",
-					 infos);
+			infos);
 	return (line);
 }
 
@@ -65,7 +65,7 @@ char	*pass_spaces(char *line, t_info *infos)
 		line++;
 	if (line == o_line)
 		handle_error("⌨️	There's a lonely character attached to a number.\n",
-						infos);
+			infos);
 	return (line);
 }
 

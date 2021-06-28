@@ -6,7 +6,7 @@
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 19:36:26 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/06/28 17:05:28 by osurcouf         ###   ########.fr       */
+/*   Updated: 2021/06/28 18:26:57 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,5 @@ void	verify_end_line(char *line, t_info *infos)
 	printf("%x >> %i\n", *line, i);
 	if (*line != c)
 		handle_error("	You have a wandering character at the end of a line.\n",
-						infos);
+			infos);
 }

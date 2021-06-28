@@ -6,7 +6,7 @@
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 18:22:44 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/06/28 17:19:13 by osurcouf         ###   ########.fr       */
+/*   Updated: 2021/06/28 18:33:46 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,9 +119,10 @@ void	get_infos(char *argv, t_rt *rt)
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
 	{
-		 printf(""COLOR_RED"\n	Error\n");
-		 printf(""COLOR_WHITE"📂	Cannot open file.\n\n");
-		 exit(EXIT_SUCCESS);
+		printf(""COLOR_RED"\n	Error\n");
+		printf(""COLOR_WHITE"📂	Cannot open file.\n\n");
+		exit(EXIT_SUCCESS);
+		//DO AN ERROR MESSAGE WITH NO RT->INFOS !
 	}
 	init = init_objs(rt);
 	if (!init)
@@ -137,9 +138,9 @@ void	get_infos(char *argv, t_rt *rt)
 	}
 	if (!rt->infos->res && !rt->infos->amb)
 		handle_error("	There is no resolution or ambient lighting :'(\n",
-				rt->infos);
+			rt->infos);
 	if (!rt->infos->amb)
-		handle_error("	You're missing ambient lighting...\n", rt->infos);	
+		handle_error("	You're missing ambient lighting...\n", rt->infos);
 	if (close(fd) < 0)
 		handle_error("❌	Cannot close the file.\n", rt->infos);
 }
