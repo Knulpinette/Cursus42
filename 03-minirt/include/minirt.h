@@ -74,7 +74,7 @@ void		get_pixel_color(t_rt *rt);
 
 void		create_img(t_rt *rt);
 int			exit_and_free_X(t_rt *rt);
-int			change_cam(int keycode, t_rt *rt);
+int			change_cam_or_ESC(int keycode, t_rt *rt);
 
 /*
 **	Parsing

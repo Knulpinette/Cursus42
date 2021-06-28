@@ -12,6 +12,16 @@
 
 #include "minirt.h"
 
+/*
+** 🦕
+**
+** function : Cylinder
+**
+** blabla
+**
+** 🦕
+*/
+
 void	cylinder_normal(t_rec *curr)
 {
 	t_vec	center_to_hitpoint;

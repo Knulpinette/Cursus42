@@ -12,6 +12,16 @@
 
 #include "minirt.h"
 
+/*
+** 🦕
+**
+** function : Quadratic
+**
+** blabla
+**
+** 🦕
+*/
+
 t_params	new_params(float a, float b, float c)
 {
 	t_params	params;

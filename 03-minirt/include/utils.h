@@ -23,7 +23,7 @@ void		handle_error(char *error, t_info *infos);
 void		verify_end_line(char *line, t_info *infos);
 
 /*
-**	Rendering
+**	Rendering (mlx)
 */
 
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
@@ -64,7 +64,7 @@ char		*get_vector(char *line, t_vec *vec, t_info *infos);
 void		get_color(char *line, t_color *color, t_info *infos);
 
 /*
-**	Memory utils
+**	Memory
 */
 
 int			init_objs(t_rt *rt);

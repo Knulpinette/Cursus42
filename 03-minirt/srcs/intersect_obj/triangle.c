@@ -12,6 +12,16 @@
 
 #include "minirt.h"
 
+/*
+** 🦕
+**
+** function : Triangle
+**
+** Does not work at the moment. (At all)
+**
+** 🦕
+*/
+
 void	triangle_normal(t_rec *curr)
 {
 	t_vec		point1_to_point2;

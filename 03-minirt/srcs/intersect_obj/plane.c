@@ -12,6 +12,16 @@
 
 #include "minirt.h"
 
+/*
+** 🦕
+**
+** function : Plane
+**
+** blabla
+**
+** 🦕
+*/
+
 float	plane(t_ray *ray, t_rec *curr, t_vec point, t_vec orient)
 {
 	t_vec	ray_to_center;

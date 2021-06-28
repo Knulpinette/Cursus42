@@ -12,6 +12,16 @@
 
 #include "minirt.h"
 
+/*
+** 🦕
+**
+** function : Intersect Objects
+**
+** blabla
+**
+** 🦕
+*/
+
 static void	get_obj_normal(t_rec *curr)
 {
 	if (curr->obj.type == PLANE)

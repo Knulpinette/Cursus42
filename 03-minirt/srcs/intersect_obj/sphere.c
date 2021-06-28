@@ -12,6 +12,16 @@
 
 #include "minirt.h"
 
+/*
+** 🦕
+**
+** function : Sphere
+**
+** blabla
+**
+** 🦕
+*/
+
 void	sphere_normal(t_rec *curr)
 {
 	t_vec	hit_to_center;

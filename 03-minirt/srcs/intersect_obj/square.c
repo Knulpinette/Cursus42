@@ -12,6 +12,16 @@
 
 #include "minirt.h"
 
+/*
+** 🦕
+**
+** function : Square
+**
+** blabla
+**
+** 🦕
+*/
+
 float	square(t_ray *ray, t_rec *curr)
 {
 	t_square	*square;

@@ -67,7 +67,7 @@ void	create_img(t_rt *rt)
 	render_minirt(rt);
 	mlx_hook(rt->win, DESTROY, 0, exit_and_free_X, rt);
 	if (rt->infos->scene->nb_cam > 1)
-		mlx_key_hook(rt->win, change_cam, rt);
+		mlx_key_hook(rt->win, change_cam_or_ESC, rt);
 	if (rt->infos->nb_objs == no)
 	{
 		printf(""COLOR_YELLOW"	Fair warning ✋\n");
@@ -100,7 +100,7 @@ void	start_minirt(t_rt *rt)
 	printf("\n	 🖼️🖼️🖼️🖼️🖼️🖼️🖼️🖼️🖼️\n");
 	printf("	"COLOR_LIGHT_CYAN"🖼️ Starting miniRT 🖼️"COLOR_END"");
 	printf("\n	  🖼️🖼️🖼️🖼️🖼️🖼️🖼️🖼️🖼️\n\n");
-	printf(""COLOR_WHITE"");
+	printf("	"COLOR_WHITE"["COLOR_LIGHT_PURPLE"INSTRUCTIONS"COLOR_WHITE"]\n");
 	if (rt->infos->scene->nb_cam > 1)
 		printf("🎥	[To Change Cameras] : Press 🢀 or 🢂\n");
 	printf(""COLOR_END"");

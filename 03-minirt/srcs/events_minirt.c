@@ -27,6 +27,10 @@
 **	Note : I want to make more events.
 **			- Rotate camera (keyboard)
 **			- Select & Move object (mouse)
+**			- Figure out how to have code in another
+**				function for camera
+**			- Organize better so escape_key is not in
+**				change camera. Makes no sense.
 **
 ** 🦕
 */
@@ -41,17 +45,19 @@ int	exit_and_free_X(t_rt *rt)
 	return (yes);
 }
 
-int	change_cam(int keycode, t_rt *rt)
+int	change_cam_or_ESC(int keycode, t_rt *rt)
 {
 	static int	curr_cam = 0;
 
+	if (keycode == KEY_ESC)
+		exit_and_free_X(rt);
 	if (keycode == KEY_RIGHT && curr_cam < rt->infos->scene->nb_cam - 1)
 	{
 		rt->curr.cam = rt->infos->scene->cam[curr_cam + 1];
 		curr_cam += 1;
 		create_img(rt);
 		if (curr_cam == rt->infos->scene->nb_cam - 1)
-			printf("🎥	Last Camera\n");
+			printf("	🎥 Last Camera\n");
 		return (yes);
 	}
 	if (keycode == KEY_LEFT && curr_cam > 0)
@@ -60,8 +66,8 @@ int	change_cam(int keycode, t_rt *rt)
 		curr_cam -= 1;
 		create_img(rt);
 		if (curr_cam == 0)
-			printf("🎥	First Camera\n");
+			printf("	🎥 First Camera\n");
 		return (yes);
 	}
-	return (no);
+	return (yes);
 }
