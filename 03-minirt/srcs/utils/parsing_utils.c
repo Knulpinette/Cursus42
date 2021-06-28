@@ -96,14 +96,12 @@ char	*get_vector(char *line, t_vec *vec, t_info *infos)
 	return (line);
 }
 
-void	get_caps(t_info *infos)
+void	get_caps(t_info *infos, t_cylinder cy)
 {
-	t_cylinder	*cy;
 	t_circle	*cap;
 	t_color		cy_color;
 	int			i;
 
-	cy = &infos->objs[infos->nb_objs].shape.cy;
 	cy_color = infos->objs[infos->nb_objs].color;
 	i = 0;
 	while (i < 2)
@@ -115,9 +113,12 @@ void	get_caps(t_info *infos)
 		infos->objs[infos->nb_objs].type = CIRCLE;
 		infos->objs[infos->nb_objs].color = cy_color;
 		cap = &infos->objs[infos->nb_objs].shape.circle;
-		cap->center = add(cy->point, multiply(cy->orient, cy->height / 2));
-		cap->radius = cy->radius;
-		cap->orient = cy->orient;
+		if (i == 0)
+			cap->center = add(cy.point, multiply(cy.orient, cy.height / 2));
+		if (i == 1)
+			cap->center = add(cy.point, multiply(cy.orient, -cy.height / 2));
+		cap->radius = cy.radius;
+		cap->orient = cy.orient;
 		i++;
 	}
 }

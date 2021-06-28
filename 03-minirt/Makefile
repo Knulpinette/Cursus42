@@ -57,6 +57,14 @@ endif
 # Colors
 
 GRAY		= \e[1;30m
+GREEN 		= \e[1;32m
+DARK_GREEN	= \e[0;32m
+YELLOW		= \e[1;33m
+BLUE		= \e[1;34m
+PURPLE		= \e[1;35m
+CYAN		= \e[1;36m
+WHITE		= \e[1;37m
+NORMAL		= \e[0;37m
 END			= \e[0m
 
 # -*- The Rules -*-
@@ -79,41 +87,41 @@ all:		${NAME} test
 # Make libft + compile miniRT
 ${NAME}:	${OBJS}
 			@${MAKE} bonus -C ${LIBFT_DIR}
-			@printf "\n	\e[1;37m[\e[1;32m"
+			@printf "\n	${WHITE}[${GREEN}"
 			@printf "Compiling miniRT${END}]\n\n"
-			@printf "\e[1;30m"
+			@printf "${GRAY}"
 			$(CC) ${CFLAGS} ${OBJS} ${MLX_LIB} ${LIBFT_LIB} ${MLX_FLAGS} -o $(NAME)
-			@printf "\n	🎉 [\e[0;32m SUCCESS${END}] 🎉\n"
+			@printf "\n	🎉 [${DARK_GREEN}SUCCESS${END}] 🎉\n"
 			@printf "	${GRAY}________________${END}\n"
 
 test:		${NAME}
-			@printf "\n	📚 [\e[1;35mINSTRUCTIONS${END}] 📚\n"
-			@printf "\n🦕🍭	\e[1;33mTo start miniRT on MacOS or Linux${END}\n"
+			@printf "\n	📚 [${PURPLE}INSTRUCTIONS${END}] 📚\n"
+			@printf "\n🦕🍭	${YELLOW}To start miniRT on MacOS or Linux${END}\n"
 			@printf "	[${GRAY}./miniRT ./scenes/scene-example.rt${END}]\n"
-			@printf "\n🍭🦄	\e[1;36mTo start miniRT on WSL${END}\n" 
-			@printf "	[\e[1;30mLaunch vcxsrv.exe${END}]\n"
-			@printf "🦄🍭	\e[1;36mCopy the following command line${END}\n" 
+			@printf "\n🍭🦄	${CYAN}To start miniRT on WSL${END}\n" 
+			@printf "	[${GRAY}Launch vcxsrv.exe${END}]\n"
+			@printf "🦄🍭	${CYAN}Copy the following command line${END}\n" 
 			@printf "	[${GRAY}DISPLAY=\$$(cat /etc/resolv.conf | grep nameserver | awk '{print \$$2}'):0 ./miniRT ./scenes/scene-debug.rt${END}]\n"
-			@printf "\n🦕🍭\e[0;37mBy Ophélie Surcouf @ 42Lisboa${END} 🍭🦕\n"
+			@printf "\n🦕🍭${NORMAL}By Ophélie Surcouf @ 42Lisboa${END} 🍭🦕\n"
 
 #	Cleaning rules
 
 clean:
-			@printf "\n\e[1;37m"
+			@printf "\n${WHITE}"
 			@${MAKE} clean -C ${LIBFT_DIR}
-			@printf "\n	\e[1;37m[\e[1;34m"
+			@printf "\n	${WHITE}[${BLUE}"
 			@printf "Cleaning miniRT objects${END}]\n\n"
-			@printf "\e[1;30m"
+			@printf "${GRAY}"
 			${RM} ${OBJS} ${OBJS_BONUS}
 			@rm -rf objs
 			@printf "${END}"
 
 fclean:		clean
-			@printf "\n\e[1;37m"
+			@printf "\n${WHITE}"
 			@${MAKE} fclean_no_clean -C ${LIBFT_DIR}
-			@printf "\n	\e[1;37m[\e[1;34m"
+			@printf "\n	${WHITE}[${BLUE}"
 			@printf "Cleaning miniRT output files${END}]\n\n"
-			@printf "\e[1;30m"
+			@printf "${GRAY}"
 			${RM} ${NAME}
 			@printf "\n${END}"
 

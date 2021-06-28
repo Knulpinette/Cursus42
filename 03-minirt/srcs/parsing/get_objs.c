@@ -139,5 +139,5 @@ void	get_cylinder(char *line, t_info *infos, int add_mem)
 	diameter = ft_atof(line);
 	cylinder->radius = diameter / 2;
 	get_color(line, &obj->color, infos);
-	get_caps(infos);
+	get_caps(infos, *cylinder);
 }

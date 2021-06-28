@@ -90,6 +90,6 @@ void		get_square(char *line, t_info *infos, int add_mem);
 void		get_plane(char *line, t_info *infos, int add_mem);
 void		get_triangle(char *line, t_info *infos, int add_mem);
 void		get_cylinder(char *line, t_info *infos, int add_mem);
-void		get_caps(t_info *infos);
+void		get_caps(t_info *infos, t_cylinder cy);
 
 #endif
