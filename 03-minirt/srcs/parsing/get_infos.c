@@ -6,7 +6,7 @@
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 18:22:44 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/06/28 16:44:03 by osurcouf         ###   ########.fr       */
+/*   Updated: 2021/06/28 17:05:15 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,8 @@ void	get_infos(char *argv, t_rt *rt)
 		parse(line, rt->infos);
 		free(line);
 	}
+	if (!rt->infos->res && !rt->infos->amb)
+		handle_error("	There is no resolution or ambient lighting :'(\n", rt->infos);
 	if (!rt->infos->amb)
 	   handle_error("	You're missing ambient lighting...\n", rt->infos);	
 	if (close(fd) < 0)
