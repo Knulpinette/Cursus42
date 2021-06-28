@@ -32,13 +32,14 @@ float	square(t_ray *ray, t_rec *curr)
 	t_square	*square;
 	float		result;
 	t_vec		center_to_hit;
+	t_vec		hit_point;
 
 	square = &curr->obj.shape.sq;
 	result = plane(ray, curr, square->point, square->orient);
 	if (result > 0.0)
 	{
-		curr->hit.point = add(ray->origin, multiply(ray->dir, result));
-		center_to_hit = substract(curr->hit.point, square->point);
+		hit_point = add(ray->origin, multiply(ray->dir, result));
+		center_to_hit = substract(hit_point, square->point);
 		if (result < 0)
 			return (0.0);
 		else if (fabs(center_to_hit.x) > square->side / 2

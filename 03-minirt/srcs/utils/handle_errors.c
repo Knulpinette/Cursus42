@@ -32,6 +32,12 @@ void	handle_error(char *error, t_info *infos)
 	exit(EXIT_SUCCESS);
 }
 
+void	error_msg(char *error)
+{
+	printf(""COLOR_RED"\n	Error\n"COLOR_WHITE"%s\n", error);
+	exit(EXIT_SUCCESS);
+}
+
 void	verify_end_line(char *line, t_info *infos)
 {
 	char	c;

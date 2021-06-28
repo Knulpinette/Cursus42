@@ -42,7 +42,6 @@ int	exit_and_free(t_rt *rt)
 	mlx_clear_window(rt->mlx, rt->win);
 	mlx_destroy_window(rt->mlx, rt->win);
 	exit(EXIT_SUCCESS);
-	return (EXIT_SUCCESS);
 }
 
 void	change_cam(t_rt *rt, int curr_cam)

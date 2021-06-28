@@ -98,10 +98,11 @@ void	start_minirt(t_rt *rt)
 	else
 		rt->curr.cam = rt->infos->scene->cam[0];
 	printf("\n	"COLOR_LIGHT_CYAN"🖼️  Starting miniRT 🖼️"COLOR_END"\n\n");
-	printf("	"COLOR_WHITE"["COLOR_LIGHT_PURPLE"INSTRUCTIONS"COLOR_WHITE"]\n");
 	if (rt->infos->scene->nb_cam > 1)
-		printf("🎥	[To Change Cameras] : Press <- or ->\n");
-	printf(""COLOR_END"");
+	{
+		printf("	"COLOR_WHITE"["COLOR_LIGHT_PURPLE"INSTRUCTIONS"COLOR_WHITE"]\n");
+		printf("🎥	[To Change Cameras] : Press <- or ->\n"COLOR_END"");
+	}
 	create_window(rt);
 	create_img(rt);
 	mlx_loop(rt->mlx);

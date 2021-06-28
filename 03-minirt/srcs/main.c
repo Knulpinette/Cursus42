@@ -38,37 +38,20 @@ static int	not_map(char *argv)
 	return (yes);
 }
 
-static void	map_format_msg(void)
-{
-	printf(""COLOR_RED"\n	Error\n");
-	printf(""COLOR_WHITE"	I don't eat this map format.\n");
-	printf(""COLOR_LIGHT_GRAY"	I only eat [.rt] files.\n\n");
-}
-
 int	main(int argc, char **argv)
 {
 	t_rt	rt;
 
 	ft_bzero(&rt, sizeof(t_rt));
 	if (argc < 2)
-	{
-		printf(""COLOR_RED"\n	Error\n");
-		printf(""COLOR_WHITE"🥗	I'm hungry. I need more arguments.\n");
-		printf(""COLOR_LIGHT_GRAY"🍴	My diet : [./minirt] [scene/map.rt].\n\n");
-		return (-1);
-	}
+		error_msg("🥗	I'm hungry. I need more arguments.\
+			\n"COLOR_LIGHT_GRAY"🍴	My diet : [./minirt] [scene/map.rt].\n\n");
 	if (argc > 2)
-	{
-		printf(""COLOR_RED"\n	Error\n");
-		printf(""COLOR_WHITE"🍔	You are feeding me too many arguments.\n");
-		printf(""COLOR_LIGHT_GRAY"🍴	My diet : [./minirt] [scene/map.rt].\n\n");
-		return (-1);
-	}
+		error_msg("🍔	You are feeding me too many arguments.\
+			\n"COLOR_LIGHT_GRAY"🍴	My diet : [./minirt] [scene/map.rt].\n\n");
 	if (!not_map(argv[1]))
-	{
-		map_format_msg();
-		return (-1);
-	}
+		error_msg("	I don't eat this map format.\
+			\n"COLOR_LIGHT_GRAY"	I only eat [.rt] files.\n\n");
 	get_infos(argv[1], &rt);
 	start_minirt(&rt);
 }

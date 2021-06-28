@@ -118,12 +118,7 @@ void	get_infos(char *argv, t_rt *rt)
 
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
-	{
-		printf(""COLOR_RED"\n	Error\n");
-		printf(""COLOR_WHITE"📂	Cannot open file.\n\n");
-		exit(EXIT_SUCCESS);
-		//DO AN ERROR MESSAGE WITH NO RT->INFOS !
-	}
+		error_msg("📂	Cannot open file.\n\n");
 	init = init_objs(rt);
 	if (!init)
 		handle_error("💧	Fail to malloc struct elements.\n", rt->infos);
@@ -136,11 +131,8 @@ void	get_infos(char *argv, t_rt *rt)
 		parse(line, rt->infos);
 		free(line);
 	}
-	if (!rt->infos->res && !rt->infos->amb)
-		handle_error("	There is no resolution or ambient lighting :'(\n",
-			rt->infos);
-	if (!rt->infos->amb)
-		handle_error("	You're missing ambient lighting...\n", rt->infos);
+	if (!rt->infos->res || !rt->infos->amb)
+		handle_error("🖥️	I need a resolution and ambient light !\n", rt->infos);
 	if (close(fd) < 0)
 		handle_error("❌	Cannot close the file.\n", rt->infos);
 }

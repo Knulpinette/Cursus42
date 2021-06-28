@@ -80,13 +80,14 @@ float	circle(t_ray *ray, t_rec *curr)
 	t_vec		center_to_hit;
 	float		length_center_to_hit;
 	t_circle	circle;
+	t_vec		hit_point;
 
 	circle = curr->obj.shape.circle;
 	result = plane(ray, curr, circle.center, circle.orient);
 	if (result >= 0.0)
 	{
-		curr->hit.point = add(ray->origin, multiply(ray->dir, curr->hit.t));
-		center_to_hit = substract(curr->hit.point,
+		hit_point = add(ray->origin, multiply(ray->dir, curr->hit.t));
+		center_to_hit = substract(hit_point,
 				curr->obj.shape.circle.center);
 		length_center_to_hit = dot_product(center_to_hit, center_to_hit);
 		if (length_center_to_hit <= circle.radius * circle.radius)

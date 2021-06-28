@@ -20,6 +20,7 @@
 */
 
 void		handle_error(char *error, t_info *infos);
+void		error_msg(char *error);
 void		verify_end_line(char *line, t_info *infos);
 
 /*

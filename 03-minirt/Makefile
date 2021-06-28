@@ -34,7 +34,7 @@ LIBFT_LIB	= -Llibft -lft
 CC			= gcc
 RM			= rm -f
 MAKE		= make
-CFLAGS 		= -Wall -Wextra -Werror #-fsanitize=address
+CFLAGS 		= -Wall -Wextra -Werror -fsanitize=address
 
 # Will allow to compile the right library according to if the OS is WSL/Linux or Mac
 UNAME = ${shell uname}
@@ -53,6 +53,10 @@ INCLUDES	= -Iinclude -I/usr/include -Imlx_linux -Ilibft
 MLX_LIB		= -Lmlx_linux -lmlx_Linux -L/usr/lib
 MLX_FLAGS	= -Imlx_linux -lXext -lX11 -lm -lz
 endif
+
+# Colors
+
+GRAY		= \e[1;30m
 
 # -*- The Rules -*-
 
@@ -84,7 +88,7 @@ ${NAME}:	${OBJS}
 test:		${NAME}
 			@printf "\n	📚 [\e[1;35mINSTRUCTIONS\e[0m] 📚\n"
 			@printf "\n🦕🍭	\e[1;33mTo start miniRT on MacOS or Linux\e[0m\n"
-			@printf "	[\e[1;30m./miniRT ./scenes/scene-example.rt\e[0m]\n"
+			@printf "	[${GRAY}./miniRT ./scenes/scene-example.rt\e[0m]\n"
 			@printf "\n🍭🦄	\e[1;36mTo start miniRT on WSL\e[0m\n" 
 			@printf "	[\e[1;30mLaunch vcxsrv.exe\e[0m]\n"
 			@printf "🦄🍭	\e[1;36mCopy the following command line\e[0m\n" 
