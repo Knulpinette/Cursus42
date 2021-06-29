@@ -97,11 +97,11 @@ ${NAME}:	${OBJS}
 test:		${NAME}
 			@printf "\n	📚 [${PURPLE}INSTRUCTIONS${END}] 📚\n"
 			@printf "\n🦕🍭	${YELLOW}To start miniRT on MacOS or Linux${END}\n"
-			@printf "	[${GRAY}./miniRT ./scenes/scene-example.rt${END}]\n"
+			@printf "	[${GRAY}./miniRT ./scenes/example.rt${END}]\n"
 			@printf "\n🍭🦄	${CYAN}To start miniRT on WSL${END}\n" 
 			@printf "	[${GRAY}Launch vcxsrv.exe${END}]\n"
 			@printf "🦄🍭	${CYAN}Copy the following command line${END}\n" 
-			@printf "	[${GRAY}DISPLAY=\$$(cat /etc/resolv.conf | grep nameserver | awk '{print \$$2}'):0 ./miniRT ./scenes/scene-debug.rt${END}]\n"
+			@printf "	[${GRAY}DISPLAY=\$$(cat /etc/resolv.conf | grep nameserver | awk '{print \$$2}'):0 ./miniRT ./scenes/debug.rt${END}]\n"
 			@printf "\n🦕🍭${NORMAL}By Ophélie Surcouf @ 42Lisboa${END} 🍭🦕\n"
 
 #	Cleaning rules

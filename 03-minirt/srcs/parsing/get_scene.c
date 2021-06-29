@@ -95,5 +95,5 @@ void	get_cam(char *line, t_info *infos, int add_mem)
 	line = pass_spaces(line, infos);
 	scene->cam[current].FOV = ft_atoi(line);
 	if (scene->cam[current].FOV < 0 || scene->cam[current].FOV > 180)
-		handle_error("	FOV should be in range 0 to 180.\n", infos);
+		handle_error("📐	FOV should be in range 0 to 180.\n", infos);
 }
