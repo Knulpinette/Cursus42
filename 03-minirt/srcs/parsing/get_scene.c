@@ -37,12 +37,13 @@ void	get_res(char *line, t_info *infos)
 	res = &infos->scene->res;
 	line = pass_spaces(line, infos);
 	res->x = ft_atoi(line);
-	while (ft_isdigit(*line))
-		line++;
+	line = next_int(line, infos);
 	line = pass_spaces(line, infos);
 	res->y = ft_atoi(line);
+	line = next_int(line, infos);
 	if (res->x < 0 || res->y < 0)
 		handle_error("📏	Resolution is negative.\n", infos);
+	verify_end_line(line, infos);
 }
 
 void	get_amb(char *line, t_info *infos)
@@ -55,7 +56,8 @@ void	get_amb(char *line, t_info *infos)
 		handle_error("☁️	Ambient ratio should be between 0.0 and 1.0.\n",
 			infos);
 	line = pass_spaces(line, infos);
-	get_color(line, &amb->color, infos);
+	line = get_color(line, &amb->color, infos);
+	verify_end_line(line, infos);
 }
 
 void	get_light(char *line, t_info *infos, int add_mem)
@@ -75,7 +77,8 @@ void	get_light(char *line, t_info *infos, int add_mem)
 		|| scene->light[current].bright > 1.0)
 		handle_error("💡	Light brightness should be between 0.0 and 1.0.\n",
 			infos);
-	get_color(line, &scene->light[current].color, infos);
+	line = get_color(line, &scene->light[current].color, infos);
+	verify_end_line(line, infos);
 }
 
 void	get_cam(char *line, t_info *infos, int add_mem)
@@ -96,4 +99,6 @@ void	get_cam(char *line, t_info *infos, int add_mem)
 	scene->cam[current].FOV = ft_atoi(line);
 	if (scene->cam[current].FOV < 0 || scene->cam[current].FOV > 180)
 		handle_error("📐	FOV should be in range 0 to 180.\n", infos);
+	line = next_int(line, infos);
+	verify_end_line(line, infos);
 }

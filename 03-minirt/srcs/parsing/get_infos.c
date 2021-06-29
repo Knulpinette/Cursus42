@@ -99,14 +99,16 @@ static void	parse(char *line, t_info *infos)
 			get_amb((line + 1), infos);
 		}
 		else if (*line == 'l' && *(line + 1) == ' ')
-			parse_light((line), infos);
+			parse_light(line, infos);
 		else if (*line == 'c' && *(line + 1) == ' ')
-			parse_cam((line), infos);
+			parse_cam(line, infos);
 		else if (*line == 'c' || *line == 's' || *line == 'p' || *line == 't')
 			parse_obj(line, infos);
 		else
 			handle_error("🎦	While parsing the elements names.\n", infos);
 	}
+	else if (ft_isalnum(*line))
+		handle_error("	A non-alphanumerical character is in your file\n", infos);
 }
 
 void	get_infos(char *argv, t_rt *rt)

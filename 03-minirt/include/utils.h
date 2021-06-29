@@ -15,13 +15,17 @@
 
 # include "minirt.h"
 
+# define tab 9
+# define space ' '
+# define end 0xd
+# define comment '#'
+
 /*
 **	Error Handling
 */
 
 void		handle_error(char *error, t_info *infos);
 void		error_msg(char *error);
-void		verify_end_line(char *line, t_info *infos);
 
 /*
 **	Rendering (mlx)
@@ -60,9 +64,12 @@ t_color		convert_to_max(t_color color);
 */
 
 char		*next_nbr(char *line, t_info *infos);
+char		*next_int(char *line, t_info *infos);
 char		*pass_spaces(char *line, t_info *infos);
+void		verify_end_line(char *line, t_info *infos);
 char		*get_vector(char *line, t_vec *vec, t_info *infos);
-void		get_color(char *line, t_color *color, t_info *infos);
+char		*get_color(char *line, t_color *color, t_info *infos);
+void		get_caps(t_info *infos, t_cylinder cy);
 
 /*
 **	Memory

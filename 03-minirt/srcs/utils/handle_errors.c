@@ -37,22 +37,3 @@ void	error_msg(char *error)
 	printf(""COLOR_RED"\n	Error\n"COLOR_WHITE"%s\n", error);
 	exit(EXIT_SUCCESS);
 }
-
-void	verify_end_line(char *line, t_info *infos)
-{
-	char	c;
-	int		i;
-
-	i = 0;
-	c = 0xd;
-	while (*line && *line == ' ')
-	{
-		printf("%c || %x >> %i\n", *line, *line, i);
-		line++;
-		i++;
-	}
-	printf("%x >> %i\n", *line, i);
-	if (*line != c)
-		handle_error("	You have a wandering character at the end of a line.\n",
-			infos);
-}

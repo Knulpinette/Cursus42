@@ -49,7 +49,8 @@ void	get_sphere(char *line, t_info *infos, int add_mem)
 	line = next_nbr(line, infos);
 	line = pass_spaces(line, infos);
 	sphere->radius = ft_atof(line);
-	get_color(line, &obj->color, infos);
+	line = get_color(line, &obj->color, infos);
+	verify_end_line(line, infos);
 }
 
 void	get_square(char *line, t_info *infos, int add_mem)
@@ -71,7 +72,8 @@ void	get_square(char *line, t_info *infos, int add_mem)
 	line = pass_spaces(line, infos);
 	square->orient = normalize(square->orient);
 	square->side = ft_atof(line);
-	get_color(line, &obj->color, infos);
+	line = get_color(line, &obj->color, infos);
+	verify_end_line(line, infos);
 }
 
 void	get_plane(char *line, t_info *infos, int add_mem)
@@ -90,7 +92,8 @@ void	get_plane(char *line, t_info *infos, int add_mem)
 	line = next_nbr(line, infos);
 	line = get_vector(line, &plane->orient, infos);
 	plane->orient = normalize(plane->orient);
-	get_color(line, &obj->color, infos);
+	line = get_color(line, &obj->color, infos);
+	verify_end_line(line, infos);
 }
 
 void	get_triangle(char *line, t_info *infos, int add_mem)
@@ -110,7 +113,8 @@ void	get_triangle(char *line, t_info *infos, int add_mem)
 	line = get_vector(line, &triangle->point2, infos);
 	line = next_nbr(line, infos);
 	line = get_vector(line, &triangle->point3, infos);
-	get_color(line, &obj->color, infos);
+	line = get_color(line, &obj->color, infos);
+	verify_end_line(line, infos);
 }
 
 void	get_cylinder(char *line, t_info *infos, int add_mem)
@@ -138,6 +142,7 @@ void	get_cylinder(char *line, t_info *infos, int add_mem)
 	line = pass_spaces(line, infos);
 	diameter = ft_atof(line);
 	cylinder->radius = diameter / 2;
-	get_color(line, &obj->color, infos);
+	line = get_color(line, &obj->color, infos);
+	verify_end_line(line, infos);
 	get_caps(infos, *cylinder);
 }
