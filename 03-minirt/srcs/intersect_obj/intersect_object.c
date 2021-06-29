@@ -38,7 +38,7 @@
 ** 🦕
 */
 
-static void	get_obj_normal(t_rec *curr, t_ray *ray)
+static void	get_obj_normal(t_rec *curr)
 {
 	if (curr->obj.type == PLANE)
 		curr->hit.normal = normalize(curr->obj.shape.pl.orient);
@@ -52,7 +52,6 @@ static void	get_obj_normal(t_rec *curr, t_ray *ray)
 		curr->hit.normal = normalize(curr->obj.shape.sq.orient);
 	if (curr->obj.type == TRIANGLE)
 		triangle_normal(curr);
-	(void)ray;
 }
 
 float	intersect_obj(t_ray *ray, t_rec *curr)
@@ -100,6 +99,6 @@ void	check_if_it_hits_object(t_rt *rt)
 	{
 		rt->curr.hit.point = add(rt->cam_ray.origin,
 				multiply(rt->cam_ray.dir, rt->curr.hit.t));
-		get_obj_normal(&rt->curr, &rt->cam_ray);
+		get_obj_normal(&rt->curr);
 	}
 }
