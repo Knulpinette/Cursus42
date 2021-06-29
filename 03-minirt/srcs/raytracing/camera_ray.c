@@ -94,7 +94,7 @@ static t_vec	get_2D_plane(int x, int y, t_rt *rt)
 
 	res.x = (float)rt->infos->scene->res.x;
 	res.y = (float)rt->infos->scene->res.y;
-	horizontal_fov = tan(((float)rt->curr.cam.FOV / 2) * (M_PI / 180));
+	horizontal_fov = tan((rt->curr.cam.FOV / 2) * (M_PI / 180));
 	aspect_ratio = res.y / res.x;
 	x_ratio = ((x + 0.5) / (res.x / 2) - 1) * horizontal_fov;
 	y_ratio = (1 - (y + 0.5) / (res.y / 2)) * aspect_ratio * horizontal_fov;

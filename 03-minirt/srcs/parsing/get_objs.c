@@ -122,7 +122,6 @@ void	get_cylinder(char *line, t_info *infos, int add_mem)
 	t_obj		*obj;
 	t_cylinder	*cylinder;
 	t_vec		orient;
-	float		diameter;
 
 	if (add_mem)
 		infos->objs = add_mem_obj(infos->nb_objs, infos->objs);
@@ -140,8 +139,7 @@ void	get_cylinder(char *line, t_info *infos, int add_mem)
 	cylinder->height = ft_atof(line);
 	line = next_nbr(line, infos);
 	line = pass_spaces(line, infos);
-	diameter = ft_atof(line);
-	cylinder->radius = diameter / 2;
+	cylinder->radius = ft_atof(line) / 2;
 	line = get_color(line, &obj->color, infos);
 	verify_end_line(line, infos);
 	get_caps(infos, *cylinder);

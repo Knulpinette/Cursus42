@@ -15,10 +15,10 @@
 
 # include "minirt.h"
 
-# define tab 9
-# define space ' '
-# define end 0xd
-# define comment '#'
+# define TAB 9
+# define SPACE ' '
+# define END 0xd
+# define COMMENT '#'
 
 /*
 **	Error Handling

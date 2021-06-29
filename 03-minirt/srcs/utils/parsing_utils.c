@@ -47,8 +47,7 @@ char	*next_nbr(char *line, t_info *infos)
 		line++;
 	while (*line && (ft_isdigit(*line) || *line == '.'))
 		line++;
-	if ((ft_isdigit(*(line + 1)) || *(line + 1) == '-')
-		&& *line == ',')
+	if ((ft_isdigit(*(line + 1)) || *(line + 1) == '-') && *line == ',')
 		line++;
 	if (line == o_line)
 		handle_error("🔢	Character is in the wild. Danger. Can't parse.\n",
@@ -67,8 +66,7 @@ char	*next_int(char *line, t_info *infos)
 		line++;
 	if (*line == '.')
 		handle_error("🔢	You let a '.' next to an integer.\n", infos);
-	if ((ft_isdigit(*(line + 1)) || *(line + 1) == '-')
-		&& *line == ',')
+	if ((ft_isdigit(*(line + 1)) || *(line + 1) == '-') && *line == ',')
 		line++;
 	if (line == o_line)
 		handle_error("🔢	Character is in the wild. Danger. Can't parse.\n",
@@ -81,7 +79,7 @@ char	*pass_spaces(char *line, t_info *infos)
 	char	*o_line;
 
 	o_line = line;
-	while (*line == ' ' || *line == tab)
+	while (*line == SPACE || *line == TAB)
 		line++;
 	if (line == o_line)
 		handle_error("⌨️	There's a lonely not-number attached to a number.\n",
@@ -91,9 +89,9 @@ char	*pass_spaces(char *line, t_info *infos)
 
 void	verify_end_line(char *line, t_info *infos)
 {
-	while (*line && *line == space)
+	while (*line && *line == SPACE)
 		line++;
-	if (*line != end && *line != comment)
+	if (*line != END && *line != COMMENT)
 		handle_error("	You have wandering character(s) at the end of a line.\n",
 			infos);
 }
