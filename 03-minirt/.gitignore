@@ -1,2 +1,6 @@
 mlx_linux/
+.vs_code
+objs/
+libft/objs/
+.miniRT
 
