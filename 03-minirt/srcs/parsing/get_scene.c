@@ -41,8 +41,9 @@ void	get_res(char *line, t_info *infos)
 	line = pass_spaces(line, infos);
 	res->y = ft_atoi(line);
 	line = next_int(line, infos);
-	if (res->x < 0 || res->y < 0)
-		handle_error("📏	Resolution is negative.\n", infos);
+	if (res->x <= 0 || res->y <= 0)
+		handle_error("📏	Careful, resolution should be greater than 0.\n",
+			infos);
 	verify_end_line(line, infos);
 }
 

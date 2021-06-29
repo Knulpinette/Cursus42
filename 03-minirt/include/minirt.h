@@ -23,6 +23,7 @@
 # include <errno.h>
 # include <stdbool.h>
 # include <limits.h>
+# include <float.h>
 # include <pthread.h>
 # include "../libft/libft.h"
 # include "struct_def.h"
@@ -90,6 +91,5 @@ void		get_square(char *line, t_info *infos, int add_mem);
 void		get_plane(char *line, t_info *infos, int add_mem);
 void		get_triangle(char *line, t_info *infos, int add_mem);
 void		get_cylinder(char *line, t_info *infos, int add_mem);
-void		get_caps(t_info *infos, t_cylinder cy);
 
 #endif

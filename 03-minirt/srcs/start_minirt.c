@@ -70,8 +70,8 @@ void	create_img(t_rt *rt)
 		mlx_key_hook(rt->win, events, rt);
 	if (rt->infos->nb_objs == no)
 	{
-		printf(""COLOR_YELLOW"	Fair warning ✋\n");
-		printf(""COLOR_WHITE"	This program is cooler with objects 🪑 🛀\n");
+		printf(COLOR_YELLOW"	Fair warning ✋\n");
+		printf(COLOR_WHITE"	This program is cooler with objects 🪑 🛀\n");
 	}
 	mlx_put_image_to_window(rt->mlx, rt->win, rt->img.ptr, 0, 0);
 }
@@ -79,9 +79,16 @@ void	create_img(t_rt *rt)
 static void	create_window(t_rt *rt)
 {
 	t_res	*res;
+	int		screen_width;
+	int		screen_height;
 
 	res = &rt->infos->scene->res;
 	rt->mlx = mlx_init();
+	mlx_get_screen_size(rt->mlx, &screen_width, &screen_height);
+	if (res->x > screen_width)
+		res->x = screen_width;
+	if (res->y > screen_height)
+		res->y = screen_height;
 	rt->win = mlx_new_window(rt->mlx, res->x, res->y, "miniRT");
 	rt->img.ptr = mlx_new_image(rt->mlx, res->x, res->y);
 	rt->img.addr = mlx_get_data_addr(rt->img.ptr, &rt->img.bit_pix,
@@ -91,17 +98,15 @@ static void	create_window(t_rt *rt)
 
 void	start_minirt(t_rt *rt)
 {
-	if (rt->infos->scene->res.x == 0 || rt->infos->scene->res.y == 0)
-		handle_error("📏	Careful, resolution is 0.\n", rt->infos);
 	if (rt->infos->scene->nb_cam == 0)
 		handle_error("🎥	There are no cameras.\n", rt->infos);
 	else
 		rt->curr.cam = rt->infos->scene->cam[0];
-	printf("\n	"COLOR_LIGHT_CYAN"🖼️  Starting miniRT 🖼️"COLOR_END"\n\n");
+	printf("\n	" COLOR_LIGHT_CYAN "🖼️  Starting miniRT 🖼️\n\n" COLOR_END);
 	if (rt->infos->scene->nb_cam > 1)
 	{
-		printf("	"COLOR_WHITE"["COLOR_LIGHT_PURPLE"INSTRUCTIONS"COLOR_WHITE"]\n");
-		printf("🎥	[To Change Cameras] : Press <- or ->\n"COLOR_END"");
+		printf(COLOR_WHITE"	["COLOR_LIGHT_PURPLE"INSTRUCTIONS"COLOR_WHITE"]\n");
+		printf("🎥	[To Change Cameras] : Press <- or ->\n" COLOR_END);
 	}
 	create_window(rt);
 	create_img(rt);

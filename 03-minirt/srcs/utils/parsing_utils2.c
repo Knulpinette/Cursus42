@@ -38,6 +38,9 @@ char	*get_vector(char *line, t_vec *vec, t_info *infos)
 	vec->y = ft_atof(line);
 	line = next_nbr(line, infos);
 	vec->z = ft_atof(line);
+	if (vec->x > FLT_MAX || vec->y > FLT_MAX || vec->z > FLT_MAX)
+		handle_error("📈	Wow ! One of your values is over the float max.\n",
+			infos);
 	return (line);
 }
 
