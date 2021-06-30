@@ -6,7 +6,7 @@
 #    By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/01 16:35:43 by osurcouf          #+#    #+#              #
-#    Updated: 2021/06/30 13:06:25 by osurcouf         ###   ########.fr        #
+#    Updated: 2021/06/30 15:23:17 by osurcouf         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ LIBFT_LIB	= -Llibft -lft
 CC			= gcc
 RM			= rm -f
 MAKE		= make
-CFLAGS 		= -Wall -Wextra -Werror -fsanitize=address
+CFLAGS 		= -Wall -Wextra -Werror -fsanitize=address -g
 
 # Will allow to compile the right library according to if the OS is WSL/Linux or Mac
 UNAME = ${shell uname}

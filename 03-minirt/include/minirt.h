@@ -6,7 +6,7 @@
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 16:48:25 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/06/28 18:21:06 by osurcouf         ###   ########.fr       */
+/*   Updated: 2021/06/30 15:06:54 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <limits.h>
 # include <float.h>
 # include <pthread.h>
+# include "mlx.h"
 # include "../libft/libft.h"
 # include "struct_def.h"
 # include "utils.h"
