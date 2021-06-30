@@ -6,7 +6,7 @@
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 19:48:47 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/04/02 19:48:48 by osurcouf         ###   ########.fr       */
+/*   Updated: 2021/06/30 16:52:07 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ char		*next_nbr(char *line, t_info *infos);
 char		*next_int(char *line, t_info *infos);
 char		*pass_spaces(char *line, t_info *infos);
 void		verify_end_line(char *line, t_info *infos);
-char		*get_vector(char *line, t_vec *vec, t_info *infos);
+char		*get_point(char *line, t_vec *vec, t_info *infos);
+char		*get_orient(char *line, t_vec *vec, t_info *infos);
 char		*get_color(char *line, t_color *color, t_info *infos);
 void		get_caps(t_info *infos, t_cylinder cy);
 

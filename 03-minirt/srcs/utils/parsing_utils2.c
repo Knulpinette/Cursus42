@@ -6,7 +6,7 @@
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 11:40:24 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/06/29 11:40:26 by osurcouf         ###   ########.fr       */
+/*   Updated: 2021/06/30 17:07:58 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*get_color(char *line, t_color *color, t_info *infos)
 	return (line);
 }
 
-char	*get_vector(char *line, t_vec *vec, t_info *infos)
+char	*get_point(char *line, t_vec *vec, t_info *infos)
 {
 	line = pass_spaces(line, infos);
 	vec->x = ft_atof(line);
@@ -40,6 +40,22 @@ char	*get_vector(char *line, t_vec *vec, t_info *infos)
 	vec->z = ft_atof(line);
 	if (vec->x > FLT_MAX || vec->y > FLT_MAX || vec->z > FLT_MAX)
 		handle_error("📈	Wow ! One of your values is over the float max.\n",
+			infos);
+	return (line);
+}
+
+char	*get_orient(char *line, t_vec *vec, t_info *infos)
+{
+	line = pass_spaces(line, infos);
+	vec->x = ft_atof(line);
+	line = next_nbr(line, infos);
+	vec->y = ft_atof(line);
+	line = next_nbr(line, infos);
+	vec->z = ft_atof(line);
+	if ((vec->x > 1 || vec->x < -1)
+		   	|| (vec->y > 1 || vec->y < -1)
+		   	|| (vec->z > 1 || vec->z < -1))
+		handle_error("📈	Orientation vectors should be between -1 and 1.\n",
 			infos);
 	return (line);
 }

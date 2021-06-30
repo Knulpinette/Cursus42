@@ -6,7 +6,7 @@
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 18:22:37 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/06/28 18:27:25 by osurcouf         ###   ########.fr       */
+/*   Updated: 2021/06/30 17:06:47 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	get_light(char *line, t_info *infos, int add_mem)
 	current = scene->nb_light;
 	if (add_mem)
 		scene->light = add_mem_light(scene->nb_light, scene->light);
-	line = get_vector(line, &scene->light[current].point, infos);
+	line = get_point(line, &scene->light[current].point, infos);
 	line = next_nbr(line, infos);
 	line = pass_spaces(line, infos);
 	scene->light[current].bright = ft_atof(line);
@@ -78,6 +78,7 @@ void	get_light(char *line, t_info *infos, int add_mem)
 		|| scene->light[current].bright > 1.0)
 		handle_error("💡	Light brightness should be between 0.0 and 1.0.\n",
 			infos);
+	printf("%s\n", line);
 	line = get_color(line, &scene->light[current].color, infos);
 	verify_end_line(line, infos);
 }
@@ -91,9 +92,9 @@ void	get_cam(char *line, t_info *infos, int add_mem)
 	current = scene->nb_cam;
 	if (add_mem)
 		scene->cam = add_mem_cam(scene->nb_cam, scene->cam);
-	line = get_vector(line, &scene->cam[current].point, infos);
+	line = get_point(line, &scene->cam[current].point, infos);
 	line = next_nbr(line, infos);
-	line = get_vector(line, &scene->cam[current].orient, infos);
+	line = get_orient(line, &scene->cam[current].orient, infos);
 	scene->cam[current].orient = normalize(scene->cam[current].orient);
 	line = next_nbr(line, infos);
 	line = pass_spaces(line, infos);

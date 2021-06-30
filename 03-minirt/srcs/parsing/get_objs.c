@@ -6,7 +6,7 @@
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 18:22:30 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/04/02 18:22:32 by osurcouf         ###   ########.fr       */
+/*   Updated: 2021/06/30 16:38:41 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	get_sphere(char *line, t_info *infos, int add_mem)
 	obj = &infos->objs[infos->nb_objs];
 	obj->type = SPHERE;
 	sphere = &obj->shape.sp;
-	line = get_vector(line, &sphere->point, infos);
+	line = get_point(line, &sphere->point, infos);
 	line = next_nbr(line, infos);
 	line = pass_spaces(line, infos);
 	sphere->radius = ft_atof(line);
@@ -65,9 +65,9 @@ void	get_square(char *line, t_info *infos, int add_mem)
 	obj = &infos->objs[infos->nb_objs];
 	obj->type = SQUARE;
 	square = &obj->shape.sq;
-	line = get_vector(line, &square->point, infos);
+	line = get_point(line, &square->point, infos);
 	line = next_nbr(line, infos);
-	line = get_vector(line, &square->orient, infos);
+	line = get_orient(line, &square->orient, infos);
 	line = next_nbr(line, infos);
 	line = pass_spaces(line, infos);
 	square->orient = normalize(square->orient);
@@ -88,9 +88,9 @@ void	get_plane(char *line, t_info *infos, int add_mem)
 	obj = &infos->objs[infos->nb_objs];
 	obj->type = PLANE;
 	plane = &obj->shape.pl;
-	line = get_vector(line, &plane->point, infos);
+	line = get_point(line, &plane->point, infos);
 	line = next_nbr(line, infos);
-	line = get_vector(line, &plane->orient, infos);
+	line = get_orient(line, &plane->orient, infos);
 	plane->orient = normalize(plane->orient);
 	line = get_color(line, &obj->color, infos);
 	verify_end_line(line, infos);
@@ -108,11 +108,11 @@ void	get_triangle(char *line, t_info *infos, int add_mem)
 	obj = &infos->objs[infos->nb_objs];
 	obj->type = TRIANGLE;
 	triangle = &obj->shape.tr;
-	line = get_vector(line, &triangle->point1, infos);
+	line = get_point(line, &triangle->point1, infos);
 	line = next_nbr(line, infos);
-	line = get_vector(line, &triangle->point2, infos);
+	line = get_point(line, &triangle->point2, infos);
 	line = next_nbr(line, infos);
-	line = get_vector(line, &triangle->point3, infos);
+	line = get_point(line, &triangle->point3, infos);
 	line = get_color(line, &obj->color, infos);
 	verify_end_line(line, infos);
 }
@@ -130,9 +130,9 @@ void	get_cylinder(char *line, t_info *infos, int add_mem)
 	obj = &infos->objs[infos->nb_objs];
 	obj->type = CYLINDER;
 	cylinder = &infos->objs[infos->nb_objs].shape.cy;
-	line = get_vector(line, &cylinder->point, infos);
+	line = get_point(line, &cylinder->point, infos);
 	line = next_nbr(line, infos);
-	line = get_vector(line, &orient, infos);
+	line = get_orient(line, &orient, infos);
 	cylinder->orient = normalize(orient);
 	line = next_nbr(line, infos);
 	line = pass_spaces(line, infos);
