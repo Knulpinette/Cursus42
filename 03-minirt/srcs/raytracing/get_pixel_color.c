@@ -6,7 +6,7 @@
 /*   By: osurcouf <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 14:22:36 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/05/05 14:22:38 by osurcouf         ###   ########.fr       */
+/*   Updated: 2021/06/30 12:54:35 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static float	get_obj_brightness(t_rt *rt, float obj_brightness, int k)
 	else
 	{
 		ray_distance = M_PI * cosine;
-		obj_brightness = (light_brightness * light_gain * 1000.0)
+		obj_brightness = (light_brightness * light_gain * 1000.0f)
 			/ ray_distance;
 		if (in_shadow(rt, k))
 			obj_brightness = 0.0;

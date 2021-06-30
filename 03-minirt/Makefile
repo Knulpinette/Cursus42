@@ -6,7 +6,7 @@
 #    By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/01 16:35:43 by osurcouf          #+#    #+#              #
-#    Updated: 2021/06/28 18:04:53 by osurcouf         ###   ########.fr        #
+#    Updated: 2021/06/30 13:06:25 by osurcouf         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,8 +43,9 @@ UNAME = ${shell uname}
 ifeq ($(UNAME), Darwin)
 INCLUDES	= -Imlx -Ilibft -Iinclude
 
-MLX_LIB		= -Lmlx -lmlx 
-MLX_FLAGS	= -framework OpenGL -framework AppKit
+MLX			= ./minilibx_mms
+MLX_LIB		= -Lminilibx_mms -lmlx
+MLX_FLAGS	=  
 
 #If Linux
 else
@@ -87,6 +88,14 @@ all:		${NAME} test
 # Make libft + compile miniRT
 ${NAME}:	${OBJS}
 			@${MAKE} bonus -C ${LIBFT_DIR}
+ifeq ($(UNAME), Darwin)
+			@printf "\n	${WHITE}[${GREEN}"
+			@printf "Compiling minilibx${END}]\n\n"
+			@printf "${GRAY}"
+			@${MAKE} -C ${MLX}
+			@printf "${END}"
+endif
+			cp ${MLX}/libmlx.dylib ./
 			@printf "\n	${WHITE}[${GREEN}"
 			@printf "Compiling miniRT${END}]\n\n"
 			@printf "${GRAY}"
@@ -109,6 +118,13 @@ test:		${NAME}
 clean:
 			@printf "\n${WHITE}"
 			@${MAKE} clean -C ${LIBFT_DIR}
+ifeq ($(UNAME), Darwin)
+			@printf "\n	${WHITE}[${BLUE}"
+			@printf "Cleaning minilibx objects${END}]\n\n"
+			@printf "${GRAY}"
+			@${MAKE} clean -C ${MLX}
+			@printf "${END}"
+endif
 			@printf "\n	${WHITE}[${BLUE}"
 			@printf "Cleaning miniRT objects${END}]\n\n"
 			@printf "${GRAY}"
@@ -119,6 +135,13 @@ clean:
 fclean:		clean
 			@printf "\n${WHITE}"
 			@${MAKE} fclean_no_clean -C ${LIBFT_DIR}
+ifeq ($(UNAME), Darwin)
+			@printf "\n	${WHITE}[${BLUE}"
+			@printf "Cleaning minilibx output files${END}]\n\n"
+			@printf "${GRAY}"
+			${RM} libmlx.dylib
+			@printf "\n${END}"
+endif
 			@printf "\n	${WHITE}[${BLUE}"
 			@printf "Cleaning miniRT output files${END}]\n\n"
 			@printf "${GRAY}"
