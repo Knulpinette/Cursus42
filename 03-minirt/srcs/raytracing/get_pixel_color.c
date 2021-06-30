@@ -6,7 +6,7 @@
 /*   By: osurcouf <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 14:22:36 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/06/30 12:54:35 by osurcouf         ###   ########.fr       */
+/*   Updated: 2021/06/30 13:15:05 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static bool	in_shadow(t_rt *rt, int k)
 	{
 		temp.obj = rt->infos->objs[i];
 		hit_dist = intersect_obj(&rt->shadow_ray, &temp);
-		if (hit_dist > 0.0001f && hit_dist < rt->curr.t_min)
+		if (hit_dist > 0.001f && hit_dist < rt->curr.t_min)
 			rt->curr.t_min = hit_dist;
 		i++;
 	}

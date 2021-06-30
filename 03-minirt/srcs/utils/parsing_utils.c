@@ -6,7 +6,7 @@
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:42:00 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/06/28 18:28:37 by osurcouf         ###   ########.fr       */
+/*   Updated: 2021/06/30 13:20:23 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ char	*pass_spaces(char *line, t_info *infos)
 
 void	verify_end_line(char *line, t_info *infos)
 {
-	while (*line && *line == SPACE)
+	while (*line && (*line == SPACE || *line == TAB))
 		line++;
 	if (*line != END && *line != COMMENT)
 		handle_error("	You have wandering character(s) at the end of a line.\n",
