@@ -6,7 +6,7 @@
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 18:22:44 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/06/28 18:33:46 by osurcouf         ###   ########.fr       */
+/*   Updated: 2021/06/30 17:15:30 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ static void	parse(char *line, t_info *infos)
 			handle_error("🎦	While parsing the elements names.\n", infos);
 	}
 	else if (ft_isalnum(*line))
-		handle_error("	A non-alphanumerical character is in your file\n", infos);
+		handle_error("	There's a weird character in an empty line.\n", infos);
 }
 
 void	get_infos(char *argv, t_rt *rt)
@@ -134,7 +134,8 @@ void	get_infos(char *argv, t_rt *rt)
 		free(line);
 	}
 	if (!rt->infos->res || !rt->infos->amb)
-		handle_error("🖥️	I need a resolution and ambient light !\n", rt->infos);
+		handle_error("🖥️	I need a resolution and ambient light !\n",
+			rt->infos);
 	if (close(fd) < 0)
 		handle_error("❌	Cannot close the file.\n", rt->infos);
 }

@@ -6,7 +6,7 @@
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:42:00 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/06/30 17:09:12 by osurcouf         ###   ########.fr       */
+/*   Updated: 2021/06/30 17:13:34 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,9 @@ char	*next_int(char *line, t_info *infos)
 		line++;
 	if (*line == '.')
 		handle_error("🔢	You let a '.' next to an integer.\n", infos);
-	if (*line && *line + 1 && 
-			((ft_isdigit(*(line + 1)) || *(line + 1) == '-') && *line == ','))
+	if (*line && *line + 1
+		&& ((ft_isdigit(*(line + 1)) || *(line + 1) == '-')
+			&& *line == ','))
 		line++;
 	if (line == o_line)
 		handle_error("🔢	Character is in the wild. Danger. Can't parse.\n",

@@ -6,7 +6,7 @@
 /*   By: osurcouf <.@student.42lisboa.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 17:55:35 by osurcouf          #+#    #+#             */
-/*   Updated: 2021/06/30 15:05:43 by osurcouf         ###   ########.fr       */
+/*   Updated: 2021/06/30 17:19:05 by osurcouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,18 @@
 **		  if it's in the shadows or not.
 **		- Finally, put the pixel's color on the screen !
 **	5. Loop (so it keeps appearing and updating) thanks to
-	   mlx_loop.
+**	   mlx_loop.
+**
+**		Code to add in create window when I'll have figured out
+**		the linking with minilib_mms.
+**
+**		int		screen_width;
+**		int		screen_height;
+**		mlx_get_screen_size(rt->mlx, &screen_width, &screen_height);
+**		if (res->x > screen_width)
+**			res->x = screen_width;
+**		if (res->y > screen_height)
+**			res->y = screen_height;
 **
 ** 🦕
 */
@@ -79,16 +90,13 @@ void	create_img(t_rt *rt)
 static void	create_window(t_rt *rt)
 {
 	t_res	*res;
-//	int		screen_width;
-//	int		screen_height;
 
 	res = &rt->infos->scene->res;
 	rt->mlx = mlx_init();
-//	mlx_get_screen_size(rt->mlx, &screen_width, &screen_height);
-//	if (res->x > screen_width)
-//		res->x = screen_width;
-//	if (res->y > screen_height)
-//		res->y = screen_height;
+	if (res->x > 1920)
+		res->x = 1920;
+	if (res->y > 1080)
+		res->y = 1080;
 	rt->win = mlx_new_window(rt->mlx, res->x, res->y, "miniRT");
 	rt->img.ptr = mlx_new_image(rt->mlx, res->x, res->y);
 	rt->img.addr = mlx_get_data_addr(rt->img.ptr, &rt->img.bit_pix,
