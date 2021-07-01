@@ -42,7 +42,7 @@ UNAME = ${shell uname}
 # If Mac
 ifeq ($(UNAME), Darwin)
 OS			= Apple
-INCLUDES	= -Imlx -Ilibft -Iinclude
+INCLUDES	= -Ilibft -Iinclude -Iminilibx_mms #-Imlx
 
 MLX			= ./minilibx_mms
 MLX_LIB		= -Lminilibx_mms -lmlx
