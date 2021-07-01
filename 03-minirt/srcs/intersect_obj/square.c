@@ -36,11 +36,11 @@ float	square(t_ray *ray, t_rec *curr)
 
 	square = &curr->obj.shape.sq;
 	result = plane(ray, curr, square->point, square->orient);
-	if (result > 0.0)
+	if (result > 0.0f)
 	{
 		hit_point = add(ray->origin, multiply(ray->dir, result));
 		center_to_hit = substract(hit_point, square->point);
-		if (result < 0)
+		if (result < 0.0f)
 			return (0.0);
 		else if (fabs(center_to_hit.x) > square->side / 2
 			|| fabs(center_to_hit.y) > square->side / 2

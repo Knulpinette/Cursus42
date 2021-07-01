@@ -78,7 +78,6 @@ void	get_light(char *line, t_info *infos, int add_mem)
 		|| scene->light[current].bright > 1.0)
 		handle_error("💡	Light brightness should be between 0.0 and 1.0.\n",
 			infos);
-	printf("%s\n", line);
 	line = get_color(line, &scene->light[current].color, infos);
 	verify_end_line(line, infos);
 }
