@@ -41,6 +41,7 @@ UNAME = ${shell uname}
 
 # If Mac
 ifeq ($(UNAME), Darwin)
+OS			= Apple
 INCLUDES	= -Imlx -Ilibft -Iinclude
 
 MLX			= ./minilibx_mms
@@ -49,6 +50,7 @@ MLX_FLAGS	=
 
 #If Linux
 else
+OS			= Linux
 INCLUDES	= -Iinclude -I/usr/include -Imlx_linux -Ilibft
 
 MLX_LIB		= -Lmlx_linux -lmlx_Linux -L/usr/lib
@@ -94,8 +96,8 @@ ifeq ($(UNAME), Darwin)
 			@printf "${GRAY}"
 			@${MAKE} -C ${MLX}
 			@printf "${END}"
-endif
 			cp ${MLX}/libmlx.dylib ./
+endif
 			@printf "\n	${WHITE}[${GREEN}"
 			@printf "Compiling miniRT${END}]\n\n"
 			@printf "${GRAY}"
