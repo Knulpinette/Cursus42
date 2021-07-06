@@ -17,11 +17,11 @@
 **
 ** function : Algebra utilities.
 **		I'll write what I think I understood. Last time I
-**		had maths was 10 years ago though. Don't take it
+**		did maths was 10 years ago though. Don't take it
 **		too seriously.
 **
 **	3. Magnitude
-**		Gives the length of a vector by doing a dot_product of (vec1, vec1).
+**		gives the length of a vector by doing a dot_product of (vec1, vec1).
 **	2. Dot_product
 **		usually gets you an angle (vec1, vec2) or a magnitude (vec1, vec1).
 **	3. Cross_product
