@@ -179,7 +179,7 @@ typedef struct s_scene
 }				t_scene;
 
 /*
-** INFO STRUCT
+** INFOS STRUCT
 */
 
 typedef struct s_info
@@ -215,7 +215,7 @@ typedef struct s_img
 }				t_img;
 
 /*
-** CURRENT OBJECT AND SCENE STRUCT
+** CURRENT OBJECT AND CAMERA STRUCT
 */
 
 typedef struct s_rec
@@ -228,8 +228,8 @@ typedef struct s_rec
 	float		t;
 	float		t0;
 	float		t1;
-	float		t_max;
-	float		t_min;
+	float		dist_max;
+	float		dist_min;
 
 }				t_rec;
 

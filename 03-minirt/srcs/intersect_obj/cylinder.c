@@ -87,9 +87,8 @@ float	circle(t_ray *ray, t_rec *curr)
 	if (result >= 0.0)
 	{
 		hit_point = add(ray->origin, multiply(ray->dir, curr->hit.t));
-		center_to_hit = substract(hit_point,
-				curr->obj.shape.circle.center);
-		length_center_to_hit = dot_product(center_to_hit, center_to_hit);
+		center_to_hit = substract(hit_point, curr->obj.shape.circle.center);
+		length_center_to_hit = magnitude(center_to_hit);
 		if (length_center_to_hit <= circle.radius * circle.radius)
 			return (result);
 	}
@@ -140,10 +139,9 @@ float	cylinder(t_ray *ray, t_rec *curr)
 	radius_in_direction_ray = cross_product(ray->dir, cy->orient);
 	center_to_ray = substract(ray->origin, cy->point);
 	radius_in_direction_center = cross_product(center_to_ray, cy->orient);
-	param.a = dot_product(radius_in_direction_ray, radius_in_direction_ray);
+	param.a = magnitude(radius_in_direction_ray);
 	param.b = dot_product(radius_in_direction_ray, radius_in_direction_center);
-	param.c = dot_product(radius_in_direction_center,
-			radius_in_direction_center) - (cy->radius * cy->radius);
+	param.c = magnitude(radius_in_direction_center) - (cy->radius * cy->radius);
 	if (solve_quadratic(param, &curr->t0, &curr->t1))
 		return (get_right_intersection_point(ray, curr));
 	else

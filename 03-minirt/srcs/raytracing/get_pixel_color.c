@@ -57,19 +57,19 @@ static bool	in_shadow(t_rt *rt, int k)
 	light_position = rt->infos->scene->light[k].point;
 	rt->shadow_ray.origin = rt->curr.hit.point;
 	rt->shadow_ray.dir = substract(light_position, rt->curr.hit.point);
-	rt->curr.t_min = magnitude(rt->shadow_ray.dir);
-	rt->curr.t_max = rt->curr.t_min;
+	rt->curr.dist_max = magnitude(rt->shadow_ray.dir);
+	rt->curr.dist_min = rt->curr.dist_max;
 	rt->shadow_ray.dir = normalize(rt->shadow_ray.dir);
 	i = 0;
 	while (i < rt->infos->nb_objs)
 	{
 		temp.obj = rt->infos->objs[i];
 		hit_dist = intersect_obj(&rt->shadow_ray, &temp);
-		if (hit_dist > 0.001f && hit_dist < rt->curr.t_min)
-			rt->curr.t_min = hit_dist;
+		if (hit_dist > 0.001f && hit_dist < rt->curr.dist_min)
+			rt->curr.dist_min = hit_dist;
 		i++;
 	}
-	if (rt->curr.t_min < rt->curr.t_max)
+	if (rt->curr.dist_min < rt->curr.dist_max)
 		return (true);
 	return (false);
 }
@@ -84,7 +84,7 @@ static float	get_obj_brightness(t_rt *rt, float obj_brightness, int k)
 	light_brightness = rt->infos->scene->light[k].bright;
 	light_gain = dot_product(rt->curr.hit.normal,
 			normalize(rt->light_ray.dir));
-	cosine = dot_product(rt->light_ray.dir, rt->light_ray.dir);
+	cosine = magnitude(rt->light_ray.dir);
 	if (light_gain <= 0.0)
 		obj_brightness = 0.0;
 	else
@@ -121,8 +121,7 @@ static float	get_obj_color(t_rt *rt, float obj_brightness, t_color ambient)
 		k++;
 	}
 	add_ambient = color_add(add_previous_light, ambient);
-	rt->curr.obj.color = color_add(rt->curr.obj.color, add_ambient);
-	rt->curr.obj.color = convert_to_max(rt->curr.obj.color);
+	rt->curr.obj.color = convert_to_max(color_add(rt->curr.obj.color, add_ambient));
 	return (create_color(rt->curr.obj.color));
 }
 

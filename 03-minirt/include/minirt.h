@@ -38,13 +38,19 @@ enum e_y_or_no
 	yes,
 };
 
+/*
+**	Start minirt & Window management
+*/
+
 void		start_minirt(t_rt *rt);
+void		create_img(t_rt *rt);
 
 /*
-**	Generate the camera ray
+**	Raytracing
 */
 
 void		gen_cam_ray(int x, int y, t_rt *rt);
+void		get_pixel_color(t_rt *rt);
 
 /*
 **	Intersecting objects
@@ -53,30 +59,16 @@ void		gen_cam_ray(int x, int y, t_rt *rt);
 void		check_if_it_hits_object(t_rt *rt);
 float		intersect_obj(t_ray *ray, t_rec *curr);
 float		sphere(t_ray *ray, t_rec *curr);
+void		sphere_normal(t_rec *curr);
 float		plane(t_ray *ray, t_rec *curr, t_vec point, t_vec orient);
 float		cylinder(t_ray *ray, t_rec *curr);
+void		cylinder_normal(t_rec *curr);
 float		circle(t_ray *ray, t_rec *curr);
 float		square(t_ray *ray, t_rec *curr);
 float		triangle(t_ray *ray, t_rec *curr);
+void		triangle_normal(t_rec *curr);
 bool		solve_quadratic(t_params param, float *t0, float *t1);
 t_params	new_params(float a, float b, float c);
-void		sphere_normal(t_rec *curr);
-void		cylinder_normal(t_rec *curr);
-void		triangle_normal(t_rec *curr);
-
-/*
-**	Get the pixel color
-*/
-
-void		get_pixel_color(t_rt *rt);
-
-/*
-**	Window management & Events
-*/
-
-void		create_img(t_rt *rt);
-int			exit_and_free(t_rt *rt);
-int			events(int keycode, t_rt *rt);
 
 /*
 **	Parsing

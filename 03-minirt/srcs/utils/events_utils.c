@@ -27,10 +27,6 @@
 **	Note : I want to make more events.
 **			- Rotate camera (keyboard)
 **			- Select & Move object (mouse)
-**			- Figure out how to have code in another
-**				function for camera
-**			- Organize better so escape_key is not in
-**				change camera. Makes no sense.
 **
 ** 🦕
 */
@@ -44,7 +40,7 @@ int	exit_and_free(t_rt *rt)
 	exit(EXIT_SUCCESS);
 }
 
-void	change_cam(t_rt *rt, int curr_cam)
+static void	change_cam(t_rt *rt, int curr_cam)
 {
 	rt->curr.cam = rt->infos->scene->cam[curr_cam];
 	create_img(rt);
@@ -65,7 +61,7 @@ int	events(int keycode, t_rt *rt)
 	else if (keycode == KEY_LEFT && curr_cam > 0)
 		curr_cam--;
 	else
-		return (yes);
+		return (EXIT_SUCCESS);
 	change_cam(rt, curr_cam);
 	return (EXIT_SUCCESS);
 }

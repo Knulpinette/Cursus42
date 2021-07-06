@@ -41,7 +41,6 @@ float	plane(t_ray *ray, t_rec *curr, t_vec point, t_vec orient)
 	if (!perpendicular)
 		return (0.0);
 	ray_to_center = substract(point, ray->origin);
-	curr->hit.t = dot_product(ray_to_center, orient)
-		/ perpendicular;
+	curr->hit.t = dot_product(ray_to_center, orient) / perpendicular;
 	return (curr->hit.t);
 }

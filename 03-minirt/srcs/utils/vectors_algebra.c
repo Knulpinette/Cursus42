@@ -20,14 +20,15 @@
 **		had maths was 10 years ago though. Don't take it
 **		too seriously.
 **
-**	1. Dot_product
-**		usually gets you an angle (vec1, vec2) or a distance (vec1, vec1).
-**	2. Cross_product
-**		will calculate the angle between two vector and calculate
-**		the orientation of the infinite plane in between them
 **	3. Magnitude
-**		now that I'm doing this, I'm realising it's basically a dot_product
-**		of the same element squared. Gives the length of a vector.
+**		Gives the length of a vector by doing a dot_product of (vec1, vec1).
+**	2. Dot_product
+**		usually gets you an angle (vec1, vec2) or a magnitude (vec1, vec1).
+**	3. Cross_product
+**		will calculate the angle between two vectors and calculate
+**		the orientation of the infinite plane in between them.
+**		That is why you will use it mostly for squares or triangles
+**		which are basically finite planes with a specific shape.
 **	4. Normalize
 **		super important calculation that will take a vector and resize it
 **		so that its magnitude is 1, thus making it a unit vector.
@@ -37,9 +38,14 @@
 ** 🦕
 */
 
+float	magnitude(t_vec v)
+{
+	return (v.x * v.x + v.y * v.y + v.z * v.z);
+}
+
 float	dot_product(t_vec v1, t_vec v2)
 {
-	return ((v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z));
+	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }
 
 t_vec	cross_product(t_vec v1, t_vec v2)
@@ -50,11 +56,6 @@ t_vec	cross_product(t_vec v1, t_vec v2)
 	v.y = v1.z * v2.x - v1.x * v2.z;
 	v.z = v1.x * v2.y - v1.y * v2.x;
 	return (v);
-}
-
-float	magnitude(t_vec v)
-{
-	return (v.x * v.x + v.y * v.y + v.z * v.z);
 }
 
 t_vec	normalize(t_vec v)

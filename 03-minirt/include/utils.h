@@ -21,11 +21,18 @@
 # define COMMENT '#'
 
 /*
-**	Error Handling
+**	Handle Errors
 */
 
 void		handle_error(char *error, t_info *infos);
 void		error_msg(char *error);
+
+/*
+**	Events
+*/
+
+int			events(int keycode, t_rt *rt);
+int			exit_and_free(t_rt *rt);
 
 /*
 **	Rendering (mlx)
@@ -34,7 +41,7 @@ void		error_msg(char *error);
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 /*
-**	Vectors operations && algebra
+**	Vectors
 */
 
 t_vec		create_vec(float a, float b, float c);

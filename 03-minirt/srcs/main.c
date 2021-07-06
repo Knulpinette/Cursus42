@@ -50,8 +50,8 @@ int	main(int argc, char **argv)
 		error_msg("🍔	You are feeding me too many arguments.\
 			\n"COLOR_LIGHT_GRAY"🍴	My diet : [./minirt] [scene/map.rt].\n\n");
 	if (!not_map(argv[1]))
-		error_msg("	I don't eat this map format.\
-			\n"COLOR_LIGHT_GRAY"	I only eat [.rt] files.\n\n");
+		error_msg("🍉	I don't eat this map format.\
+			\n"COLOR_LIGHT_GRAY"🍴	I only eat [.rt] files.\n\n");
 	get_infos(argv[1], &rt);
 	start_minirt(&rt);
 }
