@@ -47,7 +47,7 @@ static void	get_obj_normal(t_rec *curr)
 	if (curr->obj.type == CYLINDER)
 		cylinder_normal(curr);
 	if (curr->obj.type == CIRCLE)
-		curr->hit.normal = normalize(curr->obj.shape.circle.orient);
+		curr->hit.normal = normalize(curr->obj.shape.ci.orient);
 	if (curr->obj.type == SQUARE)
 		curr->hit.normal = normalize(curr->obj.shape.sq.orient);
 	if (curr->obj.type == TRIANGLE)

@@ -120,7 +120,7 @@ typedef union u_type
 	t_square	sq;
 	t_cylinder	cy;
 	t_triangle	tr;
-	t_circle	circle;
+	t_circle	ci;
 }				t_type;
 
 /*

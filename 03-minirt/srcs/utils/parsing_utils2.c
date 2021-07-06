@@ -76,7 +76,7 @@ void	get_caps(t_info *infos, t_cylinder cy)
 			handle_error("💧	Fail to malloc circle.\n", infos);
 		infos->objs[infos->nb_objs].type = CIRCLE;
 		infos->objs[infos->nb_objs].color = cy_color;
-		cap = &infos->objs[infos->nb_objs].shape.circle;
+		cap = &infos->objs[infos->nb_objs].shape.ci;
 		if (i == 0)
 			cap->center = add(cy.point, multiply(cy.orient, cy.height / 2));
 		if (i == 1)
