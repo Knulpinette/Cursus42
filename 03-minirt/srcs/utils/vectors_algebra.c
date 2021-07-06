@@ -60,14 +60,14 @@ t_vec	cross_product(t_vec v1, t_vec v2)
 
 t_vec	normalize(t_vec v)
 {
-	t_vec	norm;
+	t_vec	unit_vector;
 	float	len;
 
 	len = sqrt(magnitude(v));
 	if (len == 0)
 		len = 1;
-	norm.x = v.x / len;
-	norm.y = v.y / len;
-	norm.z = v.z / len;
-	return (norm);
+	unit_vector.x = v.x / len;
+	unit_vector.y = v.y / len;
+	unit_vector.z = v.z / len;
+	return (unit_vector);
 }
