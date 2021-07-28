@@ -57,7 +57,7 @@
 **			shape.
 **
 **	5. As every object, the cylinder has a specific normal.
-**		Circles have the same normal as planes.
+**		Circles have the same normal as planes. (cf. Intersect_Object.c)
 **
 ** 🦕
 */
@@ -82,12 +82,12 @@ float	circle(t_ray *ray, t_rec *curr)
 	t_circle	circle;
 	t_vec		hit_point;
 
-	circle = curr->obj.shape.circle;
+	circle = curr->obj.shape.ci;
 	result = plane(ray, curr, circle.center, circle.orient);
 	if (result >= 0.0)
 	{
 		hit_point = add(ray->origin, multiply(ray->dir, curr->hit.t));
-		center_to_hit = substract(hit_point, curr->obj.shape.circle.center);
+		center_to_hit = substract(hit_point, circle.center);
 		length_center_to_hit = magnitude(center_to_hit);
 		if (length_center_to_hit <= circle.radius * circle.radius)
 			return (result);
