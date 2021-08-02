@@ -52,7 +52,7 @@ t_vec		divide(t_vec v1, float d);
 float		dot_product(t_vec v1, t_vec v2);
 t_vec		cross_product(t_vec v1, t_vec v2);
 t_vec		normalize(t_vec v);
-float		magnitude(t_vec v);
+float		length(t_vec v);
 
 /*
 ** Colors

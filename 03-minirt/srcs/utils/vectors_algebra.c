@@ -20,10 +20,10 @@
 **		did maths was 10 years ago though. Don't take it
 **		too seriously.
 **
-**	3. Magnitude
+**	3. length
 **		gives the length of a vector by doing a dot_product of (vec1, vec1).
 **	2. Dot_product
-**		usually gets you an angle (vec1, vec2) or a magnitude (vec1, vec1).
+**		usually gets you an angle (vec1, vec2) or a length (vec1, vec1).
 **	3. Cross_product
 **		will calculate the angle between two vectors and calculate
 **		the orientation of the infinite plane in between them.
@@ -31,14 +31,14 @@
 **		which are basically finite planes with a specific shape.
 **	4. Normalize
 **		super important calculation that will take a vector and resize it
-**		so that its magnitude is 1, thus making it a unit vector.
+**		so that its length is 1, thus making it a unit vector.
 **		Note : don't forget to normalize. And don't forget not to normalize.
 **				Think of that first when you debug.
 **
 ** 🦕
 */
 
-float	magnitude(t_vec v)
+float	length(t_vec v)
 {
 	return (v.x * v.x + v.y * v.y + v.z * v.z);
 }
@@ -63,7 +63,7 @@ t_vec	normalize(t_vec v)
 	t_vec	unit_vector;
 	float	len;
 
-	len = sqrt(magnitude(v));
+	len = sqrt(length(v));
 	if (len == 0)
 		len = 1;
 	unit_vector.x = v.x / len;

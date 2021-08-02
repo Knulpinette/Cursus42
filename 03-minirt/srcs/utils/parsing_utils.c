@@ -51,7 +51,7 @@ char	*next_nbr(char *line, t_info *infos)
 	{
 		line++;
 		if (*line && (*line == ',' || *line == SPACE || *line == TAB))
-			handle_error("	One of your float is missing numbers after '.'\n",
+			handle_error("🔢	A decimal number is missing digit(s) after '.'\n",
 				infos);
 	}
 	while (*line && ft_isdigit(*line))
@@ -59,7 +59,7 @@ char	*next_nbr(char *line, t_info *infos)
 	if ((ft_isdigit(*(line + 1)) || *(line + 1) == '-') && *line == ',')
 		line++;
 	if (line == o_line)
-		handle_error("🔢	Character is in the wild. Danger. Can't parse.\n",
+		handle_error("🔢	Random character lost somewhere in file :s\n",
 			infos);
 	return (line);
 }
@@ -80,7 +80,7 @@ char	*next_int(char *line, t_info *infos)
 			&& *line == ','))
 		line++;
 	if (line == o_line)
-		handle_error("🔢	Character is in the wild. Danger. Can't parse.\n",
+		handle_error("🔢	Random character lost somewhere in file :s\n",
 			infos);
 	return (line);
 }
@@ -93,7 +93,7 @@ char	*pass_spaces(char *line, t_info *infos)
 	while (*line == SPACE || *line == TAB)
 		line++;
 	if (line == o_line)
-		handle_error("⌨️	There's a lonely not-number attached to a number.\n",
+		handle_error("⌨️	There's a lonely character attached to a number.\n",
 			infos);
 	return (line);
 }
@@ -103,6 +103,6 @@ void	verify_end_line(char *line, t_info *infos)
 	while (*line && (*line == SPACE || *line == TAB))
 		line++;
 	if (*line != END && *line != COMMENT && *line != '\0')
-		handle_error("	You have wandering character(s) at the end of a line.\n",
+		handle_error("⌨️	You have wandering character(s) at the end of a line.\n",
 			infos);
 }

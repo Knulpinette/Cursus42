@@ -25,7 +25,7 @@ char	*get_color(char *line, t_color *color, t_info *infos)
 	if ((color->r < 0 || color->r > 255)
 		|| (color->g < 0 || color->g > 255)
 		|| (color->b < 0 || color->b > 255))
-		handle_error("🎨	Color values should in between 0 and 255.\n", infos);
+		handle_error("🎨	Color values should between 0 and 255.\n", infos);
 	color->rgb = create_color(*color);
 	return (line);
 }
@@ -79,7 +79,7 @@ void	get_caps(t_info *infos, t_cylinder cy)
 		cap = &infos->objs[infos->nb_objs].shape.ci;
 		if (i == 0)
 			cap->center = add(cy.point, multiply(cy.orient, cy.height / 2));
-		if (i == 1)
+		else if (i == 1)
 			cap->center = add(cy.point, multiply(cy.orient, -cy.height / 2));
 		cap->radius = cy.radius;
 		cap->orient = cy.orient;

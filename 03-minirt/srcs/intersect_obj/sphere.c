@@ -43,9 +43,9 @@ float	sphere(t_ray *ray, t_rec *curr)
 
 	sp = &curr->obj.shape.sp;
 	center_origin = substract(ray->origin, sp->point);
-	param.a = magnitude(ray->dir);
+	param.a = length(ray->dir);
 	param.b = dot_product(center_origin, ray->dir);
-	param.c = magnitude(center_origin)
+	param.c = length(center_origin)
 		- sp->radius * sp->radius;
 	if (solve_quadratic(param, &curr->t0, &curr->t1))
 	{

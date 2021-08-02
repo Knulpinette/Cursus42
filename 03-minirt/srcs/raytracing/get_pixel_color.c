@@ -57,7 +57,7 @@ static bool	in_shadow(t_rt *rt, int k)
 	light_position = rt->infos->scene->light[k].point;
 	rt->shadow_ray.origin = rt->curr.hit.point;
 	rt->shadow_ray.dir = substract(light_position, rt->curr.hit.point);
-	rt->curr.dist_max = magnitude(rt->shadow_ray.dir);
+	rt->curr.dist_max = length(rt->shadow_ray.dir);
 	rt->curr.dist_min = rt->curr.dist_max;
 	rt->shadow_ray.dir = normalize(rt->shadow_ray.dir);
 	i = 0;
@@ -84,7 +84,7 @@ static float	get_obj_brightness(t_rt *rt, float obj_brightness, int k)
 	light_brightness = rt->infos->scene->light[k].bright;
 	light_gain = dot_product(rt->curr.hit.normal,
 			normalize(rt->light_ray.dir));
-	cosine = magnitude(rt->light_ray.dir);
+	cosine = length(rt->light_ray.dir);
 	if (light_gain <= 0.0)
 		obj_brightness = 0.0;
 	else
