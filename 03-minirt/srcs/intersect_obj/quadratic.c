@@ -34,6 +34,9 @@
 **		In the case of the sphere we keep the positive one
 **		In the case of the cylinder, we'll keep the
 **			closest one that's positive.
+**		Also, I'm swaping t0 and t1 so that t0 is always the lowest
+**		number so that there's isn't any troubles when running the
+**		code to check which one is the right solution for the cylinder.
 **
 ** 🦕
 */
