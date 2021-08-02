@@ -27,6 +27,12 @@
 **	4. Cameras ↷
 **			c point[x,y,z] orient[x,y,z] [FOV]
 **
+**	Note : orient[x,y,z] should be normalized (in range of -1, 1)
+**		   [R,G,B] values should be between 0 and 255
+**		   Resolution's [x] & [y] should be integers > 0
+**		   [ratio] and [brightness] should be between 0 and 1
+**		   [FOV] should be an integer
+**
 ** 🦕
 */
 

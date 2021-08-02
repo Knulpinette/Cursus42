@@ -34,7 +34,7 @@ LIBFT_LIB	= -Llibft -lft
 CC			= gcc
 RM			= rm -f
 MAKE		= make
-CFLAGS 		= -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS 		= -Wall -Wextra -Werror #-fsanitize=address -g
 
 # Will allow to compile the right library according to if the OS is WSL/Linux or Mac
 UNAME = ${shell uname}
@@ -46,7 +46,7 @@ INCLUDES	= -Ilibft -Iinclude -Iminilibx_mms
 
 MLX			= ./minilibx_mms
 MLX_LIB		= -Lminilibx_mms -lmlx
-MLX_FLAGS	=  
+MLX_FLAGS	= 
 
 #If Linux
 else

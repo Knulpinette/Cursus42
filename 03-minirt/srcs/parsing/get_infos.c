@@ -123,7 +123,7 @@ void	get_infos(char *argv, t_rt *rt)
 		error_msg("📂	Cannot open file.\n\n");
 	init = init_objs(rt);
 	if (!init)
-		handle_error("💧	Fail to malloc struct elements.\n", rt->infos);
+		handle_error("💧	Fail to malloc at initialisation.\n", rt->infos);
 	ret = 1;
 	while (ret > 0)
 	{

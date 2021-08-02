@@ -29,6 +29,7 @@
 **			cy point[x,y,z] orient[x,y,z] [height] [diameter] [R,G,B]
 **
 **	Note : orient[x,y,z] should be normalized (in range of -1, 1)
+**	Note : [R,G,B] values should be between 0 and 255
 **
 ** 🦕
 */
