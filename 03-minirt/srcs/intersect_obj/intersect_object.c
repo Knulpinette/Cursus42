@@ -50,8 +50,6 @@ static void	get_obj_normal(t_rec *curr)
 		curr->hit.normal = normalize(curr->obj.shape.ci.orient);
 	if (curr->obj.type == SQUARE)
 		curr->hit.normal = normalize(curr->obj.shape.sq.orient);
-	if (curr->obj.type == TRIANGLE)
-		triangle_normal(curr);
 }
 
 float	intersect_obj(t_ray *ray, t_rec *curr)
@@ -71,8 +69,6 @@ float	intersect_obj(t_ray *ray, t_rec *curr)
 		return (circle(ray, curr));
 	if (curr->obj.type == SQUARE)
 		return (square(ray, curr));
-	if (curr->obj.type == TRIANGLE)
-		return (triangle(ray, curr));
 	return (0);
 }
 
