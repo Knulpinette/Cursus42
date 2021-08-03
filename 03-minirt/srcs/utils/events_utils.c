@@ -56,12 +56,15 @@ int	events(int keycode, t_rt *rt)
 
 	if (keycode == KEY_ESC)
 		exit_and_free(rt);
-	if (keycode == KEY_RIGHT && curr_cam < rt->infos->scene->nb_cam - 1)
-		curr_cam++;
-	else if (keycode == KEY_LEFT && curr_cam > 0)
-		curr_cam--;
-	else
-		return (EXIT_SUCCESS);
-	change_cam(rt, curr_cam);
+	if (rt->infos->scene->nb_cam > 1)
+	{
+		if (keycode == KEY_RIGHT && curr_cam < rt->infos->scene->nb_cam - 1)
+			curr_cam++;
+		else if (keycode == KEY_LEFT && curr_cam > 0)
+			curr_cam--;
+		else
+			return (EXIT_SUCCESS);
+		change_cam(rt, curr_cam);
+	}
 	return (EXIT_SUCCESS);
 }

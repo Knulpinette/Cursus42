@@ -66,8 +66,7 @@ void	create_img(t_rt *rt)
 {
 	render_minirt(rt);
 	mlx_hook(rt->win, DESTROY, 0, exit_and_free, rt);
-	if (rt->infos->scene->nb_cam > 1)
-		mlx_key_hook(rt->win, events, rt);
+	mlx_key_hook(rt->win, events, rt);
 	if (rt->infos->nb_objs == no)
 	{
 		printf(COLOR_YELLOW"	Fair warning ✋\n");
