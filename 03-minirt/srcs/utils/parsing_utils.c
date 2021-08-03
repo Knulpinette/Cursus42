@@ -103,6 +103,6 @@ void	verify_end_line(char *line, t_info *infos)
 	while (*line && (*line == SPACE || *line == TAB))
 		line++;
 	if (*line != END && *line != COMMENT && *line != '\0')
-		handle_error("⌨️	You have wandering character(s) at the end of a line.\n",
+		handle_error("	You have wandering character(s) at the end of a line.\n",
 			infos);
 }

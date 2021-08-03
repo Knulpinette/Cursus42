@@ -209,9 +209,9 @@ typedef struct s_img
 {
 	void	*ptr;
 	char	*addr;
-	int	 	bit_pix;
-	int	 	line_l;
-	int	 	endian;
+	int		bit_pix;
+	int		line_l;
+	int		endian;
 }				t_img;
 
 /*

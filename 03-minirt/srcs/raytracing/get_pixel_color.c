@@ -121,7 +121,8 @@ static float	get_obj_color(t_rt *rt, float obj_brightness, t_color ambient)
 		k++;
 	}
 	add_ambient = color_add(add_previous_light, ambient);
-	rt->curr.obj.color = convert_to_max(color_add(rt->curr.obj.color, add_ambient));
+	rt->curr.obj.color = color_add(rt->curr.obj.color, add_ambient);
+	rt->curr.obj.color = convert_to_max(rt->curr.obj.color);
 	return (create_color(rt->curr.obj.color));
 }
 
