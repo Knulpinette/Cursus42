@@ -116,6 +116,8 @@ test:		${NAME}
 			@printf "	[${GRAY}DISPLAY=\$$(cat /etc/resolv.conf | grep nameserver | awk '{print \$$2}'):0 ./miniRT ./scenes/minimalist.rt${END}]\n"
 			@printf "\n🦕🍭${NORMAL}By Ophélie Surcouf @ 42Lisboa${END} 🍭🦕\n"
 
+bonus:		${NAME} test
+
 #	Cleaning rules
 
 clean:
