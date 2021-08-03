@@ -20,6 +20,12 @@
 # define END 0xd
 # define COMMENT '#'
 
+# if __APPLE__
+#  define OS_APPLE 1
+# else
+#  define OS_APPLE 0
+# endif
+
 /*
 **	Handle Errors
 */

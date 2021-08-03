@@ -35,17 +35,6 @@
 **	5. Loop (so it keeps appearing and updating) thanks to
 **	   mlx_loop.
 **
-**		Code to add in create window when I'll have figured out
-**		the linking with minilib_mms.
-**
-**		int		screen_width;
-**		int		screen_height;
-**		mlx_get_screen_size(rt->mlx, &screen_width, &screen_height);
-**		if (res->x > screen_width)
-**			res->x = screen_width;
-**		if (res->y > screen_height)
-**			res->y = screen_height;
-**
 ** 🦕
 */
 
@@ -90,13 +79,19 @@ void	create_img(t_rt *rt)
 static void	create_window(t_rt *rt)
 {
 	t_res	*res;
+	int		screen_width;
+	int		screen_height;
 
 	res = &rt->infos->scene->res;
 	rt->mlx = mlx_init();
-	if (res->x > 1920)
-		res->x = 1920;
-	if (res->y > 1080)
-		res->y = 1080;
+	screen_width = 1920;
+	screen_height = 1080;
+	if (OS_APPLE == yes)
+		mlx_get_screen_size(rt->mlx, &screen_width, &screen_height);
+	if (res->x > screen_width)
+		res->x = screen_width;
+	if (res->y > screen_height)
+		res->y = screen_height;
 	rt->win = mlx_new_window(rt->mlx, res->x, res->y, "miniRT");
 	rt->img.ptr = mlx_new_image(rt->mlx, res->x, res->y);
 	rt->img.addr = mlx_get_data_addr(rt->img.ptr, &rt->img.bit_pix,
