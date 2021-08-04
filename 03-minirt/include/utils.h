@@ -78,6 +78,7 @@ t_color		convert_to_max(t_color color);
 
 char		*next_nbr(char *line, t_info *infos);
 char		*next_int(char *line, t_info *infos);
+bool		is_space(char *line);
 char		*pass_spaces(char *line, t_info *infos);
 void		verify_end_line(char *line, t_info *infos);
 char		*get_point(char *line, t_vec *vec, t_info *infos);

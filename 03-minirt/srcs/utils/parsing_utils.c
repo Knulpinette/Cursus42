@@ -50,7 +50,7 @@ char	*next_nbr(char *line, t_info *infos)
 	if (*line && *line == '.')
 	{
 		line++;
-		if (*line && (*line == ',' || *line == SPACE || *line == TAB))
+		if (*line && (*line == ',' || is_space(line)))
 			handle_error("🔢	A decimal number is missing digit(s) after '.'\n",
 				infos);
 	}
@@ -85,12 +85,19 @@ char	*next_int(char *line, t_info *infos)
 	return (line);
 }
 
+bool	is_space(char *line)
+{
+	if (*line == SPACE || *line == TAB)
+		return (true);
+	return (false);
+}
+
 char	*pass_spaces(char *line, t_info *infos)
 {
 	char	*o_line;
 
 	o_line = line;
-	while (*line == SPACE || *line == TAB)
+	while (is_space(line))
 		line++;
 	if (line == o_line)
 		handle_error("⌨️	There's a lonely character attached to a number.\n",
@@ -100,7 +107,7 @@ char	*pass_spaces(char *line, t_info *infos)
 
 void	verify_end_line(char *line, t_info *infos)
 {
-	while (*line && (*line == SPACE || *line == TAB))
+	while (*line && is_space(line))
 		line++;
 	if (*line != END && *line != COMMENT && *line != '\0')
 		handle_error("	You have wandering character(s) at the end of a line.\n",

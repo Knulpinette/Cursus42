@@ -45,15 +45,15 @@ static void	parse_obj(char *line, t_info *infos)
 	add_mem = no;
 	if (infos->nb_objs)
 		add_mem = yes;
-	if (*line == 's' && *(line + 1) == 'p' && *(line + 2) == ' ')
+	if (*line == 's' && *(line + 1) == 'p' && is_space(line + 2))
 		get_sphere((line + 2), infos, add_mem);
-	else if (*line == 's' && *(line + 1) == 'q' && *(line + 2) == ' ')
+	else if (*line == 's' && *(line + 1) == 'q' && is_space(line + 2))
 		get_square((line + 2), infos, add_mem);
-	else if (*line == 'p' && *(line + 1) == 'l' && *(line + 2) == ' ')
+	else if (*line == 'p' && *(line + 1) == 'l' && is_space(line + 2))
 		get_plane((line + 2), infos, add_mem);
-	else if (*line == 'c' && *(line + 1) == 'y' && *(line + 2) == ' ')
+	else if (*line == 'c' && *(line + 1) == 'y' && is_space(line + 2))
 		get_cylinder((line + 2), infos, add_mem);
-	else if (*line == 't' && *(line + 1) == 'r' && *(line + 2) == ' ')
+	else if (*line == 't' && *(line + 1) == 'r' && is_space(line + 2))
 		get_triangle((line + 2), infos, add_mem);
 	else
 		handle_error("🧊	While parsing the objects names.\n", infos);
@@ -84,23 +84,23 @@ static void	parse_cam(char *line, t_info *infos)
 
 static void	parse(char *line, t_info *infos)
 {
-	while (*line == ' ')
+	while (is_space(line))
 		line++;
 	if (ft_isalnum(*line))
 	{
-		if ((*line == 'R' && *(line + 1) == ' ') && infos->res == no)
+		if ((*line == 'R' && is_space(line + 1)) && infos->res == no)
 		{
 			infos->res = yes;
 			get_res((line + 1), infos);
 		}
-		else if ((*line == 'A' && *(line + 1) == ' ') && infos->amb == no)
+		else if ((*line == 'A' && is_space(line + 1)) && infos->amb == no)
 		{
 			infos->amb = yes;
 			get_amb((line + 1), infos);
 		}
-		else if (*line == 'l' && *(line + 1) == ' ')
+		else if (*line == 'l' && is_space(line + 1))
 			parse_light(line, infos);
-		else if (*line == 'c' && *(line + 1) == ' ')
+		else if (*line == 'c' && is_space(line + 1))
 			parse_cam(line, infos);
 		else if (*line == 'c' || *line == 's' || *line == 'p' || *line == 't')
 			parse_obj(line, infos);
