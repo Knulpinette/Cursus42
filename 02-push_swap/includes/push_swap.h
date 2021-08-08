@@ -10,11 +10,42 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP.H
-# define PUSH_SWAP.H
+#ifndef PUSH_SWAP_H
+# define PUSH_SWAP_H
+
+# include <unistd.h>
+# include <string.h>
+# include <stdlib.h>
+# include <limits.h>
+# include "../libft/libft.h"
+# include "colors.h"
+
+/*
+** Structs
+*/
+
+typedef struct s_stack
+{
+	int	nb;
+	struct s_stack *next;
+}	t_stack;
 
 /*
 ** Parsing the arguments
 */
 
-parse_arg(char *argv);
+//parse_arg(char *argv);
+
+/*
+**	Error handling
+*/
+
+enum e_error
+{
+	NOT_NUMBER,
+	DUPLICATE,
+	OVER_MAX,
+	OVER_MIN,
+};
+
+#endif
