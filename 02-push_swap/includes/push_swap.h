@@ -17,8 +17,12 @@
 # include <string.h>
 # include <stdlib.h>
 # include <limits.h>
+# include <stdbool.h>
 # include "../libft/libft.h"
 # include "colors.h"
+
+/*  GET RID OFF !!!  */
+#include <stdio.h>
 
 /*
 ** Structs
@@ -26,8 +30,9 @@
 
 typedef struct s_stack
 {
-	int	nb;
-	struct s_stack *next;
+	int				*nb;
+	//struct s_stack	*prev;
+	struct s_stack	*next;
 }	t_stack;
 
 /*
@@ -46,6 +51,19 @@ enum e_error
 	DUPLICATE,
 	OVER_MAX,
 	OVER_MIN,
+	MEMORY_ALLOC,
 };
+
+/*
+**	Stack Lists Fonctions
+*/
+
+void	stack_add_back(t_stack **stack, t_stack *new);
+void	stack_add_front(t_stack **stack, t_stack *new);
+void	stack_clear(t_stack **stack);
+void	stack_del_one(t_stack *stack);
+t_stack	*stack_last(t_stack *stack);
+t_stack	*stack_new(int *nb);
+int		stack_size(t_stack *stack);
 
 #endif

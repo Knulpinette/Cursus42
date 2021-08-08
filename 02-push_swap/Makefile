@@ -56,6 +56,7 @@ END			= \e[0m
 # Create and compile objects files in a dedicated folder
 ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c 
 			@mkdir -p objs
+			@mkdir -p objs/stack_lst
 			@${CC} ${CFLAGS} ${INCLUDES} -O3 -c $< -o $@
 
 #	Active rules

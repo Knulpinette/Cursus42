@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
 
 int	error(int error)
 {
@@ -21,10 +20,12 @@ int	error(int error)
 		ft_putstr_fd("Error\nOne of the argument is over the int max", 1);
 	if (error == OVER_MIN)
 		ft_putstr_fd("Error\nOne of the arguments is under the int min", 1);
+	if (error == MEMORY_ALLOC)
+		ft_putstr_fd("Error\nMemory badly allocated !", 1);
 	exit(EXIT_FAILURE);
 }
 
-void check_input(char *argv)
+bool	check_input(char *argv)
 {
 	size_t i;
 
@@ -36,37 +37,51 @@ void check_input(char *argv)
 		if (!ft_isdigit(argv[i]))
 			error(NOT_NUMBER);
 		i++;
-	}
-	/*ft_putnbr_fd(INT_MAX, 1);
-	ft_putchar_fd('\n', 1);
-	ft_putnbr_fd(INT_MIN, 1);
-	ft_putchar_fd('\n', 1);	
-	if (ft_atoi(argv) > INT_MAX)
+	}	
+	if (ft_atof(argv) > INT_MAX)
 		error(OVER_MAX);
-	if (ft_atoi(argv) < INT_MIN)
-		error(OVER_MIN);*/
+	if (ft_atof(argv) < INT_MIN)
+		error(OVER_MIN);
+	return (true);
 }
 
+/*bool	check_duplicate(char *argv, t_stack *stack_a)
+{
+	
+}
+*/
 int	main(int argc, char **argv)
 {
-	int i;
-	
+	t_stack	**stack_a;
+	t_stack	*new_stack;
+	int		nb;
+	int		i;
+
 	if (argc < 2)
 		return (EXIT_SUCCESS);
 	if (argc == 2)
-		check_input(argv[1]);
-    i = 1;
-    while (i < argc)
+		return (check_input(argv[1]));
+	stack_a = (t_stack **)malloc(sizeof(t_stack *) * (argc - 1));
+	if (!stack_a)
+		error(MEMORY_ALLOC);
+    i = argc - 1;
+    while (i > 0)
     {
-		if (ft_atoi(argv[i]))
+		if (check_input(argv[i]))// && check_duplicate(argv[i], &stack_a))
 		{
-			ft_putstr_fd(argv[i], 1);
-			ft_putchar_fd('\n', 1);
-			//parse_arg(argv[i]);
+			nb = ft_atoi(argv[i]);
+			new_stack = stack_new(&nb);
+			if (i == 1)
+				*stack_a = new_stack;
+			printf("\nNEW_NB \n%i >>> passed the check\n", *new_stack->nb);
+			//printf("%p >>> is current\n%i >>> is nb\n%p >>> is next\n", new_stack, *new_stack->nb, new_stack->next);
+			stack_add_front(stack_a, new_stack);
+			//printf(" ______________ \n\nSTACK_BACK \n%p >>> is current\n%i >>> is nb\n%p >>> is next\n\n", new_stack, *new_stack->nb, new_stack->next);
+			i--;
 		}
-		else
-			error(NOT_NUMBER);		
-		i++;
     }
+	stack_clear(stack_a);
 	return (EXIT_SUCCESS);
 }
+
+// Figure out how to do the list thing ! 
