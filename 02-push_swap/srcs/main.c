@@ -29,8 +29,10 @@ int	main(int argc, char **argv)
 			build_stack(&stack_a, ft_atoi(argv[i]));
 		i--;
     }
-	if (!check_duplicate(&stack_a))
+	if (there_is_duplicate(&stack_a))
 		error(DUPLICATE, &stack_a, NULL);
+	if (stack_is_sorted(&stack_a))
+		error(SORTED, &stack_a, NULL);
 	stack_clear(&stack_a);
 	return (EXIT_SUCCESS);
 }

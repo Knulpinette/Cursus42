@@ -32,7 +32,7 @@ bool	input_is_number(char *argv)
 	return (true);
 }
 
-bool	check_duplicate(t_stack **stack)
+bool	there_is_duplicate(t_stack **stack)
 {
 	t_stack *comparing;
 	t_stack *compared;
@@ -44,10 +44,27 @@ bool	check_duplicate(t_stack **stack)
 		while (compared)
 		{
 			if (comparing->nb == compared->nb)
-				return (false);
+				return (true);
 			compared = compared->next;
 		}
 		comparing = comparing->next;
+	}
+	return (false);
+}
+
+bool	stack_is_sorted(t_stack **stack)
+{
+	t_stack *comparing;
+	t_stack *compared;
+
+	comparing = *stack;
+	compared = comparing->next;
+	while (comparing && compared)
+	{
+		if (comparing->nb > compared->nb)
+			return (false);
+		comparing = comparing->next;
+		compared = compared->next;
 	}
 	return (true);
 }

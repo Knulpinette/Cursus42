@@ -60,7 +60,8 @@ int		stack_size(t_stack *stack);
 */
 
 bool	input_is_number(char *argv);
-bool	check_duplicate(t_stack **stack);
+bool	there_is_duplicate(t_stack **stack);
+bool	stack_is_sorted(t_stack **stack);
 
 /*
 **	Error handling
@@ -73,6 +74,7 @@ enum e_error
 	OVER_MAX,
 	OVER_MIN,
 	MEMORY_ALLOC,
+	SORTED,
 };
 
 int		error(int error, t_stack **stack_a, t_stack **stack_b);
