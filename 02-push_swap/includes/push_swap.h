@@ -39,7 +39,8 @@ typedef struct s_stack
 ** Parsing the arguments
 */
 
-//parse_arg(char *argv);
+bool	input_is_valid(char *argv);
+bool	check_duplicate(t_stack **stack);
 
 /*
 **	Error handling
@@ -54,10 +55,13 @@ enum e_error
 	MEMORY_ALLOC,
 };
 
+int	error(int error, t_stack **stack_a, t_stack **stack_b);
+
 /*
 **	Stack Lists Fonctions
 */
 
+void	build_stack(t_stack **stack, int nb);
 void	stack_add_back(t_stack **stack, t_stack *new);
 void	stack_add_front(t_stack **stack, t_stack *new);
 void	stack_clear(t_stack **stack);
