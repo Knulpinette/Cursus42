@@ -21,6 +21,6 @@
 
 void	stack_del_one(t_stack *stack)
 {
-	free(stack->nb);
+	stack->next = NULL;
 	free(stack);
 }

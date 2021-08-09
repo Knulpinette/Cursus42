@@ -30,7 +30,7 @@
 
 typedef struct s_stack
 {
-	int				*nb;
+	int				nb;
 	//struct s_stack	*prev;
 	struct s_stack	*next;
 }	t_stack;
@@ -63,7 +63,7 @@ void	stack_add_front(t_stack **stack, t_stack *new);
 void	stack_clear(t_stack **stack);
 void	stack_del_one(t_stack *stack);
 t_stack	*stack_last(t_stack *stack);
-t_stack	*stack_new(int *nb);
+t_stack	*stack_new(int nb);
 int		stack_size(t_stack *stack);
 
 #endif

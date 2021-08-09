@@ -19,7 +19,7 @@
 
 #include "push_swap.h"
 
-t_stack	*stack_new(int *nb)
+t_stack	*stack_new(int nb)
 {
 	t_stack	*stack;
 
