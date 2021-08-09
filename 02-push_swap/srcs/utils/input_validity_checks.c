@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-bool	input_is_valid(char *argv)
+bool	input_is_number(char *argv)
 {
 	size_t i;
 

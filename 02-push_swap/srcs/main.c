@@ -20,12 +20,12 @@ int	main(int argc, char **argv)
 	if (argc < 2)
 		return (EXIT_SUCCESS);
 	if (argc == 2)
-		return (input_is_valid(argv[1]));
+		return (input_is_number(argv[1]));
 	stack_a = NULL;
-    i = argc - 1;
+	i = argc - 1;
     while (i > 0)
     {
-		if (input_is_valid(argv[i]))
+		if (input_is_number(argv[i]))
 			build_stack(&stack_a, ft_atoi(argv[i]));
 		i--;
     }

@@ -31,15 +31,35 @@
 typedef struct s_stack
 {
 	int				nb;
-	//struct s_stack	*prev;
 	struct s_stack	*next;
 }	t_stack;
 
 /*
-** Parsing the arguments
+**	Algorithm
 */
 
-bool	input_is_valid(char *argv);
+/*
+**	Stack actions fonctions
+*/
+
+/*
+**	Stack lists fonctions
+*/
+
+void	build_stack(t_stack **stack, int nb);
+void	stack_add_back(t_stack **stack, t_stack *new);
+void	stack_add_front(t_stack **stack, t_stack *new);
+void	stack_clear(t_stack **stack);
+void	stack_del_one(t_stack *stack);
+t_stack	*stack_last(t_stack *stack);
+t_stack	*stack_new(int nb);
+int		stack_size(t_stack *stack);
+
+/*
+** Input validity checks
+*/
+
+bool	input_is_number(char *argv);
 bool	check_duplicate(t_stack **stack);
 
 /*
@@ -55,19 +75,7 @@ enum e_error
 	MEMORY_ALLOC,
 };
 
-int	error(int error, t_stack **stack_a, t_stack **stack_b);
-
-/*
-**	Stack Lists Fonctions
-*/
-
-void	build_stack(t_stack **stack, int nb);
-void	stack_add_back(t_stack **stack, t_stack *new);
-void	stack_add_front(t_stack **stack, t_stack *new);
-void	stack_clear(t_stack **stack);
-void	stack_del_one(t_stack *stack);
-t_stack	*stack_last(t_stack *stack);
-t_stack	*stack_new(int nb);
-int		stack_size(t_stack *stack);
+int		error(int error, t_stack **stack_a, t_stack **stack_b);
+void	error_message(int error);
 
 #endif
