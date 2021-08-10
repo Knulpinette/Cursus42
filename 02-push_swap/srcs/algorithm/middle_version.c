@@ -13,10 +13,11 @@
 #include "push_swap.h"
 
 /*
-** 100 random values => in less than
-** 1500
-** 1300
-** 1100
-** 900
-** 700
+** For 100 random values
+** Points : 
+** 1500 = 1
+** 1300 = 2
+** 1100 = 3
+** 900 = 4
+** 700 = 5
 */
