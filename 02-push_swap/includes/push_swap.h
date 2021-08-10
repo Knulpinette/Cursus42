@@ -36,7 +36,33 @@ typedef struct s_stack
 
 /* Stack actions fonctions */
 
+/* swap */
+bool	swap(t_stack **stack);
+/* push*/
+bool	push(t_stack **from, t_stack **to);
+void	push_a(t_stack **stack_b, t_stack **stack_a);
+void	push_b(t_stack **stack_a, t_stack **stack_b);
+/* rotate */
+/* reverse rotate */
 
+/* Print actions */
+
+typedef enum e_actions
+{
+	SWAP_A = 1,
+	SWAP_B,
+	SWAP_A_B,
+	PUSH_A,
+	PUSH_B,
+	ROTATE_A,
+	ROTATE_B,
+	ROTATE_A_B,
+	REVERSE_ROTATE_A,
+	REVERSE_ROTATE_B,
+	REVERSE_ROTATE_A_B,
+}	t_actions;
+
+void	print_action(t_actions action);
 
 /* Stack lists fonctions */
 
@@ -48,6 +74,7 @@ void	stack_del_one(t_stack *stack);
 t_stack	*stack_last(t_stack *stack);
 t_stack	*stack_new(int nb);
 int		stack_size(t_stack *stack);
+void	print_stack(t_stack **stack);
 void	free_the_stacks(t_stack **stack_a, t_stack **stack_b);
 
 /* Input validity checks */
@@ -58,7 +85,7 @@ bool	stack_is_sorted(t_stack **stack);
 
 /* Error handling */
 
-enum e_error
+typedef enum e_error
 {
 	NOT_NUMBER,
 	DUPLICATE,
@@ -66,9 +93,9 @@ enum e_error
 	OVER_MIN,
 	MEMORY_ALLOC,
 	SORTED,
-};
+}	t_error;
 
-int		error(int error, t_stack **stack_a, t_stack **stack_b);
-void	error_message(int error);
+int		error(t_error error, t_stack **stack_a, t_stack **stack_b);
+void	error_message(t_error error);
 
 #endif

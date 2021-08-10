@@ -32,9 +32,9 @@ int	main(int argc, char **argv)
 		i--;
     }
 	if (there_is_duplicate(&stack_a))
-		error(DUPLICATE, &stack_a, NULL);
+		error(DUPLICATE, &stack_a, &stack_b);
 	if (stack_is_sorted(&stack_a))
-		error(SORTED, &stack_a, NULL);
+		error(SORTED, &stack_a, &stack_b);
 	free_the_stacks(&stack_a, &stack_b);
 	return (EXIT_SUCCESS);
 }

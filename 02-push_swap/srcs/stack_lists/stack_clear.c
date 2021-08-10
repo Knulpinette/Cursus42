@@ -25,13 +25,14 @@ void	stack_clear(t_stack **stack)
 	t_stack	*index;
 	t_stack	*temp;
 
+	if (!*stack)
+		return ;
 	index = *stack;
-	while (index->next != 0)
+	while (index)
 	{
 		temp = index->next;
 		stack_del_one(index);
 		index = temp;
 	}
-	stack_del_one(index);
 	*stack = NULL;
 }
