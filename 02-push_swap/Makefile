@@ -59,6 +59,7 @@ ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c
 			@mkdir -p objs/stack_lists
 			@mkdir -p objs/utils
 			@mkdir -p objs/stack_actions
+			@mkdir -p objs/algorithm
 			@${CC} ${CFLAGS} ${INCLUDES} -O3 -c $< -o $@
 
 #	Active rules

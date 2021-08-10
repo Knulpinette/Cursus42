@@ -21,7 +21,7 @@
 # include "../libft/libft.h"
 # include "colors.h"
 
-/*  GET RID OFF !!!  */
+/*  GET RID OF !!!  */
 #include <stdio.h>
 
 /* Structs */
