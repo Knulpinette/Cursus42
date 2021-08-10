@@ -10,4 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "push_swap.h"
 
+/*
+** 2 0 1 numbers in 2 or 3 instructions.
+*/
+
+/*
+** 5  values => in 12 instructions tops
+*/

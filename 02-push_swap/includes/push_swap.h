@@ -24,7 +24,9 @@
 /*  GET RID OF !!!  */
 #include <stdio.h>
 
-/* Structs */
+/* ************************************************************************** */
+/*                                  Structs                                   */
+/* ************************************************************************** */
 
 typedef struct s_stack
 {
@@ -32,9 +34,13 @@ typedef struct s_stack
 	struct s_stack	*next;
 }	t_stack;
 
-/* Algorithm */
+/* ************************************************************************** */
+/*                                 Algorithm                                  */
+/* ************************************************************************** */
 
-/* Stack actions fonctions */
+/* ************************************************************************** */
+/*                         Stack actions functions                            */
+/* ************************************************************************** */
 
 /* swap */
 void	swap_a(t_stack **stack_a);
@@ -51,6 +57,24 @@ void	rotate_a_b(t_stack **stack_a, t_stack **stack_b);
 void	reverse_rotate_a(t_stack **stack_a);
 void	reverse_rotate_b(t_stack **stack_b);
 void	reverse_rotate_a_b(t_stack **stack_a, t_stack **stack_b);
+
+/* ************************************************************************** */
+/*                         Stack lists functions                              */
+/* ************************************************************************** */
+
+void	stack_add_back(t_stack **stack, t_stack *new);
+void	stack_add_front(t_stack **stack, t_stack *new);
+void	stack_clear(t_stack **stack);
+void	stack_del_one(t_stack *stack);
+t_stack	*stack_last(t_stack *stack);
+t_stack	*stack_new(int nb);
+int		stack_size(t_stack *stack);
+void	print_stack(t_stack **stack);
+void	free_the_stacks(t_stack **stack_a, t_stack **stack_b);
+
+/* ************************************************************************** */
+/*                                Utilities                                   */
+/* ************************************************************************** */
 
 /* Print actions */
 
@@ -75,18 +99,6 @@ void	print_action(t_actions action);
 
 void	initialize_stack_a(int argc, char **argv, t_stack **stack_a);
 void	build_stack(t_stack **stack, int nb);
-
-/* Stack lists fonctions */
-
-void	stack_add_back(t_stack **stack, t_stack *new);
-void	stack_add_front(t_stack **stack, t_stack *new);
-void	stack_clear(t_stack **stack);
-void	stack_del_one(t_stack *stack);
-t_stack	*stack_last(t_stack *stack);
-t_stack	*stack_new(int nb);
-int		stack_size(t_stack *stack);
-void	print_stack(t_stack **stack);
-void	free_the_stacks(t_stack **stack_a, t_stack **stack_b);
 
 /* Input validity checks */
 
