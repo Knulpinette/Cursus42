@@ -14,15 +14,15 @@
 
 static bool	swap(t_stack **stack)
 {
-	t_stack	*second_element;
-	t_stack *third_element;
+	t_stack	*second_stack_element;
+	t_stack *third_stack_element;
 
 	if (stack_size(*stack) < 2)
 		return (false);
-	second_element = (*stack)->next;
-	third_element = (*stack)->next->next;
-	stack_add_front(stack, second_element);
-	(*stack)->next->next = third_element;
+	second_stack_element = (*stack)->next;
+	third_stack_element = (*stack)->next->next;
+	stack_add_front(stack, second_stack_element);
+	(*stack)->next->next = third_stack_element;
 	return (true);
 }
 
@@ -47,4 +47,3 @@ void	swap_a_b(t_stack **stack_a, t_stack **stack_b)
 	else if (swap(stack_b))
 		print_action(SWAP_B);
 }
-

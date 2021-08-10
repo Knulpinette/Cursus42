@@ -35,6 +35,8 @@ int	main(int argc, char **argv)
 		error(DUPLICATE, &stack_a, &stack_b);
 	if (stack_is_sorted(&stack_a))
 		error(SORTED, &stack_a, &stack_b);
+	reverse_rotate_a(&stack_a);
+	print_stack(&stack_a);
 	free_the_stacks(&stack_a, &stack_b);
 	return (EXIT_SUCCESS);
 }

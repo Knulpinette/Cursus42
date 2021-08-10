@@ -23,13 +23,13 @@ void	stack_add_back(t_stack **stack, t_stack *new)
 {
 	t_stack	*last;
 
-	if (*stack == NULL)
+	if (!*stack)
 	{
 		stack_add_front(stack, new);
 		return ;
 	}
 	last = *stack;
-	while (last->next != 0)
+	while (last->next)
 		last = last->next;
 	last->next = new;
 }
