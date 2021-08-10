@@ -23,9 +23,8 @@ static bool reverse_rotate(t_stack **stack)
 	if (stack_size(*stack) < 2)
 		return (false);
 	element_to_reverse_rotate = stack_last(*stack);
-//	printf("rra")
 	stack_add_front(stack, element_to_reverse_rotate);
-	while (stack)
+	while (*stack)
 	{
 		if ((*stack)->next == element_to_reverse_rotate)
 			(*stack)->next = NULL;
