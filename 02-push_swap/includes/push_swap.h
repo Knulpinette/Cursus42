@@ -71,9 +71,13 @@ typedef enum e_actions
 
 void	print_action(t_actions action);
 
+/* Building the stacks */
+
+void	initialize_stack_a(int argc, char **argv, t_stack **stack_a);
+void	build_stack(t_stack **stack, int nb);
+
 /* Stack lists fonctions */
 
-void	build_stack(t_stack **stack, int nb);
 void	stack_add_back(t_stack **stack, t_stack *new);
 void	stack_add_front(t_stack **stack, t_stack *new);
 void	stack_clear(t_stack **stack);

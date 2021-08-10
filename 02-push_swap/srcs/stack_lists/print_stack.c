@@ -16,6 +16,8 @@ void	print_stack(t_stack **stack)
 {
 	t_stack *print;
 
+	if (!*stack)
+		return ;
 	print = *stack;
 	while (print)
 	{

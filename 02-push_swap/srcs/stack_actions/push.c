@@ -15,12 +15,14 @@
 static bool	push(t_stack **from, t_stack **to)
 {
 	t_stack *stack_to_push;
+	t_stack	*new_first_element_from;
 
-	if (!from)
+	if (!*from)
 		return (false);
-	stack_to_push = stack_new((*from)->nb);
+	stack_to_push = *from;
+	new_first_element_from = (*from)->next;
 	stack_add_front(to, stack_to_push);
-	stack_del_one((*from));
+	*from = new_first_element_from;
 	return (true);
 }
 
@@ -32,6 +34,6 @@ void	push_a(t_stack **stack_b, t_stack **stack_a)
 
 void	push_b(t_stack **stack_a, t_stack **stack_b)
 {
-	if (push(stack_b, stack_a))
+	if (push(stack_a, stack_b))
 		print_action(PUSH_B);
 }
