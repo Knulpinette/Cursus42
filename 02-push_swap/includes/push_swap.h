@@ -24,9 +24,7 @@
 /*  GET RID OFF !!!  */
 #include <stdio.h>
 
-/*
-** Structs
-*/
+/* Structs */
 
 typedef struct s_stack
 {
@@ -34,17 +32,13 @@ typedef struct s_stack
 	struct s_stack	*next;
 }	t_stack;
 
-/*
-**	Algorithm
-*/
+/* Algorithm */
 
-/*
-**	Stack actions fonctions
-*/
+/* Stack actions fonctions */
 
-/*
-**	Stack lists fonctions
-*/
+
+
+/* Stack lists fonctions */
 
 void	build_stack(t_stack **stack, int nb);
 void	stack_add_back(t_stack **stack, t_stack *new);
@@ -54,18 +48,15 @@ void	stack_del_one(t_stack *stack);
 t_stack	*stack_last(t_stack *stack);
 t_stack	*stack_new(int nb);
 int		stack_size(t_stack *stack);
+void	free_the_stacks(t_stack **stack_a, t_stack **stack_b);
 
-/*
-** Input validity checks
-*/
+/* Input validity checks */
 
 bool	input_is_number(char *argv);
 bool	there_is_duplicate(t_stack **stack);
 bool	stack_is_sorted(t_stack **stack);
 
-/*
-**	Error handling
-*/
+/* Error handling */
 
 enum e_error
 {

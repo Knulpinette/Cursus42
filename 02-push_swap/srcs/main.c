@@ -15,6 +15,7 @@
 int	main(int argc, char **argv)
 {
 	t_stack	*stack_a;
+	t_stack	*stack_b;
 	int		i;
 
 	if (argc < 2)
@@ -22,6 +23,7 @@ int	main(int argc, char **argv)
 	if (argc == 2)
 		return (input_is_number(argv[1]));
 	stack_a = NULL;
+	stack_b = NULL;
 	i = argc - 1;
     while (i > 0)
     {
@@ -33,6 +35,6 @@ int	main(int argc, char **argv)
 		error(DUPLICATE, &stack_a, NULL);
 	if (stack_is_sorted(&stack_a))
 		error(SORTED, &stack_a, NULL);
-	stack_clear(&stack_a);
+	free_the_stacks(&stack_a, &stack_b);
 	return (EXIT_SUCCESS);
 }
