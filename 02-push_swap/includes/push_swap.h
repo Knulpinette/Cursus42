@@ -37,9 +37,10 @@ typedef struct s_stack
 /* Stack actions fonctions */
 
 /* swap */
-bool	swap(t_stack **stack);
+void	swap_a(t_stack **stack_a);
+void	swap_b(t_stack **stack_b);
+void	swap_a_b(t_stack **stack_a, t_stack **stack_b);
 /* push*/
-bool	push(t_stack **from, t_stack **to);
 void	push_a(t_stack **stack_b, t_stack **stack_a);
 void	push_b(t_stack **stack_a, t_stack **stack_b);
 /* rotate */

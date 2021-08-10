@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-bool	swap(t_stack **stack)
+static bool	swap(t_stack **stack)
 {
 	t_stack	*second_element;
 	t_stack *third_element;
@@ -24,5 +24,27 @@ bool	swap(t_stack **stack)
 	stack_add_front(stack, second_element);
 	(*stack)->next->next = third_element;
 	return (true);
+}
+
+void	swap_a(t_stack **stack_a)
+{
+	if (swap(stack_a))
+		print_action(SWAP_A);
+}
+
+void	swap_b(t_stack **stack_b)
+{
+	if (swap(stack_b))
+		print_action(SWAP_B);
+}
+
+void	swap_a_b(t_stack **stack_a, t_stack **stack_b)
+{
+	if (swap(stack_a) && swap(stack_b))
+		print_action(SWAP_A_B);
+	else if (swap(stack_a))
+		print_action(SWAP_A);
+	else if (swap(stack_b))
+		print_action(SWAP_B);
 }
 

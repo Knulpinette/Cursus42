@@ -18,7 +18,7 @@ void	print_stack(t_stack **stack)
 
 	print = *stack;
 	while (print)
-	{		
+	{
 		ft_putnbr_fd(print->nb, 1);
 		ft_putchar_fd('\n', 1);
 		print = print->next;

@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-bool	push(t_stack **from, t_stack **to)
+static bool	push(t_stack **from, t_stack **to)
 {
 	t_stack *stack_to_push;
 
