@@ -12,6 +12,15 @@
 
 #include "push_swap.h"
 
+void	sort_big_stack(int argc, t_stack **stack_a, t_stack **stack_b)
+{
+	(void)argc;
+	(void)stack_a;
+	(void)stack_b;	
+}
+
+
+
 /*
 ** For 100 random values
 ** Points : 
@@ -20,4 +29,14 @@
 ** 1100 = 3
 ** 900 = 4
 ** 700 = 5
+*/
+
+/*
+** For 500 random values
+** Points : 
+** 11500 = 1
+** 10000 = 2
+** 8500 = 3
+** 7000 = 4
+** 5500 = 5
 */

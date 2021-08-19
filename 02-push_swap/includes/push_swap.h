@@ -23,6 +23,7 @@
 
 /*  GET RID OF !!!  */
 #include <stdio.h>
+/*  GET RID OF !!!  */
 
 /* ************************************************************************** */
 /*                                  Structs                                   */
@@ -42,6 +43,7 @@ void	sort_stack(int argc, t_stack **stack_a, t_stack **stack_b);
 void	sort_little_stack(int argc, t_stack **stack_a, t_stack **stack_b);
 void	sort_3(t_stack **stack_a);
 void	sort_5(t_stack **stack_a, t_stack **stack_b);
+void	sort_big_stack(int argc, t_stack **stack_a, t_stack **stack_b);
 
 /* ************************************************************************** */
 /*                         Stack actions functions                            */

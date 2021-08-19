@@ -31,6 +31,8 @@ void	sort_3(t_stack **stack_a)
 	third = second->next;
 	if ((first->nb > second->nb && first->nb > third->nb) && second->nb < third->nb)
 		do_action(ROTATE_A, stack_a, NULL);
+	else if (first->nb < second->nb && first->nb > third->nb)
+		do_action(REVERSE_ROTATE_A, stack_a, NULL);
 	else
 	{
 		do_action(SWAP_A, stack_a, NULL);

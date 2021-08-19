@@ -34,6 +34,6 @@ void	sort_stack(int argc, t_stack **stack_a, t_stack **stack_b)
 {
 	if (argc <= 5)
 		sort_little_stack(argc, stack_a, stack_b);
-	// if (argc <= 100)
-	// if (argc <= 500)
+	else
+		sort_big_stack(argc, stack_a, stack_b);
 }
