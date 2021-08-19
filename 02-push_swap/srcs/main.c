@@ -24,8 +24,16 @@ int	main(int argc, char **argv)
 	stack_a = NULL;
 	stack_b = NULL;
 	initialize_stack_a(argc, argv, &stack_a);
-	if (stack_is_sorted(&stack_a))
-		error(SORTED, &stack_a, &stack_b);
+	if (!stack_is_sorted(&stack_a))
+		sort_stack(argc - 1, &stack_a, &stack_b);
 	free_the_stacks(&stack_a, &stack_b);
 	return (EXIT_SUCCESS);
+}
+
+void	sort_stack(int argc, t_stack **stack_a, t_stack **stack_b)
+{
+	if (argc <= 5)
+		sort_little_stack(argc, stack_a, stack_b);
+	// if (argc <= 100)
+	// if (argc <= 500)
 }

@@ -15,8 +15,7 @@
 int	error(t_error error, t_stack **stack_a, t_stack **stack_b)
 {
 	free_the_stacks(stack_a, stack_b);
-	if (error != SORTED)
-		error_message(error);
+	error_message(error);
 	exit(EXIT_FAILURE);
 }
 

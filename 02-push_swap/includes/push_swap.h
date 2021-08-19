@@ -38,10 +38,31 @@ typedef struct s_stack
 /*                                 Algorithm                                  */
 /* ************************************************************************** */
 
+void	sort_stack(int argc, t_stack **stack_a, t_stack **stack_b);
+void	sort_little_stack(int argc, t_stack **stack_a, t_stack **stack_b);
+void	sort_3(t_stack **stack_a);
+void	sort_5(t_stack **stack_a, t_stack **stack_b);
+
 /* ************************************************************************** */
 /*                         Stack actions functions                            */
 /* ************************************************************************** */
 
+typedef enum e_actions
+{
+	SWAP_A = 1,
+	SWAP_B,
+	SWAP_A_B,
+	PUSH_A,
+	PUSH_B,
+	ROTATE_A,
+	ROTATE_B,
+	ROTATE_A_B,
+	REVERSE_ROTATE_A,
+	REVERSE_ROTATE_B,
+	REVERSE_ROTATE_A_B,
+}	t_actions;
+
+void	do_action(t_actions action, t_stack **stack_a, t_stack **stack_b);
 /* swap */
 void	swap_a(t_stack **stack_a);
 void	swap_b(t_stack **stack_b);
@@ -69,6 +90,8 @@ void	stack_del_one(t_stack *stack);
 t_stack	*stack_last(t_stack *stack);
 t_stack	*stack_new(int nb);
 int		stack_size(t_stack *stack);
+int		stack_min_value(t_stack *stack);
+int		stack_max_value(t_stack *stack);
 void	print_stack(t_stack **stack);
 void	free_the_stacks(t_stack **stack_a, t_stack **stack_b);
 
@@ -76,22 +99,11 @@ void	free_the_stacks(t_stack **stack_a, t_stack **stack_b);
 /*                                Utilities                                   */
 /* ************************************************************************** */
 
-/* Print actions */
+/* Algorithm utils */
 
-typedef enum e_actions
-{
-	SWAP_A = 1,
-	SWAP_B,
-	SWAP_A_B,
-	PUSH_A,
-	PUSH_B,
-	ROTATE_A,
-	ROTATE_B,
-	ROTATE_A_B,
-	REVERSE_ROTATE_A,
-	REVERSE_ROTATE_B,
-	REVERSE_ROTATE_A_B,
-}	t_actions;
+void	push_minimum(t_stack **stack_a, t_stack **stack_b);
+
+/* Print actions */
 
 void	print_action(t_actions action);
 
