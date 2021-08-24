@@ -64,12 +64,17 @@ ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c
 
 #	Active rules
 
-all:		${NAME}
+all:		${NAME} test
 
 # Make libft + compile miniRT
 ${NAME}:	${OBJS}
 			${MAKE} bonus -C ${LIBFT_DIR}
 			$(CC) ${CFLAGS} ${INCLUDES} ${OBJS} ${LIBFT_LIB} -o $(NAME)
+
+test:		${NAME}
+			@printf "\n	📚 [${PURPLE}INSTRUCTIONS${END}] 📚\n"
+			@printf "\n🦕🍭	${YELLOW}To show stacks${END}\n"
+			@printf "	[${GRAY}./push_swap NUMBERS \n	./checker -v NUMBERS${END}]\n"
 
 bonus:		${NAME} 
 

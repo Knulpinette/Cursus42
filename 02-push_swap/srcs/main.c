@@ -26,7 +26,7 @@ int	main(int argc, char **argv)
 	initialize_stack_a(argc, argv, &stack_a);
 	if (!stack_is_sorted(&stack_a))
 		sort_stack(argc - 1, &stack_a, &stack_b);
-	free_the_stacks(&stack_a, &stack_b);
+	print_stack(&stack_b);
 	return (EXIT_SUCCESS);
 }
 

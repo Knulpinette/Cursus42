@@ -14,9 +14,27 @@
 
 void	sort_big_stack(int argc, t_stack **stack_a, t_stack **stack_b)
 {
-	(void)argc;
-	(void)stack_a;
-	(void)stack_b;	
+	merge_sort(stack_a, stack_b);
+	(void)argc;	
+}
+
+void	merge_sort(t_stack **stack_a, t_stack **stack_b)
+{
+	/* push half */
+	int	half;
+	int	index;
+
+	half = stack_size(*stack_a) / 2;
+	index = 0;
+	while (index < half)
+	{
+		do_action(PUSH_B, stack_a, stack_b);
+		index++;
+	}
+
+
+	while (*stack_b)
+		push_maximum(PUSH_A, stack_a, stack_b);
 }
 
 

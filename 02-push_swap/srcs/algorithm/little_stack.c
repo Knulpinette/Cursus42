@@ -51,7 +51,7 @@ void	sort_5(t_stack **stack_a, t_stack **stack_b)
 
 	minimum = stack_min_value(*stack_a);
 	while (stack_size(*stack_a) > 3)
-		push_minimum(stack_a, stack_b);
+		push_minimum(PUSH_B, stack_a, stack_b);
 	if (!stack_is_sorted(stack_a))
 		sort_3(stack_a);
 	while ((*stack_a)->nb != minimum)

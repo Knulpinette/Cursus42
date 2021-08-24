@@ -44,6 +44,7 @@ void	sort_little_stack(int argc, t_stack **stack_a, t_stack **stack_b);
 void	sort_3(t_stack **stack_a);
 void	sort_5(t_stack **stack_a, t_stack **stack_b);
 void	sort_big_stack(int argc, t_stack **stack_a, t_stack **stack_b);
+void	merge_sort(t_stack **stack_a, t_stack **stack_b);
 
 /* ************************************************************************** */
 /*                         Stack actions functions                            */
@@ -103,7 +104,8 @@ void	free_the_stacks(t_stack **stack_a, t_stack **stack_b);
 
 /* Algorithm utils */
 
-void	push_minimum(t_stack **stack_a, t_stack **stack_b);
+void	push_minimum(t_actions action, t_stack **stack_a, t_stack **stack_b);
+void	push_maximum(t_actions action, t_stack **stack_a, t_stack **stack_b);
 
 /* Print actions */
 
