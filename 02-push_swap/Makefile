@@ -68,8 +68,7 @@ all:		${NAME} test
 
 # Make libft + compile miniRT
 ${NAME}:	${OBJS}
-			${MAKE} bonus -Cmake
-			 ${LIBFT_DIR}
+			${MAKE} bonus -C ${LIBFT_DIR}
 			$(CC) ${CFLAGS} ${INCLUDES} ${OBJS} ${LIBFT_LIB} -o $(NAME)
 
 test:		${NAME}
