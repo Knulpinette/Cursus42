@@ -75,6 +75,7 @@ test:		${NAME}
 			@printf "\n	📚 [${PURPLE}INSTRUCTIONS${END}] 📚\n"
 			@printf "\n🦕🍭	${YELLOW}To show stacks${END}\n"
 			@printf "	[${GRAY}./push_swap NUMBERS \n	./checker -v NUMBERS${END}]\n"
+			@printf "\n"
 
 bonus:		${NAME} 
 
