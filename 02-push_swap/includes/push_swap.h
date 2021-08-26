@@ -39,6 +39,13 @@ typedef struct s_stack
 /*                                 Algorithm                                  */
 /* ************************************************************************** */
 
+typedef enum e_values
+{
+	MAXIMUM,
+	MINIMUM,
+	MEDIAN,
+}	t_values;
+
 void	sort_stack(int argc, t_stack **stack_a, t_stack **stack_b);
 void	sort_little_stack(int argc, t_stack **stack_a, t_stack **stack_b);
 void	sort_3(t_stack **stack_a);
@@ -104,8 +111,7 @@ void	free_the_stacks(t_stack **stack_a, t_stack **stack_b);
 
 /* Algorithm utils */
 
-void	push_minimum(t_actions action, t_stack **stack_a, t_stack **stack_b);
-void	push_maximum(t_actions action, t_stack **stack_a, t_stack **stack_b);
+void	push_value(int value, t_actions action, t_stack **stack_a, t_stack **stack_b);
 
 /* Print actions */
 
