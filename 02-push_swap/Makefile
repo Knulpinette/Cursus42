@@ -73,9 +73,15 @@ ${NAME}:	${OBJS}
 
 test:		${NAME}
 			@printf "\n	📚 [${PURPLE}INSTRUCTIONS${END}] 📚\n"
-			@printf "\n🦕🍭	${YELLOW}To show stacks${END}\n"
-			@printf "	[${GRAY}./push_swap NUMBERS \n	./checker -v NUMBERS${END}]\n"
+			@printf "\n🦕🍭	${YELLOW}To show stacks actions details${END}\n"
+			@printf "./push_swap ${GRAY}NUMBERS${END} | ./checker -v ${GRAY}NUMBERS${END}\n"
 			@printf "\n"
+			@printf "\n🦕🍭	${YELLOW}To test the program${END}\n"
+			@printf "${GRAY}bash tester_linux.sh${END} [random numbers between] ${GRAY}1 ${END}[&] ${GRAY}500 ${END}[in nb of moves max] ${GRAY}5500${END}\n"
+			@printf "\n"
+			@printf "\n🦕🍭	${YELLOW}Copy/paste to use visualizer${END}\n"
+			@printf "python3 pyviz.py ${GRAY}`ruby -e "puts (-200..200).to_a.shuffle.join(' ')"` ${END}"
+			@printf "\n\n"
 
 bonus:		${NAME} 
 
