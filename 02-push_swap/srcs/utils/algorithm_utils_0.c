@@ -14,9 +14,11 @@
 
 /*
 ** action = PUSH_A or PUSH_B
+** value = MAXIMUM or MINIMUM
 */
 
-static t_stack	**initialize_values(t_actions action, t_stack **stack, int *rev_rotate, int *rotate)
+static t_stack	**initialize_values(
+	int action, t_stack **stack, int *rev_rotate, int *rotate)
 {
 	if (action == PUSH_B)
 	{
@@ -34,7 +36,7 @@ static t_stack	**initialize_values(t_actions action, t_stack **stack, int *rev_r
 
 static bool	value_is_after_half(int value, int half_of_stack, t_stack *stack)
 {
-	int index;
+	int	index;
 
 	index = 0;
 	while (index <= half_of_stack)
@@ -47,12 +49,13 @@ static bool	value_is_after_half(int value, int half_of_stack, t_stack *stack)
 	return (true);
 }
 
-void	push_value(int value, t_actions action, t_stack **stack_a, t_stack **stack_b)
+void	push_value(
+	int value, t_actions action, t_stack **stack_a, t_stack **stack_b)
 {
-	t_stack **stack;
-	int	reverse_rotate;
-	int	rotate;
-	int	half;
+	t_stack	**stack;
+	int		reverse_rotate;
+	int		rotate;
+	int		half;
 
 	if (action == PUSH_B)
 		stack = initialize_values(action, stack_a, &reverse_rotate, &rotate);
@@ -65,8 +68,8 @@ void	push_value(int value, t_actions action, t_stack **stack_a, t_stack **stack_
 	half = stack_size(*stack) / 2;
 	while ((*stack)->nb != value)
 	{
-		if (((*stack)->nb != value && (*stack)->next->nb != value) ||
-				value_is_after_half(value, half, *stack))
+		if (((*stack)->nb != value && (*stack)->next->nb != value)
+			|| value_is_after_half(value, half, *stack))
 			do_action(reverse_rotate, stack_a, stack_b);
 		else
 			do_action(rotate, stack_a, stack_b);
