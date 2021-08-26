@@ -111,7 +111,8 @@ void	free_the_stacks(t_stack **stack_a, t_stack **stack_b);
 
 /* Algorithm utils */
 
-void	push_value(int value, t_actions action, t_stack **stack_a, t_stack **stack_b);
+void	push_value(
+			int value, t_actions action, t_stack **stack_a, t_stack **stack_b);
 
 /* Print actions */
 

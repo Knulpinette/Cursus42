@@ -12,9 +12,9 @@
 
 #include "push_swap.h"
 
-static bool rotate(t_stack **stack)
+static bool	rotate(t_stack **stack)
 {
-	t_stack *element_to_rotate;
+	t_stack	*element_to_rotate;
 
 	if (stack_size(*stack) < 2)
 		return (false);

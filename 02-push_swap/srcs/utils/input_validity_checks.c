@@ -14,7 +14,7 @@
 
 bool	input_is_number(char *argv)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (i < ft_strlen(argv))
@@ -34,8 +34,8 @@ bool	input_is_number(char *argv)
 
 bool	there_is_duplicate(t_stack **stack)
 {
-	t_stack *comparing;
-	t_stack *compared;
+	t_stack	*comparing;
+	t_stack	*compared;
 
 	comparing = *stack;
 	while (comparing)
@@ -54,8 +54,8 @@ bool	there_is_duplicate(t_stack **stack)
 
 bool	stack_is_sorted(t_stack **stack)
 {
-	t_stack *comparing;
-	t_stack *compared;
+	t_stack	*comparing;
+	t_stack	*compared;
 
 	comparing = *stack;
 	compared = comparing->next;

@@ -15,7 +15,7 @@
 void	sort_big_stack(int argc, t_stack **stack_a, t_stack **stack_b)
 {
 	merge_sort(stack_a, stack_b);
-	(void)argc;	
+	(void)argc;
 }
 
 void	merge_sort(t_stack **stack_a, t_stack **stack_b)

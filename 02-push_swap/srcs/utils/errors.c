@@ -21,7 +21,7 @@ int	error(t_error error, t_stack **stack_a, t_stack **stack_b)
 
 void	error_message(t_error error)
 {
-	ft_putstr_fd(""LIGHT_RED"Error\n"END_COLOR"",1);
+	ft_putstr_fd(""LIGHT_RED"Error\n"END_COLOR"", 1);
 	if (error == NOT_NUMBER)
 		ft_putstr_fd("One of the arguments is not a number\n", 1);
 	else if (error == OVER_MAX)

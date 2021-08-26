@@ -16,9 +16,9 @@
 CAREFUL ! AFTER THIS FUNCTION, THE HEAD IS NOT RESET TO BEGINNING IN MAIN.
 */
 
-static bool reverse_rotate(t_stack **stack)
+static bool	reverse_rotate(t_stack **stack)
 {
-	t_stack *element_to_reverse_rotate;
+	t_stack	*element_to_reverse_rotate;
 
 	if (stack_size(*stack) < 2)
 		return (false);

@@ -15,7 +15,7 @@
 static bool	swap(t_stack **stack)
 {
 	t_stack	*second_stack_element;
-	t_stack *third_stack_element;
+	t_stack	*third_stack_element;
 
 	if (stack_size(*stack) < 2)
 		return (false);

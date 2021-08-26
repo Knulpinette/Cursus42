@@ -26,7 +26,6 @@ t_stack	*stack_last(t_stack *stack)
 	if (!stack)
 		return (NULL);
 	last = stack;
-	//printf("%i\n", *stack->nb);
 	while (last->next != 0)
 		last = last->next;
 	return (last);

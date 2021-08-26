@@ -14,7 +14,7 @@
 
 static bool	push(t_stack **from, t_stack **to)
 {
-	t_stack *stack_to_push;
+	t_stack	*stack_to_push;
 	t_stack	*new_first_element_from;
 
 	if (!*from)
@@ -29,7 +29,7 @@ static bool	push(t_stack **from, t_stack **to)
 void	push_a(t_stack **stack_b, t_stack **stack_a)
 {
 	if (push(stack_b, stack_a))
-		print_action(PUSH_A);	
+		print_action(PUSH_A);
 }
 
 void	push_b(t_stack **stack_a, t_stack **stack_b)

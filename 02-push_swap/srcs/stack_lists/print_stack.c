@@ -14,7 +14,7 @@
 
 void	print_stack(t_stack **stack)
 {
-	t_stack *print;
+	t_stack	*print;
 
 	if (!*stack)
 		return ;

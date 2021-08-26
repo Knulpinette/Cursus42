@@ -22,14 +22,15 @@ void	sort_little_stack(int argc, t_stack **stack_a, t_stack **stack_b)
 
 void	sort_3(t_stack **stack_a)
 {
-	t_stack *first;
-	t_stack *second;
-	t_stack *third;
+	t_stack	*first;
+	t_stack	*second;
+	t_stack	*third;
 
 	first = *stack_a;
 	second = (*stack_a)->next;
 	third = second->next;
-	if ((first->nb > second->nb && first->nb > third->nb) && second->nb < third->nb)
+	if ((first->nb > second->nb && first->nb > third->nb)
+		&& second->nb < third->nb)
 		do_action(ROTATE_A, stack_a, NULL);
 	else if (first->nb < second->nb && first->nb > third->nb)
 		do_action(REVERSE_ROTATE_A, stack_a, NULL);
