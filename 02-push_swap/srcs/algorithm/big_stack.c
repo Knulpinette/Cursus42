@@ -32,7 +32,8 @@ void	merge_sort(t_stack **stack_a, t_stack **stack_b)
 		index++;
 	}
 
-// divide in chuncks of 20
+// divide in chuncks of 20 => rotate and reverse rotate on stack a and b. 
+// understand the recursion concept.
 	while (*stack_b)
 		push_value(MAXIMUM, PUSH_A, stack_a, stack_b);
 }
