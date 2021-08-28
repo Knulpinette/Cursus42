@@ -15,6 +15,7 @@
 void	sort_big_stack(t_stack **stack_a, t_stack **stack_b)
 {
 	//t_stack *limits;
+
 	//limits = stack_new(min);
 	//stack_add_back(&limits, stack_new(max));
 	push_lower_half_to_b(stack_a, stack_b);
@@ -25,6 +26,8 @@ void	sort_big_stack(t_stack **stack_a, t_stack **stack_b)
 		else 
 			push_back_to_a_until_sorted(stack_a, stack_b);
 	}
+	// need to figure out how to make it recursive thanks to limit
+	// and how to have the pushed_back_to_a chunks pushed to b until a certain amount (2 by 2 ?)
 }
 
 void	push_lower_half_to_b(t_stack **stack_a, t_stack **stack_b) // split
@@ -75,6 +78,19 @@ void	push_higher_half_back_to_a(t_stack **stack_a, t_stack **stack_b) // merge b
 
 void	push_back_to_a_until_sorted(t_stack **stack_a, t_stack **stack_b) // merge sort
 {
+	int index;
+
+	index = 0;
+	while (*stack_b)
+	{
+		push_value(MAXIMUM, PUSH_A, stack_a, stack_b);
+		do_action(ROTATE_A, stack_a, stack_b);
+	}
+	while (index < MAX_SIZE_STACK_B) // doesn't work => while *stack a number is != than limit
+	{
+		do_action(PUSH_B, stack_a, stack_b);
+		index++;
+	}
 	while (*stack_b)
 	{
 		push_value(MAXIMUM, PUSH_A, stack_a, stack_b);

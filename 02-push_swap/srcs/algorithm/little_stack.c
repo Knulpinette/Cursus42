@@ -12,15 +12,7 @@
 
 #include "push_swap.h"
 
-void	sort_little_stack(int argc, t_stack **stack_a, t_stack **stack_b)
-{
-	if (argc <= 3)
-		sort_3(stack_a);
-	else
-		sort_5(stack_a, stack_b);
-}
-
-void	sort_3(t_stack **stack_a)
+static void	sort_3(t_stack **stack_a)
 {
 	t_stack	*first;
 	t_stack	*second;
@@ -42,7 +34,7 @@ void	sort_3(t_stack **stack_a)
 	}
 }
 
-void	sort_5(t_stack **stack_a, t_stack **stack_b)
+static void	sort_5(t_stack **stack_a, t_stack **stack_b)
 {
 	int	minimum;
 
@@ -53,4 +45,12 @@ void	sort_5(t_stack **stack_a, t_stack **stack_b)
 		sort_3(stack_a);
 	while ((*stack_a)->nb != minimum)
 		do_action(PUSH_A, stack_a, stack_b);
+}
+
+void	sort_little_stack(int argc, t_stack **stack_a, t_stack **stack_b)
+{
+	if (argc <= 3)
+		sort_3(stack_a);
+	else
+		sort_5(stack_a, stack_b);
 }

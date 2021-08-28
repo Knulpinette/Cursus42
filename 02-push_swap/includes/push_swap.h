@@ -50,8 +50,6 @@ typedef enum e_values
 
 void	sort_stack(int argc, t_stack **stack_a, t_stack **stack_b);
 void	sort_little_stack(int argc, t_stack **stack_a, t_stack **stack_b);
-void	sort_3(t_stack **stack_a);
-void	sort_5(t_stack **stack_a, t_stack **stack_b);
 void	sort_big_stack(t_stack **stack_a, t_stack **stack_b);
 void	push_lower_half_to_b(t_stack **stack_a, t_stack **stack_b);
 void	push_higher_half_back_to_a(t_stack **stack_a, t_stack **stack_b);
