@@ -31,12 +31,22 @@ void	merge_sort(t_stack **stack_a, t_stack **stack_b)
 		do_action(PUSH_B, stack_a, stack_b);
 		index++;
 	}
-
-// divide in chuncks of 20 => rotate and reverse rotate on stack a and b. 
-// understand the recursion concept.
 	while (*stack_b)
 		push_value(MAXIMUM, PUSH_A, stack_a, stack_b);
+
+	// divide in chuncks of 20 => rotate and reverse rotate on stack a and b. 
+	// => I need to keep track of my chunks.
+	// understand the recursion concept. Especially recursion in recursion. Do drawings.
+	// but so basically, I send the half of my numbers to the stack_b (median value of my max and min)
+	// 
 }
+
+
+
+
+// (I need to presort the numbers into stack B // do it with insertion sort ? makes sense if ordering small chunks)
+// I NEED TO HAVE THE MEDIAN (sort the whole thing in another double stack ?) OR THE MIDDLE ?
+
 
 
 
