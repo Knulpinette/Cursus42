@@ -26,7 +26,6 @@ int	main(int argc, char **argv)
 	initialize_stack_a(argc, argv, &stack_a);
 	if (!stack_is_sorted(&stack_a))
 		sort_stack(argc - 1, &stack_a, &stack_b);
-	print_stack(&stack_b);
 	return (EXIT_SUCCESS);
 }
 
@@ -35,5 +34,5 @@ void	sort_stack(int argc, t_stack **stack_a, t_stack **stack_b)
 	if (argc <= 5)
 		sort_little_stack(argc, stack_a, stack_b);
 	else
-		sort_big_stack(argc, stack_a, stack_b);
+		sort_big_stack(stack_a, stack_b);
 }

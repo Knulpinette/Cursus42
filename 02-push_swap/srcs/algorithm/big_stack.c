@@ -12,42 +12,75 @@
 
 #include "push_swap.h"
 
-void	sort_big_stack(int argc, t_stack **stack_a, t_stack **stack_b)
+void	sort_big_stack(t_stack **stack_a, t_stack **stack_b)
 {
-	merge_sort(stack_a, stack_b);
-	(void)argc;
-}
-
-void	merge_sort(t_stack **stack_a, t_stack **stack_b)
-{
-	/* push half */
-	int	half;
-	int	index;
-
-	half = stack_size(*stack_a) / 2;
-	index = 0;
-	while (index < half)
-	{
-		do_action(PUSH_B, stack_a, stack_b);
-		index++;
-	}
+	//t_stack *limits;
+	//limits = stack_new(min);
+	//stack_add_back(&limits, stack_new(max));
+	push_lower_half_to_b(stack_a, stack_b);
 	while (*stack_b)
-		push_value(MAXIMUM, PUSH_A, stack_a, stack_b);
-
-	// divide in chuncks of 20 => rotate and reverse rotate on stack a and b. 
-	// => I need to keep track of my chunks.
-	// understand the recursion concept. Especially recursion in recursion. Do drawings.
-	// but so basically, I send the half of my numbers to the stack_b (median value of my max and min)
-	// 
+	{
+		if (stack_size(*stack_b) > MAX_SIZE_STACK_B)
+			push_higher_half_back_to_a(stack_a, stack_b);
+		else 
+			push_back_to_a_until_sorted(stack_a, stack_b);
+	}
 }
 
+void	push_lower_half_to_b(t_stack **stack_a, t_stack **stack_b) // split
+{
+	int min;
+	int max;
+	int	half_value;
+	int	size_stack_half;
 
+	min = stack_min_value(*stack_a);
+	max = stack_max_value(*stack_a);
+	half_value = min + ((max - min) / 2);
+	size_stack_half = stack_size(*stack_a) / 2;
+	while (size_stack_half)
+	{
+		if ((*stack_a)->nb < half_value)
+		{
+			do_action(PUSH_B, stack_a, stack_b);
+			size_stack_half--;
+		}
+		else
+			do_action(ROTATE_A, stack_a, stack_b);
+	}
+}
 
+void	push_higher_half_back_to_a(t_stack **stack_a, t_stack **stack_b) // merge back
+{
+	int min;
+	int max;
+	int	half_value;
+	int	size_stack_half;
 
-// (I need to presort the numbers into stack B // do it with insertion sort ? makes sense if ordering small chunks)
-// I NEED TO HAVE THE MEDIAN (sort the whole thing in another double stack ?) OR THE MIDDLE ?
+	min = stack_min_value(*stack_b);
+	max = stack_max_value(*stack_b);
+	half_value = min + ((max - min) / 2);
+	size_stack_half = stack_size(*stack_b) / 2;
+	while (size_stack_half)
+	{
+		if ((*stack_b)->nb > half_value)
+		{
+			do_action(PUSH_A, stack_a, stack_b);
+			size_stack_half--;
+		}
+		else
+			do_action(ROTATE_B, stack_a, stack_b);
+	}
+}
 
-
+void	push_back_to_a_until_sorted(t_stack **stack_a, t_stack **stack_b) // merge sort
+{
+	while (*stack_b)
+	{
+		push_value(MAXIMUM, PUSH_A, stack_a, stack_b);
+		do_action(ROTATE_A, stack_a, stack_b);
+	}
+}
 
 
 /*
