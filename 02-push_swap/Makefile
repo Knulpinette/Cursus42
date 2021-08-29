@@ -79,8 +79,8 @@ test:		${NAME}
 			@printf "\n🦕🍭	${YELLOW}To test the program${END}\n"
 			@printf "${GRAY}bash tester_linux.sh${END} [random numbers between] ${GRAY}1 ${END}[&] ${GRAY}500 ${END}[in nb of moves max] ${GRAY}5500${END}\n"
 			@printf "\n"
-			@printf "\n🦕🍭	${YELLOW}Copy/paste to use visualizer${END}\n"
-			@printf "python3 pyviz.py ${GRAY}`ruby -e "puts (100..700).to_a.shuffle.join(' ')"` ${END}"
+			@printf "\n🦕🍭	${YELLOW}Copy/paste to use visualizer (the first gray part is only for WSL)${END}\n"
+			@printf "${GRAY}DISPLAY=\$$(cat /etc/resolv.conf | grep nameserver | awk '{print \$$2}'):0${END} python3 pyviz.py ${GRAY}`ruby -e "puts (100..700).to_a.shuffle.join(' ')"` ${END}"
 			@printf "\n\n"
 
 bonus:		${NAME} 
